@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DAL;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,12 @@ namespace UI
     /// </summary>
     public partial class App : Application
     {
+        public App()
+        {
+            //using (var context = new MainContext()) 
+            //{
+            //    context.Database.EnsureCreated();
+            //} 
+        }
     }
 }

@@ -5,27 +5,33 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:UI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="800" 
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}">
     <Grid>
-	<Grid.ColumnDefinitions>
-		<ColumnDefinition MinWidth="50"/>
-		<ColumnDefinition MinWidth="50"/>
-		<ColumnDefinition MinWidth="50"/>
-		<ColumnDefinition MinWidth="50"/>
-		<ColumnDefinition MinWidth="50"/>
-	</Grid.ColumnDefinitions>
-	<Grid.RowDefinitions>
-		<RowDefinition MinHeight="50"/>
-		<RowDefinition MinHeight="50"/>
-		<RowDefinition MinHeight="50"/>
-		<RowDefinition MinHeight="50"/>
-		<RowDefinition MinHeight="50"/>
-	</Grid.RowDefinitions>
-	<StackPanel> 
-		<TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"  Name="txtSearchBox" Text="" />
-        <Button x:Name="btnCreate" Content="Adicionar conta" Click="btnCreate_Click" />
-        <Button x:Name="btnDelete" Content="Deletar conta" Click="btnDelete_Click" />
-    </StackPanel>
-    <DataGrid Name="_dataGrid" Grid.ColumnSpan="5" Grid.Row="1" Grid.RowSpan="5"></DataGrid>	
-</Grid> 
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition MinWidth="50"/>
+			<ColumnDefinition MinWidth="50"/>
+			<ColumnDefinition MinWidth="50"/>
+			<ColumnDefinition MinWidth="50"/>
+			<ColumnDefinition MinWidth="50"/>
+		</Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.RowSpan="5" > 		
+			<Button x:Name="btnCreate" Content="Adicionar conta"  />
+			<Button x:Name="btnDelete" Content="Deletar conta" />
+		</StackPanel>
+		<Frame Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="5" Source="Views/ContaView.xaml"/>
+    </Grid> 
 </Window>

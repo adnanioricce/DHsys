@@ -49,5 +49,10 @@ namespace DAL
         {
             DbSet.Update(entity);
         }
+
+        public void SaveChanges()
+        {
+            Context.SaveChanges();
+        }
     }
 }

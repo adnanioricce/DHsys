@@ -1,25 +1,27 @@
-﻿<Page x:Class="UI.Views.ContaView"
+﻿<Page x:Class="UI.Views.Product.ProductView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:UI.Views"
+      xmlns:local="clr-namespace:UI.Views.Product"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="ContaView">
+      Title="ProductListView">
 
-    <Grid Background="White">
+    <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition MinHeight="20" MaxHeight="30"/>
-            <RowDefinition MinHeight="20" MaxHeight="30"/>
-            <RowDefinition />
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="txtSearchBox" Text="dasdasd" Grid.Row="1"/>
-        <DataGrid x:Name="_dataGrid" Grid.Row="2">
+        <TextBox Grid.Row="0"/>
+        <Button Grid.Row="1" Content="Adicionar Producto" Click="Button_Click"/>
+        <Frame Grid.Row="2" Source="ProductListView.xaml">
+            <!--<DataGrid Grid.Row="2"/>-->
+        </Frame>
 
-        </DataGrid>
     </Grid>
 </Page>
