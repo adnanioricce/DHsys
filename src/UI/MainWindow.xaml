@@ -12,7 +12,9 @@
         TextOptions.TextFormattingMode="Ideal"
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainViewModel}"
+        >
     <Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition MinWidth="50"/>
@@ -32,6 +34,6 @@
 			<Button x:Name="btnCreate" Content="Adicionar conta"  />
 			<Button x:Name="btnDelete" Content="Deletar conta" />
 		</StackPanel>
-		<Frame Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="5" Source="Views/ContaView.xaml"/>
+		<Frame Grid.Row="0" Grid.Column="1" Grid.RowSpan="4" Grid.ColumnSpan="5" Source="Views/Contas/ContaView.xaml"/>
     </Grid> 
 </Window>

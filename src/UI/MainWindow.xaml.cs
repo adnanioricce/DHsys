@@ -1,12 +1,4 @@
-﻿using Core.Entities;
-using DAL;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows;
 
 namespace UI
 {

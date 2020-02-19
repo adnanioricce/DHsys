@@ -1,17 +1,14 @@
-﻿using Core.Interfaces;
-using DAL;
+﻿using DAL;
 using DAL.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using UI.Services;
 using UI.ViewModels;
+using UI.Views;
 using UI.Views.Product;
 
 namespace UI
@@ -21,29 +18,49 @@ namespace UI
     /// </summary>
     public partial class App : Application
     {
-        public IServiceProvider ServiceProvider { get; private set; }
-
+        private readonly IHost host;
+        public static IServiceProvider ServiceProvider { get; private set; }        
         public IConfiguration Configuration { get; private set; }
-        protected override void OnStartup(StartupEventArgs e)
+        public App()
         {
-            var builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            host = Host.CreateDefaultBuilder()
+                .ConfigureAppConfiguration((context,builder) =>
+                {
+                    builder.AddJsonFile("appsettings.json", optional: true);
+                })
+                .ConfigureServices((context, services) =>
+                {
+                    ConfigureServices(context.Configuration, services);
+                })
+                .ConfigureLogging(logging =>
+                {
+                    //TODO:Add loggings
+                })
+                .Build();
+        }
+        protected override async void OnStartup(StartupEventArgs e)
+        {            
+            await host.StartAsync();
+            //var navigationService = ServiceProvider.GetRequiredService<CustomNavigationService>();
 
-            Configuration = builder.Build();
-
-            var serviceCollection = new ServiceCollection();            
-            ConfigureServices(serviceCollection);
-
-            ServiceProvider = serviceCollection.BuildServiceProvider();
-
-            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+            //await navigationService.ShowAsync(UI.Windows.MainWindow);
+            var mainWindow = host.Services.GetRequiredService<MainWindow>();
             mainWindow.Show();
+
             base.OnStartup(e);
         }
-        
-        private void ConfigureServices(IServiceCollection services)
+        protected override async void OnExit(ExitEventArgs e)
         {
+            using (host)
+            {
+                await host.StopAsync(TimeSpan.FromSeconds(5));
+            }
+            base.OnExit(e);
+        }
+
+        private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
+        {
+            
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
             services.AddTransient(typeof(MainWindow));
             services.AddTransient(typeof(ContaViewModel));
@@ -52,13 +69,14 @@ namespace UI
             services.AddTransient(typeof(ProductView));
             services.AddScoped<MainContext>();
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-        }
-        public App()
-        {
-            //using (var context = new MainContext()) 
+            //services.AddScoped<CustomNavigationService>(serviceProvider =>
             //{
-            //    context.Database.EnsureCreated();
-            //} 
-        }
+            //    var navigationService = new CustomNavigationService(serviceProvider);
+            //    navigationService.Configure(UI.Windows.MainWindow, typeof(MainWindow));
+            //    navigationService.Configure(UI.Windows.ContaListView, typeof(ContaListView));
+
+            //    return navigationService;
+            //});
+        }       
     }
 }

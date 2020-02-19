@@ -20,10 +20,10 @@ namespace UI.Views
     /// <summary>
     /// Interação lógica para ContaView.xam
     /// </summary>
-    public partial class ContaView : Page
+    public partial class ContaListView : Page
     {
-        private readonly Repository<Conta> _contaRepository = new Repository<Conta>(new MainContext());
-        public ContaView()
+        private readonly Repository<Core.Entities.Conta> _contaRepository = new Repository<Core.Entities.Conta>(new MainContext());
+        public ContaListView()
         {
             InitializeComponent();
         }
