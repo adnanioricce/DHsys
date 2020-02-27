@@ -63,20 +63,12 @@ namespace UI
             
             services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
             services.AddTransient(typeof(MainWindow));
-            services.AddTransient(typeof(ContaViewModel));
+            services.AddTransient(typeof(ContaListViewModel));
             services.AddTransient(typeof(AddProductView));
             services.AddTransient(typeof(ProductListView));
             services.AddTransient(typeof(ProductView));
             services.AddScoped<MainContext>();
-            services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-            //services.AddScoped<CustomNavigationService>(serviceProvider =>
-            //{
-            //    var navigationService = new CustomNavigationService(serviceProvider);
-            //    navigationService.Configure(UI.Windows.MainWindow, typeof(MainWindow));
-            //    navigationService.Configure(UI.Windows.ContaListView, typeof(ContaListView));
-
-            //    return navigationService;
-            //});
+            services.AddScoped(typeof(IRepository<>),typeof(Repository<>));            
         }       
     }
 }

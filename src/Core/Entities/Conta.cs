@@ -9,5 +9,7 @@ namespace Core.Entities
         public string NomeEmpresa { get; set; }
         public string DataDeVencimento { get; set; }
         public decimal Valor { get; set; }
+        public decimal Desconto { get; set; }
+        public bool EstaPago { get; set; }        
     }
 }

@@ -2,7 +2,7 @@
 
 namespace UI.ViewModels
 {
-    public class MainViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
         //public void MoveTo
     }
