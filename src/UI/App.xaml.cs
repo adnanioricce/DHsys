@@ -38,14 +38,14 @@ namespace UI
                 })
                 .Build();
         }
-        protected override async void OnStartup(StartupEventArgs e)
+        protected override void OnStartup(StartupEventArgs e)
         {            
-            await host.StartAsync();
+            host.Start();
             //var navigationService = ServiceProvider.GetRequiredService<CustomNavigationService>();
 
             //await navigationService.ShowAsync(UI.Windows.MainWindow);
-            var mainWindow = host.Services.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            //var mainWindow = host.Services.GetRequiredService<MainWindow>();
+            //mainWindow.Show();
 
             base.OnStartup(e);
         }
@@ -59,16 +59,17 @@ namespace UI
         }
 
         private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
-        {
-            
-            services.Configure<AppSettings>(Configuration.GetSection(nameof(AppSettings)));
+        {            
+            services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
             services.AddTransient(typeof(MainWindow));
+            services.AddTransient(typeof(MainWindowViewModel));
             services.AddTransient(typeof(ContaListViewModel));
             services.AddTransient(typeof(AddProductView));
             services.AddTransient(typeof(ProductListView));
             services.AddTransient(typeof(ProductView));
             services.AddScoped<MainContext>();
-            services.AddScoped(typeof(IRepository<>),typeof(Repository<>));            
+            services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+            ServiceProvider = services.BuildServiceProvider();
         }       
     }
 }

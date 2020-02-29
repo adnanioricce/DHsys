@@ -1,9 +1,5 @@
-﻿using Core.Entities;
-using DAL;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -15,32 +11,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UI.Views
+namespace UI.Views.Conta
 {
     /// <summary>
-    /// Interação lógica para ContaView.xam
+    /// Interação lógica para ContaListView.xam
     /// </summary>
     public partial class ContaListView : Page
     {
-        private readonly Repository<Core.Entities.Conta> _contaRepository = new Repository<Core.Entities.Conta>(new MainContext());
         public ContaListView()
         {
             InitializeComponent();
-        }
-        public void OnSearch(object sender, TextChangedEventArgs e)
-        {
-            if (!string.IsNullOrEmpty(this.txtSearchBox.Text))
-            {
-                string query = $"SELECT * FROM Contas WHERE NomeEmpresa LIKE %{this.txtSearchBox}%";
-                var contas = _contaRepository.Query()
-                .Where(c => EF.Functions.Like(c.NomeEmpresa, "%" + txtSearchBox.Text + "%"))
-                .ToList();
-                this._dataGrid.ItemsSource = contas;
-            }
-            else
-            {
-                this._dataGrid.ItemsSource = _contaRepository.GetAll();
-            }
         }
     }
 }

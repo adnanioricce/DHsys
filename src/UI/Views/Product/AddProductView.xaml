@@ -23,10 +23,15 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
         <StackPanel Grid.Row="0">
-            <TextBox x:Name="txtNomeBeneficiario" md:HintAssist.Hint="Nome do Beneficiario" Background="White" />
+            <TextBox x:Name="txtCodigoProduto" md:HintAssist.Hint="Codigo do Produto" Background="White"/>
+            <TextBox x:Name="txtQuantidade" md:HintAssist.Hint="Quantidade" Background="White" IsReadOnly="True"/>
+            <TextBox x:Name="txtQuantidadeEntrando" md:HintAssist.Hint="Quantidade A adicionar/retirar" Background="White"/>
+            <TextBox x:Name="txtDescricao" md:HintAssist.Hint="Descrição" Background="White"/>
+            <TextBox x:Name="txtNCM" md:HintAssist.Hint="NCM" Background="White"/>
+            <!--<TextBox x:Name="txtNomeBeneficiario" md:HintAssist.Hint="Nome do Beneficiario" Background="White" />
             <TextBox x:Name="txtDataVencimento" md:HintAssist.Hint="Data de Vencimento da conta" Background="White"/>
             <TextBox x:Name="txtValor" md:HintAssist.Hint="Valor a pagar" Background="White"/>
-            <DataGrid x:Name="_dataGrid"/>
+            <DataGrid x:Name="_dataGrid"/>-->
         </StackPanel>
         <Button Grid.Row="1" x:Name="btnConfirm" Content="Confirmar" Click="btnConfirm_Click"/>
     </Grid>

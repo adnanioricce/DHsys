@@ -3,8 +3,9 @@
 namespace UI.ViewModels
 {
     public class ViewModelLocator
-    {
-        public MainWindowViewModel MainViewModel => App.ServiceProvider.GetRequiredService<MainWindowViewModel>();
-        public ContaListViewModel ContaViewModel => App.ServiceProvider.GetRequiredService<ContaListViewModel>();
+    {        
+        public MainWindowViewModel MainWindowViewModel => App.ServiceProvider.GetRequiredService<MainWindowViewModel>();
+        public ContaListViewModel ContaListViewModel => App.ServiceProvider.GetRequiredService<ContaListViewModel>();
+        public AddContaViewModel AddContaViewModel => App.ServiceProvider.GetRequiredService<AddContaViewModel>();
     }
 }

@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"             
              xmlns:local="clr-namespace:UI"
              xmlns:vm="clr-namespace:UI.ViewModels"
+             xmlns:views="clr-namespace:UI.Views.Conta"
              StartupUri="MainWindow.xaml"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              >
     <Application.Resources>
+        
         <ResourceDictionary>
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
