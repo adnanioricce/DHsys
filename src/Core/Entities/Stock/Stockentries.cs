@@ -15,7 +15,7 @@ namespace Core.Entities.Stock
         public string NfNumber { get; set; }
         public DateTime? NfEmissionDate { get; set; }
         public decimal? Totalcost { get; set; }
-
+        public string LotCode { get; set; }
         public virtual Drug Drug { get; set; }
         public virtual Supplier Supplier { get; set; }
     }
