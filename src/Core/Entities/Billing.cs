@@ -10,7 +10,7 @@ namespace Core.Entities
         public decimal? Price { get; set; }
         public decimal? Discount { get; set; }
         public DateTime? EndDate { get; set; }
-        public bool? IsPaid { get; set; }
+        public bool IsPaid { get; set; } = false;
         
     }
 }

@@ -1,5 +1,5 @@
 ﻿using Core.Entities;
-using DAL.Interfaces;
+using Core.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
