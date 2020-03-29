@@ -39,11 +39,11 @@ namespace Services.Tests
         {
             //Given            
             var drug = new Drug{
-                Name = "doralgina"
+                DrugName = "doralgina"
             };            
             var service = CreateService(drug);
             //When
-            var drugs = service.SearchDrugsByName(drugName);
+            var drugs = service.SearchDrugsByName(drug.DrugName);
             //Then
             Assert.True(drugs.Any(d => string.Equals(d.Name,drugName,StringComparison.IgnoreOrdinalCase)));
         }

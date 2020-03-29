@@ -4,7 +4,7 @@ using Core.Entities.Stock;
 
 namespace Core.Entities.Catalog
 {
-    public partial class Drug
+    public class Drug : BaseEntity
     {
         public Drug()
         {
@@ -12,8 +12,8 @@ namespace Core.Entities.Catalog
             Drugprices = new HashSet<Drugprices>();
             Stockentries = new HashSet<Stockentries>();
         }
-
-        public int DrugId { get; set; }
+        
+        public int? BaseDrugId { get; set; }
         public int? SupplierId { get; set; }
         public int ManufacturerId { get; set; }
         public string DrugName { get; set; }

@@ -3,7 +3,7 @@ using Core.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UI.Tests
+namespace Core.Tests
 {
     public class FakeRepository<T> : IRepository<T> where T : BaseEntity
     {

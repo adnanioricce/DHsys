@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows;
-using UI.Interfaces;
+using Core.Interfaces;
 
-namespace UI.Services
+namespace Core.Services
 {
     public class CustomNavigationService
     {

@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UI.Views.Conta
+namespace Core.Views.Conta
 {
     /// <summary>
     /// Interação lógica para ContaListView.xam

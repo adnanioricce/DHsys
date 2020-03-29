@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Moq;
 using System;
 using System.Linq;
-using UI.ViewModels;
+using Core.ViewModels;
 using Xunit;
 
-namespace UI.Tests.ViewModels
+namespace Core.Tests.ViewModels
 {
     public class ContaListViewModelTests
     {                        
