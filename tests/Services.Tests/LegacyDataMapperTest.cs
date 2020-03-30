@@ -22,7 +22,7 @@ namespace Services.Tests
                 Etgraf = "",
                 Prbarra = "",
                 Prcddt = DateTime.UtcNow,
-                P
+                
             };
             //{
 
