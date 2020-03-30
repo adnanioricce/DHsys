@@ -3,11 +3,11 @@ using DAL.Interfaces;
 using Moq;
 using System;
 using System.Collections.Generic;
-using UI.Models;
-using UI.ViewModels;
+using Core.Models;
+using Core.ViewModels;
 using Xunit;
 
-namespace UI.Tests.ViewModels
+namespace Core.Tests.ViewModels
 {
     public class AddContaViewModelTests
     {

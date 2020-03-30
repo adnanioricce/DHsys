@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace UI.Models
+namespace Core.Models
 {
     public class ContaModel : GalaSoft.MvvmLight.ObservableObject
     {

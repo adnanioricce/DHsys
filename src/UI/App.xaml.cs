@@ -1,17 +1,14 @@
-﻿using DAL;
-using DAL.Interfaces;
+﻿using Core.Interfaces;
+using DAL;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.IO;
 using System.Windows;
-using UI.Services;
-using UI.ViewModels;
-using UI.Views;
-using UI.Views.Product;
+using Core.ViewModels;
+using Core.Views.Product;
 
-namespace UI
+namespace Core
 {
     /// <summary>
     /// Interaction logic for App.xaml

@@ -1,7 +1,7 @@
 ﻿using DAL;
 using Microsoft.EntityFrameworkCore;
 
-namespace UI.Tests
+namespace Core.Tests
 {
     public class FakeContext : MainContext
     {

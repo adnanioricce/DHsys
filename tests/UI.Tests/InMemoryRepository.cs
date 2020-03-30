@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace UI.Tests
+namespace Core.Tests
 {
     public class InMemoryRepository<T> : IRepository<T>
     {

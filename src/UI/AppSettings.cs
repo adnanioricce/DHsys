@@ -1,4 +1,4 @@
-﻿namespace UI
+﻿namespace Core
 {
     public class AppSettings
     {

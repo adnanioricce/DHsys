@@ -4,14 +4,13 @@ using Core.Entities.Catalog;
 
 namespace Core.Entities.Stock
 {
-    public class Supplier 
+    public class Supplier : BaseEntity
     {
         public Supplier()
         {
             Drugs = new HashSet<Drug>();
             Stockentries = new HashSet<Stockentries>();
-        }
-        public int SupplierId { get; set; }
+        }        
         public int? Addressid { get; set; }
         public string SupplierName { get; set; }
         public string Cnpj { get; set; }

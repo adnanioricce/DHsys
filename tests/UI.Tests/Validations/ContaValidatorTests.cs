@@ -4,7 +4,7 @@ using Moq;
 using System;
 using Xunit;
 
-namespace UI.Tests.Validations
+namespace Core.Tests.Validations
 {
     public class ContaValidatorTests
     {        
@@ -14,7 +14,7 @@ namespace UI.Tests.Validations
         }
 
         [Fact]
-        public void IsValid_StateUnderTest_ExpectedBehavior()
+        public void IsValid_ValidState_ReturnValidResult()
         {
             // Arrange
             var contaValidator = this.CreateContaValidator();

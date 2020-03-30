@@ -1,7 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-namespace UI.ViewModels
+namespace Core.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
