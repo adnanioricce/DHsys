@@ -1,7 +1,8 @@
 namespace Core.Interfaces
 {
-    public interface IDbContext
+    public interface IOleDbContext
     {
-        
+        void OnConfiguring();
+        void ModelCreating();
     }   
 }

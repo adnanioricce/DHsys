@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Core.Entities.LegacyScaffold;
 using Dapper;
+using Microsoft.Extensions.Options;
 
 namespace DAL
 {
@@ -13,16 +14,15 @@ namespace DAL
     /// </summary>
     public class LegacyContext<T>
     {
-        private readonly IDbConnection _connection;
-        private readonly string DbfFileName;
+        private readonly IDbConnection _connection;        
+        private readonly LegacyDatabaseModel _dbParameters;
         private readonly EntityField[] _fields = typeof(T).GetProperties().Select(x => new EntityField{
                 FieldName = x.Name,
                 Value = null
             }).ToArray();
-        public LegacyContext(string dbfFilePath)
+        public LegacyContext(IOptions<LegacyDatabaseModel> options)
         {
-            _connection = new OleDbConnection(dbfFilePath);                         
-            DbfFileName = dbfFilePath;
+            _connection = new OleDbConnection(options.Value.ToString());                                     
             
         }
         public T RawQuery(string sql)
@@ -31,6 +31,10 @@ namespace DAL
             var result = _connection.QueryFirstOrDefault<T>(sql);
             _connection.Close();
             return result;
+        }
+        public T GetByCode(string id)
+        {
+            
         }
         public IEnumerable<T> MultipleRawQuery(string sql)
         {
@@ -44,6 +48,6 @@ namespace DAL
             _connection.Open();            
             _connection.Execute(query,entity);            
             _connection.Close();
-        }
+        }        
     }   
 }

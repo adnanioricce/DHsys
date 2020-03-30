@@ -9,7 +9,7 @@ namespace DAL
         //public DbSet<Conta> Contas { get; set; }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=./contas.db");
+            optionsBuilder.UseSqlite("Data Source=./contas.db");            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
