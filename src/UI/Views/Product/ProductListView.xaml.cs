@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Core.Views.Product
+namespace UI.Views.Product
 {
     /// <summary>
     /// Interação lógica para ProductListView.xam

@@ -1,14 +1,11 @@
-using Core.Entities;
+using UI.Entities;
 using DAL;
-using DAL.Interfaces;
-using Microsoft.EntityFrameworkCore;
-using Moq;
-using System;
 using System.Linq;
-using Core.ViewModels;
+using UI.ViewModels;
 using Xunit;
+using Tests.Lib.Data;
 
-namespace Core.Tests.ViewModels
+namespace UI.Tests.ViewModels
 {
     public class ContaListViewModelTests
     {                        
@@ -16,9 +13,8 @@ namespace Core.Tests.ViewModels
         [Fact]
         public void OnSearch_StateUnderTest_ExpectedBehavior()
         {
-            // Arrange
-            using var context = new FakeContext();
-            var viewModel = new ContaListViewModel(new Repository<Conta>(context));
+            // Arrange            
+            var viewModel = new ContaListViewModel(new FakeRepository<Conta>());
             string value = "1";
 
             // Act

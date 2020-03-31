@@ -1,5 +1,5 @@
-﻿using Core.Entities;
-using Core.Interfaces;
+﻿using UI.Entities;
+using UI.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -19,7 +19,7 @@ namespace Tests.Lib.Data
         private int counter = 1;        
         public void Add(T entry)
         {
-            if (entry.Id <= 0 || entry.Id == null)
+            if (entry.Id <= 0)
             {
                 entry.Id = counter;
                 context.Add(entry.Id, entry);
@@ -49,7 +49,7 @@ namespace Tests.Lib.Data
 
         public T GetById(int id)
         {
-            return context.FirstOrDefault(e => e.Key == id).Value;
+            return context[id];
         }
 
         public IQueryable<T> Query()

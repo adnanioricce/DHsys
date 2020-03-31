@@ -17,7 +17,7 @@ namespace Core.Entities.LegacyScaffold
         public string Fufone { get; set; }
         public string Fusit { get; set; }
         public string Fuplano { get; set; }
-        public string Fuident { get; set; }
+        public string FCoredent { get; set; }
         public string Fudepto { get; set; }
         public double? Totdebcr { get; set; }
         public double? Totdebsr { get; set; }

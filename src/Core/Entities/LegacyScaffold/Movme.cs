@@ -9,7 +9,7 @@ namespace Core.Entities.LegacyScaffold
         public string Prcodi { get; set; }
         public double? Prqtde { get; set; }
         public double? VlUnit { get; set; }
-        public double? Vlliquid { get; set; }
+        public double? VlliqCored { get; set; }
         public double? TotDescon { get; set; }
         public string Ticket { get; set; }
         public string Bacodi { get; set; }

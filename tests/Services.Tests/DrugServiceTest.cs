@@ -1,7 +1,12 @@
 using Xunit;
-using Core.Entities;
-using Core.Entities.Catalog;
+using UI.Entities;
+using UI.Entities.Catalog;
 using Tests.Lib.Data;
+using UI.Interfaces;
+using System.Linq;
+using System;
+using UI.Services;
+
 namespace Services.Tests
 {
     public class DrugServiceTest
@@ -15,7 +20,7 @@ namespace Services.Tests
             var repository = new FakeRepository<Drug>();            
             var service = new DrugService(repository);
             //when
-            service.AddDrug(drug);
+            service.CreateDrug(drug);
             var returnedDrug = repository.GetById(1);
             //Then 
             Assert.Equal(1,returnedDrug.Id);
@@ -23,13 +28,15 @@ namespace Services.Tests
         [Fact]
         public void AddDrug_ReceivesDrugEntityWithoutManufacturer_ShouldReturnErrorInvalidEntityEntry()
         {
-            //Given             
-            var drug = BaseCreateDrugEntity();                  
+            //Given                         
+            var repository = new FakeRepository<Drug>();
+            var drug = BaseCreateDrugEntity();                     
             drug.ManufacturerId = 0;            
             drug.Code = "";
-            var service = CreateService();
+            repository.Add(drug);
+            var service = new DrugService(repository);
             //when
-            service.AddDrug(drug);
+            service.CreateDrug(drug);
             var returnedDrug = repository.GetById(1);
             //Then 
             Assert.Equal(1,returnedDrug.Id);
@@ -45,7 +52,7 @@ namespace Services.Tests
             //When
             var drugs = service.SearchDrugsByName(drug.DrugName);
             //Then
-            Assert.True(drugs.Any(d => string.Equals(d.Name,drugName,StringComparison.IgnoreOrdinalCase)));
+            Assert.True(drugs.Any(d => string.Equals(d.DrugName,drug.DrugName,StringComparison.OrdinalIgnoreCase)));
         }
         //? And if I receive more than one drug?
         [Fact]
@@ -61,13 +68,13 @@ namespace Services.Tests
             //Then
             Assert.Equal(drug.BarCode,returnedDrug.BarCode);
         }
-        private DrugService CreateService(Drug testDrug)
+        private IDrugService CreateService(Drug testDrug)
         {            
             var repository = new FakeRepository<Drug>();
-            repository.Add(drug);
+            repository.Add(testDrug);
             return new DrugService(repository);
         }
-        private DrugService CreateService()
+        private IDrugService CreateService()
         {
             var repository = new FakeRepository<Drug>();            
             return new DrugService(repository);
@@ -79,12 +86,12 @@ namespace Services.Tests
                 DrugName = "SomeDrugName 30mg 30cp",
                 Description = "no description",
                 Classification = "some classification",
-                DrugCost = 14.99,
+                DrugCost = 14.99m,
                 DosageInMg = 30,
                 QuantityInStock = 4,
                 ReorderLevel = 0,
                 ReorderQuantity = 1,
-                EndCustomerPrice = 32.99,
+                EndCustomerPrice = 32.99m,
                 Substance = "Some Substance",
                 TypeOfUse = "Oral",
                 MinimalAgeOfUse = 12,

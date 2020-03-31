@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Core.Entities.LegacyScaffold
+namespace UI.Entities.LegacyScaffold
 {
     public partial class Agenda
     {

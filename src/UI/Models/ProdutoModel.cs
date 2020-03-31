@@ -1,4 +1,4 @@
-﻿namespace Core.Models
+﻿namespace UI.Models
 {
     public class ProdutoModel 
     {

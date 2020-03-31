@@ -1,14 +1,14 @@
-﻿using Core.Interfaces;
+﻿using UI.Interfaces;
 using DAL;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Windows;
-using Core.ViewModels;
-using Core.Views.Product;
+using UI.ViewModels;
+using UI.Views.Product;
 
-namespace Core
+namespace UI
 {
     /// <summary>
     /// Interaction logic for App.xaml
@@ -67,6 +67,7 @@ namespace Core
             services.AddScoped<MainContext>();
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             ServiceProvider = services.BuildServiceProvider();
+            var windowVm = ServiceProvider.GetService<MainWindowViewModel>();
         }       
     }
 }

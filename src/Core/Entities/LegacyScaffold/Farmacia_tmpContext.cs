@@ -124,18 +124,18 @@
 //        public virtual DbSet<Usefarma> Usefarma { get; set; }
 //        public virtual DbSet<Usoint> Usoint { get; set; }
 
-//        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+//        protected override void OnConfiguring(DbContextOptionsBCorelder optionsBCorelder)
 //        {
-//            if (!optionsBuilder.IsConfigured)
+//            if (!optionsBCorelder.IsConfigured)
 //            {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                optionsBuilder.UseSqlServer("Data Source=DESKTOP-FTQLVQ6;Initial Catalog=Farmacia_tmp;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for gCoredance on storing connection strings.
+//                optionsBCorelder.UseSqlServer("Data Source=DESKTOP-FTQLVQ6;Initial Catalog=Farmacia_tmp;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 //            }
 //        }
 
-//        protected override void OnModelCreating(ModelBuilder modelBuilder)
+//        protected override void OnModelCreating(ModelBCorelder modelBCorelder)
 //        {
-//            modelBuilder.Entity<Agenda>(entity =>
+//            modelBCorelder.Entity<Agenda>(entity =>
 //            {
 //                entity.ToTable("AGENDA");
 
@@ -154,7 +154,7 @@
 //                entity.Property(e => e.Nome).HasColumnName("NOME");
 //            });
 
-//            modelBuilder.Entity<Balcon>(entity =>
+//            modelBCorelder.Entity<Balcon>(entity =>
 //            {
 //                entity.ToTable("BALCON");
 
@@ -185,7 +185,7 @@
 //                entity.Property(e => e.Senha).HasColumnName("SENHA");
 //            });
 
-//            modelBuilder.Entity<Brindes>(entity =>
+//            modelBCorelder.Entity<Brindes>(entity =>
 //            {
 //                entity.ToTable("BRINDES");
 
@@ -198,7 +198,7 @@
 //                entity.Property(e => e.Qtde).HasColumnName("QTDE");
 //            });
 
-//            modelBuilder.Entity<Cadlab>(entity =>
+//            modelBCorelder.Entity<Cadlab>(entity =>
 //            {
 //                entity.ToTable("CADLAB");
 
@@ -253,7 +253,7 @@
 //                entity.Property(e => e.Nomarq).HasColumnName("NOMARQ");
 //            });
 
-//            modelBuilder.Entity<Cadprom>(entity =>
+//            modelBCorelder.Entity<Cadprom>(entity =>
 //            {
 //                entity.ToTable("CADPROM");
 
@@ -268,7 +268,7 @@
 //                    .HasColumnType("datetime");
 //            });
 
-//            modelBuilder.Entity<Caixa>(entity =>
+//            modelBCorelder.Entity<Caixa>(entity =>
 //            {
 //                entity.ToTable("CAIXA");
 
@@ -291,7 +291,7 @@
 //                entity.Property(e => e.CxValor).HasColumnName("CX_VALOR");
 //            });
 
-//            modelBuilder.Entity<Cancdia>(entity =>
+//            modelBCorelder.Entity<Cancdia>(entity =>
 //            {
 //                entity.ToTable("CANCDIA");
 
@@ -312,7 +312,7 @@
 //                entity.Property(e => e.Ticket).HasColumnName("TICKET");
 //            });
 
-//            modelBuilder.Entity<Cartao>(entity =>
+//            modelBCorelder.Entity<Cartao>(entity =>
 //            {
 //                entity.ToTable("CARTAO");
 
@@ -329,7 +329,7 @@
 //                entity.Property(e => e.Taxa).HasColumnName("TAXA");
 //            });
 
-//            modelBuilder.Entity<Chdevol>(entity =>
+//            modelBCorelder.Entity<Chdevol>(entity =>
 //            {
 //                entity.ToTable("CHDEVOL");
 
@@ -354,7 +354,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Cheque>(entity =>
+//            modelBCorelder.Entity<Cheque>(entity =>
 //            {
 //                entity.ToTable("CHEQUE");
 
@@ -393,7 +393,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<CliMed>(entity =>
+//            modelBCorelder.Entity<CliMed>(entity =>
 //            {
 //                entity.ToTable("CLI_MED");
 
@@ -408,7 +408,7 @@
 //                entity.Property(e => e.Sexo).HasColumnName("SEXO");
 //            });
 
-//            modelBuilder.Entity<Clicheq>(entity =>
+//            modelBCorelder.Entity<Clicheq>(entity =>
 //            {
 //                entity.ToTable("CLICHEQ");
 
@@ -435,7 +435,7 @@
 //                entity.Property(e => e.Rg).HasColumnName("RG");
 //            });
 
-//            modelBuilder.Entity<Cliente>(entity =>
+//            modelBCorelder.Entity<Cliente>(entity =>
 //            {
 //                entity.ToTable("CLIENTE");
 
@@ -488,7 +488,7 @@
 //                    .HasColumnType("datetime");
 //            });
 
-//            modelBuilder.Entity<Clipago>(entity =>
+//            modelBCorelder.Entity<Clipago>(entity =>
 //            {
 //                entity.ToTable("CLIPAGO");
 
@@ -503,7 +503,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Contas>(entity =>
+//            modelBCorelder.Entity<Contas>(entity =>
 //            {
 //                entity.ToTable("CONTAS");
 
@@ -512,7 +512,7 @@
 //                entity.Property(e => e.Hist).HasColumnName("HIST");
 //            });
 
-//            modelBuilder.Entity<Conv>(entity =>
+//            modelBCorelder.Entity<Conv>(entity =>
 //            {
 //                entity.ToTable("CONV");
 
@@ -557,7 +557,7 @@
 //                entity.Property(e => e.Fucodi).HasColumnName("FUCODI");
 //            });
 
-//            modelBuilder.Entity<Convenio>(entity =>
+//            modelBCorelder.Entity<Convenio>(entity =>
 //            {
 //                entity.ToTable("CONVENIO");
 
@@ -608,7 +608,7 @@
 //                entity.Property(e => e.Fucodi).HasColumnName("FUCODI");
 //            });
 
-//            modelBuilder.Entity<Debcli>(entity =>
+//            modelBCorelder.Entity<Debcli>(entity =>
 //            {
 //                entity.ToTable("DEBCLI");
 
@@ -645,7 +645,7 @@
 //                entity.Property(e => e.VlPago).HasColumnName("VL_PAGO");
 //            });
 
-//            modelBuilder.Entity<Delivery>(entity =>
+//            modelBCorelder.Entity<Delivery>(entity =>
 //            {
 //                entity.ToTable("DELIVERY");
 
@@ -698,7 +698,7 @@
 //                    .HasColumnType("datetime");
 //            });
 
-//            modelBuilder.Entity<Despesas>(entity =>
+//            modelBCorelder.Entity<Despesas>(entity =>
 //            {
 //                entity.ToTable("DESPESAS");
 
@@ -713,7 +713,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Empresa>(entity =>
+//            modelBCorelder.Entity<Empresa>(entity =>
 //            {
 //                entity.ToTable("EMPRESA");
 
@@ -769,7 +769,7 @@
 
 //                entity.Property(e => e.Emfilial).HasColumnName("EMFILIAL");
 
-//                entity.Property(e => e.Emguia).HasColumnName("EMGUIA");
+//                entity.Property(e => e.EmgCorea).HasColumnName("EMGCoreA");
 
 //                entity.Property(e => e.Eminsc).HasColumnName("EMINSC");
 
@@ -806,7 +806,7 @@
 //                entity.Property(e => e.Vidapc).HasColumnName("VIDAPC");
 //            });
 
-//            modelBuilder.Entity<Encomen>(entity =>
+//            modelBCorelder.Entity<Encomen>(entity =>
 //            {
 //                entity.ToTable("ENCOMEN");
 
@@ -819,7 +819,7 @@
 //                entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
 //            });
 
-//            modelBuilder.Entity<Ent>(entity =>
+//            modelBCorelder.Entity<Ent>(entity =>
 //            {
 //                entity.ToTable("ENT");
 
@@ -860,7 +860,7 @@
 //                entity.Property(e => e.Usuario).HasColumnName("USUARIO");
 //            });
 
-//            modelBuilder.Entity<Entpro>(entity =>
+//            modelBCorelder.Entity<Entpro>(entity =>
 //            {
 //                entity.ToTable("ENTPRO");
 
@@ -907,7 +907,7 @@
 //                entity.Property(e => e.Usuario).HasColumnName("USUARIO");
 //            });
 
-//            modelBuilder.Entity<Estq0045>(entity =>
+//            modelBCorelder.Entity<Estq0045>(entity =>
 //            {
 //                entity.ToTable("ESTQ0045");
 
@@ -926,7 +926,7 @@
 //                entity.Property(e => e.Secao).HasColumnName("SECAO");
 //            });
 
-//            modelBuilder.Entity<Etiqperf>(entity =>
+//            modelBCorelder.Entity<Etiqperf>(entity =>
 //            {
 //                entity.ToTable("ETIQPERF");
 
@@ -941,7 +941,7 @@
 //                entity.Property(e => e.Prdesc2).HasColumnName("PRDESC2");
 //            });
 
-//            modelBuilder.Entity<Etiqprom>(entity =>
+//            modelBCorelder.Entity<Etiqprom>(entity =>
 //            {
 //                entity.ToTable("ETIQPROM");
 
@@ -956,7 +956,7 @@
 //                entity.Property(e => e.Prdesc2).HasColumnName("PRDESC2");
 //            });
 
-//            modelBuilder.Entity<Etiqueta>(entity =>
+//            modelBCorelder.Entity<Etiqueta>(entity =>
 //            {
 //                entity.ToTable("ETIQUETA");
 
@@ -969,7 +969,7 @@
 //                entity.Property(e => e.Prdesc2).HasColumnName("PRDESC2");
 //            });
 
-//            modelBuilder.Entity<Faltas>(entity =>
+//            modelBCorelder.Entity<Faltas>(entity =>
 //            {
 //                entity.ToTable("FALTAS");
 
@@ -982,7 +982,7 @@
 //                entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
 //            });
 
-//            modelBuilder.Entity<Fechconv>(entity =>
+//            modelBCorelder.Entity<Fechconv>(entity =>
 //            {
 //                entity.ToTable("FECHCONV");
 
@@ -995,7 +995,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Filial>(entity =>
+//            modelBCorelder.Entity<Filial>(entity =>
 //            {
 //                entity.ToTable("FILIAL");
 
@@ -1082,7 +1082,7 @@
 //                entity.Property(e => e.Subsec9).HasColumnName("SUBSEC9");
 //            });
 
-//            modelBuilder.Entity<Funcio>(entity =>
+//            modelBCorelder.Entity<Funcio>(entity =>
 //            {
 //                entity.ToTable("FUNCIO");
 
@@ -1118,7 +1118,7 @@
 
 //                entity.Property(e => e.Fufone).HasColumnName("FUFONE");
 
-//                entity.Property(e => e.Fuident).HasColumnName("FUIDENT");
+//                entity.Property(e => e.FCoredent).HasColumnName("FCoreDENT");
 
 //                entity.Property(e => e.Fulimite).HasColumnName("FULIMITE");
 
@@ -1141,7 +1141,7 @@
 //                entity.Property(e => e.Totdebsr).HasColumnName("TOTDEBSR");
 //            });
 
-//            modelBuilder.Entity<Histor>(entity =>
+//            modelBCorelder.Entity<Histor>(entity =>
 //            {
 //                entity.ToTable("HISTOR");
 
@@ -1164,7 +1164,7 @@
 //                    .HasColumnType("datetime");
 //            });
 
-//            modelBuilder.Entity<Ibpt>(entity =>
+//            modelBCorelder.Entity<Ibpt>(entity =>
 //            {
 //                entity.ToTable("IBPT");
 
@@ -1175,7 +1175,7 @@
 //                entity.Property(e => e.Imp2).HasColumnName("IMP2");
 //            });
 
-//            modelBuilder.Entity<Invent>(entity =>
+//            modelBCorelder.Entity<Invent>(entity =>
 //            {
 //                entity.ToTable("INVENT");
 
@@ -1192,7 +1192,7 @@
 //                entity.Property(e => e.Tpmed).HasColumnName("TPMED");
 //            });
 
-//            modelBuilder.Entity<Logsys>(entity =>
+//            modelBCorelder.Entity<Logsys>(entity =>
 //            {
 //                entity.ToTable("LOGSYS");
 
@@ -1209,7 +1209,7 @@
 //                entity.Property(e => e.Usuario).HasColumnName("USUARIO");
 //            });
 
-//            modelBuilder.Entity<Malclien>(entity =>
+//            modelBCorelder.Entity<Malclien>(entity =>
 //            {
 //                entity.ToTable("MALCLIEN");
 
@@ -1264,7 +1264,7 @@
 //                    .HasColumnType("datetime");
 //            });
 
-//            modelBuilder.Entity<Merctran>(entity =>
+//            modelBCorelder.Entity<Merctran>(entity =>
 //            {
 //                entity.ToTable("MERCTRAN");
 
@@ -1289,7 +1289,7 @@
 //                entity.Property(e => e.VlTotal).HasColumnName("VL_TOTAL");
 //            });
 
-//            modelBuilder.Entity<Mov>(entity =>
+//            modelBCorelder.Entity<Mov>(entity =>
 //            {
 //                entity.ToTable("MOV");
 
@@ -1338,7 +1338,7 @@
 //                entity.Property(e => e.Tpvd).HasColumnName("TPVD");
 //            });
 
-//            modelBuilder.Entity<Movm>(entity =>
+//            modelBCorelder.Entity<Movm>(entity =>
 //            {
 //                entity.ToTable("MOVM");
 
@@ -1379,7 +1379,7 @@
 //                entity.Property(e => e.Tpvd).HasColumnName("TPVD");
 //            });
 
-//            modelBuilder.Entity<Movme>(entity =>
+//            modelBCorelder.Entity<Movme>(entity =>
 //            {
 //                entity.ToTable("MOVME");
 
@@ -1413,10 +1413,10 @@
 
 //                entity.Property(e => e.VlUnit).HasColumnName("VL_UNIT");
 
-//                entity.Property(e => e.Vlliquid).HasColumnName("VLLIQUID");
+//                entity.Property(e => e.VlliqCored).HasColumnName("VLLIQCoreD");
 //            });
 
-//            modelBuilder.Entity<Movmes>(entity =>
+//            modelBCorelder.Entity<Movmes>(entity =>
 //            {
 //                entity.ToTable("MOVMES");
 
@@ -1452,10 +1452,10 @@
 
 //                entity.Property(e => e.VlUnit).HasColumnName("VL_UNIT");
 
-//                entity.Property(e => e.Vlliquid).HasColumnName("VLLIQUID");
+//                entity.Property(e => e.VlliqCored).HasColumnName("VLLIQCoreD");
 //            });
 
-//            modelBuilder.Entity<Movnf>(entity =>
+//            modelBCorelder.Entity<Movnf>(entity =>
 //            {
 //                entity.ToTable("MOVNF");
 
@@ -1482,7 +1482,7 @@
 //                entity.Property(e => e.VlUnit).HasColumnName("VL_UNIT");
 //            });
 
-//            modelBuilder.Entity<Movpop>(entity =>
+//            modelBCorelder.Entity<Movpop>(entity =>
 //            {
 //                entity.ToTable("MOVPOP");
 
@@ -1522,10 +1522,10 @@
 
 //                entity.Property(e => e.VlUnit).HasColumnName("VL_UNIT");
 
-//                entity.Property(e => e.Vlliquid).HasColumnName("VLLIQUID");
+//                entity.Property(e => e.VlliqCored).HasColumnName("VLLIQCoreD");
 //            });
 
-//            modelBuilder.Entity<Natureza>(entity =>
+//            modelBCorelder.Entity<Natureza>(entity =>
 //            {
 //                entity.ToTable("NATUREZA");
 
@@ -1534,7 +1534,7 @@
 //                entity.Property(e => e.Nome).HasColumnName("NOME");
 //            });
 
-//            modelBuilder.Entity<Newcli>(entity =>
+//            modelBCorelder.Entity<Newcli>(entity =>
 //            {
 //                entity.ToTable("NEWCLI");
 
@@ -1571,7 +1571,7 @@
 //                    .HasColumnType("datetime");
 //            });
 
-//            modelBuilder.Entity<Newfunc>(entity =>
+//            modelBCorelder.Entity<Newfunc>(entity =>
 //            {
 //                entity.ToTable("NEWFUNC");
 
@@ -1626,7 +1626,7 @@
 //                entity.Property(e => e.Totdebsr).HasColumnName("TOTDEBSR");
 //            });
 
-//            modelBuilder.Entity<Newprec>(entity =>
+//            modelBCorelder.Entity<Newprec>(entity =>
 //            {
 //                entity.ToTable("NEWPREC");
 
@@ -1645,7 +1645,7 @@
 //                entity.Property(e => e.Prfabr).HasColumnName("PRFABR");
 //            });
 
-//            modelBuilder.Entity<Newprod>(entity =>
+//            modelBCorelder.Entity<Newprod>(entity =>
 //            {
 //                entity.ToTable("NEWPROD");
 
@@ -1762,7 +1762,7 @@
 //                entity.Property(e => e.Vendatu).HasColumnName("VENDATU");
 //            });
 
-//            modelBuilder.Entity<Newtab>(entity =>
+//            modelBCorelder.Entity<Newtab>(entity =>
 //            {
 //                entity.ToTable("NEWTAB");
 
@@ -1771,7 +1771,7 @@
 //                entity.Property(e => e.Newtab1).HasColumnName("NEWTAB");
 //            });
 
-//            modelBuilder.Entity<Nfe>(entity =>
+//            modelBCorelder.Entity<Nfe>(entity =>
 //            {
 //                entity.ToTable("NFE");
 
@@ -1796,7 +1796,7 @@
 //                entity.Property(e => e.Vltot).HasColumnName("VLTOT");
 //            });
 
-//            modelBuilder.Entity<Nota>(entity =>
+//            modelBCorelder.Entity<Nota>(entity =>
 //            {
 //                entity.ToTable("NOTA");
 
@@ -1841,28 +1841,28 @@
 //                entity.Property(e => e.Nvalor).HasColumnName("NVALOR");
 //            });
 
-//            modelBuilder.Entity<Notaf>(entity =>
+//            modelBCorelder.Entity<Notaf>(entity =>
 //            {
 //                entity.ToTable("NOTAF");
 
 //                entity.Property(e => e.NumNota).HasColumnName("NUM_NOTA");
 //            });
 
-//            modelBuilder.Entity<Nped>(entity =>
+//            modelBCorelder.Entity<Nped>(entity =>
 //            {
 //                entity.ToTable("NPED");
 
 //                entity.Property(e => e.Numped).HasColumnName("NUMPED");
 //            });
 
-//            modelBuilder.Entity<NumTmp>(entity =>
+//            modelBCorelder.Entity<NumTmp>(entity =>
 //            {
 //                entity.ToTable("NUM_TMP");
 
 //                entity.Property(e => e.Numero).HasColumnName("NUMERO");
 //            });
 
-//            modelBuilder.Entity<Numped>(entity =>
+//            modelBCorelder.Entity<Numped>(entity =>
 //            {
 //                entity.ToTable("NUMPED");
 
@@ -1877,7 +1877,7 @@
 //                entity.Property(e => e.Przpagto).HasColumnName("PRZPAGTO");
 //            });
 
-//            modelBuilder.Entity<Ped0204>(entity =>
+//            modelBCorelder.Entity<Ped0204>(entity =>
 //            {
 //                entity.ToTable("PED0204");
 
@@ -1918,7 +1918,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Ped0301>(entity =>
+//            modelBCorelder.Entity<Ped0301>(entity =>
 //            {
 //                entity.ToTable("PED0301");
 
@@ -1959,7 +1959,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Ped0406>(entity =>
+//            modelBCorelder.Entity<Ped0406>(entity =>
 //            {
 //                entity.ToTable("PED0406");
 
@@ -2000,7 +2000,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Ped1103>(entity =>
+//            modelBCorelder.Entity<Ped1103>(entity =>
 //            {
 //                entity.ToTable("PED1103");
 
@@ -2041,7 +2041,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Ped1406>(entity =>
+//            modelBCorelder.Entity<Ped1406>(entity =>
 //            {
 //                entity.ToTable("PED1406");
 
@@ -2082,7 +2082,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Ped1912>(entity =>
+//            modelBCorelder.Entity<Ped1912>(entity =>
 //            {
 //                entity.ToTable("PED1912");
 
@@ -2123,7 +2123,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Pedidos>(entity =>
+//            modelBCorelder.Entity<Pedidos>(entity =>
 //            {
 //                entity.ToTable("PEDIDOS");
 
@@ -2142,7 +2142,7 @@
 //                entity.Property(e => e.Status).HasColumnName("STATUS");
 //            });
 
-//            modelBuilder.Entity<Prodextr>(entity =>
+//            modelBCorelder.Entity<Prodextr>(entity =>
 //            {
 //                entity.ToTable("PRODEXTR");
 
@@ -2161,7 +2161,7 @@
 //                entity.Property(e => e.Prdesc).HasColumnName("PRDESC");
 //            });
 
-//            modelBuilder.Entity<Produto>(entity =>
+//            modelBCorelder.Entity<Produto>(entity =>
 //            {
 //                entity.ToTable("PRODUTO");
 
@@ -2302,7 +2302,7 @@
 //                entity.Property(e => e.Vlcomis).HasColumnName("VLCOMIS");
 //            });
 
-//            modelBuilder.Entity<Psico>(entity =>
+//            modelBCorelder.Entity<Psico>(entity =>
 //            {
 //                entity.ToTable("PSICO");
 
@@ -2385,7 +2385,7 @@
 //                entity.Property(e => e.Usomed).HasColumnName("USOMED");
 //            });
 
-//            modelBuilder.Entity<Rancliqt>(entity =>
+//            modelBCorelder.Entity<Rancliqt>(entity =>
 //            {
 //                entity.ToTable("RANCLIQT");
 
@@ -2416,7 +2416,7 @@
 //                entity.Property(e => e.VlUnit).HasColumnName("VL_UNIT");
 //            });
 
-//            modelBuilder.Entity<Ranclivl>(entity =>
+//            modelBCorelder.Entity<Ranclivl>(entity =>
 //            {
 //                entity.ToTable("RANCLIVL");
 
@@ -2443,11 +2443,11 @@
 //                entity.Property(e => e.TotVen).HasColumnName("TOT_VEN");
 //            });
 
-//            modelBuilder.Entity<Reconst>(entity =>
+//            modelBCorelder.Entity<Reconst>(entity =>
 //            {
 //                entity.ToTable("RECONST");
 
-//                entity.Property(e => e.Arquivo).HasColumnName("ARQUIVO");
+//                entity.Property(e => e.ArqCorevo).HasColumnName("ARQCoreVO");
 
 //                entity.Property(e => e.Data)
 //                    .HasColumnName("DATA")
@@ -2458,7 +2458,7 @@
 //                entity.Property(e => e.Posicao).HasColumnName("POSICAO");
 //            });
 
-//            modelBuilder.Entity<Reducao>(entity =>
+//            modelBCorelder.Entity<Reducao>(entity =>
 //            {
 //                entity.ToTable("REDUCAO");
 
@@ -2493,7 +2493,7 @@
 //                entity.Property(e => e.Tributo).HasColumnName("TRIBUTO");
 //            });
 
-//            modelBuilder.Entity<Relator>(entity =>
+//            modelBCorelder.Entity<Relator>(entity =>
 //            {
 //                entity.ToTable("relator");
 
@@ -2502,7 +2502,7 @@
 //                entity.Property(e => e.Relatorio).HasColumnName("RELATORIO");
 //            });
 
-//            modelBuilder.Entity<ResAno>(entity =>
+//            modelBCorelder.Entity<ResAno>(entity =>
 //            {
 //                entity.ToTable("RES_ANO");
 
@@ -2529,7 +2529,7 @@
 //                entity.Property(e => e.VenMes).HasColumnName("VEN_MES");
 //            });
 
-//            modelBuilder.Entity<Retirada>(entity =>
+//            modelBCorelder.Entity<Retirada>(entity =>
 //            {
 //                entity.ToTable("RETIRADA");
 
@@ -2546,7 +2546,7 @@
 //                entity.Property(e => e.Valordh).HasColumnName("VALORDH");
 //            });
 
-//            modelBuilder.Entity<Sal>(entity =>
+//            modelBCorelder.Entity<Sal>(entity =>
 //            {
 //                entity.ToTable("SAL");
 
@@ -2555,7 +2555,7 @@
 //                entity.Property(e => e.Salnome).HasColumnName("SALNOME");
 //            });
 
-//            modelBuilder.Entity<Secao>(entity =>
+//            modelBCorelder.Entity<Secao>(entity =>
 //            {
 //                entity.ToTable("SECAO");
 
@@ -2564,7 +2564,7 @@
 //                entity.Property(e => e.Senome).HasColumnName("SENOME");
 //            });
 
-//            modelBuilder.Entity<Senha>(entity =>
+//            modelBCorelder.Entity<Senha>(entity =>
 //            {
 //                entity.ToTable("SENHA");
 
@@ -2657,7 +2657,7 @@
 //                entity.Property(e => e.Senvlpon).HasColumnName("SENVLPON");
 //            });
 
-//            modelBuilder.Entity<Servico>(entity =>
+//            modelBCorelder.Entity<Servico>(entity =>
 //            {
 //                entity.ToTable("SERVICO");
 
@@ -2684,7 +2684,7 @@
 //                entity.Property(e => e.Svven2).HasColumnName("SVVEN2");
 //            });
 
-//            modelBuilder.Entity<Sistema>(entity =>
+//            modelBCorelder.Entity<Sistema>(entity =>
 //            {
 //                entity.ToTable("SISTEMA");
 
@@ -2693,14 +2693,14 @@
 //                entity.Property(e => e.Usuario).HasColumnName("USUARIO");
 //            });
 
-//            modelBuilder.Entity<Slpharma>(entity =>
+//            modelBCorelder.Entity<Slpharma>(entity =>
 //            {
 //                entity.ToTable("SLPHARMA");
 
 //                entity.Property(e => e.Reconst).HasColumnName("RECONST");
 //            });
 
-//            modelBuilder.Entity<Subsecao>(entity =>
+//            modelBCorelder.Entity<Subsecao>(entity =>
 //            {
 //                entity.ToTable("SUBSECAO");
 
@@ -2721,7 +2721,7 @@
 //                entity.Property(e => e.Valrec).HasColumnName("VALREC");
 //            });
 
-//            modelBuilder.Entity<Tabela>(entity =>
+//            modelBCorelder.Entity<Tabela>(entity =>
 //            {
 //                entity.ToTable("TABELA");
 
@@ -2766,7 +2766,7 @@
 //                entity.Property(e => e.Uni).HasColumnName("UNI");
 //            });
 
-//            modelBuilder.Entity<Temp>(entity =>
+//            modelBCorelder.Entity<Temp>(entity =>
 //            {
 //                entity.ToTable("TEMP");
 
@@ -2785,7 +2785,7 @@
 //                entity.Property(e => e.VlTotal).HasColumnName("VL_TOTAL");
 //            });
 
-//            modelBuilder.Entity<Tempo>(entity =>
+//            modelBCorelder.Entity<Tempo>(entity =>
 //            {
 //                entity.ToTable("TEMPO");
 
@@ -2808,7 +2808,7 @@
 //                entity.Property(e => e.VlTotal).HasColumnName("VL_TOTAL");
 //            });
 
-//            modelBuilder.Entity<Ticket>(entity =>
+//            modelBCorelder.Entity<Ticket>(entity =>
 //            {
 //                entity.ToTable("TICKET");
 
@@ -2817,7 +2817,7 @@
 //                entity.Property(e => e.Ticket1).HasColumnName("TICKET");
 //            });
 
-//            modelBuilder.Entity<Transfer>(entity =>
+//            modelBCorelder.Entity<Transfer>(entity =>
 //            {
 //                entity.ToTable("TRANSFER");
 
@@ -2842,7 +2842,7 @@
 //                    .HasColumnType("datetime");
 //            });
 
-//            modelBuilder.Entity<Troco1>(entity =>
+//            modelBCorelder.Entity<Troco1>(entity =>
 //            {
 //                entity.ToTable("TROCO1");
 
@@ -2855,7 +2855,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco10>(entity =>
+//            modelBCorelder.Entity<Troco10>(entity =>
 //            {
 //                entity.ToTable("TROCO10");
 
@@ -2868,7 +2868,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco11>(entity =>
+//            modelBCorelder.Entity<Troco11>(entity =>
 //            {
 //                entity.ToTable("TROCO11");
 
@@ -2881,7 +2881,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco12>(entity =>
+//            modelBCorelder.Entity<Troco12>(entity =>
 //            {
 //                entity.ToTable("TROCO12");
 
@@ -2894,7 +2894,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco13>(entity =>
+//            modelBCorelder.Entity<Troco13>(entity =>
 //            {
 //                entity.ToTable("TROCO13");
 
@@ -2907,7 +2907,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco14>(entity =>
+//            modelBCorelder.Entity<Troco14>(entity =>
 //            {
 //                entity.ToTable("TROCO14");
 
@@ -2920,7 +2920,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco15>(entity =>
+//            modelBCorelder.Entity<Troco15>(entity =>
 //            {
 //                entity.ToTable("TROCO15");
 
@@ -2933,7 +2933,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco16>(entity =>
+//            modelBCorelder.Entity<Troco16>(entity =>
 //            {
 //                entity.ToTable("TROCO16");
 
@@ -2946,7 +2946,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco17>(entity =>
+//            modelBCorelder.Entity<Troco17>(entity =>
 //            {
 //                entity.ToTable("TROCO17");
 
@@ -2959,7 +2959,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco18>(entity =>
+//            modelBCorelder.Entity<Troco18>(entity =>
 //            {
 //                entity.ToTable("TROCO18");
 
@@ -2972,7 +2972,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco19>(entity =>
+//            modelBCorelder.Entity<Troco19>(entity =>
 //            {
 //                entity.ToTable("TROCO19");
 
@@ -2985,7 +2985,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco2>(entity =>
+//            modelBCorelder.Entity<Troco2>(entity =>
 //            {
 //                entity.ToTable("TROCO2");
 
@@ -2998,7 +2998,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco20>(entity =>
+//            modelBCorelder.Entity<Troco20>(entity =>
 //            {
 //                entity.ToTable("TROCO20");
 
@@ -3011,7 +3011,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco3>(entity =>
+//            modelBCorelder.Entity<Troco3>(entity =>
 //            {
 //                entity.ToTable("TROCO3");
 
@@ -3024,7 +3024,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco4>(entity =>
+//            modelBCorelder.Entity<Troco4>(entity =>
 //            {
 //                entity.ToTable("TROCO4");
 
@@ -3037,7 +3037,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco5>(entity =>
+//            modelBCorelder.Entity<Troco5>(entity =>
 //            {
 //                entity.ToTable("TROCO5");
 
@@ -3050,7 +3050,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco6>(entity =>
+//            modelBCorelder.Entity<Troco6>(entity =>
 //            {
 //                entity.ToTable("TROCO6");
 
@@ -3063,7 +3063,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco7>(entity =>
+//            modelBCorelder.Entity<Troco7>(entity =>
 //            {
 //                entity.ToTable("TROCO7");
 
@@ -3076,7 +3076,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco8>(entity =>
+//            modelBCorelder.Entity<Troco8>(entity =>
 //            {
 //                entity.ToTable("TROCO8");
 
@@ -3089,7 +3089,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Troco9>(entity =>
+//            modelBCorelder.Entity<Troco9>(entity =>
 //            {
 //                entity.ToTable("TROCO9");
 
@@ -3102,7 +3102,7 @@
 //                entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
 //            });
 
-//            modelBuilder.Entity<Urv>(entity =>
+//            modelBCorelder.Entity<Urv>(entity =>
 //            {
 //                entity.ToTable("URV");
 
@@ -3113,7 +3113,7 @@
 //                entity.Property(e => e.Valor).HasColumnName("VALOR");
 //            });
 
-//            modelBuilder.Entity<Usefarma>(entity =>
+//            modelBCorelder.Entity<Usefarma>(entity =>
 //            {
 //                entity.ToTable("USEFARMA");
 
@@ -3144,7 +3144,7 @@
 //                entity.Property(e => e.Senha).HasColumnName("SENHA");
 //            });
 
-//            modelBuilder.Entity<Usoint>(entity =>
+//            modelBCorelder.Entity<Usoint>(entity =>
 //            {
 //                entity.ToTable("USOINT");
 
@@ -3157,9 +3157,9 @@
 //                entity.Property(e => e.Qtde).HasColumnName("QTDE");
 //            });
 
-//            OnModelCreatingPartial(modelBuilder);
+//            OnModelCreatingPartial(modelBCorelder);
 //        }
 
-//        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+//        partial void OnModelCreatingPartial(ModelBCorelder modelBCorelder);
 //    }
 //}

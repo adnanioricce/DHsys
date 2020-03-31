@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace Core.ViewModels
+namespace UI.ViewModels
 {
     public class ViewModelLocator
     {        

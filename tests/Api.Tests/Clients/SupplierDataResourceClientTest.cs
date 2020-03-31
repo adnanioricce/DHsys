@@ -1,3 +1,6 @@
+using UI.Interfaces;
+using UI.Models.Resources.Requests;
+using UI.Services;
 using System;
 using System.Threading.Tasks;
 using Xunit;
@@ -22,7 +25,7 @@ namespace Api.Tests
             //When
             var result = await _supplierResourceClient.GetExternalResource(getResourceRequest);
             //Then
-            Assert.Equal(result.Success);
+            Assert.True(result.Success);
         }
     }
 }

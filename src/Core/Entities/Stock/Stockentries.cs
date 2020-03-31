@@ -4,9 +4,8 @@ using Core.Entities.Catalog;
 
 namespace Core.Entities.Stock
 {
-    public partial class Stockentries
-    {
-        public int StockId { get; set; }
+    public partial class Stockentries : BaseEntity
+    {        
         public int? DrugId { get; set; }
         public int? SupplierId { get; set; }
         public int? Quantity { get; set; }

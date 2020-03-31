@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\UI\UI.csproj" />
+    <ProjectReference Include="..\Tests.Lib\Tests.Lib.csproj" />
   </ItemGroup>
 
 </Project>

@@ -1,11 +1,11 @@
-﻿using Core.Entities;
-using Core.Interfaces;
-using Core.Validations;
+﻿using UI.Entities;
+using UI.Interfaces;
+using UI.Validations;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using Core.Models;
+using UI.Models;
 
-namespace Core.ViewModels
+namespace UI.ViewModels
 {
     public class AddContaViewModel : ViewModelBase
     {

@@ -1,10 +1,10 @@
-using Core.Entities;
-using Core.Validations;
+using UI.Entities;
+using UI.Validations;
 using Moq;
 using System;
 using Xunit;
 
-namespace Core.Tests.Validations
+namespace UI.Tests.Validations
 {
     public class ContaValidatorTests
     {        

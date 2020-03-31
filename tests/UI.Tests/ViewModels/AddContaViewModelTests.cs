@@ -1,13 +1,13 @@
-using Core.Entities;
-using DAL.Interfaces;
+using UI.Entities;
 using Moq;
 using System;
 using System.Collections.Generic;
-using Core.Models;
-using Core.ViewModels;
+using UI.Models;
+using UI.ViewModels;
 using Xunit;
+using UI.Interfaces;
 
-namespace Core.Tests.ViewModels
+namespace UI.Tests.ViewModels
 {
     public class AddContaViewModelTests
     {

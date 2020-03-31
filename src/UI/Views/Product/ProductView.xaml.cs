@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace Core.Views.Product
+namespace UI.Views.Product
 {
     /// <summary>
     /// Interação lógica para ProductListView.xam

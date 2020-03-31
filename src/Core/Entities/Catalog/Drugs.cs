@@ -65,7 +65,7 @@ namespace Core.Entities.Catalog
         /// <value></value>
         public string TypeOfUse { get; set; }
         /// <summary>
-        /// Get or set the minimal age that this drug should be required
+        /// Get or set the minimal age that this drug should be reqCorered
         /// </summary>
         /// <value></value>
         public int? MinimalAgeOfUse {get; set;}

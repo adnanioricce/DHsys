@@ -35,7 +35,7 @@
                 <TextBlock Grid.Column="0" Text="Foi Pago ?"/>
                 <CheckBox Grid.Column="1" x:Name="chkFoiPago" Content="Sim" Background="White" />
             </StackPanel>
-            <Button Grid.Row="5" Content="Confirmar" Click="btnConfirm"/>
+            <Button Grid.Row="5" Content="Confirmar" />
         </Grid>
     </StackPanel>
 </Page>

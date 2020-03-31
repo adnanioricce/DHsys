@@ -39,7 +39,7 @@ namespace Core.Entities.LegacyScaffold
         public string Codgolden { get; set; }
         public double? Emdebito { get; set; }
         public string Emfech { get; set; }
-        public string Emguia { get; set; }
+        public string EmgCorea { get; set; }
         public string Emetico { get; set; }
         public string Emobs { get; set; }
         public string Emobs1 { get; set; }

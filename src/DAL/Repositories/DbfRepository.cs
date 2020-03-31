@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Core.Interfaces;
+using UI.Interfaces;
 
 namespace DAL
 {
-    public class DbfRepository<T> : IRepository<T> where T : class
+    public class DbfRepository<T> : ILegacyRepository<T> where T : class 
     {
-        private readonly LegacyContext<T> context;
+        private readonly LegacyContext<T> _context;
         private readonly string DbName;
-        public DbfRepository(string dbfFilePath)
+        public DbfRepository(LegacyContext<T> context,LegacyDatabaseModel dbSettings)
         {
-            context = new LegacyContext<T>(dbfFilePath);
-            DbName = dbfFilePath;
+            _context = context;
+            DbName = dbSettings.DataSource;
         }
         public void Add(T entry)
         {
@@ -21,50 +21,46 @@ namespace DAL
                 Value = null
             }).ToArray();   
             var queryBuilder = new StringBuilder();         
-            queryBuilder.Append($"INSERT INTO {this.DbName}.dbf VALUES(");
+            queryBuilder.Append($"INSERT INTO {this.DbName} VALUES(");
             for (int i = 0; i < fields.Length; i++)
             {                            
                 queryBuilder.Append($"@{fields[i].FieldName}");
                 queryBuilder.Append(i == fields.Length - 1 ? "" : ",");
-                context.Command(queryBuilder.ToString(),entry);                
+                _context.Command(queryBuilder.ToString(),entry);                
             }
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public void Command(string query, T entity)
         {
             throw new System.NotImplementedException();
-        }
-
-        public void Delete(T entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IEnumerable<T> GetAll()
-        {
-            return context.MultipleRawQuery($"SELECT * FROM {DbName}.dbf");
         }
 
         public T GetById(int id)
         {
-            return context.RawQuery($"SELECT * FROM {DbName}.dbf WHERE Id = {id} ");
-        }        
-
-        public IQueryable<T> Query()
-        {
             throw new System.NotImplementedException();
         }
-        public IQueryable<T> QueryableByRawQuery(string sql)
+
+        public T GetById(string id)
         {
-            return context.MultipleRawQuery(sql).AsQueryable();
+            return _context.RawQuery($"SELECT * FROM {DbName} WHERE prcodi = {id}");
         }
 
-        public void SaveChanges()
+        public IEnumerable<T> MultipleFromRawSqlQuery(string query)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Update(T entity)
+        public IQueryable<T> QueryableByRawQuery(string query)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public T RawSqlQuery(string query)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Update(T entry)
         {
             throw new System.NotImplementedException();
         }

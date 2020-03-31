@@ -1,4 +1,4 @@
-﻿using Core.Entities.LegacyScaffold;
+﻿using UI.Entities.LegacyScaffold;
 using System;
 using Xunit;
 

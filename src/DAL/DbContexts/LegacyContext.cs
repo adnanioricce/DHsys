@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Text;
-using Core.Entities.LegacyScaffold;
+using UI.Entities.LegacyScaffold;
 using Dapper;
 using Microsoft.Extensions.Options;
 
@@ -31,11 +31,7 @@ namespace DAL
             var result = _connection.QueryFirstOrDefault<T>(sql);
             _connection.Close();
             return result;
-        }
-        public T GetByCode(string id)
-        {
-            
-        }
+        }        
         public IEnumerable<T> MultipleRawQuery(string sql)
         {
             _connection.Open();
