@@ -1,6 +1,6 @@
-﻿using UI.Entities.LegacyScaffold;
-using System;
+﻿using System;
 using Xunit;
+using Core.Entities.LegacyScaffold;
 
 namespace Services.Tests
 {

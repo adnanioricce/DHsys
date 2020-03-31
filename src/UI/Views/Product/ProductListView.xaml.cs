@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using UI.ViewModels.Product;
 
 namespace UI.Views.Product
 {
@@ -18,8 +19,9 @@ namespace UI.Views.Product
     /// </summary>
     public partial class ProductListView : Page
     {
-        public ProductListView()
+        public ProductListView(ProductListViewModel viewModel)
         {
+            DataContext = viewModel;            
             InitializeComponent();
         }
     }

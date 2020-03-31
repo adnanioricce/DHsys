@@ -1,8 +1,8 @@
-using UI.Entities;
-using UI.Validations;
 using Moq;
 using System;
 using Xunit;
+using Core.Validations;
+using Core.Entities;
 
 namespace UI.Tests.Validations
 {
@@ -18,11 +18,11 @@ namespace UI.Tests.Validations
         {
             // Arrange
             var contaValidator = this.CreateContaValidator();
-            Conta conta = new Conta {
-                DataDeVencimento = DateTime.UtcNow.AddDays(30).ToShortDateString(),
-                NomeEmpresa = "empresa",
-                Valor = 123.99m,
-                EstaPago = false
+            Billing conta = new Billing {
+                EndDate = DateTime.UtcNow.AddDays(30).ToShortDateString(),
+                BeneficiaryName = "empresa",
+                Price = 123.99m,
+                IsPaid = false
             };
 
             // Act
@@ -40,12 +40,12 @@ namespace UI.Tests.Validations
         public void IsValid_InvalidDataDeVencimentoState_ReturnError(string dataDeVencimento)
         {
             var contaValidator = this.CreateContaValidator();
-            Conta conta = new Conta
+            Billing conta = new Billing
             {
-                DataDeVencimento = dataDeVencimento,
-                NomeEmpresa = "empresa",
-                Valor = 123.99m,
-                EstaPago = false
+                EndDate = dataDeVencimento,
+                BeneficiaryName = "empresa",
+                Price = 123.99m,
+                IsPaid = false
             };
 
             // Act
@@ -59,12 +59,12 @@ namespace UI.Tests.Validations
         public void IsValid_InvalidNomeEmpresaState_ReturnError(string nomeEmpresa)
         {
             var contaValidator = this.CreateContaValidator();
-            Conta conta = new Conta
+            Billing conta = new Billing
             {
-                DataDeVencimento = DateTime.UtcNow.AddDays(30).ToShortDateString(),
-                NomeEmpresa = nomeEmpresa,
-                Valor = 123.99m,
-                EstaPago = false
+                EndDate = DateTime.UtcNow.AddDays(30).ToShortDateString(),
+                BeneficiaryName = nomeEmpresa,
+                Price = 123.99m,
+                IsPaid = false
             };
 
             // Act
@@ -79,12 +79,12 @@ namespace UI.Tests.Validations
         public void IsValid_InvalidValorState_ReturnError(decimal valor)
         {
             var contaValidator = this.CreateContaValidator();
-            Conta conta = new Conta
+            Billing conta = new Billing
             {
-                DataDeVencimento = DateTime.UtcNow.AddDays(30).ToShortDateString(),
-                NomeEmpresa = "empresa",
-                Valor = valor,
-                EstaPago = false
+                EndDate = DateTime.UtcNow.AddDays(30).ToShortDateString(),
+                BeneficiaryName = "empresa",
+                Price = valor,
+                IsPaid = false
             };
 
             // Act

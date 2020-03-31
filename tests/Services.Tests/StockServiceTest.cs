@@ -1,9 +1,9 @@
 using Xunit;
-using UI.Entities.Stock;
 using Tests.Lib.Data;
 using System.Collections.Generic;
 using System.Linq;
-using UI.Services;
+using Core.Entities.Stock;
+using Core.Services;
 
 namespace Services.Tests
 {

@@ -1,4 +1,4 @@
-using UI.Entities;
+
 using Moq;
 using System;
 using System.Collections.Generic;
@@ -6,12 +6,14 @@ using UI.Models;
 using UI.ViewModels;
 using Xunit;
 using UI.Interfaces;
+using Core.Interfaces;
+using Core.Entities;
 
 namespace UI.Tests.ViewModels
 {
     public class AddContaViewModelTests
     {
-        private readonly List<Conta> contas = new List<Conta>();
+        private readonly List<Billing> contas = new List<Billing>();
         
         [Fact]
         public void CreateConta_StateUnderTest_ExpectedBehavior()
@@ -51,11 +53,11 @@ namespace UI.Tests.ViewModels
             // Assert
             Assert.True(result);
         }
-        private IRepository<Conta> GetMockRepository()
+        private IRepository<Billing> GetMockRepository()
         {
-            var mockRepo = new Mock<IRepository<Conta>>();
-            mockRepo.Setup(r => r.Add(It.IsAny<Conta>()))
-                .Callback((Conta entity) => contas.Add(entity));
+            var mockRepo = new Mock<IRepository<Billing>>();
+            mockRepo.Setup(r => r.Add(It.IsAny<Billing>()))
+                .Callback((Billing entity) => contas.Add(entity));
             mockRepo.Setup(r => r.SaveChanges())
                 .Callback(() => Console.WriteLine("saved"));
             return mockRepo.Object;

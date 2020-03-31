@@ -1,5 +1,5 @@
-﻿using UI.Entities;
-using UI.Interfaces;
+﻿using Core.Entities;
+using Core.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using Microsoft.EntityFrameworkCore;
@@ -11,16 +11,16 @@ namespace UI.ViewModels
 {
     public class ContaListViewModel : ViewModelBase
     {
-        private readonly IRepository<Conta> _contaRepository;
+        private readonly IRepository<Billing> _contaRepository;
         private string _searchPattern = string.Empty;
         public string SearchPattern { get { return _searchPattern; } set { OnSearch(value); } }
         public RelayCommand<string> SearchUpdateCommand { get; set; }
-        public ObservableCollection<Conta> Contas { get; set; }
-        public ContaListViewModel(IRepository<Conta> contaRepository)
+        public ObservableCollection<Billing> Contas { get; set; }
+        public ContaListViewModel(IRepository<Billing> contaRepository)
         {
             _contaRepository = contaRepository;
             SearchUpdateCommand = new RelayCommand<string>(OnSearch, CanSearch);
-            Contas = new ObservableCollection<Conta>();
+            Contas = new ObservableCollection<Billing>();
         }
         
         public virtual void OnSearch(string value)
@@ -28,7 +28,7 @@ namespace UI.ViewModels
             if (!string.IsNullOrEmpty(value))
             {                
                 var contas = _contaRepository.Query()
-                .Where(c => EF.Functions.Like(c.NomeEmpresa, "%" + value + "%"))
+                .Where(c => EF.Functions.Like(c.BeneficiaryName, "%" + value + "%"))
                 .ToList();
                 PopulateCollection(Contas, contas);
             }
@@ -43,7 +43,7 @@ namespace UI.ViewModels
             return true;
         }
 
-        private void PopulateCollection(ObservableCollection<Conta> contas,IEnumerable<Conta> novasContas)
+        private void PopulateCollection(ObservableCollection<Billing> contas,IEnumerable<Billing> novasContas)
         {
             Contas.Clear();
             for (int i = 0; i < novasContas.Count(); i++)

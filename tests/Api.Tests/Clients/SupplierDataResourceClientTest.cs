@@ -1,6 +1,6 @@
-using UI.Interfaces;
-using UI.Models.Resources.Requests;
-using UI.Services;
+using Core.Interfaces;
+using Core.Models.Resources.Requests;
+using Core.Services;
 using System;
 using System.Threading.Tasks;
 using Xunit;

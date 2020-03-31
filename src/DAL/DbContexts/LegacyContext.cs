@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
-using System.Text;
-using UI.Entities.LegacyScaffold;
 using Dapper;
 using Microsoft.Extensions.Options;
 

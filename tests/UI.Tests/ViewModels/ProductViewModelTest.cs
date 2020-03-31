@@ -1,9 +1,8 @@
 using System.Linq;
-using System;
-using UI.Entities.LegacyScaffold;
 using Tests.Lib.Data;
-using UI.ViewModels;
 using Xunit;
+using Core.Entities.LegacyScaffold;
+using UI.ViewModels.Product;
 
 namespace UI.Tests.ViewModels
 {
@@ -20,7 +19,7 @@ namespace UI.Tests.ViewModels
             var repository = new FakeLegacyRepository<Produto>();
             repository.Add(entry);
             //When
-            var viewModel = new ProductViewModel(repository);
+            var viewModel = new ProductListViewModel(repository);
             viewModel.ExecuteGetProductByCode(entry.Prcodi);
             //Then                  
             Assert.Equal(1,viewModel.ProdutoCollection.Count);

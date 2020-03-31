@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace UI.Entities.LegacyScaffold
+namespace Core.Entities.LegacyScaffold
 {
     public partial class Produto
     {

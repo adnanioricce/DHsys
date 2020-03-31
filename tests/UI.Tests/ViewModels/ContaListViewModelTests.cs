@@ -1,9 +1,8 @@
-using UI.Entities;
-using DAL;
 using System.Linq;
 using UI.ViewModels;
 using Xunit;
 using Tests.Lib.Data;
+using Core.Entities;
 
 namespace UI.Tests.ViewModels
 {
@@ -14,14 +13,14 @@ namespace UI.Tests.ViewModels
         public void OnSearch_StateUnderTest_ExpectedBehavior()
         {
             // Arrange            
-            var viewModel = new ContaListViewModel(new FakeRepository<Conta>());
+            var viewModel = new ContaListViewModel(new FakeRepository<Billing>());
             string value = "1";
 
             // Act
             viewModel.OnSearch(value);
 
             // Assert
-            Assert.True(viewModel.Contas.All(item => item.NomeEmpresa.Contains(value)));            
+            Assert.True(viewModel.Contas.All(item => item.BeneficiaryName.Contains(value)));            
         }
 
         [Fact]

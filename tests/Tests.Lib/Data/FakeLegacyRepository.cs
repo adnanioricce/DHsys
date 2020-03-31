@@ -1,8 +1,7 @@
-using UI.Entities;
-using UI.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
-using UI.Entities.LegacyScaffold;
+using Core.Entities.LegacyScaffold;
+using Core.Interfaces;
 
 namespace Tests.Lib.Data
 {

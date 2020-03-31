@@ -5,16 +5,16 @@ using System.Linq;
 
 namespace Core.Validations
 {
-    public class ContaValidator : AbstractValidator<Conta>
+    public class ContaValidator : AbstractValidator<Billing>
     {
         public ContaValidator()
         {
-            RuleFor(c => c.NomeEmpresa)
+            RuleFor(c => c.BeneficiaryName)
                 .NotNull()
                     .WithMessage("NomeEmpresa can't be null")
                 .Length(1, 250)
                     .WithMessage("the NomeEmpresa should have at least 1 character and be less than 250 characters");
-            RuleFor(c => c.DataDeVencimento)
+            RuleFor(c => c.EndDate)
                 .MinimumLength(6)
                     .WithMessage("the field should have a min length of 6 characters")
                 .MaximumLength(10)
@@ -26,14 +26,14 @@ namespace Core.Validations
                 }).WithMessage("DataDeVencimento format is invalid, check if value is less than should be or if you entered it correctly")
                 .NotNull()
                     .WithMessage("you can't pass a null value to DataDeVencimento");                                            
-            RuleFor(c => c.Valor)
+            RuleFor(c => c.Price)
                 .GreaterThan(0)
                     .WithMessage("bill value should be greater than 0")
                 .NotNull()
                     .WithMessage("bill value can't be null");
                 
         }        
-        public bool IsValid(Conta conta)
+        public bool IsValid(Billing conta)
         {
             var result = Validate(conta);
             if (result.Errors.Any())

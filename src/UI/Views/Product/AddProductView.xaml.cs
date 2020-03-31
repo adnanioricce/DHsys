@@ -21,11 +21,6 @@ namespace UI.Views.Product
         public AddProductView()
         {
             InitializeComponent();
-        }
-
-        private void btnConfirm_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
+        }        
     }
 }

@@ -1,7 +1,7 @@
-﻿using UI.Entities;
-using UI.Interfaces;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using Core.Entities;
+using Core.Interfaces;
 
 namespace Tests.Lib.Data
 {

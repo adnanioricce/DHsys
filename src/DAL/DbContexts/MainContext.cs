@@ -1,4 +1,4 @@
-﻿using UI.Entities;
+﻿using Core.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -13,23 +13,23 @@ namespace DAL
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Conta>(mapper =>
+            modelBuilder.Entity<Billing>(mapper =>
             {
                 mapper.ToTable("Contas");
                 mapper.HasKey(prop => prop.Id);
                 mapper.HasData(new[] { 
-                    new Conta
+                    new Billing
                     {
                         Id = 1,
-                        DataDeVencimento = DateTime.UtcNow.ToString(),
-                        NomeEmpresa = "empresa",
-                        Valor = 12.99m
-                    }, new Conta
+                        EndDate = DateTime.UtcNow.ToString(),
+                        BeneficiaryName = "empresa",
+                        Price = 12.99m
+                    }, new Billing
                     {
                         Id = 2,
-                        DataDeVencimento = DateTime.UtcNow.ToString(),
-                        NomeEmpresa = "empresa 2",
-                        Valor = 22.99m
+                        EndDate = DateTime.UtcNow.ToString(),
+                        BeneficiaryName = "empresa 2",
+                        Price = 22.99m
                     }
                 });
             });

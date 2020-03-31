@@ -1,11 +1,10 @@
 using Xunit;
-using UI.Entities;
-using UI.Entities.Catalog;
 using Tests.Lib.Data;
-using UI.Interfaces;
 using System.Linq;
 using System;
-using UI.Services;
+using Core.Services;
+using Core.Entities.Catalog;
+using Core.Interfaces;
 
 namespace Services.Tests
 {

@@ -1,8 +1,8 @@
-﻿using UI.Entities;
-using UI.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Interfaces;
+using Core.Entities;
 
 namespace DAL
 {

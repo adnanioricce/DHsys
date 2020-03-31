@@ -7,6 +7,7 @@ using System;
 using System.Windows;
 using UI.ViewModels;
 using UI.Views.Product;
+using Core.Interfaces;
 
 namespace UI
 {
