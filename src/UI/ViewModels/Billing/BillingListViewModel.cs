@@ -9,14 +9,14 @@ using System.Linq;
 
 namespace UI.ViewModels
 {
-    public class ContaListViewModel : ViewModelBase
+    public class BillingListViewModel : ViewModelBase
     {
         private readonly IRepository<Billing> _contaRepository;
         private string _searchPattern = string.Empty;
         public string SearchPattern { get { return _searchPattern; } set { OnSearch(value); } }
         public RelayCommand<string> SearchUpdateCommand { get; set; }
         public ObservableCollection<Billing> Contas { get; set; }
-        public ContaListViewModel(IRepository<Billing> contaRepository)
+        public BillingListViewModel(IRepository<Billing> contaRepository)
         {
             _contaRepository = contaRepository;
             SearchUpdateCommand = new RelayCommand<string>(OnSearch, CanSearch);

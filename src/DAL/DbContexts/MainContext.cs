@@ -7,9 +7,13 @@ namespace DAL
     public class MainContext : DbContext
     {
         //public DbSet<Conta> Contas { get; set; }
+        public MainContext(DbContextOptions<MainContext> options) : base(options)
+        {
+
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=./contas.db");            
+            optionsBuilder.UseSqlite("Data Source=./database.db");            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -21,13 +25,13 @@ namespace DAL
                     new Billing
                     {
                         Id = 1,
-                        EndDate = DateTime.UtcNow.ToString(),
+                        EndDate = DateTime.UtcNow,
                         BeneficiaryName = "empresa",
                         Price = 12.99m
                     }, new Billing
                     {
                         Id = 2,
-                        EndDate = DateTime.UtcNow.ToString(),
+                        EndDate = DateTime.UtcNow,
                         BeneficiaryName = "empresa 2",
                         Price = 22.99m
                     }

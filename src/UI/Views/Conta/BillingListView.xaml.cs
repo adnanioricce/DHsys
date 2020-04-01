@@ -11,16 +11,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace UI.Views.Product
+namespace UI.Views.Conta
 {
     /// <summary>
-    /// Interação lógica para AddProductView.xam
+    /// Interação lógica para ContaListView.xam
     /// </summary>
-    public partial class AddProductView : Page
+    public partial class BillingListView : UserControl
     {
-        public AddProductView()
+        public BillingListView()
         {
             InitializeComponent();
-        }        
+        }
     }
 }

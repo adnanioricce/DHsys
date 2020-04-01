@@ -5,6 +5,6 @@ namespace Core.Interfaces
 {
     public interface IStockService
     {
-        void AddMultipleStockEntries(IEnumerable<Stockentries> stockentries);
+        void AddMultipleStockEntries(IEnumerable<StockEntry> stockentries);
     }
 }

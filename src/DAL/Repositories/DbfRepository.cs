@@ -1,7 +1,9 @@
 using Core.Interfaces;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace DAL
 {
@@ -9,10 +11,10 @@ namespace DAL
     {
         private readonly LegacyContext<T> _context;
         private readonly string DbName;
-        public DbfRepository(LegacyContext<T> context,LegacyDatabaseModel dbSettings)
+        public DbfRepository(LegacyContext<T> context,IOptions<LegacyDatabaseSettings> dbSettings)
         {
             _context = context;
-            DbName = dbSettings.DataSource;
+            DbName = $"{dbSettings.Value.DataSource}\\{typeof(T).Name.ToUpper()}.dbf";
         }
         public void Add(T entry)
         {
@@ -47,9 +49,12 @@ namespace DAL
 
         public IEnumerable<T> MultipleFromRawSqlQuery(string query)
         {
-            throw new System.NotImplementedException();
+            return _context.MultipleFromRawQuery(query);
+        }        
+        public async Task<IEnumerable<T>> MultipleFromRawSqlQueryAsync(string query)
+        {
+            return await _context.MultipleFromRawQueryAsync(query);
         }
-
         public IQueryable<T> QueryableByRawQuery(string query)
         {
             throw new System.NotImplementedException();

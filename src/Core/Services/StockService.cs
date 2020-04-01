@@ -8,13 +8,13 @@ namespace Core.Services
 {
     public class StockService : IStockService
     {
-        private readonly IRepository<Stockentries> _stockEntryRepository;
-        public StockService(IRepository<Stockentries> stockEntryRepository)
+        private readonly IRepository<StockEntry> _stockEntryRepository;
+        public StockService(IRepository<StockEntry> stockEntryRepository)
         {
             _stockEntryRepository = stockEntryRepository;
         }
 
-        public void AddMultipleStockEntries(IEnumerable<Stockentries> stockentries)
+        public void AddMultipleStockEntries(IEnumerable<StockEntry> stockentries)
         {
             throw new NotImplementedException();
         }

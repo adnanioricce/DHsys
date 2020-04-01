@@ -4,17 +4,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:model="clr-namespace:UI.Models"
              xmlns:local="clr-namespace:UI.Views.Product"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <md:Card VerticalAlignment="Center" HorizontalAlignment="Center" md:ShadowAssist.ShadowDepth="Depth5">
+             d:DesignHeight="450" d:DesignWidth="800"
+             >
+    <UserControl.Resources>
+        <DataTemplate x:Key="ProductCardModel" DataType="{x:Type model:ProductCardModel}">
+            <local:ProductCardControlView/>
+        </DataTemplate>
+    </UserControl.Resources>
+    <UserControl.DataContext>
+        <model:ProductCardModel/>
+    </UserControl.DataContext>
+    <md:Card VerticalAlignment="Center" HorizontalAlignment="Stretch" md:ShadowAssist.ShadowDepth="Depth5" >
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*"/>
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="Name" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBlock Grid.Row="0" Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="16">
                 <Image x:Name="cardImage" Source="../../Resources/Images/placeholder.png" MinWidth="64" MinHeight="64" MaxWidth="128" MaxHeight="128" />
                 <StackPanel>
@@ -39,13 +49,15 @@
                             <Setter Property="HorizontalAlignment" Value="Left"/>
                         </Style>
                     </StackPanel.Resources>
-                    <TextBlock Text="Preço de fabrica: R$3,99"/>
-                    <TextBlock Text="Preço Consumidor Final: R$9,99"/>
+                    <Label Content="Preço de fabrica"/>
+                    <TextBlock Text="{Binding CostPrice}"/>
+                    <Label Content="Preço Consumidor final"/>
+                    <TextBlock Text="{Binding EndCustomerPrice}"/>
                 </StackPanel>
             </StackPanel>
             <StackPanel Grid.Row="2">
-                <TextBlock Text="||||||||||||||||||||||||||||||||" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <TextBlock Text="2858779" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Barcode}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Code}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </StackPanel>
         </Grid>
     </md:Card>

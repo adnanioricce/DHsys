@@ -14,7 +14,7 @@ namespace Services.Tests
         {
             //Given
             var stocks = GetBaseStockEntries();
-            var repo = new FakeRepository<Stockentries>();
+            var repo = new FakeRepository<StockEntry>();
             var service = new StockService(repo);
             //When
             service.AddMultipleStockEntries(stocks);
@@ -28,15 +28,15 @@ namespace Services.Tests
             //Given
             var stocks = GetBaseStockEntries();
             //TODO:Add invalid state
-            var invalidStocks = new List<Stockentries>{
-                new Stockentries{
+            var invalidStocks = new List<StockEntry>{
+                new StockEntry{
 
-                },new Stockentries{
+                },new StockEntry{
 
                 }
             };
             stocks.Concat(invalidStocks);
-            var repo = new FakeRepository<Stockentries>();
+            var repo = new FakeRepository<StockEntry>();
             var service = new StockService(repo);
             //When
             service.AddMultipleStockEntries(stocks);
@@ -44,13 +44,13 @@ namespace Services.Tests
             var validEntries = repo.GetAll();
             Assert.Equal(2,validEntries.Count());
         }                        
-        private IEnumerable<Stockentries> GetBaseStockEntries()
+        private IEnumerable<StockEntry> GetBaseStockEntries()
         {
-            return new List<Stockentries>{
-                new Stockentries{
+            return new List<StockEntry>{
+                new StockEntry{
 
                 },
-                new Stockentries{
+                new StockEntry{
 
                 }
             };

@@ -1,25 +1,33 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using System;
+using System.Diagnostics;
+using System.Threading.Tasks;
+using UI.Services;
 
 namespace UI.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private readonly ViewModelLocator _locator;
-        public RelayCommand MoveToAddContaViewCommand { get; set; }
-        public RelayCommand MoveToContaListViewCommand { get; set; }
-        public object DataContext { get; set; }
-        public MainWindowViewModel(ViewModelLocator locator)
+        private object _currentDataContext = null;
+        private readonly CustomNavigationService _navigationService;
+        public RelayCommand<object> MoveToViewModelCommand { get; set; }                
+        public object CurrentDataContext
         {
-            _locator = locator;
+            get { return _currentDataContext; }
+            set
+            {                
+                Set(ref _currentDataContext, value);
+            }
         }
-        public void MoveToAddContaView()
-        {            
-            DataContext = _locator.AddContaViewModel;
+        public MainWindowViewModel(CustomNavigationService navigationService)
+        {
+            _navigationService = navigationService;
+            MoveToViewModelCommand = new RelayCommand<object>(MoveToView);             
         }
-        public void MoveToContaListView()
+        public void MoveToView(object parameter)
         {            
-            DataContext = _locator.ContaListViewModel;
-        }                
+            CurrentDataContext = parameter;            
+        }        
     }
 }

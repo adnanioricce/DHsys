@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Linq;
+using System.Threading.Tasks;
 using Dapper;
 using Microsoft.Extensions.Options;
 
@@ -13,12 +14,12 @@ namespace DAL
     public class LegacyContext<T>
     {
         private readonly IDbConnection _connection;        
-        private readonly LegacyDatabaseModel _dbParameters;
+        private readonly LegacyDatabaseSettings _dbParameters;
         private readonly EntityField[] _fields = typeof(T).GetProperties().Select(x => new EntityField{
                 FieldName = x.Name,
                 Value = null
             }).ToArray();
-        public LegacyContext(IOptions<LegacyDatabaseModel> options)
+        public LegacyContext(IOptions<LegacyDatabaseSettings> options)
         {
             _connection = new OleDbConnection(options.Value.ToString());                                     
             
@@ -30,10 +31,17 @@ namespace DAL
             _connection.Close();
             return result;
         }        
-        public IEnumerable<T> MultipleRawQuery(string sql)
+        public IEnumerable<T> MultipleFromRawQuery(string sql)
         {
             _connection.Open();
             var result = _connection.Query<T>(sql);
+            _connection.Close();
+            return result;
+        }
+        public async Task<IEnumerable<T>> MultipleFromRawQueryAsync(string query)
+        {
+            _connection.Open();
+            var result = await _connection.QueryAsync<T>(query);
             _connection.Close();
             return result;
         }

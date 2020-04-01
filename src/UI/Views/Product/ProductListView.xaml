@@ -1,4 +1,4 @@
-﻿<Page x:Class="UI.Views.Product.ProductListView"
+﻿<UserControl x:Class="UI.Views.Product.ProductListView"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,31 +7,51 @@
       xmlns:local="clr-namespace:UI.Views.Product"
       xmlns:vms="clr-namespace:UI.ViewModels.Product"
       xmlns:models="clr-namespace:UI.Models"
+      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
-      Title="ProductListView"
+      d:DesignHeight="450" d:DesignWidth="800"      
       DataContext="{Binding Source={StaticResource Locator}, Path=ProductListViewModel}">
-    <Page.Resources>
-        <DataTemplate x:Key="ProductCard" DataType="{x:Type models:ProductCardControlModel}">
+    <UserControl.Resources>
+        <DataTemplate x:Key="ProductCard" DataType="{x:Type models:ProductCardModel}">
             <local:ProductCardControlView/>
         </DataTemplate>
-    </Page.Resources>
+        <!--<DataTemplate DataType="{x:Type vms:ProductListViewModel}">
+            <local:CreateProductView/>
+        </DataTemplate>-->
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition MinWidth="300" Width="9*"/>
                 <ColumnDefinition MinWidth="30" Width="1*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Row="0" Grid.Column="0" Background="White" FontSize="20" md:HintAssist.Hint="Termo a procurar"/>
+            <TextBox Text="{Binding SearchPattern,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" Background="White" FontSize="20" md:HintAssist.Hint="Termo a procurar">
+                
+            </TextBox>
             <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="parameters" FontSize="9"/>
         </Grid>
-        <ListView DataContext="{Binding ProdutoCollection}" ItemTemplate="{StaticResource ResourceKey=ProductCard}">
-            
+        <DataGrid Grid.Row="1" ItemsSource="{Binding ProdutoCollection,Mode=TwoWay}">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Imagem">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding FrontImage}" />
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Codigo de barras" Binding="{Binding Barcode}"/>
+                <DataGridTextColumn Header="Codigo" Binding="{Binding Code}"/>
+                <DataGridTextColumn Header="Nome" Binding="{Binding Name}"/>
+                <DataGridTextColumn Header="Descrição" Binding="{Binding Description}"/>
+                <DataGridTextColumn Header="Preço de fabrica" Binding="{Binding CostPrice}"/>
+                <DataGridTextColumn Header="Preço consumidor final" Binding="{Binding EndCustomerPrice}"/>
+                <DataGridTextColumn Header="Quantidade em Estoque" Binding="{Binding StockQuantity}"/>
+            </DataGrid.Columns>
                         
-        </ListView>
+        </DataGrid>
     </Grid>
-</Page>
+</UserControl>

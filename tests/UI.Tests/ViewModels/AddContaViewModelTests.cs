@@ -19,7 +19,7 @@ namespace UI.Tests.ViewModels
         public void CreateConta_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var viewModel = new AddContaViewModel(GetMockRepository());
+            var viewModel = new CreateBillingViewModel(GetMockRepository());
             var model = new ContaModel {
                 DataDeVencimento = DateTime.UtcNow.AddDays(30).ToShortDateString(),
                 NomeEmpresa = "empresa",
@@ -38,7 +38,7 @@ namespace UI.Tests.ViewModels
         public void CanCreateConta_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var viewModel = new AddContaViewModel(GetMockRepository());
+            var viewModel = new CreateBillingViewModel(GetMockRepository());
             var model = new ContaModel
             {
                 DataDeVencimento = "01/11/20",

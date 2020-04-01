@@ -4,7 +4,7 @@ using Core.Entities.Catalog;
 
 namespace Core.Entities.Stock
 {
-    public partial class Stockentries : BaseEntity
+    public class StockEntry : BaseEntity
     {        
         public int? DrugId { get; set; }
         public int? SupplierId { get; set; }

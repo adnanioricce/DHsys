@@ -1,6 +1,6 @@
 namespace DAL
 {
-    public class LegacyDatabaseModel
+    public class LegacyDatabaseSettings
     {
         public string Provider { get; set; }
         public string DataSource { get; set; }

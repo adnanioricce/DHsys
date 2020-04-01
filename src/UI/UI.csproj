@@ -33,9 +33,4 @@
     </None>
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Entities\" />
-    <Folder Include="Resources\Icons\" />
-  </ItemGroup>
-
 </Project>

@@ -19,7 +19,7 @@ namespace UI.Tests.Validations
             // Arrange
             var contaValidator = this.CreateContaValidator();
             Billing conta = new Billing {
-                EndDate = DateTime.UtcNow.AddDays(30).ToShortDateString(),
+                EndDate = DateTime.UtcNow.AddDays(30),
                 BeneficiaryName = "empresa",
                 Price = 123.99m,
                 IsPaid = false
@@ -42,7 +42,7 @@ namespace UI.Tests.Validations
             var contaValidator = this.CreateContaValidator();
             Billing conta = new Billing
             {
-                EndDate = dataDeVencimento,
+                EndDate = DateTime.Parse(dataDeVencimento),
                 BeneficiaryName = "empresa",
                 Price = 123.99m,
                 IsPaid = false
@@ -61,7 +61,7 @@ namespace UI.Tests.Validations
             var contaValidator = this.CreateContaValidator();
             Billing conta = new Billing
             {
-                EndDate = DateTime.UtcNow.AddDays(30).ToShortDateString(),
+                EndDate = DateTime.UtcNow.AddDays(30),
                 BeneficiaryName = nomeEmpresa,
                 Price = 123.99m,
                 IsPaid = false
@@ -81,7 +81,7 @@ namespace UI.Tests.Validations
             var contaValidator = this.CreateContaValidator();
             Billing conta = new Billing
             {
-                EndDate = DateTime.UtcNow.AddDays(30).ToShortDateString(),
+                EndDate = DateTime.UtcNow.AddDays(30),
                 BeneficiaryName = "empresa",
                 Price = valor,
                 IsPaid = false

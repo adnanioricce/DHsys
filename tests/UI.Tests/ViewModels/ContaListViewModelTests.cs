@@ -13,7 +13,7 @@ namespace UI.Tests.ViewModels
         public void OnSearch_StateUnderTest_ExpectedBehavior()
         {
             // Arrange            
-            var viewModel = new ContaListViewModel(new FakeRepository<Billing>());
+            var viewModel = new BillingListViewModel(new FakeRepository<Billing>());
             string value = "1";
 
             // Act
@@ -27,7 +27,7 @@ namespace UI.Tests.ViewModels
         public void CanSearch_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var viewModel = new ContaListViewModel(null);
+            var viewModel = new BillingListViewModel(null);
             object parameter = null;
 
             // Act

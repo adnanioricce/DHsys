@@ -6,9 +6,9 @@ namespace UI.ViewModels
     public class ViewModelLocator
     {        
         public MainWindowViewModel MainWindowViewModel => App.ServiceProvider.GetRequiredService<MainWindowViewModel>();
-        public ContaListViewModel ContaListViewModel => App.ServiceProvider.GetRequiredService<ContaListViewModel>();
-        public AddContaViewModel AddContaViewModel => App.ServiceProvider.GetRequiredService<AddContaViewModel>();
+        public BillingListViewModel BillingListViewModel => App.ServiceProvider.GetRequiredService<BillingListViewModel>();
+        public CreateBillingViewModel CreateBillingViewModel => App.ServiceProvider.GetRequiredService<CreateBillingViewModel>();
         public ProductListViewModel ProductListViewModel => App.ServiceProvider.GetRequiredService<ProductListViewModel>();
-        public ProductViewModel ProductViewModel => App.ServiceProvider.GetRequiredService<ProductViewModel>();
+        public CreateProductViewModel CreateProductViewModel => App.ServiceProvider.GetRequiredService<CreateProductViewModel>();
     }
 }

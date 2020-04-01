@@ -11,6 +11,7 @@
 TestSecrets/**/*.*
 Resources/
 Resources/**/*.*
+src/UI/appsettings.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 *.ionide
