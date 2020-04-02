@@ -6,7 +6,8 @@ namespace Core.Interfaces
     public interface IRepository<T>
     {
         IEnumerable<T> GetAll();
-        T GetById(int id);
+        T GetBy(int id);
+        T GetBy(string id);
         void Add(T entry);
         void AddRange(IEnumerable<T> entities);
         void Update(T entity);

@@ -9,7 +9,7 @@
       xmlns:models="clr-namespace:UI.Models"
       xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"      
+      d:DesignHeight="600" d:DesignWidth="900"      
       DataContext="{Binding Source={StaticResource Locator}, Path=ProductListViewModel}">
     <UserControl.Resources>
         <DataTemplate x:Key="ProductCard" DataType="{x:Type models:ProductCardModel}">
@@ -29,9 +29,7 @@
                 <ColumnDefinition MinWidth="300" Width="9*"/>
                 <ColumnDefinition MinWidth="30" Width="1*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding SearchPattern,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" Background="White" FontSize="20" md:HintAssist.Hint="Termo a procurar">
-                
-            </TextBox>
+            <TextBox Text="{Binding SearchPattern,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" Background="White" FontSize="20" md:HintAssist.Hint="Termo a procurar"/>
             <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="parameters" FontSize="9"/>
         </Grid>
         <DataGrid Grid.Row="1" ItemsSource="{Binding ProdutoCollection,Mode=TwoWay}">

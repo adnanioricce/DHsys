@@ -17,5 +17,8 @@ namespace Core.Interfaces
         /// <param name="legacyEntity">the entity with legacy model</param>
         /// <returns>a entity on the current domain model</returns>
         T MapToDomainModel(TLegacy legacyEntity);
+        IEnumerable<T> MapTable(string tableName);
+        IEnumerable<T> GetChanges(string tableName);
+        void PersistChanges(IEnumerable<T> changedEntities);
     }
 }

@@ -20,7 +20,7 @@ namespace Services.Tests
             var service = new DrugService(repository);
             //when
             service.CreateDrug(drug);
-            var returnedDrug = repository.GetById(1);
+            var returnedDrug = repository.GetBy(1);
             //Then 
             Assert.Equal(1,returnedDrug.Id);
         }
@@ -31,12 +31,12 @@ namespace Services.Tests
             var repository = new FakeRepository<Drug>();
             var drug = BaseCreateDrugEntity();                     
             drug.ManufacturerId = 0;            
-            drug.Code = "";
+            drug.UniqueCode = "";
             repository.Add(drug);
             var service = new DrugService(repository);
             //when
             service.CreateDrug(drug);
-            var returnedDrug = repository.GetById(1);
+            var returnedDrug = repository.GetBy(1);
             //Then 
             Assert.Equal(1,returnedDrug.Id);
         }
@@ -86,18 +86,17 @@ namespace Services.Tests
                 Description = "no description",
                 Classification = "some classification",
                 DrugCost = 14.99m,
-                DosageInMg = 30,
+                AbsoluteDosageInMg = 30,
+                Dosage = "30mg",
                 QuantityInStock = 4,
                 ReorderLevel = 0,
                 ReorderQuantity = 1,
                 EndCustomerPrice = 32.99m,
-                Substance = "Some Substance",
-                TypeOfUse = "Oral",
-                MinimalAgeOfUse = 12,
+                ActivePrinciple = "Some Substance",                
                 PrescriptionNeeded = false,
                 DigitalBuleLink = "http://falselink.com/bule000001",
                 BarCode = Guid.NewGuid().ToString(),
-                Code = "40028922",
+                UniqueCode = "40028922",
             };                  
         }
         

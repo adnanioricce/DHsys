@@ -35,7 +35,7 @@ namespace DAL
             return DbSet.ToList();
         }
 
-        public virtual T GetById(int id)
+        public virtual T GetBy(int id)
         {
             return DbSet.Find(id);
         }
@@ -53,6 +53,11 @@ namespace DAL
         public void SaveChanges()
         {
             Context.SaveChanges();
+        }
+
+        public T GetBy(string id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

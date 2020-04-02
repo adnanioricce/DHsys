@@ -11,6 +11,16 @@ namespace Core.Entities.Catalog
         public string CounterIndication { get; set; }
         public string HowWorks { get; set; }
         public string HowToUse { get; set; }
+        /// <summary>
+        /// Get or set The description of the Type of use of this drug
+        /// </summary>
+        /// <value></value>
+        public string TypeOfUse { get; set; }
+        /// <summary>
+        /// Get or set the minimal age that this drug should be reqCorered
+        /// </summary>
+        /// <value></value>
+        public int? MinimalAgeOfUse { get; set; }
         public string Substances { get; set; }
         public string UserBule { get; set; }
         public string ProfessionalBule { get; set; }

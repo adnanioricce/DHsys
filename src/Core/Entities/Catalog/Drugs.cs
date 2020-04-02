@@ -20,7 +20,7 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public string PrCdse { get; set; }
-        public int ManufacturerId { get; set; }
+        public int? ManufacturerId { get; set; }
         public string ManufacturerName { get; set; }
         /// <summary>
         /// Get or set the DrugName. the business has it's own way to name drugs
@@ -44,31 +44,26 @@ namespace Core.Entities.Catalog
         /// <value></value>
         public decimal? DrugCost { get; set; }
         /// <summary>
+        /// Get or set the string representation of the drug dosage
+        /// </summary>
+        public string Dosage { get; set; }
+        /// <summary>
         /// Get or Set The dosage writed on the drug
         /// </summary>
         /// <value></value>
-        public double? DosageInMg { get; set; }        
+        public double? AbsoluteDosageInMg { get; set; }        
         /// <summary>
         /// Get or set The substance in the drug.
         /// TODO:Change this to a entity called Substance, with a relation of 1(drug)-to-n(substances)
         /// </summary>
         /// <value></value>        
-        public string Substance { get; set; }
+        public string ActivePrinciple { get; set; }
         /// <summary>
         /// Get or set the number of the lot in the stock entry. obrigatory value for antibiotics and prescripted drugs
         /// </summary>
         /// <value></value>
         public string LotNumber { get; set; }
-        /// <summary>
-        /// Get or set The description of the Type of use of this drug
-        /// </summary>
-        /// <value></value>
-        public string TypeOfUse { get; set; }
-        /// <summary>
-        /// Get or set the minimal age that this drug should be reqCorered
-        /// </summary>
-        /// <value></value>
-        public int? MinimalAgeOfUse {get; set;}
+        
         /// <summary>
         /// Get or set if this Drug need prescription to be selled
         /// </summary>
@@ -84,17 +79,14 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public string DigitalBuleLink { get; set; }        
-        /// <summary>
-        /// Get or set the reference to the Supplier Entity
-        /// </summary>
-        /// <value></value>
-        public virtual Supplier Supplier { get; set; }
+        
+
         /// <summary>
         /// Get or set the reference collection of Drug informations
         /// </summary>
         /// <value></value>
-        public virtual ICollection<Druginformation> Druginformation { get; set; }
-        public virtual ICollection<Catalog.Drugprices> Drugprices { get; set; }
-        public virtual ICollection<StockEntry> Stockentries { get; set; }
+        public virtual ICollection<Druginformation> Druginformation { get; set; } = new List<Druginformation>();
+        public virtual ICollection<Catalog.Drugprices> Drugprices { get; set; } = new List<Drugprices>();
+        public virtual ICollection<StockEntry> Stockentries { get; set; } = new List<StockEntry>();
     }
 }

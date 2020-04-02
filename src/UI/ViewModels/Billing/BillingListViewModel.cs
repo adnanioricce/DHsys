@@ -19,7 +19,7 @@ namespace UI.ViewModels
         public BillingListViewModel(IRepository<Billing> contaRepository)
         {
             _contaRepository = contaRepository;
-            SearchUpdateCommand = new RelayCommand<string>(OnSearch, CanSearch);
+            SearchUpdateCommand = new RelayCommand<string>(OnSearch);
             Contas = new ObservableCollection<Billing>();
         }
         
@@ -30,21 +30,17 @@ namespace UI.ViewModels
                 var contas = _contaRepository.Query()
                 .Where(c => EF.Functions.Like(c.BeneficiaryName, "%" + value + "%"))
                 .ToList();
-                PopulateCollection(Contas, contas);
+                UpdateBillingCollection(Contas, contas);
             }
             else
             {
                 if (Contas.Count == 0)
-                    PopulateCollection(Contas, _contaRepository.GetAll());
+                    UpdateBillingCollection(Contas, _contaRepository.GetAll());
             }
-        }
-        public virtual bool CanSearch(object parameter)
-        {
-            return true;
-        }
+        }       
 
-        private void PopulateCollection(ObservableCollection<Billing> contas,IEnumerable<Billing> novasContas)
-        {
+        private void UpdateBillingCollection(ObservableCollection<Billing> contas,IEnumerable<Billing> novasContas)
+        {            
             Contas.Clear();
             for (int i = 0; i < novasContas.Count(); i++)
                 Contas.Add(novasContas.ElementAt(i));

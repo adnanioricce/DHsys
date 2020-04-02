@@ -70,8 +70,7 @@ namespace UI.ViewModels.Product
                 WHERE prdesc LIKE '%{pattern}%' 
                 OR prbarra LIKE '%{pattern}%'
                 OR prprinci LIKE '%{pattern}%'
-                OR prcodi LIKE '%{pattern}%'
-                OR prbarra LIKE '%{pattern}%'");
+                OR prcodi LIKE '%{pattern}%'");
                 foreach (var produto in produtos)
                 {
                     System.Windows.Application.Current.Dispatcher.Invoke(() => 

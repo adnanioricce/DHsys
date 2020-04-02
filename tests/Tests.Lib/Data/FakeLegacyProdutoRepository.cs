@@ -5,23 +5,23 @@ using Core.Interfaces;
 
 namespace Tests.Lib.Data
 {
-    public class FakeLegacyRepository<T> : ILegacyRepository<T> where T : Produto
+    public class FakeLegacyProdutoRepository : ILegacyRepository<Produto>
     {
-        public FakeLegacyRepository()
+        public FakeLegacyProdutoRepository()
         {
             
         }
-        public FakeLegacyRepository(IEnumerable<T> data)
+        public FakeLegacyProdutoRepository(IEnumerable<Produto> data)
         {
             AddRange(data);
         }
-        private readonly Dictionary<string, T> context = new Dictionary<string, T>();        
-        public void Add(T entry)
+        private readonly Dictionary<string, Produto> context = new Dictionary<string, Produto>();        
+        public void Add(Produto entry)
         {                        
             context.Add(entry.Prcodi, entry);
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public void AddRange(IEnumerable<Produto> entities)
         {
             foreach (var entity in entities)
             {
@@ -29,22 +29,22 @@ namespace Tests.Lib.Data
             }
         }
 
-        public void Delete(T entity)
+        public void Delete(Produto entity)
         {
             context.Remove(context.FirstOrDefault(e => e.Value.Equals(entity)).Key);
         }
 
-        public IEnumerable<T> GetAll()
+        public IEnumerable<Produto> GetAll()
         {
             return context.Values.AsEnumerable();
         }
 
-        public T GetById(int id)
+        public Produto GetById(int id)
         {
             return context[id.ToString()];
         }
 
-        public IQueryable<T> Query()
+        public IQueryable<Produto> Query()
         {
             return context.Values.AsQueryable();
         }
@@ -54,32 +54,32 @@ namespace Tests.Lib.Data
             //TODO;
         }
 
-        public void Update(T entity)
+        public void Update(Produto entity)
         {
             context[context.FirstOrDefault(e => e.Value == entity).Key] = entity;
         }
 
-        public T GetById(string id)
+        public Produto GetById(string id)
         {
             return context[id];
         }
 
-        public T RawSqlQuery(string query)
+        public Produto RawSqlQuery(string query)
         {
             throw new System.NotImplementedException();
         }
 
-        public IEnumerable<T> MultipleFromRawSqlQuery(string query)
+        public IEnumerable<Produto> MultipleFromRawSqlQuery(string query)
+        {
+            return context.Values;
+        }
+
+        public void Command(string query, Produto entity)
         {
             throw new System.NotImplementedException();
         }
 
-        public void Command(string query, T entity)
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public IQueryable<T> QueryableByRawQuery(string query)
+        public IQueryable<Produto> QueryableByRawQuery(string query)
         {
             throw new System.NotImplementedException();
         }

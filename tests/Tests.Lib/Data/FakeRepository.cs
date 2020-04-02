@@ -7,6 +7,8 @@ namespace Tests.Lib.Data
 {
     public class FakeRepository<T> : IRepository<T> where T : BaseEntity
     {
+        private readonly Dictionary<int, T> context = new Dictionary<int, T>();
+        private int counter = 1;        
         public FakeRepository()
         {
             
@@ -15,8 +17,8 @@ namespace Tests.Lib.Data
         {
             AddRange(data);
         }
-        private readonly Dictionary<int, T> context = new Dictionary<int, T>();
-        private int counter = 1;        
+        
+        
         public void Add(T entry)
         {
             if (entry.Id <= 0)
@@ -47,7 +49,7 @@ namespace Tests.Lib.Data
             return context.Values.AsEnumerable();
         }
 
-        public T GetById(int id)
+        public T GetBy(int id)
         {
             return context[id];
         }
@@ -65,6 +67,11 @@ namespace Tests.Lib.Data
         public void Update(T entity)
         {
             context[entity.Id] = entity;
+        }
+
+        public T GetBy(string id)
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
