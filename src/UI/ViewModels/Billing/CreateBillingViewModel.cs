@@ -29,7 +29,7 @@ namespace UI.ViewModels
         }
         public bool CanCreateConta(ContaModel model)
         {
-            var validator = new ContaValidator();
+            var validator = new BillingValidator();
             return validator.IsValid(new Billing
             {
                 EndDate = DateTime.Parse(model.DataDeVencimento),

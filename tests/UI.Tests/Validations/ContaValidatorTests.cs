@@ -8,9 +8,9 @@ namespace UI.Tests.Validations
 {
     public class ContaValidatorTests
     {        
-        private ContaValidator CreateContaValidator()
+        private BillingValidator CreateContaValidator()
         {
-            return new ContaValidator();
+            return new BillingValidator();
         }
 
         [Fact]

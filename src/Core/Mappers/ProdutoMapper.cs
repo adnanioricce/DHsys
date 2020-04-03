@@ -17,7 +17,12 @@ namespace Core.Mappers
         {
             _produtoRepository = produtoRepository;
             _drugRepository = drugRepository;
+        }        
+        public void SaveLegacyModelOnDatabase()
+        {
+
         }
+        
         public IEnumerable<Drug> MapTable(string tableName)
         {
             var produtoTable = _produtoRepository.QueryableByRawQuery($"SELECT * FROM {tableName}");

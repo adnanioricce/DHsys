@@ -5,9 +5,9 @@ using System.Linq;
 
 namespace Core.Validations
 {
-    public class ContaValidator : AbstractValidator<Billing>
+    public class BillingValidator : AbstractValidator<Billing>
     {
-        public ContaValidator()
+        public BillingValidator()
         {
             RuleFor(c => c.BeneficiaryName)
                 .NotNull()
