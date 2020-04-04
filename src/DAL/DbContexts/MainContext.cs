@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Entities.LegacyScaffold;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -37,6 +38,7 @@ namespace DAL
                     }
                 });
             });
+            modelBuilder.Entity<Produto>().ToTable("Produto");
         }
     }
 }

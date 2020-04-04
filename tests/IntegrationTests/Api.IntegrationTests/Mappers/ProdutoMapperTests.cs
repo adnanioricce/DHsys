@@ -4,37 +4,40 @@ using Core.Interfaces;
 using Core.Mappers;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Xunit;
 
 namespace Api.IntegrationTests.Mappers
 {
     public class ProdutoMapperTests
     {
-        private readonly ILegacyRepository<Produto> _produtoRepository;
+        private readonly ILegacyRepository<Produto> _legacyProdutoRepository;
+        private readonly IRepository<Produto> _produtoRepository;
         private readonly IRepository<Drug> _drugRepository;
-        public ProdutoMapperTests(ILegacyRepository<Produto> produtoRepository, IRepository<Drug> drugRepository)
+        public ProdutoMapperTests(IRepository<Produto> produtoRepository,ILegacyRepository<Produto> legacyProdutoRepository, IRepository<Drug> drugRepository)
         {
             _produtoRepository = produtoRepository;
+            _legacyProdutoRepository = legacyProdutoRepository;
             _drugRepository = drugRepository;
         }
         [Fact]
-        public void MapTable_StateUnderTest_ExpectedBehavior()
+        public void MapTable_ReceivesTableName_ShouldReturnListOfEntitiesMappedFromLegacyModel()
         {
             // Arrange
-            var produtoMapper = new ProdutoMapper(_produtoRepository, _drugRepository);
+            var produtoMapper = new ProdutoMapper(_produtoRepository,_legacyProdutoRepository, _drugRepository);
             string tableName = "PRODUTO.DBF";
 
             // Act
-            var result = (List<Drug>)produtoMapper.MapTable(tableName);
+            var result = produtoMapper.MapTable(tableName);
 
             // Assert            
-            Assert.Equal(5129,result.Count);
+            Assert.Equal(5005, result.Count());
         }        
         [Fact]
-        public void GetChanges_StateUnderTest_ExpectedBehavior()
+        public void GetChanges_ReceivesTableName_ShouldReturnListComparingChangesBetween()
         {
             // Arrange
-            var produtoMapper = new ProdutoMapper(_produtoRepository, _drugRepository);
+            var produtoMapper = new ProdutoMapper(_produtoRepository,_legacyProdutoRepository, _drugRepository);
             string tableName = "PRODUTO.DBF";
 
             // Act
@@ -43,24 +46,20 @@ namespace Api.IntegrationTests.Mappers
             // Assert
             Assert.True(false);
         }
-
+        
         [Fact]
-        public void PersistChanges_StateUnderTest_ExpectedBehavior()
+        public void SaveLegacyModelOnDatabase_ReceivesTableName_ShouldPersistsLegacyEntitiesOnCurrentDatabase() 
         {
             // Arrange
-            var produtoMapper = new ProdutoMapper(_produtoRepository, _drugRepository);
-            IEnumerable<Drug> changedEntities = new Drug[] {
-                new Drug
-                {
-                    
-                }
-            };
-
+            var produtoMapper = new ProdutoMapper(_produtoRepository, _legacyProdutoRepository, _drugRepository);
             // Act
-            produtoMapper.PersistChanges(changedEntities);
-
+            produtoMapper.SaveLegacyModelOnDatabase("PRODUTO.DBF");
             // Assert
-            Assert.True(false);
+            var produtos = _produtoRepository
+                .Query()
+                .Take(30);
+            var count = produtos.Count();
+            Assert.Equal(30, count);
         }
 
     }

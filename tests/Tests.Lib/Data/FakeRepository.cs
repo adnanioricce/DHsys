@@ -71,7 +71,12 @@ namespace Tests.Lib.Data
 
         public T GetBy(string id)
         {
-            throw new System.NotImplementedException();
+            return context.Values.FirstOrDefault(i => i.UniqueCode == id);
+        }
+
+        public IQueryable<T> Query(string query)
+        {
+            return context.Values.AsQueryable(); 
         }
     }
 }

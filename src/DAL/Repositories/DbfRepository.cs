@@ -57,7 +57,7 @@ namespace DAL
         }
         public IQueryable<T> QueryableByRawQuery(string query)
         {
-            throw new System.NotImplementedException();
+            return _context.MultipleFromRawQuery(query).AsQueryable();
         }
 
         public T RawSqlQuery(string query)

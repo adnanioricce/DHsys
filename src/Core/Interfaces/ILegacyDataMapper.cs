@@ -14,7 +14,7 @@ namespace Core.Interfaces
         /// <summary>
         /// Persist the legacy models on dbf tables to current database. The methods adds a integer Id and permits the model to be used on domain Repository
         /// </summary>
-        void SaveLegacyModelOnDatabase();
+        void SaveLegacyModelOnDatabase(string tableName);
         /// <summary>
         /// Maps legacy entity model object to actual domain model 
         /// </summary>
@@ -28,7 +28,6 @@ namespace Core.Interfaces
         /// <returns>Collection of entities mapped from legacy table</returns>
         IEnumerable<T> MapTable(string tableName);
         IEnumerable<T> GetChanges(string tableName);
-        void PersistChanges(IEnumerable<T> changedEntities);
         
     }
 }

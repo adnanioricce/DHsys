@@ -57,7 +57,12 @@ namespace DAL
 
         public T GetBy(string id)
         {
-            throw new System.NotImplementedException();
+            return Context.Find<T>(id);
+        }
+
+        public IQueryable<T> Query(string query)
+        {
+            return DbSet.FromSqlRaw<T>(query);
         }
     }
 }

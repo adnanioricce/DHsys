@@ -1,4 +1,5 @@
 //The project is tied to a old legacy system, with it's own entities, and them will need to be mapped
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -11,59 +12,62 @@ namespace Core.Mappers
 {
     public class ProdutoMapper : ILegacyDataMapper<Drug,Produto>
     {
-        private readonly ILegacyRepository<Produto> _produtoRepository;
+        private readonly ILegacyRepository<Produto> _legacyProdutoRepository;
+        private readonly IRepository<Produto> _produtoRepository;
         private readonly IRepository<Drug> _drugRepository;
-        public ProdutoMapper(ILegacyRepository<Produto> produtoRepository,IRepository<Drug> drugRepository)
+        public ProdutoMapper(IRepository<Produto> produtoRepository,ILegacyRepository<Produto> legacyProdutoRepository,IRepository<Drug> drugRepository)
         {
+            _legacyProdutoRepository = legacyProdutoRepository;
             _produtoRepository = produtoRepository;
             _drugRepository = drugRepository;
         }        
-        public void SaveLegacyModelOnDatabase()
+        public void SaveLegacyModelOnDatabase(string tableName)
         {
-
+            var produtos = _legacyProdutoRepository.MultipleFromRawSqlQuery($"SELECT * FROM {tableName}");
+            _produtoRepository.AddRange(produtos);
+            _produtoRepository.SaveChanges();
         }
         
         public IEnumerable<Drug> MapTable(string tableName)
         {
-            var produtoTable = _produtoRepository.QueryableByRawQuery($"SELECT * FROM {tableName}");
+            var produtoTable = _legacyProdutoRepository.QueryableByRawQuery($"SELECT * FROM {tableName}");
             var products = produtoTable.Select(p => MapToDomainModel(p));
             return products;
         }
         private Drug MapSimpleFields(Produto produto)
-        {            
-            var drug = new Drug
+        {
+            var drug = new Drug();
+            drug.BarCode = produto.Prbarra;
+            drug.UniqueCode = produto.Prcodi;
+            drug.Description = produto.Prdesc;
+            drug.LotNumber = produto.Prlote;
+            drug.Ncm = produto.Prncms;
+            drug.DrugName = produto.Prdesc;
+            drug.DrugCost = decimal.TryParse(produto.Prfabr.ToString(), out var result) ? result : Convert.ToDecimal(produto.Prfabr);
+            drug.Classification = produto.Prclas;
+            drug.CommercialName = produto.Pretiq;
+            drug.QuantityInStock = int.TryParse(produto.Prestq.ToString(), out var estResult) ? estResult : Convert.ToInt32(produto.Prestq);
+            drug.PrCdse = produto.Prcdse;
+            drug.ActivePrinciple = produto.Prprinci;
+            drug.Section = produto.Secao;
+            drug.EndCustomerPrice = Convert.ToDecimal(produto.Prcons);
+            drug.DiscountValue = decimal.TryParse((produto.Prcons - (produto.Prcons * (produto.DescMax / 100))).ToString(),out var discountValue) ? discountValue : 0.00m;
+            drug.PrescriptionNeeded = !string.IsNullOrEmpty(produto.Prlote) ? true : false;
+            drug.ManufacturerName = produto.Prnola;
+            drug.MinimumStock = int.TryParse(produto.EstMinimo.ToString(),out var minStockResult) ? minStockResult : 1;
+            drug.MainSupplierName = produto.Ultfor;
+            drug.Drugprices.Add(new Drugprices
             {
-                BarCode = produto.Prbarra,
-                UniqueCode = produto.Prcodi,
-                Description = produto.Prdesc,
-                LotNumber = produto.Prlote,
-                Ncm = produto.Prncms,
-                DrugName = produto.Prdesc,
-                DrugCost = decimal.TryParse(produto.Prfabr.ToString(), out var result) ? result : (decimal)produto.Prfabr,
-                Classification = produto.Prclas,
-                CommercialName = produto.Pretiq,
-                QuantityInStock = int.TryParse(produto.Prestq.ToString(), out var estResult) ? estResult : (int)produto.Prestq,
-                PrCdse = produto.Prcdse,
-                ActivePrinciple = produto.Prprinci,
-                Section = produto.Secao,
-                EndCustomerPrice = (decimal)produto.Prfinal,
-                DiscountValue = (decimal)(produto.Prfinal - (produto.Prfinal * (produto.DescMax / 100))),                
-                PrescriptionNeeded = !string.IsNullOrEmpty(produto.Prlote) ? true : false,
-                ManufacturerName = produto.Prnola,     
-                MinimumStock = (int)produto.EstMinimo,   
-                MainSupplierName = produto.Ultfor
-                
-            };
+                Drug = drug,
+                EndCustomerDrugPrice = decimal.TryParse(produto.Prcons.ToString(),out var price) ? price : 0.00m,
+                CostPrice = decimal.TryParse(produto.Prfabr.ToString(),out var fabrPrice) ? fabrPrice : 0.00m,
+                Pricestartdate = DateTime.UtcNow
+
+            });    
+            //};
             //TODO:Wrap all this around another method
             
-            string pattern = "\\d+[a-zA-z]";
-            var regex = new Regex(pattern);
-            string value = produto.Prdesc.Split(' ').Where(desc => regex.IsMatch(desc)).Where(desc => desc.Contains("G")).FirstOrDefault();
-            if(value.Length > 1)
-            {
-                drug.Dosage = value;
-                drug.AbsoluteDosageInMg = double.TryParse(string.Join("", value.Select(d => char.IsDigit(d))), out var dosageValue) ? dosageValue : -1;
-            }            
+                    
             return drug;
         }
         public Drug MapToDomainModel(Produto produto)
@@ -76,6 +80,18 @@ namespace Core.Mappers
             });
             drug.Produto = produto;
             drug.ProdutoId = produto.Id;
+            string pattern = "\\d+[a-zA-z]";
+            var regex = new Regex(pattern);
+            if (string.IsNullOrEmpty(produto.Prdesc))
+            {
+                return drug;
+            }
+            string value = produto.Prdesc.Split(' ').Where(desc => regex.IsMatch(desc)).Where(desc => desc.Contains("G")).FirstOrDefault();
+            if (!string.IsNullOrEmpty(value))
+            {
+                drug.Dosage = value;
+                drug.AbsoluteDosageInMg = double.TryParse(string.Join("", value.Select(d => char.IsDigit(d))), out var dosageValue) ? dosageValue : -1;
+            }
             return drug;
         }           
 
@@ -84,11 +100,6 @@ namespace Core.Mappers
             //TODO:Write a service to get the changes on dbf tables 
             throw new System.NotImplementedException();
         }
-
-        public void PersistChanges(IEnumerable<Drug> changedEntities)
-        {
-            _drugRepository.AddRange(changedEntities);
-            _drugRepository.SaveChanges();
-        }
+        
     }    
 }
