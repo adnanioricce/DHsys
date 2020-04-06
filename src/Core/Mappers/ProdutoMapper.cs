@@ -7,6 +7,7 @@ using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Entities.Stock;
 using Core.Interfaces;
+using LibGit2Sharp;
 //TODO: Move this to DAL project
 namespace Core.Mappers
 {
@@ -100,6 +101,20 @@ namespace Core.Mappers
             //TODO:Write a service to get the changes on dbf tables 
             throw new System.NotImplementedException();
         }
-        
+        private IEnumerable<string> GetFilesChangedInGitRepo()
+        {
+            using var repo = new Repository("../../../../dbRepositoryPath");                        
+            var status = repo.RetrieveStatus(new StatusOptions{
+                IncludeIgnored = false,
+                IncludeUnaltered = false,             
+                   
+            });
+            var files = new List<string>();
+            foreach(var item in status)
+            {
+                files.Add(item.FilePath);
+            }
+            return files;
+        }
     }    
 }

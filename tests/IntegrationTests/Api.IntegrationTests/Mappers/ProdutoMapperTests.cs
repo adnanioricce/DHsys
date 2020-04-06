@@ -23,44 +23,44 @@ namespace Api.IntegrationTests.Mappers
         [Fact]
         public void MapTable_ReceivesTableName_ShouldReturnListOfEntitiesMappedFromLegacyModel()
         {
-            // Arrange
+            // Given
             var produtoMapper = new ProdutoMapper(_produtoRepository,_legacyProdutoRepository, _drugRepository);
             string tableName = "PRODUTO.DBF";
 
-            // Act
+            // When
             var result = produtoMapper.MapTable(tableName);
 
-            // Assert            
+            // Then            
             Assert.Equal(5005, result.Count());
         }        
         [Fact]
         public void GetChanges_ReceivesTableName_ShouldReturnListComparingChangesBetween()
         {
-            // Arrange
+            // Given
             var produtoMapper = new ProdutoMapper(_produtoRepository,_legacyProdutoRepository, _drugRepository);
             string tableName = "PRODUTO.DBF";
 
-            // Act
+            // When
             var result = produtoMapper.GetChanges(tableName);
 
-            // Assert
+            // Then
             Assert.True(false);
         }
         
         [Fact]
         public void SaveLegacyModelOnDatabase_ReceivesTableName_ShouldPersistsLegacyEntitiesOnCurrentDatabase() 
         {
-            // Arrange
+            // Given
             var produtoMapper = new ProdutoMapper(_produtoRepository, _legacyProdutoRepository, _drugRepository);
-            // Act
+            // When
             produtoMapper.SaveLegacyModelOnDatabase("PRODUTO.DBF");
-            // Assert
+            // Then
             var produtos = _produtoRepository
                 .Query()
                 .Take(30);
             var count = produtos.Count();
             Assert.Equal(30, count);
-        }
+        }        
 
     }
 }
