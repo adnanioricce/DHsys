@@ -7,7 +7,7 @@ using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Entities.Stock;
 using Core.Interfaces;
-
+//TODO: Move this to DAL project
 namespace Core.Mappers
 {
     public class ProdutoMapper : ILegacyDataMapper<Drug,Produto>

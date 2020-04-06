@@ -14,7 +14,7 @@ Resources/**/*.*
 src/UI/appsettings.json
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
-*.ionide
+.ionide
 # Mono auto generated files
 mono_crash.*
 

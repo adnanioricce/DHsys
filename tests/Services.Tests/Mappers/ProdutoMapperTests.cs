@@ -73,20 +73,7 @@ namespace Services.Tests.Mappers
             // Assert
             Assert.True(false);            
         }
-
-        [Fact]
-        public void PersistChanges_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var produtoMapper = new ProdutoMapper(null,null, null);
-            IEnumerable<Drug> changedEntities = null;
-
-            // Act
-            produtoMapper.PersistChanges(changedEntities);
-
-            // Assert
-            Assert.True(false);            
-        }
+       
         private bool IsValidMapping(IEnumerable<Drug> drugList,IEnumerable<Produto> produtoList)
         {
             //? this probably isn't any better than use two for loops to find this out

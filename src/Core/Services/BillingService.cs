@@ -1,7 +1,11 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Validations;
+using FluentValidation;
+
 namespace Core.Services
 {
     public class BillingService : IBillingService
@@ -13,8 +17,13 @@ namespace Core.Services
         }
         public void AddBilling(Billing billing)
         {
-            _billingRepository.Add(billing);
-            _billingRepository.SaveChanges();
+            var validator = new BillingValidator();
+            if (validator.IsValid(billing))
+            {
+                _billingRepository.Add(billing);
+                _billingRepository.SaveChanges();
+            }
+            throw new ValidationException("was not possible to save billing because it have a invalid state");
         }
         public IEnumerable<Billing> GetUnpaidBillings(int? limit = null)
         {
