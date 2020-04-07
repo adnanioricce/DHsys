@@ -16,7 +16,9 @@ namespace Core.Mappers
         private readonly ILegacyRepository<Produto> _legacyProdutoRepository;
         private readonly IRepository<Produto> _produtoRepository;
         private readonly IRepository<Drug> _drugRepository;
-        public ProdutoMapper(IRepository<Produto> produtoRepository,ILegacyRepository<Produto> legacyProdutoRepository,IRepository<Drug> drugRepository)
+        public ProdutoMapper(IRepository<Produto> produtoRepository,
+            ILegacyRepository<Produto> legacyProdutoRepository,
+            IRepository<Drug> drugRepository)
         {
             _legacyProdutoRepository = legacyProdutoRepository;
             _produtoRepository = produtoRepository;
@@ -100,21 +102,6 @@ namespace Core.Mappers
         {
             //TODO:Write a service to get the changes on dbf tables 
             throw new System.NotImplementedException();
-        }
-        private IEnumerable<string> GetFilesChangedInGitRepo()
-        {
-            using var repo = new Repository("../../../../dbRepositoryPath");                        
-            var status = repo.RetrieveStatus(new StatusOptions{
-                IncludeIgnored = false,
-                IncludeUnaltered = false,             
-                   
-            });
-            var files = new List<string>();
-            foreach(var item in status)
-            {
-                files.Add(item.FilePath);
-            }
-            return files;
-        }
+        }       
     }    
 }
