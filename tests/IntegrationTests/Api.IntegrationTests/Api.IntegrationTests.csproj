@@ -38,7 +38,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Data\TestGitRepository\" />
+    <Compile Remove="Data\TestGitRepository\**" />
+    <Content Remove="Data\TestGitRepository\**" />
+    <EmbeddedResource Remove="Data\TestGitRepository\**" />
+    <None Remove="Data\TestGitRepository\**" />
   </ItemGroup>
 
 </Project>

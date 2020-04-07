@@ -54,12 +54,23 @@ namespace Api.IntegrationTests.Clients
         public void GetStatus_NoArgumentsTwoFilesAdded_ShouldReturnAllFilesAddedAndModified()
         {
             //Given
+            
             string randomPath = $"./Data/repo-{Guid.NewGuid().ToString()}/";
+            var gitSettings = Options.Create<GitSettings>(new GitSettings
+            {
+                RepositoryPath = randomPath
+            }).Value;
             var repo = CreateRandomRepository(randomPath);            
             WriteTestFile(randomPath);
             WriteTestFile(randomPath);
+            //TODO:Pass gitSettings instead
+            var repoManager = new GitRepositoryManager(gitSettings.RepositoryPath);
             //When
-
+            var changes = repoManager.GetStatus();
+            //Then
+            Assert.True(changes.HasChanged);
+            Assert.Equal(2, changes.Paths.Count());
+            Assert.True(changes.Paths.All(p => File.Exists($"{randomPath}{p}")));
         }
         private Repository CreateRandomRepository(string randomPath)
         {            
