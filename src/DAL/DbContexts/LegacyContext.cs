@@ -4,6 +4,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
 using Dapper;
+using Infrastructure.Settings;
 using Microsoft.Extensions.Options;
 
 namespace DAL

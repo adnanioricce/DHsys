@@ -3,8 +3,8 @@ using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Mappers;
 using Core.Services;
-using Core.Settings;
 using DAL;
+using Infrastructure.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,6 +40,7 @@ namespace Api.IntegrationTests
             services.AddTransient<IDataResourceClient, SupplierDataResourceClient>();
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<GitSettings>(configuration.GetSection(nameof(GitSettings)));
+            services.Configure<AppSettings>(configuration);
         }
         protected override void Configure(IServiceProvider provider)
         {

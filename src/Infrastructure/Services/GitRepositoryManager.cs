@@ -1,19 +1,21 @@
 ﻿using Core.Interfaces;
 using Core.Models;
+using Infrastructure.Settings;
 using LibGit2Sharp;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Core.Services
+namespace Infrastructure.Services
 {
     public class GitRepositoryManager : IGitRepositoryManager
     {
         private readonly LibGit2Sharp.Repository _gitRepository;
         private readonly List<Commit> _commits;
-        public GitRepositoryManager(string repositoryPath)
+        public GitRepositoryManager(IOptions<GitSettings> settings)
         {
-            _gitRepository = new LibGit2Sharp.Repository(repositoryPath);
+            _gitRepository = new LibGit2Sharp.Repository(settings.Value.RepositoryPath);
             if (!(_gitRepository.Head.Tip is null))
             {
                 _commits = _gitRepository.Commits.ToList();

@@ -12,6 +12,7 @@ using UI.Services;
 using UI.Views.Conta;
 using UI.ViewModels.Product;
 using Microsoft.EntityFrameworkCore;
+using Infrastructure.Settings;
 
 namespace UI
 {

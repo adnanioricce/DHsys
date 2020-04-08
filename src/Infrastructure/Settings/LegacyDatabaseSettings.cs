@@ -1,4 +1,4 @@
-namespace DAL
+namespace Infrastructure.Settings
 {
     public class LegacyDatabaseSettings
     {

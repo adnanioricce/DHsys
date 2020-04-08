@@ -4,9 +4,9 @@ using System;
 using System.IO;
 using System.Linq;
 using Xunit;
-using System.Text.Json;
-using Core.Settings;
 using Microsoft.Extensions.Options;
+using Infrastructure.Settings;
+using Infrastructure.Services;
 
 namespace Api.IntegrationTests.Clients
 {
@@ -24,7 +24,8 @@ namespace Api.IntegrationTests.Clients
             //create repo directory
             string randomPath = $"./Data/repo-{Guid.NewGuid().ToString()}/";
             Directory.CreateDirectory(randomPath);            
-            string rootedPath = Repository.Init(randomPath);            
+            string rootedPath = Repository.Init(randomPath);
+            var gitSettings = Options.Create<GitSettings>(new GitSettings { RepositoryPath = randomPath });
             //Add content to diff 
             string pathToFile = randomPath + "/file.txt";
             string pathToSeconfFile = randomPath + "/file-2.txt";
@@ -39,7 +40,7 @@ namespace Api.IntegrationTests.Clients
             Commands.Stage(repo, "*");
             repo.Commit("second message", signature, signature);            
             //now to the repo manager
-            var repoManager = new GitRepositoryManager(rootedPath);                                    
+            var repoManager = new GitRepositoryManager(gitSettings);                                    
             //When
             var diffResult = repoManager.GetDiff();
             //Then
@@ -53,18 +54,17 @@ namespace Api.IntegrationTests.Clients
         [Fact]
         public void GetStatus_NoArgumentsTwoFilesAdded_ShouldReturnAllFilesAddedAndModified()
         {
-            //Given
-            
+            //Given            
             string randomPath = $"./Data/repo-{Guid.NewGuid().ToString()}/";
             var gitSettings = Options.Create<GitSettings>(new GitSettings
             {
                 RepositoryPath = randomPath
-            }).Value;
+            });
             var repo = CreateRandomRepository(randomPath);            
             WriteTestFile(randomPath);
             WriteTestFile(randomPath);
             //TODO:Pass gitSettings instead
-            var repoManager = new GitRepositoryManager(gitSettings.RepositoryPath);
+            var repoManager = new GitRepositoryManager(gitSettings);
             //When
             var changes = repoManager.GetStatus();
             //Then

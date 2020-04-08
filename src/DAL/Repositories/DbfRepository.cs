@@ -1,4 +1,5 @@
 using Core.Interfaces;
+using Infrastructure.Settings;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
