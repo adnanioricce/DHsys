@@ -33,7 +33,7 @@ namespace Api.IntegrationTests
             services.AddScoped(typeof(LegacyContext<>));
             services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));         
             services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
-            services.AddTransient<ILegacyDataMapper<Drug,Produto>, ProdutoMapper>();
+            services.AddTransient<ILegacyDataMapper<Drug,Produto>, LegacyTableMapper>();
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IDrugService, DrugService>();
             services.AddTransient<IBillingService, BillingService>();

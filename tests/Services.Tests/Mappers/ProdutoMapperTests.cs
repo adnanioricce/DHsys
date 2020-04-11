@@ -32,7 +32,7 @@ namespace Services.Tests.Mappers
             }
             var produtoRepository = new FakeLegacyProdutoRepository(produtoList);
             
-            var produtoMapper = new ProdutoMapper(null,produtoRepository,null);
+            var produtoMapper = new LegacyTableMapper(null,produtoRepository,null);
             string tableName = "PRODUTO";
             
             // Act
@@ -46,7 +46,7 @@ namespace Services.Tests.Mappers
         public void MapToDomainModel_ReceivesLegacyDomainModel_ShouldReturnAVersionOfThisModelInTheCurrentModel(Produto sampleProduto)
         {
             // Arrange            
-            var produtoMapper = new ProdutoMapper(null,null,null);            
+            var produtoMapper = new LegacyTableMapper(null,null,null);            
 
             // Act
             var result = produtoMapper.MapToDomainModel(sampleProduto);
@@ -64,7 +64,7 @@ namespace Services.Tests.Mappers
         public void GetChanges_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var produtoMapper = new ProdutoMapper(null,null, null);
+            var produtoMapper = new LegacyTableMapper(null,null, null);
             string tableName = null;
 
             // Act
@@ -79,11 +79,7 @@ namespace Services.Tests.Mappers
             //? this probably isn't any better than use two for loops to find this out
             //? What's the time of this?
             return new HashSet<Drug>(drugList).Any(d => produtoList.Any(p => IsValidDrugForSituation(d, p)));
-        }
-        private bool IsUniqueValues(int listCount1,int listCount2)
-        {
-            return listCount1 == listCount2;
-        }
+        }        
         private bool IsValidDrugForSituation(Drug drug,Produto produto)
         {
             return (drug.Dosage.Contains("G") || drug.Dosage.Contains("L"))

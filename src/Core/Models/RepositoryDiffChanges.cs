@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Core.Models
 {
@@ -11,6 +12,10 @@ namespace Core.Models
         /// <summary>
         /// Flag indicating if repository has any change
         /// </summary>
-        public bool HasChanged { get; set; }        
+        public bool HasChanged { get; set; }
+        /// <summary>
+        /// When commit was writed
+        /// </summary>
+        public DateTime When { get; set; }
     }
 }

@@ -3,26 +3,29 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Core.Entities;
 using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Entities.Stock;
 using Core.Interfaces;
+using Core.Models;
 using LibGit2Sharp;
 //TODO: Move this to DAL project
 namespace Core.Mappers
 {
-    public class ProdutoMapper : ILegacyDataMapper<Drug,Produto>
+    public class LegacyTableMapper : ILegacyDataMapper<Drug,Produto>
     {
         private readonly ILegacyRepository<Produto> _legacyProdutoRepository;
         private readonly IRepository<Produto> _produtoRepository;
         private readonly IRepository<Drug> _drugRepository;
-        public ProdutoMapper(IRepository<Produto> produtoRepository,
+        
+        public LegacyTableMapper(IRepository<Produto> produtoRepository,
             ILegacyRepository<Produto> legacyProdutoRepository,
             IRepository<Drug> drugRepository)
         {
             _legacyProdutoRepository = legacyProdutoRepository;
             _produtoRepository = produtoRepository;
-            _drugRepository = drugRepository;
+            _drugRepository = drugRepository;            
         }        
         public void SaveLegacyModelOnDatabase(string tableName)
         {
@@ -34,7 +37,7 @@ namespace Core.Mappers
         public IEnumerable<Drug> MapTable(string tableName)
         {
             var produtoTable = _legacyProdutoRepository.QueryableByRawQuery($"SELECT * FROM {tableName}");
-            var products = produtoTable.Select(p => MapToDomainModel(p));
+            var products = produtoTable.Select(MapToDomainModel);
             return products;
         }
         private Drug MapSimpleFields(Produto produto)
@@ -89,19 +92,23 @@ namespace Core.Mappers
             {
                 return drug;
             }
-            string value = produto.Prdesc.Split(' ').Where(desc => regex.IsMatch(desc)).Where(desc => desc.Contains("G")).FirstOrDefault();
+            string value = produto.Prdesc.Split(' ')
+                .Where(desc => regex.IsMatch(desc))
+                .Where(desc => desc.Contains("G"))
+                .FirstOrDefault();
             if (!string.IsNullOrEmpty(value))
             {
                 drug.Dosage = value;
                 drug.AbsoluteDosageInMg = double.TryParse(string.Join("", value.Select(d => char.IsDigit(d))), out var dosageValue) ? dosageValue : -1;
             }
             return drug;
-        }           
+        }
 
-        public IEnumerable<Drug> GetChanges(string tableName)
+        public TableChanges<Drug> GetChanges(string tableName)
         {
-            //TODO:Write a service to get the changes on dbf tables 
-            throw new System.NotImplementedException();
-        }       
+            throw new NotImplementedException();
+        }
+        //?Actually, this should not happen here
+
     }    
 }

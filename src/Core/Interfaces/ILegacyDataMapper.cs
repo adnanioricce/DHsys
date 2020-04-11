@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Core.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -27,7 +28,7 @@ namespace Core.Interfaces
         /// <param name="tableName"></param>
         /// <returns>Collection of entities mapped from legacy table</returns>
         IEnumerable<T> MapTable(string tableName);
-        IEnumerable<T> GetChanges(string tableName);
+        TableChanges<T> GetChanges(string tableName);
         
     }
 }

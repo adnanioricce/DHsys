@@ -2,10 +2,8 @@
 
 namespace Core.Interfaces
 {
-    public interface IDbSynchronizer<T>
-    {
-        IEnumerable<string> GetFilesChanged();
-        void AddFileChanged();
-        void SyncChanges();
+    public interface IDbSynchronizer
+    {        
+        void SyncDbfChanges();
     }
 }
