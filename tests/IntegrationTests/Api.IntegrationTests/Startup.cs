@@ -1,4 +1,5 @@
-﻿using Core.Entities.Catalog;
+﻿using Application.Services;
+using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Mappers;
@@ -29,8 +30,12 @@ namespace Api.IntegrationTests
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
+            services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
+            services.Configure<GitSettings>(configuration.GetSection(nameof(GitSettings)));
+            services.Configure<AppSettings>(configuration);
             services.AddDbContext<DbContext, MainContext>(opt => opt.UseSqlite("./Data/database.db"));                
             services.AddScoped(typeof(LegacyContext<>));
+            services.AddScoped<MainContext>();
             services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));         
             services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
             services.AddTransient<ILegacyDataMapper<Drug,Produto>, LegacyTableMapper>();
@@ -38,9 +43,8 @@ namespace Api.IntegrationTests
             services.AddTransient<IDrugService, DrugService>();
             services.AddTransient<IBillingService, BillingService>();
             services.AddTransient<IDataResourceClient, SupplierDataResourceClient>();
-            services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
-            services.Configure<GitSettings>(configuration.GetSection(nameof(GitSettings)));
-            services.Configure<AppSettings>(configuration);
+            services.AddTransient<IDbSynchronizer, DbSynchronizer>();
+            
         }
         protected override void Configure(IServiceProvider provider)
         {
@@ -61,7 +65,7 @@ namespace Api.IntegrationTests
                 //    }
                 //}
             }
-                base.Configure(provider);
+            base.Configure(provider);
         }
         protected override IHostBuilder CreateHostBuilder(AssemblyName assemblyName) =>        
             base.CreateHostBuilder(assemblyName)

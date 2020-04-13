@@ -1,5 +1,8 @@
-﻿using Api.ApiModels;
-using AspNetCore.Http.Extensions;
+﻿using AspNetCore.Http.Extensions;
+using Core.Entities.LegacyScaffold;
+using Core.Models.Dbf;
+using Core.Models.Resources.Requests;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -15,23 +18,52 @@ namespace Api.IntegrationTests.Api
             _client = fixture.Client;
         }
         [Fact]
-        public async Task POST_SyncDatabase_ReceivesObjectWithRecordInfoAndValues_ShouldReturn200StatusResponseIfSyncWasSuccessful()
+        public async Task POST_SyncDatabase_ReceivesObjectWithNewRecordInfoAndValues_ShouldReturn200StatusResponseIfSyncWasSuccessful()
         {
             // Given
             var request = "/api/v1/sync/sync_dbf";
             var data = new SyncDatabaseRequest
             {
-                FileName = "AGENDA.DBF"                
+                TableName = "AGENDA.DBF"                
             };
             data.RecordDiffs.Add(1, new RecordDiff
-            {
-                Column = "ENDERECO",
-                IsNew = false,
+            {                
+                IsNew = true,
                 RecordIndex = 1,
-                Value = new
+                ColumsChanged = null,
+                RecordValue = new Agenda
                 {
-                    Property = 1,
-                    OtherProperty = 2
+                    Bairro = "bairro",
+                    Cep = "123456789",
+                    Cidade = "cidade",
+                    Codigo = "codigo",
+                    Endereco = "endereço",
+                    Nome = "nome",
+                    Fone = "fone",                    
+                }
+                
+            });
+            data.RecordDiffs.Add(2, new RecordDiff
+            {
+                IsNew = false,
+                RecordIndex = 2,
+                RecordValue = new Agenda
+                {
+                    Bairro = "Nome Bairro",
+                    Cep = "123456789",
+                },
+                ColumsChanged = new List<RecordColumn>
+                {
+                    new RecordColumn
+                    {
+                        ColumnName = "Bairro",
+                        Value = "Nome Bairro"
+                    },
+                    new RecordColumn
+                    {
+                        ColumnName = "Cep",
+                        Value = "123456789"
+                    }
                 }
             });
             // When

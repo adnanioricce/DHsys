@@ -11,11 +11,11 @@ namespace DAL
         public MainContext(DbContextOptions<MainContext> options) : base(options)
         {
 
-        }
+        }        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=./database.db");            
-        }
+        }       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Billing>(mapper =>
@@ -39,6 +39,7 @@ namespace DAL
                 });
             });
             modelBuilder.Entity<Produto>().ToTable("Produto");
+            modelBuilder.Entity<Agenda>().ToTable("Agenda");
         }
     }
 }

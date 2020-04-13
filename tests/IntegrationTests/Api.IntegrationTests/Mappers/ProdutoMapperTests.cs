@@ -8,7 +8,7 @@ using System.Linq;
 using Xunit;
 
 namespace Api.IntegrationTests.Mappers
-{
+{    
     public class ProdutoMapperTests
     {
         private readonly ILegacyRepository<Produto> _legacyProdutoRepository;

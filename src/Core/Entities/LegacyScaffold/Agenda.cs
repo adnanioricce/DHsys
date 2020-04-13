@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class Agenda
-    {
-        public int Id { get; set; }
+    public class Agenda : BaseEntity
+    {        
         public string Codigo { get; set; }
         public string Nome { get; set; }
         public string Endereco { get; set; }

@@ -14,6 +14,7 @@ namespace Core.Interfaces
         void Delete(T entity);
         IQueryable<T> Query();
         IQueryable<T> Query(string query);
+        
         void SaveChanges();
     }
 }
