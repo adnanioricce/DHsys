@@ -11,7 +11,7 @@ namespace Core.Entities.Stock
             Drugs = new HashSet<Drug>();
             Stockentries = new HashSet<StockEntry>();
         }        
-        public int? Addressid { get; set; }
+        public int? AddressId { get; set; }
         public string SupplierName { get; set; }
         public string Cnpj { get; set; }
 

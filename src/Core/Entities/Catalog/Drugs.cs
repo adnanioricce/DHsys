@@ -8,8 +8,8 @@ namespace Core.Entities.Catalog
     {
         public Drug()
         {
-            Druginformation = new HashSet<Druginformation>();
-            Drugprices = new HashSet<Drugprices>();
+            Druginformation = new HashSet<DrugInformation>();
+            Drugprices = new HashSet<DrugPrice>();
             Stockentries = new HashSet<StockEntry>();
         }
         
@@ -85,8 +85,8 @@ namespace Core.Entities.Catalog
         /// Get or set the reference collection of Drug informations
         /// </summary>
         /// <value></value>
-        public virtual ICollection<Druginformation> Druginformation { get; set; } = new List<Druginformation>();
-        public virtual ICollection<Catalog.Drugprices> Drugprices { get; set; } = new List<Drugprices>();
+        public virtual ICollection<DrugInformation> Druginformation { get; set; } = new List<DrugInformation>();
+        public virtual ICollection<Catalog.DrugPrice> Drugprices { get; set; } = new List<DrugPrice>();
         public virtual ICollection<StockEntry> Stockentries { get; set; } = new List<StockEntry>();
     }
 }

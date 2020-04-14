@@ -9,7 +9,7 @@ namespace Core.Interfaces
         Drug SearchDrugByBarCode(string barCode);
         IEnumerable<Drug> SearchDrugsByName(string name);
         void CreateDrug(Drug product);
-        void UpdateDrugPrice(int drugId,Drugprices newDrugPrice);        
+        void UpdateDrugPrice(int drugId,DrugPrice newDrugPrice);        
         
     }
 }

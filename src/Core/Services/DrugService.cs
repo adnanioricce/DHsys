@@ -34,7 +34,7 @@ namespace Core.Services
             return _drugRepository.Query().Where(d => d.DrugName.Contains(name));
         }
 
-        public void UpdateDrugPrice(int drugId, Drugprices newDrugPrice)
+        public void UpdateDrugPrice(int drugId, DrugPrice newDrugPrice)
         {
             //TODO:Validate drug price
             var drug = _drugRepository.GetBy(drugId);

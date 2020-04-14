@@ -3,9 +3,8 @@ using System.Collections.Generic;
 
 namespace Core.Entities.Catalog
 {
-    public partial class Druginformation
-    {
-        public int DrugInformationId { get; set; }
+    public class DrugInformation : BaseEntity
+    {        
         public int? DrugId { get; set; }
         public string Indication { get; set; }
         public string CounterIndication { get; set; }

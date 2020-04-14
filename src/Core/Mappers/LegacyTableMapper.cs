@@ -62,7 +62,7 @@ namespace Core.Mappers
             drug.ManufacturerName = produto.Prnola;
             drug.MinimumStock = int.TryParse(produto.EstMinimo.ToString(),out var minStockResult) ? minStockResult : 1;
             drug.MainSupplierName = produto.Ultfor;
-            drug.Drugprices.Add(new Drugprices
+            drug.Drugprices.Add(new DrugPrice
             {
                 Drug = drug,
                 EndCustomerDrugPrice = decimal.TryParse(produto.Prcons.ToString(),out var price) ? price : 0.00m,
