@@ -73,7 +73,7 @@ namespace Api.IntegrationTests.Services.Sync
             var insertResult = command.ExecuteNonQuery();
             _connection.Close();
             //When
-            var syncScript = _dbSyncronizer.GenerateSyncScript(request);
+            var syncScript = _dbSyncronizer.GenerateSyncScriptForEntity(request);
             _connection.Open();
             command.CommandText = syncScript;
             int syncResult = command.ExecuteNonQuery();
@@ -83,23 +83,15 @@ namespace Api.IntegrationTests.Services.Sync
             var expectedAgenda = request.RecordDiffs[1].RecordValue as Agenda;
             var agenda = new Agenda();                     
             while (reader.Read())
-            {
-                //for (int i = 0; i < reader.FieldCount; ++i)
-                //{
-                //if (count == 0)
-                //{                
-                agenda.Bairro = reader["Bairro"].ToString();
-                //}
-                //else
-                //{
-                agenda.Cep = reader["Cep"].ToString();
-                //}
-                //}
+            {                             
+                agenda.Bairro = reader["Bairro"].ToString();                
+                agenda.Cep = reader["Cep"].ToString();               
             }
             _connection.Close();
             //Then
             Assert.Equal(expectedAgenda.Bairro, agenda.Bairro);
             Assert.Equal(expectedAgenda.Cep, agenda.Cep);
         }
+        
     }
 }

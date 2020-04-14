@@ -3,6 +3,7 @@ using Core.Entities.LegacyScaffold;
 using Core.Models.Dbf;
 using Core.Models.Resources.Requests;
 using DAL;
+using System;
 using System.Collections.Generic;
 using Tests.Lib.Data;
 using Xunit;
@@ -37,7 +38,7 @@ namespace Services.Tests.Sync
                     new RecordColumn
                     {
                         ColumnName = "BAIRRO",
-                        Value = "nome"
+                        Value = "nome bairro"
                     },
                     new RecordColumn
                     {
@@ -46,12 +47,38 @@ namespace Services.Tests.Sync
                     }
                 }
             });
-            string expectedScript = "UPDATE AGENDA SET BAIRRO='nome bairro',CEP='123456789' WHERE Id = 1;";            
+            string expectedScript = "UPDATE Agenda SET BAIRRO='nome bairro',CEP='123456789' WHERE Id = 1;";            
             var dbSyncronizer = new DbSynchronizer(null);
             //When
-            string syncScript = dbSyncronizer.GenerateSyncScript(request);
+            string syncScript = dbSyncronizer.GenerateSyncScriptForEntity(request);
             //Then
             Assert.Equal(expectedScript, syncScript);
+        }
+        [Fact]
+        public void WriteUpdateSetToCorrectSqlType_ReceivesRecordColumnWithValuesOfTypeDoubleAndDateTime_ShouldReturnSqlUpdateStringWithValuesInCorrectTypeFormInSql()
+        {
+            //Given
+            var firstColumn = new RecordColumn
+            {
+                ColumnName = "PRESTQ",
+                Value = 1
+            };
+            var maturity = DateTime.UtcNow;
+            var secondColumn = new RecordColumn
+            {
+                ColumnName = "PRVALID",
+                Value = maturity
+            };
+               
+            string expectedStringForStr1 = "PRESTQ=1";
+            string expectedStringForStr2 = $"PRVALID={maturity}";
+            var dbSyncronizer = new DbSynchronizer(null);
+            //When
+            string resultStr1 = dbSyncronizer.WriteUpdateSetToCorrectSqlType(firstColumn);
+            string resultStr2 = dbSyncronizer.WriteUpdateSetToCorrectSqlType(secondColumn);
+            //Then
+            Assert.Equal(expectedStringForStr1, resultStr1);
+            Assert.Equal(expectedStringForStr2, resultStr2);
         }
     }
 }
