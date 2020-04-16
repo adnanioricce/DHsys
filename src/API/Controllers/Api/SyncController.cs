@@ -30,11 +30,16 @@ namespace Api.Controllers.Api
             if (request is null) return BadRequest("Request is null");
             if (request.RecordDiffs.Count == 0) return BadRequest("request has no record to sync");
             if (string.IsNullOrEmpty(request.TableName)) return BadRequest("we need the modified table name to sync the database");
-            var syncScript = _dbSyncronizer.GenerateSyncScriptForEntity(request);
-            _connection.Open();
-            var command = _connection.CreateCommand();
-            command.CommandText = syncScript;
-            var result = command.ExecuteNonQuery();
+            var result = await Task.Run<int>(() =>
+            {
+                var syncScript = _dbSyncronizer.GenerateSyncScriptForEntity(request);
+                _connection.Open();
+                var command = _connection.CreateCommand();
+                command.CommandText = syncScript;
+                var result = command.ExecuteNonQuery();
+                _connection.Close();
+                return result;
+            });
             if(!(result == request.RecordDiffs.Count))
             {
                 return StatusCode(500, "not all changes are writen on database");
@@ -46,9 +51,6 @@ namespace Api.Controllers.Api
         {
             return filepath.IndexOf("/") == -1 ? filepath.LastIndexOf("\\") : filepath.LastIndexOf("/");
         }
-        private T CastObject<T>(object input)
-        {
-            return (T)input;
-        }
+        
     }
 }

@@ -25,6 +25,10 @@ namespace Api.IntegrationTests
         {
 
         }
+        public virtual void Configure()
+        {
+
+        }
         protected void ConfigureServices(IServiceCollection services) 
         {
             var configuration = new ConfigurationBuilder()

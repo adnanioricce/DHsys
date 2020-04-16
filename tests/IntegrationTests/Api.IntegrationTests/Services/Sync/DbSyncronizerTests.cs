@@ -39,7 +39,7 @@ namespace Api.IntegrationTests.Services.Sync
             {
                 TableName = "AGENDA"
             };
-            request.RecordDiffs.Add(1, new RecordDiff
+            request.RecordDiffs.Add(1,new RecordDiff
             {
                 RecordIndex = 1,
                 RecordValue = new Agenda

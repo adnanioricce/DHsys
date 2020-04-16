@@ -23,17 +23,15 @@ namespace Tests.Lib
 
             var applicationBasePath = AppContext.BaseDirectory;
 
-            var directoryInfo = new DirectoryInfo(applicationBasePath);
-
+            var directoryInfo = new DirectoryInfo(applicationBasePath);            
             do
             {
                 directoryInfo = directoryInfo.Parent;
 
                 var projectDirectoryInfo = new DirectoryInfo(Path.Combine(directoryInfo.FullName, projectRelativePath));
-
-                if (projectDirectoryInfo.Exists)
-                    if (new FileInfo(Path.Combine(projectDirectoryInfo.FullName, projectName, $"{projectName}.csproj")).Exists)
-                        return Path.Combine(projectDirectoryInfo.FullName, projectName);
+                var isProjectDirectoryPath = Directory.Exists((projectDirectoryInfo.FullName + "/src/Api/"));
+                if (isProjectDirectoryPath) return projectDirectoryInfo.FullName + "/src/Api/";
+                
             }
             while (directoryInfo.Parent != null);
 
@@ -96,7 +94,7 @@ namespace Tests.Lib
 
             // Add configuration for client
             Client = Server.CreateClient();
-            Client.BaseAddress = new Uri("http://localhost:5001");
+            Client.BaseAddress = Server.BaseAddress;
             Client.DefaultRequestHeaders.Accept.Clear();
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }

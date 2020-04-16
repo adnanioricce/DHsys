@@ -6,9 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
+using Tests.Lib;
 using Xunit;
 
-namespace Api.IntegrationTests.Api
+namespace Api.Tests
 {
     public class SyncControllerTest : IClassFixture<TestFixture<Startup>>
     {
@@ -21,7 +22,7 @@ namespace Api.IntegrationTests.Api
         public async Task POST_SyncDatabase_ReceivesObjectWithNewRecordInfoAndValues_ShouldReturn200StatusResponseIfSyncWasSuccessful()
         {
             // Given
-            var request = "/api/v1/sync/sync_dbf";
+            var request = "api/v1/Sync/sync_dbfs";
             var data = new SyncDatabaseRequest
             {
                 TableName = "AGENDA.DBF"                
@@ -67,11 +68,13 @@ namespace Api.IntegrationTests.Api
                 }
             });
             // When
+            var baseAddress = _client.BaseAddress;
             var response = await _client.PostAsJsonAsync(request,data);
 
             // Then
-            var message = response.EnsureSuccessStatusCode();
-            Assert.Equal(200,(int)message.StatusCode);            
+            var message = !response.IsSuccessStatusCode ? await response.Content.ReadAsStringAsync() : "";
+            //var strMessage = await message.Content.ReadAsStringAsync();
+            Assert.Equal(200,(int)response.StatusCode);            
         }
     }
 }
