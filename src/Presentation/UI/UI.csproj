@@ -23,8 +23,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj" />
-    <ProjectReference Include="..\DAL\DAL.csproj" />
+    <ProjectReference Include="..\..\Libraries\Core\Core.csproj" />
+    <ProjectReference Include="..\..\Libraries\DAL\DAL.csproj" />
   </ItemGroup>
 
   <ItemGroup>

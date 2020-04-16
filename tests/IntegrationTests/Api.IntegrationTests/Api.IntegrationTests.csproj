@@ -18,11 +18,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Api\Api.csproj" />
-    <ProjectReference Include="..\..\..\src\Application\Application.csproj" />
-    <ProjectReference Include="..\..\..\src\Core\Core.csproj" />
-    <ProjectReference Include="..\..\..\src\DAL\DAL.csproj" />
-    <ProjectReference Include="..\..\..\src\Infrastructure\Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\src\Presentation\Api\Api.csproj" />
+    <ProjectReference Include="..\..\..\src\Libraries\Application\Application.csproj" />
+    <ProjectReference Include="..\..\..\src\Libraries\Core\Core.csproj" />
+    <ProjectReference Include="..\..\..\src\Libraries\DAL\DAL.csproj" />
+    <ProjectReference Include="..\..\..\src\Libraries\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

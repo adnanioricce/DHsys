@@ -17,7 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="SocialExplorer.FastDBF">
-      <HintPath>..\..\..\..\Services\DbParser\src\Lib\ExternalLibs\SocialExplorer.FastDBF.dll</HintPath>
+      <HintPath>..\..\..\..\..\Services\DbParser\src\Lib\ExternalLibs\SocialExplorer.FastDBF.dll</HintPath>
     </Reference>
   </ItemGroup>
 </Project>
