@@ -3,7 +3,7 @@ using Tests.Lib.Data;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities.Stock;
-using Core.Services;
+using Application.Services;
 
 namespace Services.Tests
 {

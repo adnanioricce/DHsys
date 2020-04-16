@@ -1,5 +1,7 @@
 ﻿using Core.Entities;
+using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
+using Core.Entities.Stock;
 using Microsoft.EntityFrameworkCore;
 using System;
 
@@ -10,7 +12,7 @@ namespace DAL
         //public DbSet<Conta> Contas { get; set; }
         public MainContext(DbContextOptions<MainContext> options) : base(options)
         {
-
+            this.ChangeTracker.LazyLoadingEnabled = true;
         }        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -41,6 +43,9 @@ namespace DAL
             });
             modelBuilder.Entity<Produto>().ToTable("Produto");
             modelBuilder.Entity<Agenda>().ToTable("Agenda");
+            modelBuilder.Entity<Drug>().ToTable("Drugs");
+            modelBuilder.Entity<StockEntry>().ToTable("StockEntries");
+            modelBuilder.Entity<Manufacturer>().ToTable("Manufacturers");
         }
     }
 }

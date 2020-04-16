@@ -46,7 +46,13 @@ namespace Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
             });
             services.AddTransient<IDbSynchronizer, DbSynchronizer>();
-            services.AddDbContext<DbContext, MainContext>();
+            services.AddDbContext<DbContext, MainContext>(
+                opt => 
+                {
+                    opt.UseSqlite(connString)
+                      .EnableDetailedErrors();
+                    opt.UseLazyLoadingProxies();
+                });
             services.AddScoped<MainContext>();
             services.Configure<LegacyDatabaseSettings>(Configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<GitSettings>(Configuration.GetSection(nameof(GitSettings)));

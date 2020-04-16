@@ -2,7 +2,7 @@ using Xunit;
 using Tests.Lib.Data;
 using System.Linq;
 using System;
-using Core.Services;
+using Application.Services;
 using Core.Entities.Catalog;
 using Core.Interfaces;
 

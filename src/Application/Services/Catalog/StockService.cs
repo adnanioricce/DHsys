@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Services
+namespace Application.Services
 {
     public class StockService : IStockService
     {
