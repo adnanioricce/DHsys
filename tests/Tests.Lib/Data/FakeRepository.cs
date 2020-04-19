@@ -24,8 +24,9 @@ namespace Tests.Lib.Data
             if (entry.Id <= 0)
             {
                 entry.Id = counter;
-                context.Add(entry.Id, entry);
+                context.Add(entry.Id, entry);                
                 ++counter;
+                return;
             }
             entry.Id = counter;
             context.Add(entry.Id, entry);

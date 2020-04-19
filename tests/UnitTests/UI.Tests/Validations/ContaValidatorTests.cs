@@ -16,7 +16,7 @@ namespace UI.Tests.Validations
         [Fact]
         public void IsValid_ValidState_ReturnValidResult()
         {
-            // Arrange
+            // Given
             var contaValidator = this.CreateContaValidator();
             Billing conta = new Billing {
                 EndDate = DateTime.UtcNow.AddDays(30),
@@ -25,35 +25,13 @@ namespace UI.Tests.Validations
                 IsPaid = false
             };
 
-            // Act
+            // When
             var result = contaValidator.IsValid(
                 conta);
 
-            // Assert
+            // Then
             Assert.True(result);            
-        }
-        [Theory]
-        [InlineData("01")]
-        [InlineData("01/00/0000")]
-        [InlineData("123456789")]
-        [InlineData("2000/00/00")]
-        public void IsValid_InvalidDataDeVencimentoState_ReturnError(string dataDeVencimento)
-        {
-            var contaValidator = this.CreateContaValidator();
-            Billing conta = new Billing
-            {
-                EndDate = DateTime.Parse(dataDeVencimento),
-                BeneficiaryName = "empresa",
-                Price = 123.99m,
-                IsPaid = false
-            };
-
-            // Act
-            var result = contaValidator.IsValid(conta);
-
-            // Assert
-            Assert.False(result);
-        }
+        }        
         [Theory]
         [InlineData("")]        
         public void IsValid_InvalidNomeEmpresaState_ReturnError(string nomeEmpresa)
@@ -67,10 +45,10 @@ namespace UI.Tests.Validations
                 IsPaid = false
             };
 
-            // Act
+            // When
             var result = contaValidator.IsValid(conta);
 
-            // Assert
+            // Then
             Assert.False(result);
         }
         [Theory]
@@ -87,10 +65,10 @@ namespace UI.Tests.Validations
                 IsPaid = false
             };
 
-            // Act
+            // When
             var result = contaValidator.IsValid(conta);
 
-            // Assert
+            // Then
             Assert.False(result);
         }
     }

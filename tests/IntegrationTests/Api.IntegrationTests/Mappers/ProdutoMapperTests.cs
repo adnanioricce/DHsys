@@ -24,7 +24,7 @@ namespace Api.IntegrationTests.Mappers
         public void MapTable_ReceivesTableName_ShouldReturnListOfEntitiesMappedFromLegacyModel()
         {
             // Given
-            var produtoMapper = new LegacyTableMapper(_produtoRepository,_legacyProdutoRepository, _drugRepository);
+            var produtoMapper = new ProdutoMapper(_legacyProdutoRepository);
             string tableName = "PRODUTO.DBF";
 
             // When
@@ -37,7 +37,7 @@ namespace Api.IntegrationTests.Mappers
         public void GetChanges_ReceivesTableName_ShouldReturnListComparingChangesBetween()
         {
             // Given
-            var produtoMapper = new LegacyTableMapper(_produtoRepository,_legacyProdutoRepository, _drugRepository);
+            var produtoMapper = new ProdutoMapper(_legacyProdutoRepository);
             string tableName = "PRODUTO.DBF";
 
             // When
@@ -45,22 +45,7 @@ namespace Api.IntegrationTests.Mappers
 
             // Then
             Assert.True(false);
-        }
-        
-        [Fact]
-        public void SaveLegacyModelOnDatabase_ReceivesTableName_ShouldPersistsLegacyEntitiesOnCurrentDatabase() 
-        {
-            // Given
-            var produtoMapper = new LegacyTableMapper(_produtoRepository, _legacyProdutoRepository, _drugRepository);
-            // When
-            produtoMapper.SaveLegacyModelOnDatabase("PRODUTO.DBF");
-            // Then
-            var produtos = _produtoRepository
-                .Query()
-                .Take(30);
-            var count = produtos.Count();
-            Assert.Equal(30, count);
-        }        
+        }                       
 
     }
 }

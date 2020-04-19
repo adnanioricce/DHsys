@@ -1,6 +1,7 @@
 ﻿using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,9 +11,11 @@ namespace Application.Services
     public class DrugService : IDrugService
     {
         private readonly IRepository<Drug> _drugRepository;
-        public DrugService(IRepository<Drug> drugRepository)
+        private readonly ILegacyDataMapper<Drug,Produto> _produtoMapper;
+        public DrugService(IRepository<Drug> drugRepository, ILegacyDataMapper<Drug, Produto> produtoMapper)
         {
             _drugRepository = drugRepository;
+            _produtoMapper = produtoMapper;
         }
         public void CreateDrug(Drug drug)
         {
@@ -23,12 +26,16 @@ namespace Application.Services
 
         public void CreateDrug(Produto produto)
         {
-            throw new System.NotImplementedException();
+            var drug = _produtoMapper.MapToDomainModel(produto);
+            _drugRepository.Add(drug);
+            _drugRepository.SaveChanges();
         }
 
         public void CreateDrugs(IEnumerable<Produto> produtos)
         {
-            throw new System.NotImplementedException();
+            var drugs = produtos.Select(_produtoMapper.MapToDomainModel);
+            _drugRepository.AddRange(drugs);
+            _drugRepository.SaveChanges();
         }
 
         public void CreateDrugs(IEnumerable<Drug> drugs)
@@ -41,19 +48,27 @@ namespace Application.Services
             return _drugRepository.Query().TakeWhile(d => d.Id >= start && d.Id <= end);
         }
 
-        public Task<IEnumerable<Drug>> GetDrugsAsync(int start, int end)
+        public async Task<IEnumerable<Drug>> GetDrugsAsync(int start, int end)
         {
-            throw new System.NotImplementedException();
+            return await _drugRepository.Query()
+                .Take(start - end)
+                .ToListAsync();
         }
 
         public Drug SearchDrugByBarCode(string barCode)
         {
-            return _drugRepository.GetBy(barCode);
+            return _drugRepository
+                .Query()
+                .Where(d => d.BarCode == barCode)                
+                .FirstOrDefault();
         }
 
         public Task<Drug> SearchDrugByBarCodeAsync(string barCode)
         {
-            throw new System.NotImplementedException();
+            return _drugRepository.Query()
+                .Where(d => EF.Functions.Like(d.BarCode.ToLower(), "%" + barCode.ToLower() + "%") 
+                || EF.Functions.Like(d.UniqueCode, "%" + barCode.ToLower() + "%"))
+                .FirstOrDefaultAsync();
         }
 
         public IEnumerable<Drug> SearchDrugsByName(string name)
@@ -61,9 +76,11 @@ namespace Application.Services
             return _drugRepository.Query().Where(d => d.DrugName.Contains(name));
         }
 
-        public Task<Drug> SearchDrugsByNameAsync(string name)
+        public async Task<Drug> SearchDrugsByNameAsync(string name)
         {
-            throw new System.NotImplementedException();
+            return await _drugRepository.Query()
+                .Where(d => EF.Functions.Like(d.DrugName.ToLower(), "%" + name.ToLower() + "%"))
+                .FirstOrDefaultAsync();
         }
 
         public void UpdateDrugPrice(int drugId, DrugPrice newDrugPrice)

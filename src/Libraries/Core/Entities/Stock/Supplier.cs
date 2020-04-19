@@ -8,7 +8,7 @@ namespace Core.Entities.Stock
     {
         public Supplier()
         {
-            Drugs = new HashSet<Drug>();
+            Products = new HashSet<ProductSupplier>();
             Stockentries = new HashSet<StockEntry>();
         }        
         public int? AddressId { get; set; }
@@ -16,7 +16,7 @@ namespace Core.Entities.Stock
         public string Cnpj { get; set; }
 
         public virtual Address Address { get; set; }
-        public virtual ICollection<Drug> Drugs { get; set; }
+        public virtual ICollection<ProductSupplier> Products { get; set; }
         public virtual ICollection<Stock.StockEntry> Stockentries { get; set; }
     }
 }

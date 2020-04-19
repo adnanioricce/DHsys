@@ -29,8 +29,8 @@ namespace Tests.Lib
                 directoryInfo = directoryInfo.Parent;
 
                 var projectDirectoryInfo = new DirectoryInfo(Path.Combine(directoryInfo.FullName, projectRelativePath));
-                var isProjectDirectoryPath = Directory.Exists((projectDirectoryInfo.FullName + "/src/Api/"));
-                if (isProjectDirectoryPath) return projectDirectoryInfo.FullName + "/src/Api/";
+                var isProjectDirectoryPath = Directory.Exists((projectDirectoryInfo.FullName + "\\src\\Presentation\\Api\\"));
+                if (isProjectDirectoryPath) return projectDirectoryInfo.FullName + "\\src\\Presentation\\Api\\";
                 
             }
             while (directoryInfo.Parent != null);

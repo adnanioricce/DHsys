@@ -32,7 +32,7 @@ namespace Services.Tests.Mappers
             }
             var produtoRepository = new FakeLegacyProdutoRepository(produtoList);
             
-            var produtoMapper = new LegacyTableMapper(null,produtoRepository,null);
+            var produtoMapper = new ProdutoMapper(produtoRepository);
             string tableName = "PRODUTO";
             
             // Act
@@ -46,7 +46,7 @@ namespace Services.Tests.Mappers
         public void MapToDomainModel_ReceivesLegacyDomainModel_ShouldReturnAVersionOfThisModelInTheCurrentModel(Produto sampleProduto)
         {
             // Arrange            
-            var produtoMapper = new LegacyTableMapper(null,null,null);            
+            var produtoMapper = new ProdutoMapper(null);            
 
             // Act
             var result = produtoMapper.MapToDomainModel(sampleProduto);
@@ -64,7 +64,7 @@ namespace Services.Tests.Mappers
         public void GetChanges_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var produtoMapper = new LegacyTableMapper(null,null, null);
+            var produtoMapper = new ProdutoMapper(null);
             string tableName = null;
 
             // Act

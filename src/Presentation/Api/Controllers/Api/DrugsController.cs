@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Models;
 using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
@@ -22,22 +23,22 @@ namespace Api.Controllers.Api
             _drugService = drugService;
         }
         // GET: api/Drugs/search/{name}
-        [HttpGet("search/{name}")]
-        public ActionResult<BaseResourceResponse<IEnumerable<Drug>>> GetDrugsByName(string name)
+        [HttpGet("search/query")]
+        public ActionResult<BaseResourceResponse<IEnumerable<Drug>>> GetDrugsByName(CatalogQuery query)
         {
             return Ok(new BaseResourceResponse<IEnumerable<Drug>>
             {
-                ResultObject = _drugService.SearchDrugsByName(name),
+                ResultObject = _drugService.SearchDrugsByName(query.Name),
                 Success = true
             });
         }
         // GET: api/Drugs/search/{barcode}
-        [HttpGet("search/{barcode}")]
-        public ActionResult<BaseResourceResponse<Drug>> GetDrugByBarCode(string barCode)
+        [HttpGet("search")]
+        public ActionResult<BaseResourceResponse<Drug>> GetDrugByBarCode(string barcode)
         {
             return Ok(new BaseResourceResponse<Drug>
             {
-                ResultObject = _drugService.SearchDrugByBarCode(barCode),
+                ResultObject = _drugService.SearchDrugByBarCode(barcode),
                 Success = true
             });
         }

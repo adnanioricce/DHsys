@@ -5,7 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.Extensions;
 using Application.Services;
+using Core.Entities.Catalog;
+using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
+using Core.Mappers;
 using DAL;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Builder;
@@ -56,6 +59,11 @@ namespace Api
             services.AddScoped<MainContext>();
             services.Configure<LegacyDatabaseSettings>(Configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<GitSettings>(Configuration.GetSection(nameof(GitSettings)));
+            services.AddScoped(typeof(LegacyContext<>));
+            services.AddScoped(typeof(ILegacyRepository<>), typeof(DbfRepository<>));
+            services.AddTransient<ILegacyDataMapper<Drug,Produto>,ProdutoMapper>();           
+            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IDrugService, DrugService>();
             services.AddMvc()
                 .AddNewtonsoftJson();
         }
@@ -81,12 +89,18 @@ namespace Api
             app.UseRouting();
 
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("search","search/{barcode}","");
+                endpoints.MapControllerRoute("search", "search/{name}", "");
                 //endpoints.MapGrpcService();
             });
+            //app.UseMvc(routes =>
+            //{
+            //    //routes.
+            //})
         }
     }
 }

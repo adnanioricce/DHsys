@@ -43,7 +43,13 @@ namespace DAL
             });
             modelBuilder.Entity<Produto>().ToTable("Produto");
             modelBuilder.Entity<Agenda>().ToTable("Agenda");
-            modelBuilder.Entity<Drug>().ToTable("Drugs");
+            modelBuilder.Entity<Product>(mapper =>
+            {
+                mapper.ToTable("Products");
+                mapper.HasMany(r => r.ProductSuppliers)
+                .WithOne(ps => ps.Product)
+                .OnDelete(DeleteBehavior.Restrict);
+            });
             modelBuilder.Entity<StockEntry>().ToTable("StockEntries");
             modelBuilder.Entity<Manufacturer>().ToTable("Manufacturers");
         }

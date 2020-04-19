@@ -13,26 +13,14 @@ using LibGit2Sharp;
 //TODO: Move this to DAL project
 namespace Core.Mappers
 {
-    public class LegacyTableMapper : ILegacyDataMapper<Drug,Produto>
+    public class ProdutoMapper : ILegacyDataMapper<Drug,Produto>
     {
-        private readonly ILegacyRepository<Produto> _legacyProdutoRepository;
-        private readonly IRepository<Produto> _produtoRepository;
-        private readonly IRepository<Drug> _drugRepository;
+        private readonly ILegacyRepository<Produto> _legacyProdutoRepository;        
         
-        public LegacyTableMapper(IRepository<Produto> produtoRepository,
-            ILegacyRepository<Produto> legacyProdutoRepository,
-            IRepository<Drug> drugRepository)
+        public ProdutoMapper(ILegacyRepository<Produto> legacyProdutoRepository)
         {
-            _legacyProdutoRepository = legacyProdutoRepository;
-            _produtoRepository = produtoRepository;
-            _drugRepository = drugRepository;            
-        }        
-        public void SaveLegacyModelOnDatabase(string tableName)
-        {
-            var produtos = _legacyProdutoRepository.MultipleFromRawSqlQuery($"SELECT * FROM {tableName}");
-            _produtoRepository.AddRange(produtos);
-            _produtoRepository.SaveChanges();
-        }
+            _legacyProdutoRepository = legacyProdutoRepository;                    
+        }                
         
         public IEnumerable<Drug> MapTable(string tableName)
         {
@@ -69,7 +57,7 @@ namespace Core.Mappers
                 CostPrice = decimal.TryParse(produto.Prfabr.ToString(),out var fabrPrice) ? fabrPrice : 0.00m,
                 Pricestartdate = DateTime.UtcNow
 
-            });    
+            });            
             //};
             //TODO:Wrap all this around another method
             
