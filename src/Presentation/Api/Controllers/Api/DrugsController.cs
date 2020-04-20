@@ -23,8 +23,8 @@ namespace Api.Controllers.Api
             _drugService = drugService;
         }
         // GET: api/Drugs/search/{name}
-        [HttpGet("search/query")]
-        public ActionResult<BaseResourceResponse<IEnumerable<Drug>>> GetDrugsByName(CatalogQuery query)
+        [HttpGet("search/list")]
+        public ActionResult<BaseResourceResponse<IEnumerable<Drug>>> GetDrugsByName([FromQuery]CatalogQuery query)
         {
             return Ok(new BaseResourceResponse<IEnumerable<Drug>>
             {
@@ -49,9 +49,8 @@ namespace Api.Controllers.Api
             //What I should do here?
             _drugService.CreateDrugs(request.CreatedProdutos);
             
-            return Ok(new BaseResourceResponse
-            {
-                ErrorMessage = "no erro",
+            return Ok(new BaseResourceResponse<IEnumerable<Drug>>
+            {                
                 Success = true
             });
         }        

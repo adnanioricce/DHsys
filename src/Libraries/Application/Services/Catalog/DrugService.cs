@@ -66,7 +66,8 @@ namespace Application.Services
         public Task<Drug> SearchDrugByBarCodeAsync(string barCode)
         {
             return _drugRepository.Query()
-                .Where(d => EF.Functions.Like(d.BarCode.ToLower(), "%" + barCode.ToLower() + "%") 
+                .Where(d => 
+                EF.Functions.Like(d.BarCode.ToLower(), "%" + barCode.ToLower() + "%") 
                 || EF.Functions.Like(d.UniqueCode, "%" + barCode.ToLower() + "%"))
                 .FirstOrDefaultAsync();
         }

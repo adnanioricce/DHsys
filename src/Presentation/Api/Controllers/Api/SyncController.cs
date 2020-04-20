@@ -40,17 +40,12 @@ namespace Api.Controllers.Api
                 _connection.Close();
                 return result;
             });
-            if(!(result == request.RecordDiffs.Count))
+            if(!(result != -1))
             {
                 return StatusCode(500, "not all changes are writen on database");
             }             
             
             return Ok("all changes are writen successfully");
-        }       
-        private int GetIndexOfLastBackslash(string filepath)
-        {
-            return filepath.IndexOf("/") == -1 ? filepath.LastIndexOf("\\") : filepath.LastIndexOf("/");
-        }
-        
+        }                       
     }
 }

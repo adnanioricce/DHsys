@@ -1,3 +1,4 @@
+using System.IO;
 using Api.Controllers.Api;
 using AspNetCore.Http.Extensions;
 using Core.Entities.Catalog;
@@ -21,13 +22,14 @@ namespace Api.Tests.Controllers.Api
         public DrugsControllerTests(TestFixture<Startup> fixture)
         {
             _client = fixture.Client;
+            
         }
         [Fact]
         public async Task GET_GetDrugsByName_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var baseUrl = "api/Drugs/search/{name}";            
-            string name = "Dipirona";
+            var baseUrl = "api/Drugs/search/list?name={0}";            
+            string name = "Lixiana";
             string requestUrl = string.Format(baseUrl, name);
             // Act
             //var result = _client.get
@@ -53,6 +55,7 @@ namespace Api.Tests.Controllers.Api
             if(!result.IsSuccessStatusCode)
             {
                 string message = await result.Content.ReadAsStringAsync();
+                File.WriteAllText($"log-GET_GetDrugByBarCode_StateUnderTest_ExpectedBehavior.txt",message);
             }
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<Drug>>();
@@ -95,9 +98,8 @@ namespace Api.Tests.Controllers.Api
             var result = await _client.PostAsJsonAsync(request_url, data);
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IEnumerable<Drug>>>();
-            // Assert
-            var count = valueResult.ResultObject.Count();
-            Assert.Equal(1, count);            
+            // Assert            
+            Assert.True(string.IsNullOrEmpty(valueResult.ErrorMessage));            
             Assert.True(valueResult.Success);
         }
 
@@ -113,7 +115,7 @@ namespace Api.Tests.Controllers.Api
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse>();
             // Assert
-            Assert.Null(valueResult.ErrorMessage);
+            Assert.True(string.IsNullOrEmpty(valueResult.ErrorMessage));
             Assert.True(valueResult.Success);
         }
 
@@ -145,7 +147,7 @@ namespace Api.Tests.Controllers.Api
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse>();
 
             // Assert
-            Assert.Null(valueResult.ErrorMessage);
+            Assert.True(string.IsNullOrEmpty(valueResult.ErrorMessage));
             Assert.True(valueResult.Success);            
         }
         private Produto GetBaseProduto()

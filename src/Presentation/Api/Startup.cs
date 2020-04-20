@@ -22,6 +22,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using Npgsql;
 
 namespace Api
@@ -65,7 +67,10 @@ namespace Api
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
             services.AddTransient<IDrugService, DrugService>();
             services.AddMvc()
-                .AddNewtonsoftJson();
+                .AddNewtonsoftJson(settings => {
+                    settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -92,15 +97,9 @@ namespace Api
             
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-                endpoints.MapControllerRoute("search","search/{barcode}","");
-                endpoints.MapControllerRoute("search", "search/{name}", "");
-                //endpoints.MapGrpcService();
+                endpoints.MapControllers();                                
             });
-            //app.UseMvc(routes =>
-            //{
-            //    //routes.
-            //})
+            
         }
     }
 }

@@ -86,11 +86,11 @@ namespace Core.Entities.Catalog
         /// Get or set the Many-To-Many reference to the Supplier Entity
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; }
+        public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; } = new List<ProductSupplier>(); 
         //Fields with unsure function
         #region Legacy field models
         public virtual Produto Produto { get; set; }
-        public int ProdutoId { get; set; }
+        public int? ProdutoId { get; set; }
         //public string ProductData { get; set; }
         
         ////TODO:Try to find what  theses fields are for
