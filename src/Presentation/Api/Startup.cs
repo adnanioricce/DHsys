@@ -42,8 +42,7 @@ namespace Api
         {
 
             string connString = Configuration.GetConnectionString("SqliteConnection");
-            services.AddTransient<IDbConnection>(db => new SqliteConnection(connString));
-            //services.
+            services.AddTransient<IDbConnection>(db => new SqliteConnection(connString));            
             services.AddControllers();
             services.AddGrpc();
             services.AddSwaggerGen(c =>

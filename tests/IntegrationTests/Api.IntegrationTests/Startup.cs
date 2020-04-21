@@ -5,11 +5,13 @@ using Core.Interfaces;
 using Core.Mappers;
 using DAL;
 using Infrastructure.Settings;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Data;
 using System.Reflection;
 using Xunit;
 using Xunit.Abstractions;
@@ -35,7 +37,8 @@ namespace Api.IntegrationTests
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<GitSettings>(configuration.GetSection(nameof(GitSettings)));
             services.Configure<AppSettings>(configuration);
-            services.AddDbContext<DbContext, MainContext>(opt => opt.UseSqlite("./Data/database.db"));                
+            services.AddDbContext<DbContext, MainContext>(opt => opt.UseSqlite("./Data/database.db"));
+            services.AddScoped<IDbConnection>(db => new SqliteConnection(configuration.GetConnectionString("SqliteConnection")));         
             services.AddScoped(typeof(LegacyContext<>));
             services.AddScoped<MainContext>();
             services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));         
@@ -45,27 +48,18 @@ namespace Api.IntegrationTests
             services.AddTransient<IDrugService, DrugService>();
             services.AddTransient<IBillingService, BillingService>();
             services.AddTransient<IDataResourceClient, SupplierDataResourceClient>();
-            services.AddTransient<IDbSynchronizer, DbSynchronizer>();
-            
+            services.AddTransient<IDbSynchronizer, DbSynchronizer>();            
         }
         protected override void Configure(IServiceProvider provider)
         {
-            using (var scope = provider.CreateScope())
-            {
+            using (var scope = provider.CreateScope()){
                 var sp = scope.ServiceProvider;
                 var context = sp.GetService<DbContext>();
-                if (context.Database.EnsureDeleted())
-                {
+                if (context.Database.EnsureDeleted()){
                     context.Database.ExecuteSqlRaw(context.Database.GenerateCreateScript());
+                    return;
                 }
-                context.Database.Migrate();
-                //var migrations = context.Database.GetMigrations();
-                //if(migrations.Count() > 0) {
-                //    foreach (var migration in migrations)
-                //    {
-                        
-                //    }
-                //}
+                context.Database.Migrate();                
             }
             base.Configure(provider);
         }

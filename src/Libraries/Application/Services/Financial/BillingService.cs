@@ -4,6 +4,7 @@ using System.Linq;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Validations;
+using DAL;
 using FluentValidation;
 
 namespace Application.Services
@@ -16,7 +17,7 @@ namespace Application.Services
             _billingRepository = billingRepository;            
         }
         public void AddBilling(Billing billing)
-        {
+        {                    
             var validator = new BillingValidator();
             if (validator.IsValid(billing))
             {

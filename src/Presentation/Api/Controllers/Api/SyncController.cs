@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using System.IO;
+using Core.Entities;
 using Core.Interfaces;
 using Core.Models.Resources.Requests;
 using DAL;
@@ -7,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using System;
 using System.Data;
+using System.Data.Common;
+using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -46,6 +49,15 @@ namespace Api.Controllers.Api
             }             
             
             return Ok("all changes are writen successfully");
-        }                       
+        }                 
+        [HttpGet]      
+        public async Task<IActionResult> SyncDbfFilesWithDatabase()
+        {
+            
+            // changes.
+            return NoContent();
+        }
+        
+        
     }
 }

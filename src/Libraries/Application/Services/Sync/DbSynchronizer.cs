@@ -5,12 +5,14 @@ using Core.Models.Dbf;
 using Core.Models.Resources.Requests;
 using DAL;
 using Infrastructure.Settings;
+using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
 using Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
@@ -89,42 +91,81 @@ namespace Application.Services
         };
         public void SyncDbfChanges()
         {            
-            if (_dbfFilesChanged.Count == 0) return;
-
-            var updateQuery = new StringBuilder();
+            if (_dbfFilesChanged.Count == 0) return;            
             for (int i = 0; i < _dbfFilesChanged.Count; ++i) {
-                string tableName = _dbfFilesChanged[i].Substring(_dbfFilesChanged[i].LastIndexOf("/"));
-                var diff = DbfComparers.DbfComparer.GetDiff(tableName, _dbfFilesChanged[i]).ToArray();
-                var columns = diff.Select(d => d.Columns.Select(c => c.ColumnName)).ToArray();
-                for(int j = 0;j < diff.Length; ++j) {                    
-                    updateQuery.Append($"UPDATE {tableName} SET ");
-                    var columnCount = columns.Count();
-                    for (int k = 0; k < columnCount; ++k) {
-                        updateQuery.Append($"{diff[j].Columns[k].ColumnName}={diff[j].Columns[k].NewValue}");
-                        if(columnCount == k) {
-                            updateQuery.Append($"WHERE Id = {diff[j].Index};");
-                        }
-                        else {
-                            updateQuery.Append(",");
-                        }
-                    }
-                    try {
-                        _connection.Open();
-                        var command = _connection.CreateCommand();
-                        command.CommandText = updateQuery.ToString();
-                        command.ExecuteNonQuery();
-                        _connection.Close();
-                        updateQuery.Clear();
-                    }
-                    catch(OleDbException ex)
-                    {
-                        //TODO:Create log service
-                        Console.Out.WriteLine(ex.ToString());
-                        throw;
-                    }
-                }
+                SyncDbfChanges(_dbfFilesChanged[i]);
             }
             _dbfFilesChanged.Clear();
+        }
+        public void SyncDbfChanges(string dbfFilePath)
+        {
+            var updateQuery = new StringBuilder();
+            string tableName = dbfFilePath.Substring(dbfFilePath.LastIndexOf("/"));
+            var diff = DbfComparers.DbfComparer.GetDiff(tableName, dbfFilePath).ToArray();        
+            //TODO:Adapt this to deleted files    
+            var rowsChanged = diff
+                .Where(d => d.Operation == Operation.Modified || d.Operation == Operation.Inserted)
+                .Select(d => new
+                {
+                    d.Index,
+                    Columns =  d.Columns.Select(c => new
+                    {
+                        c.ColumnName,
+                        c.NewValue
+                    })
+                })
+                .ToArray();            
+            for (int j = 0; j < diff.Length; ++j){
+                updateQuery.Append($"UPDATE {tableName} SET ");
+                var columnCount = rowsChanged.Count();                
+                string updateColumnsAndValues = string.Join(",",rowsChanged[j].Columns.Select(c => $"{c.ColumnName}={c.NewValue}"));
+                updateQuery.Append(updateColumnsAndValues);
+                updateQuery.Append($"WHERE Id = {rowsChanged[j].Index};");
+                try {
+                    _connection.Open();
+                    var command = _connection.CreateCommand();
+                    command.CommandText = updateQuery.ToString();
+                    command.ExecuteNonQuery();
+                    _connection.Close();
+                    updateQuery.Clear();
+                }
+                catch (OleDbException ex)
+                {
+                    //TODO:Create log service
+                    Console.Out.WriteLine(ex.ToString());
+                    throw;
+                }
+            }
+        }
+        
+        public DataSet MapDbfsToDataset(string[] files)
+        {            
+            var dataSet = new DataSet();                        
+            // I need to fill the dataset with the table values, but I need the name of the tables to index the files that I am receiving
+            var tableNamesAndFilenames = files.Select(ConvertFilenameToSelectQuery);                             
+            _connection.Open();             
+            var adapter = GetDataAdapter(_connection);            
+            var tableMappings = tableNamesAndFilenames
+                .Select(tf => new DataTableMapping(tf.TableName,tf.Query))
+                .ToArray();
+            adapter.TableMappings.AddRange(tableMappings);            
+            adapter.Fill(dataSet);
+            _connection.Close();
+            return dataSet;
+        }
+        public (string Query,string TableName) ConvertFilenameToSelectQuery(string filepath)
+        {
+            int lastBackslashIndex = filepath.Contains("\\") ? filepath.LastIndexOf("\\") : filepath.LastIndexOf("/");
+            var filename = filepath.Substring(lastBackslashIndex);
+            string filenameWithoutPath = Path.GetFileNameWithoutExtension(filename);
+            string tableName = char.ToUpper(filenameWithoutPath[0]) + filenameWithoutPath.Substring(1);
+            return (Query:$"SELECT * FROM {tableName};",TableName:tableName);
+        }        
+        private DbDataAdapter GetDataAdapter(IDbConnection dbConnection)
+        {
+            if(dbConnection is SqliteConnection) return new System.Data.SQLite.SQLiteDataAdapter();
+            if(dbConnection is OleDbConnection) return new OleDbDataAdapter();
+            return new System.Data.SQLite.SQLiteDataAdapter();            
         }
         public static T CastObject<T>(object input)
         {            
