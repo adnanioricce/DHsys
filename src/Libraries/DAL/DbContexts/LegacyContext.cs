@@ -14,12 +14,13 @@ namespace DAL
     /// </summary>
     public class LegacyContext<T>
     {
-        private readonly IDbConnection _connection;        
-        private readonly LegacyDatabaseSettings _dbParameters;
-        private readonly EntityField[] _fields = typeof(T).GetProperties().Select(x => new EntityField{
+        private readonly IDbConnection _connection;
+
+        public EntityField[] Fields { get; } = typeof(T).GetProperties().Select(x => new EntityField {
                 FieldName = x.Name,
                 Value = null
             }).ToArray();
+
         public LegacyContext(IOptions<LegacyDatabaseSettings> options)
         {
             _connection = new OleDbConnection(options.Value.ToString());                                     

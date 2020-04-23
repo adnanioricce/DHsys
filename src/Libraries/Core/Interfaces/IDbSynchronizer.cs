@@ -28,9 +28,16 @@ namespace Core.Interfaces
         /// <summary>
         /// Convert a collection of dbf files to a dataset
         /// </summary>
-        /// <param name="files"></param>
+        /// <param name="files">the dbf files to be loaded</param>
+        /// <param name="dbConnection">the IDbConnection object to be used to create adapter.</param>
         /// <returns>a dataset with all the tables loaded from the files</returns>
-        DataSet MapDbfsToDataset(string[] files);
+        DataSet MapDbfsToDataset(string[] files,IDbConnection dbConnection);
+        /// <summary>
+        /// loads all tables in each folder in a different dataset, compare it and return.
+        /// </summary>        
+        /// <param name="sourceFolderPath">the folder with the source of the changes</param>
+        /// <returns>a dataset with the changes between the datasets</returns>
+        DataSet GetChangesBetweenDatabases(string sourceFolderPath);
         /// <summary>
         /// creates a tuple from the filenames to a SELECT statement for the file table and the tablename of the filename and return it.
         /// </summary>
@@ -46,5 +53,9 @@ namespace Core.Interfaces
         /// </summary>
         /// <param name="dbfFilePath"></param>
         void SyncDbfChanges(string dbfFilePath);
+        /// <summary>
+        /// Syncronize data from source database to local database
+        /// </summary>
+        void SyncSourceDatabaseWithLocalDatabase(string sourceDatabaseFolder);
     }
 }

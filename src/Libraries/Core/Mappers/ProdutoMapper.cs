@@ -30,26 +30,28 @@ namespace Core.Mappers
         }
         private Drug MapSimpleFields(Produto produto)
         {
-            var drug = new Drug();
-            drug.BarCode = produto.Prbarra;
-            drug.UniqueCode = produto.Prcodi;
-            drug.Description = produto.Prdesc;
-            drug.LotNumber = produto.Prlote;
-            drug.Ncm = produto.Prncms;
-            drug.DrugName = produto.Prdesc;
-            drug.DrugCost = decimal.TryParse(produto.Prfabr.ToString(), out var result) ? result : Convert.ToDecimal(produto.Prfabr);
-            drug.Classification = produto.Prclas;
-            drug.CommercialName = produto.Pretiq;
-            drug.QuantityInStock = int.TryParse(produto.Prestq.ToString(), out var estResult) ? estResult : Convert.ToInt32(produto.Prestq);
-            drug.PrCdse = produto.Prcdse;
-            drug.ActivePrinciple = produto.Prprinci;
-            drug.Section = produto.Secao;
-            drug.EndCustomerPrice = Convert.ToDecimal(produto.Prcons);
-            drug.DiscountValue = decimal.TryParse((produto.Prcons - (produto.Prcons * (produto.DescMax / 100))).ToString(),out var discountValue) ? discountValue : 0.00m;
-            drug.PrescriptionNeeded = !string.IsNullOrEmpty(produto.Prlote) ? true : false;
-            drug.ManufacturerName = produto.Prnola;
-            drug.MinimumStock = int.TryParse(produto.EstMinimo.ToString(),out var minStockResult) ? minStockResult : 1;
-            drug.MainSupplierName = produto.Ultfor;
+            var drug = new Drug
+            {
+                BarCode = produto.Prbarra,
+                UniqueCode = produto.Prcodi,
+                Description = produto.Prdesc,
+                LotNumber = produto.Prlote,
+                Ncm = produto.Prncms,
+                DrugName = produto.Prdesc,
+                DrugCost = decimal.TryParse(produto.Prfabr.ToString(), out var result) ? result : Convert.ToDecimal(produto.Prfabr),
+                Classification = produto.Prclas,
+                CommercialName = produto.Pretiq,
+                QuantityInStock = int.TryParse(produto.Prestq.ToString(), out var estResult) ? estResult : Convert.ToInt32(produto.Prestq),
+                PrCdse = produto.Prcdse,
+                ActivePrinciple = produto.Prprinci,
+                Section = produto.Secao,
+                EndCustomerPrice = Convert.ToDecimal(produto.Prcons),
+                DiscountValue = decimal.TryParse((produto.Prcons - (produto.Prcons * (produto.DescMax / 100))).ToString(), out var discountValue) ? discountValue : 0.00m,
+                PrescriptionNeeded = !string.IsNullOrEmpty(produto.Prlote),
+                ManufacturerName = produto.Prnola,
+                MinimumStock = int.TryParse(produto.EstMinimo.ToString(), out var minStockResult) ? minStockResult : 1,
+                MainSupplierName = produto.Ultfor
+            };
             drug.Drugprices.Add(new DrugPrice
             {
                 Drug = drug,

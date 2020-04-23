@@ -13,6 +13,7 @@ using System.Data.OleDb;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Infrastructure.Settings;
 
 namespace Api.Controllers.Api
 {
@@ -22,10 +23,12 @@ namespace Api.Controllers.Api
     {
         private readonly IDbSynchronizer _dbSyncronizer;
         private readonly IDbConnection _connection;
-        public SyncController(IDbSynchronizer dbSynchronizer,IDbConnection connection)
+        private readonly string _dbfSourceFolder;
+        public SyncController(IDbSynchronizer dbSynchronizer,IDbConnection connection,IOptions<LegacyDatabaseSettings> legacyDbSettings)
         {
             _dbSyncronizer = dbSynchronizer;
             _connection = connection;
+            _dbfSourceFolder = legacyDbSettings.Value.DataSource;
         }
         [HttpPost("sync_dbfs")]
         public async Task<IActionResult> SyncDatabase([FromBody]SyncDatabaseRequest request)
@@ -51,11 +54,11 @@ namespace Api.Controllers.Api
             return Ok("all changes are writen successfully");
         }                 
         [HttpGet]      
-        public async Task<IActionResult> SyncDbfFilesWithDatabase()
-        {
-            
-            // changes.
-            return NoContent();
+        public async Task<IActionResult> SyncSourceDatabaseWithDatabaseLocalDatabase()
+        {                        
+            //? How do I now if this is failing or not?
+            _dbSyncronizer.SyncSourceDatabaseWithLocalDatabase(_dbfSourceFolder);
+            return Ok();
         }
         
         

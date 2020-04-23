@@ -17,7 +17,7 @@ namespace Core.Validations
             RuleFor(c => c.EndDate)               
                 .Must(c =>
                 {                                     
-                    return c.HasValue ? c.Value >= DateTime.MinValue : false;
+                    return c.HasValue && c.Value >= DateTime.MinValue;
                 }).WithMessage("EndDate format is invalid, check if value is less than should be,if you entered it correctly or if is null")
                 .NotNull()
                     .WithMessage("you can't pass a null value to DataDeVencimento");                                            

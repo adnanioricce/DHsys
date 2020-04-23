@@ -76,5 +76,16 @@ namespace Api.Tests
             //var strMessage = await message.Content.ReadAsStringAsync();
             Assert.Equal(200,(int)response.StatusCode);            
         }
+        [Fact]
+        public async Task SyncSourceDatabaseWithDatabaseLocalDatabase_receivesNoParameterButUserShouldBeAdmin_ShouldReturnStatus200AndKindOfResultIfReceivedAndUserIsAdmin()
+        {
+            //TODO:Authentication services
+            //Given
+            var request_url = "api/v1/Sync/sync_databases";
+            //When
+            var response = await _client.GetAsync(request_url);
+            //Then
+            Assert.Equal(200, (int)response.StatusCode);
+        }
     }
 }

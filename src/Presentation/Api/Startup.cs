@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Extensions;
+using Application;
 using Application.Services;
 using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
@@ -41,8 +43,7 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            string connString = Configuration.GetConnectionString("SqliteConnection");
-            services.AddTransient<IDbConnection>(db => new SqliteConnection(connString));            
+            string connString = Configuration.GetConnectionString("SqliteConnection");                 
             services.AddControllers();
             services.AddGrpc();
             services.AddSwaggerGen(c =>
@@ -70,6 +71,19 @@ namespace Api
                     settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
+            services.AddTransient<ConnectionResolver>(db => key =>  {
+                return key switch
+                {
+                    //our local database
+                    "local" => new SqliteConnection(connString),
+                    //a legacy shared database from which source changes in real world environment
+                    "source" => new OleDbConnection(connString),
+                    //a remote database to keep some changes
+                    "remote" => new NpgsqlConnection(connString),
+                    _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
+                };
+                // new SqliteConnection(connString)    
+            });       
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using System.Net;
+using Core.Entities;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Models.Dbf;
@@ -25,17 +26,23 @@ namespace Application.Services
 {
     public class DbSynchronizer : IDbSynchronizer
     {        
-        private readonly IDbConnection _connection;        
-        private List<string> _dbfFilesChanged;
+        private readonly IDbConnection _sourceDbConnection;        
+        private readonly IDbConnection _localDbConnection;
+        private readonly DbDataAdapter _localDataAdapter;
+        private readonly List<string> _dbfFilesChanged;
         private static MethodInfo Converter;
-        private Dictionary<string,Type> LegacyTypes = new Dictionary<string, Type>();
-        public DbSynchronizer(IDbConnection dbConnection)
+        private readonly Dictionary<string,Type> LegacyTypes = new Dictionary<string, Type>();
+        public DbSynchronizer(ConnectionResolver connectionResolver)
         {                                             
             LegacyTypes = Assembly.Load(typeof(Core.Core).Assembly.FullName)
                 .GetTypes()
                 .Where(t => t.Namespace == typeof(ILegacyScaffold).Namespace && t.IsClass)                
                 .ToDictionary(v => v.Name);
-            _connection = dbConnection;
+            _localDbConnection = connectionResolver("local");
+            _sourceDbConnection = connectionResolver("source");
+            _localDataAdapter = GetDataAdapter(_sourceDbConnection);
+            _localDataAdapter.TableMappings.AddRange(LegacyTypes.Select(lt => new DataTableMapping(lt.Key, $"SELECT * FROM {lt.Key}"))
+                                                               .ToArray());
         }                
         
         public string GenerateSyncScriptForEntity(SyncDatabaseRequest request)
@@ -122,11 +129,11 @@ namespace Application.Services
                 updateQuery.Append(updateColumnsAndValues);
                 updateQuery.Append($"WHERE Id = {rowsChanged[j].Index};");
                 try {
-                    _connection.Open();
-                    var command = _connection.CreateCommand();
+                    _sourceDbConnection.Open();
+                    var command = _sourceDbConnection.CreateCommand();
                     command.CommandText = updateQuery.ToString();
                     command.ExecuteNonQuery();
-                    _connection.Close();
+                    _sourceDbConnection.Close();
                     updateQuery.Clear();
                 }
                 catch (OleDbException ex)
@@ -137,29 +144,50 @@ namespace Application.Services
                 }
             }
         }
-        
-        public DataSet MapDbfsToDataset(string[] files)
+        public void SyncSourceDatabaseWithLocalDatabase(string sourceDatabaseFolder)
+        {
+            //?the existence of this method is worted?
+            var changes = MapDbfsToDataset(Directory.GetFiles(sourceDatabaseFolder,"*"),_sourceDbConnection);
+            try
+            {
+                
+                _localDbConnection.Open();
+                _localDataAdapter.Update(changes);
+                _localDbConnection.Close();
+            }catch(DBConcurrencyException ex)
+            {
+                //TODO:log exception
+                throw;
+            }            
+        }
+        public DataSet GetChangesBetweenDatabases(string sourceFolderPath)
+        {                        
+            var localDataSet = new DataSet();                                                                  
+            var sourceDataSet = MapDbfsToDataset(Directory.GetFiles(sourceFolderPath,"*.DBF"),_sourceDbConnection);
+            _localDbConnection.Open();
+            _localDataAdapter.Fill(localDataSet);
+            _localDbConnection.Close();
+            localDataSet.Merge(sourceDataSet);            
+            if(!localDataSet.HasChanges()) return localDataSet;
+            var changes = localDataSet.GetChanges();             
+            return changes;
+        }
+        public DataSet MapDbfsToDataset(string[] files,IDbConnection dbConnection)
         {            
             var dataSet = new DataSet();                        
             // I need to fill the dataset with the table values, but I need the name of the tables to index the files that I am receiving
             var tableNamesAndFilenames = files.Select(ConvertFilenameToSelectQuery);                             
-            _connection.Open();             
-            var adapter = GetDataAdapter(_connection);            
-            var tableMappings = tableNamesAndFilenames
-                .Select(tf => new DataTableMapping(tf.TableName,tf.Query))
-                .ToArray();
-            adapter.TableMappings.AddRange(tableMappings);            
-            adapter.Fill(dataSet);
-            _connection.Close();
+            dbConnection.Open();                                
+            _localDataAdapter.Fill(dataSet);            
+            dbConnection.Close();
             return dataSet;
         }
         public (string Query,string TableName) ConvertFilenameToSelectQuery(string filepath)
         {
-            int lastBackslashIndex = filepath.Contains("\\") ? filepath.LastIndexOf("\\") : filepath.LastIndexOf("/");
-            var filename = filepath.Substring(lastBackslashIndex);
-            string filenameWithoutPath = Path.GetFileNameWithoutExtension(filename);
-            string tableName = char.ToUpper(filenameWithoutPath[0]) + filenameWithoutPath.Substring(1);
+            string filename = Path.GetFileNameWithoutExtension(filepath);                                                
+            string tableName = char.ToUpper(filename[0]) + filename.Substring(1);
             return (Query:$"SELECT * FROM {tableName};",TableName:tableName);
+            
         }        
         private DbDataAdapter GetDataAdapter(IDbConnection dbConnection)
         {
