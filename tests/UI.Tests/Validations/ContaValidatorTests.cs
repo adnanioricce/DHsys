@@ -26,8 +26,7 @@ namespace UI.Tests.Validations
             };
 
             // Act
-            var result = contaValidator.IsValid(
-                conta);
+            var result = contaValidator.IsValid(conta);
 
             // Assert
             Assert.True(result);            
