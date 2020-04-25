@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class Tabela
+    public  class Tabela
     {
         public int Id { get; set; }
         public string Abc { get; set; }

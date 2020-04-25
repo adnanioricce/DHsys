@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class Transfer
+    public  class Transfer
     {
         public int Id { get; set; }
         public DateTime? Trdata { get; set; }

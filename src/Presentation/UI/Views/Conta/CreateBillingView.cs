@@ -6,7 +6,7 @@ namespace UI.Views.Conta
     /// <summary>
     /// Interação lógica para AddContaView.xam
     /// </summary>
-    public partial class CreateBillingView : UserControl
+    public  class CreateBillingView : UserControl
     {
         public CreateBillingView()
         {

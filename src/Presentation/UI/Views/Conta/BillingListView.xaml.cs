@@ -16,7 +16,7 @@ namespace UI.Views.Conta
     /// <summary>
     /// Interação lógica para ContaListView.xam
     /// </summary>
-    public partial class BillingListView : UserControl
+    public  class BillingListView : UserControl
     {
         public BillingListView()
         {

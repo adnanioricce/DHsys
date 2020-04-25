@@ -2,6 +2,18 @@ namespace Infrastructure.Settings
 {
     public class LegacyDatabaseSettings
     {
+        public LegacyDatabaseSettings()
+        {
+            
+        }
+        public LegacyDatabaseSettings(string provider,string dataSource,string extendedProperties,string userID,string password)
+        {
+            Provider = provider;
+            DataSource = dataSource;
+            ExtendedProperties = extendedProperties;
+            UserID = userID;
+            Password = password;
+        }
         public string Provider { get; set; }
         public string DataSource { get; set; }
         public string ExtendedProperties { get; set; }

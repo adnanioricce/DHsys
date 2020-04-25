@@ -16,7 +16,7 @@ namespace Infrastructure.Extensions
             {
                 var environment = provider.GetService<IHostEnvironment>();
                 var options = provider.GetService<IOptionsMonitor<T>>();
-                return new OptionWriter<T>(environment, options, sectionKey, file);
+                return new OptionWriter<T>(environment, file);
             });
         }
     }

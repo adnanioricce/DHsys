@@ -4,7 +4,7 @@
 
 //namespace Core.Entities.LegacyScaffold
 //{
-//    public partial class Farmacia_tmpContext : DbContext
+//    public  class Farmacia_tmpContext : DbContext
 //    {
 //        public Farmacia_tmpContext()
 //        {
@@ -3157,9 +3157,9 @@
 //                entity.Property(e => e.Qtde).HasColumnName("QTDE");
 //            });
 
-//            OnModelCreatingPartial(modelBCorelder);
+//            OnModelCreating(modelBCorelder);
 //        }
 
-//        partial void OnModelCreatingPartial(ModelBCorelder modelBCorelder);
+//         void OnModelCreating(ModelBCorelder modelBCorelder);
 //    }
 //}

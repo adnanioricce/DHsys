@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.Catalog
 {
-    public partial class DrugPrice : BaseEntity
+    public  class DrugPrice : BaseEntity
     {        
         public int DrugId { get; set; }
         public DateTime? Pricestartdate { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class Movme
+    public  class Movme
     {
         public int Id { get; set; }
         public string Prcodi { get; set; }

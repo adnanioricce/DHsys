@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class Caixa
+    public class Caixa
     {
         public int Id { get; set; }
         public string CxAtend { get; set; }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class Ent
+    public  class Ent
     {
         public int Id { get; set; }
         public DateTime? Endata { get; set; }

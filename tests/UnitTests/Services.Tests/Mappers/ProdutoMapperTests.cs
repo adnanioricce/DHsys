@@ -58,21 +58,7 @@ namespace Services.Tests.Mappers
             Assert.Equal(sampleProduto.Prfinal, (double)result.EndCustomerPrice);
             Assert.Equal(18,result.ICMS);
             Assert.Equal(!string.IsNullOrEmpty(sampleProduto.Prlote), result.PrescriptionNeeded && !string.IsNullOrEmpty(result.LotNumber));
-        }
-
-        [Fact]
-        public void GetChanges_StateUnderTest_ExpectedBehavior()
-        {
-            // Arrange
-            var produtoMapper = new ProdutoMapper(null);
-            string tableName = null;
-
-            // Act
-            var result = produtoMapper.GetChanges(tableName);
-
-            // Assert
-            Assert.True(false);            
-        }
+        }        
        
         private bool IsValidMapping(IEnumerable<Drug> drugList,IEnumerable<Produto> produtoList)
         {

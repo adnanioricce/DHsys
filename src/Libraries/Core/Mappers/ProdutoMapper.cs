@@ -92,12 +92,7 @@ namespace Core.Mappers
                 drug.AbsoluteDosageInMg = double.TryParse(string.Join("", value.Select(d => char.IsDigit(d))), out var dosageValue) ? dosageValue : -1;
             }
             return drug;
-        }
-
-        public TableChanges<Drug> GetChanges(string tableName)
-        {
-            throw new NotImplementedException();
-        }
+        }        
         //?Actually, this should not happen here
 
     }    

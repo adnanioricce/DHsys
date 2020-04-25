@@ -1,4 +1,5 @@
-﻿using Application.Services;
+﻿using Application;
+using Application.Services;
 using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
@@ -10,8 +11,12 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Npgsql;
 using System;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.OleDb;
+using System.Data.SQLite;
 using System.Reflection;
 using Xunit;
 using Xunit.Abstractions;
@@ -31,14 +36,23 @@ namespace Api.IntegrationTests
         }
         protected void ConfigureServices(IServiceCollection services) 
         {
+            
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
+            string sqliteConnStr = configuration.GetConnectionString("SqliteConnection");
+            string npgConnStr = configuration.GetConnectionString("NpgsqlConnection");
+            var dbSettingsSection = configuration.GetSection(nameof(LegacyDatabaseSettings));                
+            var settings = new LegacyDatabaseSettings(dbSettingsSection["Provider"]
+            ,"./TestData/"
+            ,dbSettingsSection["ExtendedProperties"]
+            ,dbSettingsSection["UserID"]
+            ,dbSettingsSection["Password"]);
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<GitSettings>(configuration.GetSection(nameof(GitSettings)));
             services.Configure<AppSettings>(configuration);
             services.AddDbContext<DbContext, MainContext>(opt => opt.UseSqlite("./Data/database.db"));
-            services.AddScoped<IDbConnection>(db => new SqliteConnection(configuration.GetConnectionString("SqliteConnection")));         
+            // services.AddScoped<IDbConnection>(db => new SqliteConnection(sqliteConnStr));         
             services.AddScoped(typeof(LegacyContext<>));
             services.AddScoped<MainContext>();
             services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));         
@@ -48,7 +62,21 @@ namespace Api.IntegrationTests
             services.AddTransient<IDrugService, DrugService>();
             services.AddTransient<IBillingService, BillingService>();
             services.AddTransient<IDataResourceClient, SupplierDataResourceClient>();
-            services.AddTransient<IDbSynchronizer, DbSynchronizer>();            
+            
+            services.AddTransient<ConnectionResolver>(db => key =>  {                
+                return key switch
+                {
+                    //our local database
+                    "local" => new SQLiteConnection(sqliteConnStr),
+                    //a legacy shared database from which source changes in real world environment
+                    "source" => new OleDbConnection(settings.ToString()),
+                    //a remote database to keep some changes
+                    "remote" => new NpgsqlConnection(npgConnStr),
+                    _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
+                };
+                // new SqliteConnection(connString)    
+            });      
+            services.AddTransient<IDbSynchronizer, DbSynchronizer>();                        
         }
         protected override void Configure(IServiceProvider provider)
         {

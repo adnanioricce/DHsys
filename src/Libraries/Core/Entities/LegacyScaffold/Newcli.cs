@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class Newcli
+    public  class Newcli
     {
         public int Id { get; set; }
         public string Codigo { get; set; }

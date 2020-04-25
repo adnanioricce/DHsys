@@ -6,7 +6,7 @@ namespace UI.Views.Product
     /// <summary>
     /// Interação lógica para ProductListView.xam
     /// </summary>
-    public partial class ProductListView : UserControl
+    public  class ProductListView : UserControl
     {
         public ProductListView()
         {                

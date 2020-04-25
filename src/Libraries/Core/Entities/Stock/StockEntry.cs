@@ -22,5 +22,12 @@ namespace Core.Entities.Stock
 
             this.Drugs.Add(drug);
         }
+        public void AddDrugs(IEnumerable<Drug> drugs)
+        {
+            foreach (var drug in drugs)
+            {                            
+                this.Drugs.Add(drug);
+            }
+        }
     }
 }

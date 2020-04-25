@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class Etiqprom
+    public  class Etiqprom
     {
         public int Id { get; set; }
         public string Prcodi { get; set; }

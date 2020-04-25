@@ -1,9 +1,11 @@
-﻿using Application.Services;
+﻿using System.Reflection;
+using Application.Services;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Models.Dbf;
 using Core.Models.Resources.Requests;
 using DAL;
+using dBASE.NET;
 using Microsoft.Data.Sqlite;
 using Microsoft.Extensions.Options;
 using System;
@@ -12,16 +14,19 @@ using System.Data;
 using System.Diagnostics;
 using System.Linq;
 using Xunit;
+using Application;
 
 namespace Api.IntegrationTests.Services.Sync
 {
     public class DbSyncronizerTests : IDisposable
     {
         private readonly IDbConnection _connection;
+        private readonly IDbConnection _sourceConnection;
         private readonly IDbSynchronizer _dbSyncronizer;
+        
         public DbSyncronizerTests(IDbSynchronizer dbSyncronizer)
         {
-            _connection = new SqliteConnection("Data Source=database.db");
+            _connection = new SqliteConnection("Data Source=database.db");            
             _dbSyncronizer = dbSyncronizer;
         }
 
@@ -95,12 +100,55 @@ namespace Api.IntegrationTests.Services.Sync
         [Fact]
         public void WhenDataSourceFilesChange_WriteAllChangesOnLocalDataSource_ThenReturnAffectedNumberOfRecords()
         {
-            //Given
-            string dataSourceFolder = "TestData/WhenDataSourceFilesChange";            
-            //When
+            //Given                 
+            string dataSourceFolder = "./TestData";                      
+            //When            
             int result = _dbSyncronizer.SyncSourceDatabaseWithLocalDatabase(dataSourceFolder);
             //Then
             Assert.Equal(2,result);
+        }        
+        private void WriteDbfToWhenDataSourceFilesChangesNeedTestData(IEnumerable<object> data,string dbfPath)
+        {
+            var dbf = new Dbf();
+            var fields = data.FirstOrDefault()
+                            .GetType()
+                            .GetProperties()
+                            .Select(ToDbfField)
+                            .Where(f => !(f is null));                                                                
+            dbf.Fields.AddRange(fields);                        
+            var values = data.Select(d => d.GetType()
+                                           .GetProperties()
+                                           .Select(p => p.GetValue(d))
+                                           .Where(p => !(p is null)));
+                                           
+            foreach (var value in values){
+                var record = dbf.CreateRecord();
+                record.Data.AddRange(value);
+                dbf.Records.Add(record);
+            }            
+            dbf.Write(dbfPath,DbfVersion.FoxBaseDBase3NoMemo);                     
+        }        
+        private DbfField ToDbfField(PropertyInfo property)
+        {
+            if(property.PropertyType.Name == nameof(String)){
+                return new DbfField(property.Name,DbfFieldType.Character,32);
+            }
+            if(property.PropertyType.Name == nameof(Single)){
+                return new DbfField(property.Name,DbfFieldType.Float,sizeof(System.Single));
+            }
+            if(property.PropertyType.Name == nameof(Double)){
+                return new DbfField(property.Name,DbfFieldType.Double,sizeof(System.Double));
+            }
+            if(property.PropertyType.Name == nameof(Int32)){
+                return new DbfField(property.Name,DbfFieldType.Integer,sizeof(System.Int32));
+            }
+            if(property.PropertyType.Name == nameof(DateTime)){
+                return new DbfField(property.Name,DbfFieldType.Date,32);
+            }
+            if(property.PropertyType.Name == nameof(Boolean)){
+                return new DbfField(property.Name,DbfFieldType.Logical,1);
+            }            
+            return null;
         }
     }
 }

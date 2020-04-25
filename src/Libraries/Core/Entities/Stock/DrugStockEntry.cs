@@ -1,3 +1,5 @@
+using Core.Entities.Catalog;
+
 namespace Core.Entities.Stock
 {
     public class DrugStockEntry : BaseEntity

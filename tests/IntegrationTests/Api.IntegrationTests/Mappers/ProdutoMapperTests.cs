@@ -32,20 +32,7 @@ namespace Api.IntegrationTests.Mappers
 
             // Then            
             Assert.Equal(5005, result.Count());
-        }        
-        [Fact]
-        public void GetChanges_ReceivesTableName_ShouldReturnListComparingChangesBetween()
-        {
-            // Given
-            var produtoMapper = new ProdutoMapper(_legacyProdutoRepository);
-            string tableName = "PRODUTO.DBF";
-
-            // When
-            var result = produtoMapper.GetChanges(tableName);
-
-            // Then
-            Assert.True(false);
-        }                       
+        }                                      
 
     }
 }

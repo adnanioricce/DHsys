@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class CliMed
+    public class CliMed
     {
         public int Id { get; set; }
         public string CpfCrm { get; set; }

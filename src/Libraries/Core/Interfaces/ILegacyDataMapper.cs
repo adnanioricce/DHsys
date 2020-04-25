@@ -23,8 +23,7 @@ namespace Core.Interfaces
         /// </summary>
         /// <param name="tableName"></param>
         /// <returns>Collection of entities mapped from legacy table</returns>
-        IEnumerable<T> MapTable(string tableName);
-        TableChanges<T> GetChanges(string tableName);
+        IEnumerable<T> MapTable(string tableName);        
         
     }
 }

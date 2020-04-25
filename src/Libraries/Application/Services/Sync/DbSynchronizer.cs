@@ -21,6 +21,8 @@ using System.Reflection;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Data.SQLite;
+using Core.Extensions;
 
 namespace Application.Services
 {
@@ -29,6 +31,7 @@ namespace Application.Services
         private readonly IDbConnection _sourceDbConnection;        
         private readonly IDbConnection _localDbConnection;
         private readonly DbDataAdapter _localDataAdapter;
+        private readonly DataSet _dataSet = new DataSet();
         private readonly List<string> _dbfFilesChanged;
         private static MethodInfo Converter;
         private readonly Dictionary<string,Type> LegacyTypes = new Dictionary<string, Type>();
@@ -40,9 +43,18 @@ namespace Application.Services
                 .ToDictionary(v => v.Name);
             _localDbConnection = connectionResolver("local");
             _sourceDbConnection = connectionResolver("source");
-            _localDataAdapter = GetDataAdapter(_sourceDbConnection);
-            _localDataAdapter.TableMappings.AddRange(LegacyTypes.Select(lt => new DataTableMapping(lt.Key, $"SELECT * FROM {lt.Key}"))
-                                                               .ToArray());
+            _localDataAdapter = GetDataAdapter(_localDbConnection);            
+            var tables = LegacyTypes.Select(lt => new DataTableMapping(lt.Key, lt.Key))
+                                                               .ToArray();            
+             
+            _localDataAdapter.TableMappings.AddRange(tables);
+            var command = _localDbConnection.CreateCommand();
+            command.CommandText = string.Join(';',tables.Where(t => !string.IsNullOrEmpty(t.DataSetTable)).Select(t => $"SELECT * FROM {t.DataSetTable}"));
+            _localDataAdapter.SelectCommand = (DbCommand)command;
+            _localDataAdapter.Fill(_dataSet);
+            for(int i = 0; i < _dataSet.Tables.Count;++i){
+                _dataSet.Tables[i].TableName = tables[i].DataSetTable;
+            }
         }                
         
         public string GenerateSyncScriptForEntity(SyncDatabaseRequest request)
@@ -92,9 +104,11 @@ namespace Application.Services
             "Int16" => $"{Convert.ToInt16(value)}",
             "Byte" => $"{Convert.ToByte(value)}",
             "Decimal" => $"{Convert.ToDecimal(value)}",
-            "DateTime" => $"{Convert.ToDateTime(value)}",
-            "Double" => $"{Convert.ToDouble(value)}",
-            _ => $"'{value}'"
+            "DateTime" => $"{Convert.ToDateTime(value).ToShortDateString()}",
+            "Double" => $"{Convert.ToDouble(value.ToString().Replace(',','.'))}",
+            "Single" => $"{Convert.ToSingle(value.ToString().Replace(',','.'))}",
+            "String" => $"'{value.ToString().Replace("'"," ")}'",
+            _ => "NULL"
         };
         public void SyncDbfChanges()
         {            
@@ -147,19 +161,59 @@ namespace Application.Services
         public int SyncSourceDatabaseWithLocalDatabase(string sourceDatabaseFolder)
         {
             //?the existence of this method is worted?
-            var changes = MapDbfsToDataset(Directory.GetFiles(sourceDatabaseFolder,"*"),_sourceDbConnection);
+            var changes = MapDbfsToDataset(Directory.GetFiles(sourceDatabaseFolder,"*.DBF"),_sourceDbConnection);
             try
             {
-                
+                string queryTemplate = "SELECT * FROM {0} WHERE UniqueCode = {1};";
+                var commandBuilder = GetCommandBuilder(_localDbConnection,_localDataAdapter);                
+                var queryBuilder = new StringBuilder();                                                
                 _localDbConnection.Open();
-                int result = _localDataAdapter.Update(changes);
-                _localDbConnection.Close();
-                return result;
+                var queryCommand = _localDbConnection.CreateCommand();                
+                for(int i = 0; i < changes.Tables.Count;++i){
+                    var columns = new List<string>();
+                    for(int k = 0;k < changes.Tables[i].Columns.Count;++k){
+                        columns.Add(changes.Tables[i].Columns[k].ColumnName);
+                    }
+                    var fields = string.Join(',',columns);
+                    for(int j = 0;j < changes.Tables[i].Rows.Count;++j){                        
+                        string query = string.Format(queryTemplate,changes.Tables[i].TableName,changes.Tables[i].Rows[j].ItemArray[0]);
+                        queryCommand.CommandText = query;
+                        var queryResult = queryCommand.ExecuteScalar();
+                        if(IsQueryResultNull(queryResult)){
+                            var values = string.Join(',',changes.Tables[i].Rows[j].ItemArray.Select(WriteInsertValuesToCorrectSqlType));                            
+                            queryBuilder.AppendLine($"INSERT INTO {changes.Tables[i].TableName}(UniqueCode,{fields}) VALUES({changes.Tables[i].Rows[j].ItemArray[0]},{values});");
+                            continue;
+                        }            
+                        string columnsToUpdate = string.Join(',', changes.Tables[i].Rows[j].ItemArray
+                            .Select(WriteInsertValuesToCorrectSqlType)
+                            .Select((item,index) => $"{columns[index]}={item}"));                        
+                        queryBuilder.AppendLine($"UPDATE {changes.Tables[i].TableName} SET {columnsToUpdate} WHERE UniqueCode = {queryResult};");                                                        
+                    }                    
+                }                    
+                var command = _localDbConnection.CreateCommand();    
+                command.CommandText = queryBuilder.ToString();
+                try{
+                    int result = command.ExecuteNonQuery();
+                    _localDbConnection.Close();                                
+                    return result;
+                }catch(Exception ex){
+                    //TODO:
+                    return 0;
+                }
+                
+                
             }catch(DBConcurrencyException ex)
             {
                 //TODO:log exception
                 throw;
             }            
+        }
+        private bool IsQueryResultNull(object record)
+        {
+            if(!record.IsNumber()){
+                return string.IsNullOrEmpty((string)record);
+            }
+            return (int)record  < 0;
         }
         public DataSet GetChangesBetweenDatabases(string sourceFolderPath)
         {                        
@@ -176,10 +230,25 @@ namespace Application.Services
         public DataSet MapDbfsToDataset(string[] files,IDbConnection dbConnection)
         {            
             var dataSet = new DataSet();                        
+            // var adapter = GetDataAdapter(dbConnection);
             // I need to fill the dataset with the table values, but I need the name of the tables to index the files that I am receiving
-            var tableNamesAndFilenames = files.Select(ConvertFilenameToSelectQuery);                             
-            dbConnection.Open();                                
-            _localDataAdapter.Fill(dataSet);            
+            var tableNamesAndFilenames = files.Where(f => (f.Contains(".DBF") || f.Contains(".dbf")))                                               
+                                              .Select(ConvertFilenameToSelectQuery)
+                                              .ToList();                             
+            dbConnection.Open();                     
+            for (int i = 0; i < tableNamesAndFilenames.Count; i++)
+            {
+                var adapter = new OleDbDataAdapter(tableNamesAndFilenames[i].Query,(OleDbConnection)dbConnection);                                                
+                adapter.TableMappings.Add(tableNamesAndFilenames[i].TableName,tableNamesAndFilenames[i].TableName);
+                try{
+                    // adapter.TableMappings.
+                    adapter.Fill(dataSet);
+                    dataSet.Tables[i].TableName = tableNamesAndFilenames[i].TableName;                    
+                }catch(Exception ex){
+                    //TODO:
+                }                                
+            }                           
+            
             dbConnection.Close();
             return dataSet;
         }
@@ -187,14 +256,21 @@ namespace Application.Services
         {
             string filename = Path.GetFileNameWithoutExtension(filepath);                                                
             string tableName = char.ToUpper(filename[0]) + filename.Substring(1);
-            return (Query:$"SELECT * FROM {tableName};",TableName:tableName);
+            return (Query:$"SELECT * FROM {tableName.ToUpper()}.DBF",TableName:tableName);
             
         }        
         private DbDataAdapter GetDataAdapter(IDbConnection dbConnection)
         {
-            if(dbConnection is SqliteConnection) return new System.Data.SQLite.SQLiteDataAdapter();
+            if(dbConnection is SQLiteConnection) return new SQLiteDataAdapter();
             if(dbConnection is OleDbConnection) return new OleDbDataAdapter();
             return new System.Data.SQLite.SQLiteDataAdapter();            
+        }
+        private DbCommandBuilder GetCommandBuilder(IDbConnection dbConnection,DbDataAdapter adapter)
+        {
+            
+            if(dbConnection is SQLiteConnection) return new SQLiteCommandBuilder((SQLiteDataAdapter)adapter);
+            if(dbConnection is OleDbConnection) return new OleDbCommandBuilder((OleDbDataAdapter)adapter);
+            return new System.Data.SQLite.SQLiteCommandBuilder((SQLiteDataAdapter)adapter);
         }
         public static T CastObject<T>(object input)
         {            

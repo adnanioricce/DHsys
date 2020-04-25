@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.LegacyScaffold
 {
-    public partial class Numped
+    public  class Numped
     {
         public int Id { get; set; }
         public string Fornec { get; set; }
