@@ -18,6 +18,12 @@ steps:
 - task: NuGetToolInstaller@1
 - task: DotNetCoreCLI@2
   inputs:
+    command: 'restore'
+    projects: '*.sln'
+    feedsToUse: 'select'
+    vstsFeed: '9df4ab41-810c-4448-b1ec-b7e3b639b1ee'
+- task: DotNetCoreCLI@2
+  inputs:
     command: 'test'
     projects: 'tests\IntegrationTests\**\*.Tests.csproj'
 
