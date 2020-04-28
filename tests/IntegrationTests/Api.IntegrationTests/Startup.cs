@@ -60,8 +60,7 @@ namespace Api.IntegrationTests
             services.AddTransient<ILegacyDataMapper<Drug,Produto>, ProdutoMapper>();
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IDrugService, DrugService>();
-            services.AddTransient<IBillingService, BillingService>();
-            services.AddTransient<IDataResourceClient, SupplierDataResourceClient>();
+            services.AddTransient<IBillingService, BillingService>();            
             
             services.AddTransient<ConnectionResolver>(db => key =>  {                
                 return key switch
