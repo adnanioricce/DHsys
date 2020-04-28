@@ -4,11 +4,6 @@ using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Models.Dbf;
 using Core.Models.Resources.Requests;
-using DAL;
-using Infrastructure.Settings;
-using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Options;
-using Models;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -20,9 +15,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 using System.Data.SQLite;
 using Core.Extensions;
+using Infrastructure.Extensions;
+using Infrastructure.Models;
 
 namespace Application.Services
 {
@@ -122,16 +118,16 @@ namespace Application.Services
         {
             var updateQuery = new StringBuilder();
             string tableName = dbfFilePath.Substring(dbfFilePath.LastIndexOf("/"));
-            var diff = DbfComparers.DbfComparer.GetDiff(tableName, dbfFilePath).ToArray();        
+            var diff = DbfDiffExtensions.GetDiff(tableName, dbfFilePath).ToArray();        
             //TODO:Adapt this to deleted files    
             var rowsChanged = diff
-                .Where(d => d.Operation == Operation.Modified || d.Operation == Operation.Inserted)
+                .Where(d => d.State == DiffState.Modified || d.State == DiffState.Added)
                 .Select(d => new
                 {
-                    d.Index,
-                    Columns =  d.Columns.Select(c => new
+                    d.RecordIndex,
+                    Columns =  d.ColumnsChanged.Select(c => new
                     {
-                        c.ColumnName,
+                        c.Field.Name,
                         c.NewValue
                     })
                 })
@@ -139,9 +135,9 @@ namespace Application.Services
             for (int j = 0; j < diff.Length; ++j){
                 updateQuery.Append($"UPDATE {tableName} SET ");
                 var columnCount = rowsChanged.Count();                
-                string updateColumnsAndValues = string.Join(",",rowsChanged[j].Columns.Select(c => $"{c.ColumnName}={c.NewValue}"));
+                string updateColumnsAndValues = string.Join(",",rowsChanged[j].Columns.Select(c => $"{c.Name}={c.NewValue}"));
                 updateQuery.Append(updateColumnsAndValues);
-                updateQuery.Append($"WHERE Id = {rowsChanged[j].Index};");
+                updateQuery.Append($"WHERE Id = {rowsChanged[j].RecordIndex};");
                 try {
                     _sourceDbConnection.Open();
                     var command = _sourceDbConnection.CreateCommand();

@@ -9,13 +9,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.1" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.1" />
     <PackageReference Include="System.Data.OleDb" Version="4.7.0" />
-    <PackageReference Include="TinyDbfComparer" Version="1.0.1" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="SocialExplorer.FastDBF">
-      <HintPath>..\..\..\..\Services\DbParser\src\Lib\ExternalLibs\SocialExplorer.FastDBF.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+  
+  </ItemGroup>  
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />

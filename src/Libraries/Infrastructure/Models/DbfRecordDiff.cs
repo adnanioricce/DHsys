@@ -1,4 +1,7 @@
 using System.Collections.Generic;
+using System.Text;
+using dBASE.NET;
+
 namespace Infrastructure.Models
 {
 	public class DbfRecordDiff
@@ -17,6 +20,38 @@ namespace Infrastructure.Models
         public DbfRecord Record { get; set; }
         public List<DbfColumnChange> ColumnsChanged { get; set; } = new List<DbfColumnChange>();       
         public DiffState State { get; set; }
+        public override string ToString()
+        {
+            var strBuilder = new StringBuilder();
+            strBuilder.AppendFormat("Index: {0}, State: {1}", this.RecordIndex, this.State);
+
+            if ((this.State == DiffState.Modified) || (this.State == DiffState.Added))
+            {
+                strBuilder.AppendLine();
+                strBuilder.AppendLine("  {");
+                foreach (DbfColumnChange columnDiff in this.ColumnsChanged)
+                {
+                    strBuilder.Append("    { ");
+                    strBuilder.Append(columnDiff.Field.Name);
+
+                    if (this.State == DiffState.Modified)
+                    {
+                        strBuilder.Append(", '");
+                        strBuilder.Append(columnDiff.OldValue);
+                        strBuilder.Append("'");
+                    }
+
+                    strBuilder.Append(", '");
+                    strBuilder.Append(columnDiff.NewValue);
+                    strBuilder.Append("'");
+                    strBuilder.AppendLine("    }, ");
+                }
+
+                strBuilder.AppendLine("  }");
+            }
+
+            return strBuilder.ToString();
+        }
         
     }
     public class DbfColumnChange
@@ -30,6 +65,6 @@ namespace Infrastructure.Models
     {
         Modified,
         Unmodified,
-        New         
+        Added         
     }
 }

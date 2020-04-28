@@ -73,8 +73,7 @@ namespace Api.IntegrationTests
                     //a remote database to keep some changes
                     "remote" => new NpgsqlConnection(npgConnStr),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
-                };
-                // new SqliteConnection(connString)    
+                };                
             });      
             services.AddTransient<IDbSynchronizer, DbSynchronizer>();                        
         }
