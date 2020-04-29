@@ -45,13 +45,15 @@ steps:
   displayName: 'run unit tests'
   inputs:
     command: 'test'
+    arguments: '--no-restore'
     projects: 'tests\UnitTests\**\*.Tests.csproj'
 - task: DotNetCoreCLI@2
   displayName: 'run integration tests'
   inputs:
     command: 'test'
-    projects: 'tests\IntegrationTests\**\*.Tests.csproj'
     arguments: '--no-restore'
+    projects: 'tests\IntegrationTests\**\*.Tests.csproj'
+    
 - task: DotNetCoreCLI@2
   displayName: 'publish project'
   inputs:
