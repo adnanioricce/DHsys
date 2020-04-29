@@ -32,11 +32,13 @@ steps:
   displayName: 'build solution'
   inputs:
     command: 'build'
+    arguments: '--no-restore'
     projects: '*.sln'
 - task: DotNetCoreCLI@2
   displayName: 'pack library projects'
   inputs:
     command: 'pack'
+    arguments: '--no-restore'
     packagesToPack: 'src/Libraries/**/*.csproj'
     versioningScheme: 'byBuildNumber'
 - task: DotNetCoreCLI@2
@@ -49,6 +51,7 @@ steps:
   inputs:
     command: 'test'
     projects: 'tests\IntegrationTests\**\*.Tests.csproj'
+    arguments: '--no-restore'
 - task: DotNetCoreCLI@2
   displayName: 'publish project'
   inputs:
