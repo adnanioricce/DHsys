@@ -20,7 +20,7 @@ namespace Services.Tests
             service.AddMultipleStockEntries(stocks);
             //Then
             var entries = repo.GetAll();
-            Assert.Equal(2,entries.Count());
+            Assert.Equal(3,entries.Count());
         }   
         [Fact]
         public void AddMultipleStockEntries_ReceivesCollectionWithInvalidStockEntries_ShouldWriteOnlyValidEntriesOnContext()
@@ -42,7 +42,7 @@ namespace Services.Tests
             service.AddMultipleStockEntries(stocks);
             //Then
             var validEntries = repo.GetAll();
-            Assert.Equal(2,validEntries.Count());
+            Assert.Equal(3,validEntries.Count());
         }                        
         private IEnumerable<StockEntry> GetBaseStockEntries()
         {

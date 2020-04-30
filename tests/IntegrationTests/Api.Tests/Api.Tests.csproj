@@ -6,11 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestData\SourceDbFiles\AGENDA.DBF" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="TestData\SourceDbFiles\AGENDA.DBF">
+    <Content Include="TestDbFiles\AGENDA.DBF">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
