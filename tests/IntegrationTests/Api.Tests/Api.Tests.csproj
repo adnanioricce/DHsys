@@ -6,13 +6,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="TestData\SourceDbFiles\AGENDA.DBF" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="TestData\SourceDbFiles\AGENDA.DBF">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Compile Remove="TestData\**" />
+    <Content Remove="TestData\**" />
+    <EmbeddedResource Remove="TestData\**" />
+    <None Remove="TestData\**" />
   </ItemGroup>
 
   <ItemGroup>
