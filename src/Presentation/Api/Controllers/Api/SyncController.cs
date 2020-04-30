@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Core.Entities;
 using Core.Interfaces;
-using Core.Models.Resources.Requests;
+using Core.Models.ApplicationResources.Requests;
 using DAL;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;

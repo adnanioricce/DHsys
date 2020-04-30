@@ -3,7 +3,7 @@ using Application.Services;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Models.Dbf;
-using Core.Models.Resources.Requests;
+using Core.Models.ApplicationResources.Requests;
 using DAL;
 using dBASE.NET;
 using Microsoft.Data.Sqlite;

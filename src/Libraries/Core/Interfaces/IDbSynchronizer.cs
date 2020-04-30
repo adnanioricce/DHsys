@@ -1,5 +1,5 @@
 ﻿using Core.Models.Dbf;
-using Core.Models.Resources.Requests;
+using Core.Models.ApplicationResources.Requests;
 using System.Data;
 
 namespace Core.Interfaces

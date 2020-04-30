@@ -1,7 +1,7 @@
 ﻿using AspNetCore.Http.Extensions;
 using Core.Entities.LegacyScaffold;
 using Core.Models.Dbf;
-using Core.Models.Resources.Requests;
+using Core.Models.ApplicationResources.Requests;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

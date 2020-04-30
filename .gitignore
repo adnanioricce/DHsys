@@ -9,8 +9,8 @@
 *.userosscache
 *.sln.docstates
 TestSecrets/**/*.*
-Resources/
-Resources/**/*.*
+resources/
+resources/**/*.*
 src/UI/appsettings.json
 TestData/
 # User-specific files (MonoDevelop/Xamarin Studio)

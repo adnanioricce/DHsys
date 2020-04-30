@@ -1,7 +1,7 @@
 ﻿using Application.Services;
 using Core.Entities.LegacyScaffold;
 using Core.Models.Dbf;
-using Core.Models.Resources.Requests;
+using Core.Models.ApplicationResources.Requests;
 using DAL;
 using System;
 using System.Collections.Generic;
