@@ -101,7 +101,7 @@ namespace Api.IntegrationTests.Services.Sync
         public void WhenDataSourceFilesChange_WriteAllChangesOnLocalDataSource_ThenReturnAffectedNumberOfRecords()
         {
             //Given                 
-            string dataSourceFolder = "./TestData";                      
+            string dataSourceFolder = "./TestData/Source";                      
             //When            
             int result = _dbSyncronizer.SyncSourceDatabaseWithLocalDatabase(dataSourceFolder);
             //Then

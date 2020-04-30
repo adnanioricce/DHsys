@@ -1,0 +1,69 @@
+﻿<Window x:Class="Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Desktop.ViewModels.Billings"
+        xmlns:productVms="clr-namespace:Desktop.ViewModels.Product"
+        xmlns:contaViews="clr-namespace:Desktop.Views.Conta"
+        xmlns:productViews="clr-namespace:Desktop.Views.Product"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:Desktop"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" 
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"
+        >
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:CreateBillingViewModel}">
+            <contaViews:CreateBillingView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type productVms:CreateProductViewModel}">
+            <productViews:CreateProductView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type productVms:ProductListViewModel}">
+            <productViews:ProductListView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:BillingListViewModel}">
+            <contaViews:BillingListView/>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition MinWidth="50"/>
+			<ColumnDefinition MinWidth="50"/>
+			<ColumnDefinition MinWidth="50"/>
+			<ColumnDefinition MinWidth="50"/>
+			<ColumnDefinition MinWidth="50"/>
+		</Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+            <RowDefinition MinHeight="50"/>
+        </Grid.RowDefinitions>
+        <md:ColorZone Mode="PrimaryMid" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Stretch">
+            <StackPanel Orientation="Horizontal">
+                <Menu Grid.Row="0" Grid.Column="0">
+                    <MenuItem Header="Produtos">
+                        <MenuItem Header="Adicionar Produtos" Command="{Binding MoveToViewModelCommand}" CommandParameter="{Binding Source={StaticResource Locator},Path=CreateProductViewModel}"/>
+                        <MenuItem Header="Editar Produtos"/>
+                        <MenuItem Header="Ver Produtos" Command="{Binding MoveToViewModelCommand}" CommandParameter="{Binding Source={StaticResource Locator},Path=ProductListViewModel}"/>
+                    </MenuItem>
+                    <MenuItem Header="Contas">
+                        <MenuItem Header="Adicionar Conta" Command="{Binding MoveToViewModelCommand}" CommandParameter="{Binding Source={StaticResource Locator},Path=CreateBillingViewModel}"/>
+                        <MenuItem Header="Ver Contas" Command="{Binding MoveToViewModelCommand}" CommandParameter="{Binding Source={StaticResource Locator},Path=BillingListViewModel}"/>
+                    </MenuItem>
+                </Menu>
+            </StackPanel>
+        </md:ColorZone>
+        <ContentPresenter Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="5" Content="{Binding CurrentDataContext}" />
+    </Grid> 
+</Window>

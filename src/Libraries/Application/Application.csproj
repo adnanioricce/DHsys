@@ -7,18 +7,12 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.3" />
     <PackageReference Include="System.Data.OleDb" Version="4.7.0" />
-    <PackageReference Include="System.Data.SQLite" Version="1.0.112" />
-    <PackageReference Include="TinyDbfComparer" Version="1.0.1" />
+    <PackageReference Include="System.Data.SQLite" Version="1.0.112" />    
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DAL\DAL.csproj" />
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="SocialExplorer.FastDBF">
-      <HintPath>..\..\..\..\..\Services\DbParser\src\Lib\ExternalLibs\SocialExplorer.FastDBF.dll</HintPath>
-    </Reference>
-  </ItemGroup>
+  </ItemGroup>  
 </Project>

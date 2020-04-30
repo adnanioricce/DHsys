@@ -1,41 +1,41 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26124.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29709.97
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{878C8A77-5C3B-49A4-B970-0CC42DB465FB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Libraries", "Libraries", "{9547A884-784C-47AA-ACBB-C9B42FE4A489}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Libraries\Application\Application.csproj", "{FAFFC83F-4364-46C3-A96E-6BA4740EF27B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Libraries\Application\Application.csproj", "{FAFFC83F-4364-46C3-A96E-6BA4740EF27B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Libraries\Core\Core.csproj", "{AEC0D6C8-AA73-42D3-BC63-2C8343606299}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core", "src\Libraries\Core\Core.csproj", "{AEC0D6C8-AA73-42D3-BC63-2C8343606299}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "src\Libraries\DAL\DAL.csproj", "{D61FC492-C9E8-4D9B-8B07-F5D104833BB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "src\Libraries\DAL\DAL.csproj", "{D61FC492-C9E8-4D9B-8B07-F5D104833BB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Infrastructure", "src\Libraries\Infrastructure\Infrastructure.csproj", "{1C9E345D-C27B-4861-A676-0858A77A3890}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "src\Libraries\Infrastructure\Infrastructure.csproj", "{1C9E345D-C27B-4861-A676-0858A77A3890}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{632B3692-B692-45A9-ADAC-C6021E05FAC8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Presentation\Api\Api.csproj", "{C2B5E449-36D1-4C99-9B5D-3F789A97B3A5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Presentation\Api\Api.csproj", "{C2B5E449-36D1-4C99-9B5D-3F789A97B3A5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI", "src\Presentation\UI\UI.csproj", "{46887059-120A-4A5F-A449-F623BBF3B8F6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desktop", "src\Presentation\Desktop\Desktop.csproj", "{46887059-120A-4A5F-A449-F623BBF3B8F6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0B5AC572-56CE-4D62-9B92-61415F641A6F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{77030376-4F09-45AF-9610-1392B4D3531D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.IntegrationTests", "tests\IntegrationTests\Api.IntegrationTests\Api.IntegrationTests.csproj", "{E9E461FE-0363-4F69-8EF3-DB922BB01CDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.IntegrationTests", "tests\IntegrationTests\Api.IntegrationTests\Api.IntegrationTests.csproj", "{E9E461FE-0363-4F69-8EF3-DB922BB01CDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Tests", "tests\IntegrationTests\Api.Tests\Api.Tests.csproj", "{72BC4112-CE60-4F82-A640-EB342F7EDB45}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Tests", "tests\IntegrationTests\Api.Tests\Api.Tests.csproj", "{72BC4112-CE60-4F82-A640-EB342F7EDB45}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{9B00D943-CA24-4BE2-AFCB-D502162EC62B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Services.Tests", "tests\UnitTests\Services.Tests\Services.Tests.csproj", "{0E80E4A8-91F9-4F21-96AF-9DE8582DB013}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services.Tests", "tests\UnitTests\Services.Tests\Services.Tests.csproj", "{0E80E4A8-91F9-4F21-96AF-9DE8582DB013}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UI.Tests", "tests\UnitTests\UI.Tests\UI.Tests.csproj", "{96C86DF2-7639-43AD-AF05-12ED3EEB6BF2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desktop.Tests", "tests\UnitTests\Desktop.Tests\Desktop.Tests.csproj", "{96C86DF2-7639-43AD-AF05-12ED3EEB6BF2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Lib", "tests\Tests.Lib\Tests.Lib.csproj", "{2BFA21D7-EFED-4A1D-BB64-3EBED66FBF40}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Lib", "tests\Tests.Lib\Tests.Lib.csproj", "{2BFA21D7-EFED-4A1D-BB64-3EBED66FBF40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,9 +45,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{FAFFC83F-4364-46C3-A96E-6BA4740EF27B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -183,6 +180,9 @@ Global
 		{2BFA21D7-EFED-4A1D-BB64-3EBED66FBF40}.Release|x86.ActiveCfg = Release|Any CPU
 		{2BFA21D7-EFED-4A1D-BB64-3EBED66FBF40}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9547A884-784C-47AA-ACBB-C9B42FE4A489} = {878C8A77-5C3B-49A4-B970-0CC42DB465FB}
 		{FAFFC83F-4364-46C3-A96E-6BA4740EF27B} = {9547A884-784C-47AA-ACBB-C9B42FE4A489}
@@ -199,5 +199,8 @@ Global
 		{0E80E4A8-91F9-4F21-96AF-9DE8582DB013} = {9B00D943-CA24-4BE2-AFCB-D502162EC62B}
 		{96C86DF2-7639-43AD-AF05-12ED3EEB6BF2} = {9B00D943-CA24-4BE2-AFCB-D502162EC62B}
 		{2BFA21D7-EFED-4A1D-BB64-3EBED66FBF40} = {0B5AC572-56CE-4D62-9B92-61415F641A6F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F78B2414-0A63-4710-B28B-CF91A437CC01}
 	EndGlobalSection
 EndGlobal

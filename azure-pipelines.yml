@@ -1,0 +1,70 @@
+# .NET Desktop
+# Build and run tests for .NET Desktop or Windows classic desktop solutions.
+# Add steps that publish symbols, save build artifacts, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/apps/windows/dot-net
+
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'win-x86'
+  buildConfiguration: 'Release'
+
+steps:
+- task: NuGetToolInstaller@1
+- task: UseDotNet@2
+  displayName: 'use .net core 3.1 sdk '
+  inputs:
+    version: '3.1.x'
+
+- task: DotNetCoreCLI@2
+  displayName: 'restore packages'
+  inputs:    
+    command: 'restore'
+    projects: '*.sln'
+    feedsToUse: 'select'
+    vstsFeed: '9df4ab41-810c-4448-b1ec-b7e3b639b1ee'
+- task: DotNetCoreCLI@2
+  displayName: 'build solution'
+  inputs:
+    command: 'build'
+    arguments: '--no-restore'
+    projects: '*.sln'
+- task: DotNetCoreCLI@2
+  displayName: 'pack library projects'
+  inputs:
+    command: 'pack'
+    arguments: '--no-restore'
+    packagesToPack: 'src/Libraries/**/*.csproj'
+    versioningScheme: 'byBuildNumber'
+- task: DotNetCoreCLI@2
+  displayName: 'run unit tests'
+  inputs:
+    command: 'test'
+    arguments: '--no-restore'
+    projects: 'tests\UnitTests\**\*.Tests.csproj'
+- task: DotNetCoreCLI@2
+  displayName: 'run integration tests'
+  inputs:
+    command: 'test'
+    arguments: '--no-restore'
+    projects: 'tests\IntegrationTests\**\*.Tests.csproj'
+    
+- task: DotNetCoreCLI@2
+  displayName: 'publish project'
+  inputs:
+    command: 'publish'
+    publishWebProjects: false
+    projects: 'src/Presentation/Desktop/Desktop.csproj'
+    arguments: '-c Release -f netcoreapp3.1 -r win-x86 --self-contained true'
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+    projects: 'src/Presentation/Api/Api.csproj'
+    arguments: '-c Release -f netcoreapp3.1'

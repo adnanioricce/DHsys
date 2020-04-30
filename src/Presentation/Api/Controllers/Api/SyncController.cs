@@ -14,6 +14,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Settings;
+using Application;
 
 namespace Api.Controllers.Api
 {
@@ -24,10 +25,10 @@ namespace Api.Controllers.Api
         private readonly IDbSynchronizer _dbSyncronizer;
         private readonly IDbConnection _connection;
         private readonly string _dbfSourceFolder;
-        public SyncController(IDbSynchronizer dbSynchronizer,IDbConnection connection,IOptions<LegacyDatabaseSettings> legacyDbSettings)
+        public SyncController(IDbSynchronizer dbSynchronizer,ConnectionResolver connection,IOptions<LegacyDatabaseSettings> legacyDbSettings)
         {
             _dbSyncronizer = dbSynchronizer;
-            _connection = connection;
+            _connection = connection("local");
             _dbfSourceFolder = legacyDbSettings.Value.DataSource;
         }
         [HttpPost("sync_dbfs")]
@@ -53,12 +54,15 @@ namespace Api.Controllers.Api
             
             return Ok("all changes are writen successfully");
         }                 
-        [HttpGet]      
-        public IActionResult SyncSourceDatabaseWithDatabaseLocalDatabase()
-        {                        
+        [HttpGet("sync_databases")]      
+        public async Task<IActionResult> SyncSourceDatabaseWithDatabaseLocalDatabase()
+        {
             //? How do I now if this is failing or not?
-            _dbSyncronizer.SyncSourceDatabaseWithLocalDatabase(_dbfSourceFolder);
-            return Ok();
+            //if this is alreadly executing, how do I lock to avoid concurrency issues?
+            //TODO:Wrap this on worker service
+            var result = await Task.Run<int>(() => _dbSyncronizer.SyncSourceDatabaseWithLocalDatabase(_dbfSourceFolder));
+            
+            return Ok("Success");
         }
         
         
