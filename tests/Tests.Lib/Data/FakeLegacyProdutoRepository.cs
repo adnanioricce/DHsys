@@ -83,5 +83,9 @@ namespace Tests.Lib.Data
         {
             throw new System.NotImplementedException();
         }
+        public IQueryable<Produto> QueryableByRawQuery()
+        {
+            return context.Select(p => p.Value).AsQueryable();
+        }
     }
 }
