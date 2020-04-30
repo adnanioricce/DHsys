@@ -44,6 +44,7 @@ namespace Core.Interfaces
         /// <returns>a IEnumerable of the entity type</returns>
         IEnumerable<T> MultipleFromRawSqlQuery(string query);
         IQueryable<T> QueryableByRawQuery(string query);
+        IQueryable<T> QueryableByRawQuery();
         /// <summary>
         /// executes a command query on the databases in the given entity table
         /// </summary>

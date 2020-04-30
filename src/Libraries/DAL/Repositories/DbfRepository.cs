@@ -60,6 +60,10 @@ namespace DAL
         {
             return _context.MultipleFromRawQuery(query).AsQueryable();
         }
+        public IQueryable<T> QueryableByRawQuery()
+        {
+            return _context.MultipleFromRawQuery($"SELECT * FROM {typeof(T).Name}").AsQueryable();
+        }
 
         public T RawSqlQuery(string query)
         {

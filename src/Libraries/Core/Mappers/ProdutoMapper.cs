@@ -24,7 +24,7 @@ namespace Core.Mappers
         
         public IEnumerable<Drug> MapTable(string tableName)
         {
-            var produtoTable = _legacyProdutoRepository.QueryableByRawQuery($"SELECT * FROM {tableName}");
+            var produtoTable = _legacyProdutoRepository.QueryableByRawQuery();
             var products = produtoTable.Select(MapToDomainModel);
             return products;
         }
