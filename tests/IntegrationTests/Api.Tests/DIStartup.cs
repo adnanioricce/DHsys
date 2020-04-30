@@ -21,7 +21,8 @@ using System.Data.SQLite;
 using System.Data.OleDb;
 using Npgsql;
 using System.Collections.Generic;
-
+using Microsoft.EntityFrameworkCore.Storage;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 [assembly: TestFramework("Api.Tests.DIStartup", "Api.Tests")]
 namespace Api.Tests
 {
@@ -75,7 +76,9 @@ namespace Api.Tests
             var context = (MainContext)provider.GetService<MainContext>();
             if(context.Database.EnsureDeleted()){
                 context.Database.ExecuteSqlRaw(context.Database.GenerateCreateScript());
-            }
+            }else {
+                context.Database.Migrate();
+            }            
             context.SeedDataForIntegrationTests(DrugSeed.GetDataForHttpGetMethods().ToArray());
         }
     }
