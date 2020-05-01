@@ -23,16 +23,20 @@ using Npgsql;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using System.IO;
+
 [assembly: TestFramework("Api.Tests.DIStartup", "Api.Tests")]
 namespace Api.Tests
 {
     public class DIStartup : DependencyInjectionTestFramework
     {
+        // private string sqliteConnStr = "";
         public DIStartup(IMessageSink messageSink) : base(messageSink)
         {
         }
         protected void ConfigureServices(IServiceCollection services) 
         {
+            // sqliteConnStr = $"./data/{DateTimeOffset.UtcNow.Date.ToShortDateString()}-{Guid.NewGuid().ToString().Substring(0,5)}";
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
@@ -57,7 +61,7 @@ namespace Api.Tests
                 return key switch
                 {
                     //our local database
-                    "local" => new SQLiteConnection("database.db"),
+                    "local" => new SQLiteConnection("./Data/database.db"),
                     //a legacy shared database from which source changes in real world environment
                     "source" => new OleDbConnection(legacySettings.ToString()),
                     //a remote database to keep some changes
@@ -74,12 +78,18 @@ namespace Api.Tests
         protected override void Configure(IServiceProvider provider)
         {
             var context = (MainContext)provider.GetService<MainContext>();
-            if(context.Database.EnsureDeleted()){
-                context.Database.ExecuteSqlRaw(context.Database.GenerateCreateScript());
+            if(!File.Exists("./Data/database.db")){
+                context.Database.EnsureDeleted();
+                string sql = context.Database.GenerateCreateScript();
+                context.Database.ExecuteSqlRaw(sql);
+                context.SeedDataForIntegrationTests(DrugSeed.GetDataForHttpGetMethods().ToArray());
             }else {
-                context.Database.Migrate();
+                var migrations = context.Database.GetPendingMigrations();
+                if(migrations.Any()){
+                    context.Database.Migrate();
+                }
             }            
-            context.SeedDataForIntegrationTests(DrugSeed.GetDataForHttpGetMethods().ToArray());
+            
         }
     }
 }
