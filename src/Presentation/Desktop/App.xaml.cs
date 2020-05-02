@@ -57,8 +57,7 @@ namespace Desktop
             base.OnExit(e);
         }
 
-        private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
-        {                        
+        private void ConfigureServices(IConfiguration configuration, IServiceCollection services){                        
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.AddTransient(typeof(MainWindow));
@@ -75,8 +74,7 @@ namespace Desktop
             services.AddDbContext<DbContext, MainContext>(opt =>
              {
                  opt.UseSqlite("database.db");
-             });
-            //services.AddScoped<MainContext>();            
+             });            
             services.AddScoped(typeof(LegacyContext<>));
             services.AddTransient(typeof(ILegacyRepository<>),typeof(DbfRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));

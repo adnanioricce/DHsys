@@ -21,7 +21,7 @@
         <rescap:Capability Name="runFullTrust"/>
       </Capabilities>
     <Applications>
-      <Application Id="DHsys" Executable="Desktop.exe" EntryPoint="Windows.FullTrustApplication">
+      <Application Id="DHsys" Executable="bin/Release/netcoreapp3.1/publish/Desktop.exe" EntryPoint="Windows.FullTrustApplication">
         <uap:VisualElements DisplayName="DH sys" 
                    Description="Um Sistema desktop para uso na drogaria holandas"   
                    Square150x150Logo="icon.png"
