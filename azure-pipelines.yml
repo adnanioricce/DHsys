@@ -12,13 +12,7 @@ pool:
   
 variables:
 - group: DHsys_variables
-  solution: '**/*.sln'
-  buildPlatform: 'win-x86'
-  buildConfiguration: 'Release'  
-  major: 1
-  minor: 0
-  build: 0
-  revision: $[counter('rev', 0)]
+  
 
 steps:
 - task: NuGetToolInstaller@1
@@ -70,17 +64,6 @@ steps:
     projects: 'src/Presentation/Api/Api.csproj'
     arguments: '-c Release -f netcoreapp3.1'   
   
-- powershell: |
-   [Reflection.Assembly]::LoadWithPartialName("System.Xml.Linq")
-   $path = "src/Presentation/Desktop/Desktop/AppxManifest.xml"
-   $doc = [System.Xml.Linq.XDocument]::Load($path)
-   $xName =
-     [System.Xml.Linq.XName]
-       "{http://schemas.microsoft.com/appx/manifest/foundation/windows10}Identity"
-   $doc.Root.Element($xName).Attribute("Version").Value =
-     "$(major).$(minor).$(build).$(revision)";
-   $doc.Save($path)
-  displayName: 'Version Package Manifest'
 - task: PowerShell@2
   inputs:   
     filePath: pack-app.ps1
