@@ -59,9 +59,10 @@ steps:
     command: 'publish'
     publishWebProjects: false
     projects: 'src/Presentation/Desktop/Desktop.csproj'
-    arguments: '-c Release -f netcoreapp3.1 -r win-x86 /p:PublishSingleFile=true /p:PublishTrimmed=true --self-contained true
+    arguments: '-c Release -f netcoreapp3.1 -r win-x86 /p:PublishSingleFile=true /p:PublishTrimmed=true --self-contained true'
     zipAfterPublish: false
     modifyOutputPath: false
+    
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
