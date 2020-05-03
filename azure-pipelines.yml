@@ -46,15 +46,15 @@ steps:
 #     arguments: '--no-restore'
 #     projects: 'tests\IntegrationTests\**\*.Tests.csproj'
     
-- task: DotNetCoreCLI@2
-  displayName: 'publish desktop project'
-  inputs:
-    command: 'publish'
-    publishWebProjects: false
-    projects: 'src/Presentation/Desktop/Desktop.csproj'
-    arguments: '-c Release -f netcoreapp3.1 -r win-x86 /p:PublishSingleFile=true /p:PublishTrimmed=true --self-contained true'
-    zipAfterPublish: false
-    modifyOutputPath: false
+# - task: DotNetCoreCLI@2
+#   displayName: 'publish desktop project'
+#   inputs:
+#     command: 'publish'
+#     publishWebProjects: false
+#     projects: 'src/Presentation/Desktop/Desktop.csproj'
+#     arguments: '-c Release -f netcoreapp3.1 -r win-x86 /p:PublishSingleFile=true /p:PublishTrimmed=true --self-contained true'
+#     zipAfterPublish: false
+#     modifyOutputPath: false
     
 # - task: DotNetCoreCLI@2
 #   displayName: 'publish web api project'
@@ -83,14 +83,15 @@ steps:
       Write-Host $(DHsysPackCert)
       # Write-Host $(signingCertPath)
       Write-Host '$(DHsysPackCert)'
+      Write-Host $(packSignPassword)
       # Write-Host '$(signingCertPath)'
       $pfxpath = '$(DHsysPackCert)'
-      $password = '$(signingCert.password)'
+      $password = '$(packSignPassword)'
       $app_path = './src/Presentation/Desktop/'
 
       Add-Type -AssemblyName System.Security
       $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
-      $cert.Import($pfxpath, $password, [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]"PersistKeySet")
+      $cert.Import($(DHsysPackCert), $password, [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]"PersistKeySet")
       $store = new-object system.security.cryptography.X509Certificates.X509Store -argumentlist "MY", CurrentUser
       $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]"ReadWrite")
       $store.Add($cert)
