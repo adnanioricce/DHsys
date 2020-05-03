@@ -81,15 +81,15 @@ steps:
     targetType: 'inline'
     script: |
       Write-Host "Start adding the PFX file to the certificate store."
-      Write-Host $(DHsysPackCert)
-      Write-Host $(signingCertPath)
+      Write-Host $DHsysPackCert
+      Write-Host $signingCertPath
       $pfxpath = '$(signingCertPath)'
       $password = '$(signingCert.password)'
       $app_path = './src/Presentation/Desktop/'
 
       Add-Type -AssemblyName System.Security
       $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
-      $cert.Import($signingCertPath, $password, [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]"PersistKeySet")
+      $cert.Import($DHsysPackCert, $password, [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]"PersistKeySet")
       $store = new-object system.security.cryptography.X509Certificates.X509Store -argumentlist "MY", CurrentUser
       $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]"ReadWrite")
       $store.Add($cert)
@@ -97,6 +97,6 @@ steps:
       # Write your PowerShell commands here.
       C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\makeappx pack /v /h SHA256 /d $app_path /p DHsys.msix
       Write-Host "Application was packaged successfully"
-      C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\signtool sign /fd SHA256 /a /f $(signingCert.secureFilePath) /p $(packSignPassword) $(Build.ArtifactStagingDirectory)/DHsys.msix
+      C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\signtool sign /fd SHA256 /a /f $packSignPassword /p $(packSignPassword) $(Build.ArtifactStagingDirectory)/DHsys.msix
       Write-Host "Packaged Signed successfully"   
     
