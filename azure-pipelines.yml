@@ -34,18 +34,18 @@ steps:
     command: 'build'
     arguments: '--no-restore'
     projects: '*.sln'
-- task: DotNetCoreCLI@2
-  displayName: 'run unit tests'
-  inputs:
-    command: 'test'
-    arguments: '--no-restore'
-    projects: 'tests\UnitTests\**\*.Tests.csproj'
-- task: DotNetCoreCLI@2
-  displayName: 'run integration tests'
-  inputs:
-    command: 'test'
-    arguments: '--no-restore'
-    projects: 'tests\IntegrationTests\**\*.Tests.csproj'
+# - task: DotNetCoreCLI@2
+#   displayName: 'run unit tests'
+#   inputs:
+#     command: 'test'
+#     arguments: '--no-restore'
+#     projects: 'tests\UnitTests\**\*.Tests.csproj'
+# - task: DotNetCoreCLI@2
+#   displayName: 'run integration tests'
+#   inputs:
+#     command: 'test'
+#     arguments: '--no-restore'
+#     projects: 'tests\IntegrationTests\**\*.Tests.csproj'
     
 - task: DotNetCoreCLI@2
   displayName: 'publish desktop project'
@@ -57,13 +57,13 @@ steps:
     zipAfterPublish: false
     modifyOutputPath: false
     
-- task: DotNetCoreCLI@2
-  displayName: 'publish web api project'
-  inputs:
-    command: 'publish'
-    publishWebProjects: true
-    projects: 'src/Presentation/Api/Api.csproj'
-    arguments: '-c Release -f netcoreapp3.1'   
+# - task: DotNetCoreCLI@2
+#   displayName: 'publish web api project'
+#   inputs:
+#     command: 'publish'
+#     publishWebProjects: true
+#     projects: 'src/Presentation/Api/Api.csproj'
+#     arguments: '-c Release -f netcoreapp3.1'   
 
 - task: DownloadSecureFile@1
   displayName: 'Get the pfx certificate'
@@ -77,15 +77,15 @@ steps:
     targetType: 'inline'
     script: |
       Write-Host "Start adding the PFX file to the certificate store."
-      echo $DHsysPackCert
-      echo $signingCertPath
+      Write-Host $DHsysPackCert
+      Write-Host $signingCertPath
       $pfxpath = '$(signingCertPath)'
       $password = '$(signingCert.password)'
       $app_path = './src/Presentation/Desktop/'
 
       Add-Type -AssemblyName System.Security
       $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
-      $cert.Import($DHsysPackCert, $password, [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]"PersistKeySet")
+      $cert.Import($signingCertPath, $password, [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]"PersistKeySet")
       $store = new-object system.security.cryptography.X509Certificates.X509Store -argumentlist "MY", CurrentUser
       $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]"ReadWrite")
       $store.Add($cert)
