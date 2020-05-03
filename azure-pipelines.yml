@@ -66,9 +66,9 @@ steps:
     arguments: '-c Release -f netcoreapp3.1'   
 
 - task: DownloadSecureFile@1
-  name: mySecureFile
+  name: signingCertPath
   inputs:
-    secureFile: $'{signingCert.secureFilePath}'
+    secureFile: 'DHsys.pfx'
 - task: PowerShell@2
   
   displayName: 'packaging and package sign'
@@ -77,7 +77,7 @@ steps:
     script: |
       Write-Host "Start adding the PFX file to the certificate store."
 
-      $pfxpath = '$(mySecureFile.secureFilePath)'
+      $pfxpath = '$(signingCertPath)'
       $password = '$(signingCert.password)'
       $app_path = './src/Presentation/Desktop/'
 
