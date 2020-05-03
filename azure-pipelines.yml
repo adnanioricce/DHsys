@@ -14,25 +14,25 @@ pool:
   
 
 steps:
-- task: NuGetToolInstaller@1
-- task: UseDotNet@2
-  displayName: 'use .net core 3.1 sdk '
-  inputs:
-    version: '3.1.x'
+# - task: NuGetToolInstaller@1
+# - task: UseDotNet@2
+#   displayName: 'use .net core 3.1 sdk '
+#   inputs:
+#     version: '3.1.x'
 
-- task: DotNetCoreCLI@2
-  displayName: 'restore packages'
-  inputs:    
-    command: 'restore'
-    projects: '*.sln'
-    feedsToUse: 'select'
-    vstsFeed: '9df4ab41-810c-4448-b1ec-b7e3b639b1ee'
-- task: DotNetCoreCLI@2
-  displayName: 'build solution'
-  inputs:
-    command: 'build'
-    arguments: '--no-restore'
-    projects: '*.sln'
+# - task: DotNetCoreCLI@2
+#   displayName: 'restore packages'
+#   inputs:    
+#     command: 'restore'
+#     projects: '*.sln'
+#     feedsToUse: 'select'
+#     vstsFeed: '9df4ab41-810c-4448-b1ec-b7e3b639b1ee'
+# - task: DotNetCoreCLI@2
+#   displayName: 'build solution'
+#   inputs:
+#     command: 'build'
+#     arguments: '--no-restore'
+#     projects: '*.sln'
 # - task: DotNetCoreCLI@2
 #   displayName: 'run unit tests'
 #   inputs:
@@ -81,10 +81,10 @@ steps:
     script: |
       Write-Host "Start adding the PFX file to the certificate store."
       Write-Host $(DHsysPackCert)
-      Write-Host $(signingCertPath)
+      # Write-Host $(signingCertPath)
       Write-Host '$(DHsysPackCert)'
-      Write-Host '$(signingCertPath)'
-      $pfxpath = '$(signingCertPath)'
+      # Write-Host '$(signingCertPath)'
+      $pfxpath = '$(DHsysPackCert)'
       $password = '$(signingCert.password)'
       $app_path = './src/Presentation/Desktop/'
 
