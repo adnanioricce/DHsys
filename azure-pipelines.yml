@@ -10,8 +10,7 @@ trigger:
 pool:
   vmImage: 'windows-latest'
   
-variables:
-- group: DHsys_vars
+
   
 
 steps:
