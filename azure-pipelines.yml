@@ -66,14 +66,28 @@ steps:
     arguments: '-c Release -f netcoreapp3.1'   
 
 - task: DownloadSecureFile@1
+  name: mySecureFile
   inputs:
-    secureFile: 'DHsys.pfx'
+    secureFile: $'{signingCert.secureFilePath}'
 - task: PowerShell@2
-  name: signingCert
+  
   displayName: 'packaging and package sign'
   inputs:    
     targetType: 'inline'
     script: |
+      Write-Host "Start adding the PFX file to the certificate store."
+
+      $pfxpath = '$(mySecureFile.secureFilePath)'
+      $password = '$(signingCert.password)'
+      $app_path = './src/Presentation/Desktop/'
+
+      Add-Type -AssemblyName System.Security
+      $cert = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2
+      $cert.Import($pfxpath, $password, [System.Security.Cryptography.X509Certificates.X509KeyStorageFlags]"PersistKeySet")
+      $store = new-object system.security.cryptography.X509Certificates.X509Store -argumentlist "MY", CurrentUser
+      $store.Open([System.Security.Cryptography.X509Certificates.OpenFlags]"ReadWrite")
+      $store.Add($cert)
+      $store.Close()
       # Write your PowerShell commands here.
       C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\makeappx pack /v /h SHA256 /d $app_path /p DHsys.msix
       Write-Host "Application was packaged successfully"
