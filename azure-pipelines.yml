@@ -94,11 +94,11 @@ steps:
       [System.IO.File]::WriteAllBytes($pfxPath, $protectedCertificateBytes)
       # Editing manifest file
       [xml]$manifestFile = Get-Content src/Presentation/Desktop/AppxManifest.xml
-      $manifestFile.Package.Applications.Application.Executable = '$(Build.ArtifactStagingDirectory)/Desktop.exe'
+      $manifestFile.Package.Applications.Application.Executable = '$(Build.ArtifactStagingDirectory)\Desktop.exe'
       $manifestFile.Save($app_path + 'AppxManifest.xml')
       # Signing package
-      C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\makeappx pack /v /h SHA256 /d $app_path /p DHsys.msix
+      C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\makeappx pack /v /h SHA256 /d $app_path /p $(Build.ArtifactStagingDirectory)\DHsys.msix
       Write-Host "Application was packaged successfully"
-      C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\signtool sign /fd SHA256 /a /f $pfxPath /p $password $(Build.ArtifactStagingDirectory)/DHsys.msix
+      C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\signtool sign /fd SHA256 /a /f $pfxPath /p $password $(Build.ArtifactStagingDirectory)\DHsys.msix
       Write-Host "Packaged Signed successfully"   
     
