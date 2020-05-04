@@ -81,7 +81,7 @@ steps:
     script: |
       Write-Host "Start adding the PFX file to the certificate store."            
       $pfxpath = '$(DHsysPackCert)'
-      $password = $(packSignPassword)
+      $password = '$(packSignPassword)'
       $app_path = './src/Presentation/Desktop/'
       Write-Host $password
       Add-Type -AssemblyName System.Security
