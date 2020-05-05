@@ -91,10 +91,12 @@ steps:
       [System.IO.File]::WriteAllBytes($pfxPath, $protectedCertificateBytes)
       # Editing manifest file
       [xml]$manifestFile = Get-Content src/Presentation/Desktop/AppxManifest.xml
-      $manifestFile.Package.Applications.Application.Executable = 'DesktopRelease/Desktop.exe'
+      $manifestFile.Package.Applications.Application.Executable = 'DesktopRelease/netcoreapp3.1/publish/Desktop.exe'
       $manifestFile.Save($app_path + 'AppxManifest.xml')
-      $childsFiles = Get-ChildItem -Path $(System.DefaultWorkingDirectory) –Directory
+      Write-Host "DesktopRelease directory"
+      $childsFiles = Get-ChildItem -Path $(System.DefaultWorkingDirectory)\DesktopRelease –Directory
       echo $childsFiles
+      Write-Host "current directory"
       $childDirs = Get-ChildItem -Path ./ -Directory
       echo $childDirs
       # Signing package
