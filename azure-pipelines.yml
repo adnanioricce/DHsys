@@ -96,12 +96,12 @@ steps:
       # Write-Host "DesktopRelease directory"
       # $childsDirs = Get-ChildItem -Path ./DesktopRelease/ –Directory
       # echo $childsDirs
-      Write-Host "DesktopRelease folder"
-      $childFiles = Get-ChildItem -Path ./DesktopRelease -File
-      echo $childFiles
-      Write-Host "Inner directories"
+      # Write-Host "DesktopRelease folder"
+      # $childFiles = Get-ChildItem -Path ./DesktopRelease -File
+      # echo $childFiles
+      # Write-Host "Inner directories"
       # $releaseDirs = Get-ChildItem -Path ./DesktopRelease/Release/
-      echo $releaseDirs
+      # echo $releaseDirs
       # Signing package
       C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\makeappx pack /v /h SHA256 /d $app_path /p $(System.DefaultWorkingDirectory)\DHsys.msix
       Write-Host "Application was packaged successfully"
