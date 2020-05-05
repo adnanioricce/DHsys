@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities.LegacyScaffold;
@@ -17,8 +18,10 @@ namespace Tests.Lib.Data
         }
         private readonly Dictionary<string, Produto> context = new Dictionary<string, Produto>();        
         public void Add(Produto entry)
-        {                        
-            context.Add(entry.Prcodi, entry);
+        {               
+            entry.Prcodi = string.IsNullOrEmpty(entry.Prcodi) ? Guid.NewGuid().ToString() : entry.Prcodi;         
+            entry.Id = context.Count + 1;
+            context.Add(entry.Prcodi,entry);
         }
 
         public void AddRange(IEnumerable<Produto> entities)

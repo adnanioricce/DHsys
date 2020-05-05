@@ -92,7 +92,12 @@ namespace Core.Mappers
                 drug.AbsoluteDosageInMg = double.TryParse(string.Join("", value.Select(d => char.IsDigit(d))), out var dosageValue) ? dosageValue : -1;
             }
             return drug;
-        }        
+        }
+        public Produto MapToLegacyModel(Drug domainModel)
+        {
+            //TODO:
+            throw new NotImplementedException();
+        }       
         //?Actually, this should not happen here
 
     }    
