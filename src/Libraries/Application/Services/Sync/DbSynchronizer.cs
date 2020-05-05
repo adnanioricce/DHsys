@@ -82,30 +82,7 @@ namespace Application.Services
             return sqlCommandBuilder.ToString();
         }
              
-        public string WriteUpdateSetToCorrectSqlType(RecordColumn column) => column.Value.GetType().Name switch
-        {
-            "Int32" => $"{column.ColumnName}={Convert.ToInt32(column.Value)}",
-            "Int64" => $"{column.ColumnName}={Convert.ToInt64(column.Value)}",
-            "Int16" => $"{column.ColumnName}={Convert.ToInt16(column.Value)}",
-            "Byte" => $"{column.ColumnName}={Convert.ToByte(column.Value)}",
-            "Decimal" => $"{column.ColumnName}={Convert.ToDecimal(column.Value)}",
-            "DateTime" => $"{column.ColumnName}={Convert.ToDateTime(column.Value)}",
-            "Double" => $"{column.ColumnName}={Convert.ToDouble(column.Value)}",
-            _ => $"{column.ColumnName}='{column.Value}'"
-        };
-        public string WriteInsertValuesToCorrectSqlType(object value) => value.GetType().Name switch 
-        {
-            "Int32" => $"{Convert.ToInt32(value)}",
-            "Int64" => $"{Convert.ToInt64(value)}",
-            "Int16" => $"{Convert.ToInt16(value)}",
-            "Byte" => $"{Convert.ToByte(value)}",
-            "Decimal" => $"{Convert.ToDecimal(value)}",
-            "DateTime" => $"{Convert.ToDateTime(value).ToShortDateString()}",
-            "Double" => $"{Convert.ToDouble(value.ToString().Replace(',','.'))}",
-            "Single" => $"{Convert.ToSingle(value.ToString().Replace(',','.'))}",
-            "String" => $"'{value.ToString().Replace("'"," ")}'",
-            _ => "NULL"
-        };
+        
         public void SyncDbfChanges()
         {            
             if (_dbfFilesChanged.Count == 0) return;            
@@ -158,8 +135,7 @@ namespace Application.Services
         {
             //?the existence of this method is worted?
             var changes = MapDbfsToDataset(Directory.GetFiles(sourceDatabaseFolder,"*.DBF"),_sourceDbConnection);
-            try
-            {
+            try {
                 string queryTemplate = "SELECT * FROM {0} WHERE UniqueCode = {1};";
                 var commandBuilder = GetCommandBuilder(_localDbConnection,_localDataAdapter);                
                 var queryBuilder = new StringBuilder();                                                
@@ -225,9 +201,7 @@ namespace Application.Services
         }
         public DataSet MapDbfsToDataset(string[] files,IDbConnection dbConnection)
         {            
-            var dataSet = new DataSet();                        
-            // var adapter = GetDataAdapter(dbConnection);
-            // I need to fill the dataset with the table values, but I need the name of the tables to index the files that I am receiving
+            var dataSet = new DataSet();                                    
             var tableNamesAndFilenames = files.Where(f => (f.Contains(".DBF") || f.Contains(".dbf")))                                               
                                               .Select(ConvertFilenameToSelectQuery)
                                               .ToList();                             
@@ -248,13 +222,36 @@ namespace Application.Services
             dbConnection.Close();
             return dataSet;
         }
+        public string WriteUpdateSetToCorrectSqlType(RecordColumn column) => column.Value.GetType().Name switch
+        {
+            "Int32" => $"{column.ColumnName}={Convert.ToInt32(column.Value)}",
+            "Int64" => $"{column.ColumnName}={Convert.ToInt64(column.Value)}",
+            "Int16" => $"{column.ColumnName}={Convert.ToInt16(column.Value)}",
+            "Byte" => $"{column.ColumnName}={Convert.ToByte(column.Value)}",
+            "Decimal" => $"{column.ColumnName}={Convert.ToDecimal(column.Value)}",
+            "DateTime" => $"{column.ColumnName}={Convert.ToDateTime(column.Value)}",
+            "Double" => $"{column.ColumnName}={Convert.ToDouble(column.Value)}",
+            _ => $"{column.ColumnName}='{column.Value}'"
+        };
+        public string WriteInsertValuesToCorrectSqlType(object value) => value.GetType().Name switch 
+        {
+            "Int32" => $"{Convert.ToInt32(value)}",
+            "Int64" => $"{Convert.ToInt64(value)}",
+            "Int16" => $"{Convert.ToInt16(value)}",
+            "Byte" => $"{Convert.ToByte(value)}",
+            "Decimal" => $"{Convert.ToDecimal(value)}",
+            "DateTime" => $"{Convert.ToDateTime(value).ToShortDateString()}",
+            "Double" => $"{Convert.ToDouble(value.ToString().Replace(',','.'))}",
+            "Single" => $"{Convert.ToSingle(value.ToString().Replace(',','.'))}",
+            "String" => $"'{value.ToString().Replace("'"," ")}'",
+            _ => "NULL"
+        };
         public (string Query,string TableName) ConvertFilenameToSelectQuery(string filepath)
         {
             string filename = Path.GetFileNameWithoutExtension(filepath);                                                
             string tableName = char.ToUpper(filename[0]) + filename.Substring(1);
-            return (Query:$"SELECT * FROM {tableName.ToUpper()}.DBF",TableName:tableName);
-            
-        }        
+            return (Query:$"SELECT * FROM {tableName.ToUpper()}.DBF",TableName:tableName);            
+        }
         private DbDataAdapter GetDataAdapter(IDbConnection dbConnection)
         {
             if(dbConnection is SQLiteConnection) return new SQLiteDataAdapter();
@@ -262,8 +259,7 @@ namespace Application.Services
             return new System.Data.SQLite.SQLiteDataAdapter();            
         }
         private DbCommandBuilder GetCommandBuilder(IDbConnection dbConnection,DbDataAdapter adapter)
-        {
-            
+        {            
             if(dbConnection is SQLiteConnection) return new SQLiteCommandBuilder((SQLiteDataAdapter)adapter);
             if(dbConnection is OleDbConnection) return new OleDbCommandBuilder((OleDbDataAdapter)adapter);
             return new System.Data.SQLite.SQLiteCommandBuilder((SQLiteDataAdapter)adapter);

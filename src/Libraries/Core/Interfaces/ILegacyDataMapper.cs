@@ -18,6 +18,7 @@ namespace Core.Interfaces
         /// <param name="legacyEntity">the entity with legacy model</param>
         /// <returns>a entity on the current domain model</returns>
         T MapToDomainModel(TLegacy legacyEntity);
+        TLegacy MapToLegacyModel(T domainModel);
         /// <summary>
         /// Maps legacy table from dbf database to actual domain model entity 
         /// </summary>
