@@ -91,14 +91,17 @@ steps:
       [System.IO.File]::WriteAllBytes($pfxPath, $protectedCertificateBytes)
       # Editing manifest file
       [xml]$manifestFile = Get-Content src/Presentation/Desktop/AppxManifest.xml
-      $manifestFile.Package.Applications.Application.Executable = 'DesktopRelease/netcoreapp3.1/publish/Desktop.exe'
+      $manifestFile.Package.Applications.Application.Executable = 'DesktopRelease/Release/netcoreapp3.1/publish/Desktop.exe'
       $manifestFile.Save($app_path + 'AppxManifest.xml')
-      Write-Host "DesktopRelease directory"
-      $childsFiles = Get-ChildItem -Path $(System.DefaultWorkingDirectory)\DesktopRelease –Directory
-      echo $childsFiles
-      Write-Host "current directory"
-      $childDirs = Get-ChildItem -Path ./ -Directory
+      # Write-Host "DesktopRelease directory"
+      # $childsFiles = Get-ChildItem -Path .\DesktopRelease\ –Directory
+      # echo $childsFiles
+      Write-Host "DesktopRelease folder"
+      $childDirs = Get-ChildItem -Path ./DesktopRelease -Directory
       echo $childDirs
+      Write-Host "Inner directories"
+      # $releaseDirs = Get-ChildItem -Path ./DesktopRelease/Release/
+      echo $releaseDirs
       # Signing package
       C:\'Program Files (x86)'\'Windows Kits'\10\bin\10.0.17763.0\x86\makeappx pack /v /h SHA256 /d $app_path /p $(System.DefaultWorkingDirectory)\DHsys.msix
       Write-Host "Application was packaged successfully"
