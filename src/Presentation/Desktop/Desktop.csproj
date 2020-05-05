@@ -2,8 +2,10 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-	    <TargetFramework>netcoreapp3.1</TargetFramework>
-		      <PublishReadyToRun>true</PublishReadyToRun>
+	  <TargetFramework>netcoreapp3.1</TargetFramework>
+		<PublishReadyToRun>true</PublishReadyToRun>
+    <RuntimeIdentifier>win-x86</RuntimeIdentifier>
+    <PublishSingleFile>true</PublishSingleFile>
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
