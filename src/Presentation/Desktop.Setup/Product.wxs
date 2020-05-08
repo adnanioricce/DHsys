@@ -14,7 +14,8 @@
            Language="!(loc.Language)"
            Version="$(var.BuildVersion)"
            Manufacturer="!(loc.Company)"
-           UpgradeCode="$(var.UpgradeCode)">
+           UpgradeCode="$(var.UpgradeCode)"
+           >
     <!--Provide package details-->
     <Package InstallerVersion="200"
              Compressed="yes"
@@ -25,6 +26,7 @@
              Keywords="!(loc.Keywords)"
              Comments="!(loc.Comments)"
              Languages="!(loc.Language)"
+             
              />
     <!--Downgrade error message-->
     <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
@@ -46,6 +48,7 @@
              Title="DHsys.Desktop"
              Level="1">
       <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="PublishedComponents" />
     </Feature>
   </Product>  
 </Wix>
