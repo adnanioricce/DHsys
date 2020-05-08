@@ -1,18 +1,19 @@
 ﻿namespace Desktop.Models
 {
-    public class ProdutoModel 
-    {
+    public class CreateProductModel : GalaSoft.MvvmLight.ObservableObject
+    {        
         public string Codigo { get; set; }
         public int Quantidade { get; set; }
+        public int QuantidadeAInserir { get; set; }
         public string CodigoDeBarras { get; set; }
         public string NCM { get; set; }
         public string Descricao { get; set; }
-        public string Laboratorio { get; set; }
+        public int LaboratorioId { get; set; }
         public string Subsecao { get; set; }
         public string Portaria { get; set; }
         public string Bematech { get; set; }
         public string Daruma { get; set; }
-        public decimal ICMS { get; set; } // <- string
+        public decimal ICMS { get; set; } = 18; // <- string
         public string RegistroMs { get; set; }
         public string DCB { get; set; }
         public string DescontoMaximo { get; set; }
