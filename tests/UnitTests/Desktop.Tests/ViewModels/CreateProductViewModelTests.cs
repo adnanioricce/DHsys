@@ -1,4 +1,5 @@
 using Core.Entities.Catalog;
+using Core.Entities.Stock;
 using Core.Interfaces.Catalog;
 using Desktop.ViewModels.Product;
 using Moq;
@@ -16,7 +17,7 @@ namespace Desktop.Tests.ViewModels
             //Given
             var drug = DrugSeed.BaseCreateDrugEntity();
             var fakeRepository = new FakeRepository<Drug>();
-            var viewModel = new CreateProductViewModel(CreateFakeDrugProdutoMediator(fakeRepository));
+            var viewModel = new CreateProductViewModel(CreateFakeDrugProdutoMediator(fakeRepository),new FakeRepository<Manufacturer>());
             //When
             viewModel.CreateDrugCommand.Execute(drug);
             var createdDrug = fakeRepository.GetBy(drug.Id);
