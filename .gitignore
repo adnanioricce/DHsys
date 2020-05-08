@@ -18,6 +18,8 @@ src/UI/appsettings.json
 .vscode
 .msix
 ComponentsGenerated.wxs
+DesktopRelease/
+*.db
 # Mono auto generated files
 mono_crash.*
 
