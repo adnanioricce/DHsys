@@ -7,7 +7,7 @@
     <ProjectGuid>e76f7908-b1fa-42ed-8344-81added946a7</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>Desktop-$(Configuration)-$(Platform)</OutputName>
-    <OutputType>Package</OutputType>
+    <OutputType>Package</OutputType>        
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>

@@ -17,6 +17,7 @@ src/UI/appsettings.json
 .ionide
 .vscode
 .msix
+ComponentsGenerated.wxs
 # Mono auto generated files
 mono_crash.*
 
