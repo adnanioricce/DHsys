@@ -12,7 +12,8 @@ namespace Application.Services
     {
         private readonly IRepository<Drug> _drugRepository;
         private readonly ILegacyDataMapper<Drug,Produto> _produtoMapper;
-        public DrugService(IRepository<Drug> drugRepository, ILegacyDataMapper<Drug, Produto> produtoMapper)
+        public DrugService(IRepository<Drug> drugRepository,
+         ILegacyDataMapper<Drug, Produto> produtoMapper)
         {
             _drugRepository = drugRepository;
             _produtoMapper = produtoMapper;
@@ -43,6 +44,20 @@ namespace Application.Services
             throw new System.NotImplementedException();
         }
 
+        public Drug GetDrugByUniqueCode(string uniqueCode)
+        {
+            return _drugRepository.Query()
+            .Where(d => d.UniqueCode == uniqueCode)
+            .FirstOrDefault();
+        }
+
+        public Task<Drug> GetDrugByUniqueCodeAsync(string uniqueCode)
+        {
+            return _drugRepository.Query()
+            .Where(d => d.UniqueCode == uniqueCode)
+            .FirstOrDefaultAsync();
+        }
+
         public IEnumerable<Drug> GetDrugs(int start, int end)
         {
             return _drugRepository.Query().TakeWhile(d => d.Id >= start && d.Id <= end);
@@ -53,6 +68,12 @@ namespace Application.Services
             return await _drugRepository.Query()
                 .Take(start - end)
                 .ToListAsync();
+        }
+
+        public IEnumerable<Drug> GetDrugsByNcm(IEnumerable<string> ncms)
+        {
+            return _drugRepository.Query()
+            .Where(drug => ncms.Any(nc => nc == drug.Ncm));
         }
 
         public Drug SearchDrugByBarCode(string barCode)
@@ -84,11 +105,11 @@ namespace Application.Services
                 .FirstOrDefaultAsync();
         }
 
-        public void UpdateDrugPrice(int drugId, DrugPrice newDrugPrice)
+        public void UpdateDrugPrice(int drugId, ProductPrice newDrugPrice)
         {
             //TODO:Validate drug price
             var drug = _drugRepository.GetBy(drugId);
-            drug.Drugprices.Add(newDrugPrice);
+            drug.ProductPrices.Add(newDrugPrice);
             _drugRepository.Update(drug);
         }
     }
