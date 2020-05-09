@@ -14,6 +14,7 @@ using Desktop.ViewModels.Product;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Settings;
 using Desktop.ViewModels.Billings;
+using Infrastructure.Extensions;
 
 namespace Desktop
 {
@@ -58,8 +59,10 @@ namespace Desktop
         }
 
         private void ConfigureServices(IConfiguration configuration, IServiceCollection services){                        
+            
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
+            services.ConfigureAppDataFolder(null);
             services.AddTransient(typeof(MainWindow));
             services.AddTransient(typeof(MainWindowViewModel));
             services.AddTransient<CreateBillingViewModel>();
