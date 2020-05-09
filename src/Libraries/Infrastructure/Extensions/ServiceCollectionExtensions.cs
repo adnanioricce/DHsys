@@ -1,4 +1,6 @@
-﻿using Infrastructure.Settings;
+﻿using Infrastructure.Interfaces;
+using Infrastructure.Settings;
+using Infrastructure.Updates;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,7 +24,7 @@ namespace Infrastructure.Extensions
                 return new OptionWriter<T>(environment, file);
             });
         }
-        public static void ConfigureAppDataFolder(this IServiceCollection services,IConfiguration configuration,string myFolder = "DHsys")
+        public static void ConfigureAppDataFolder(this IServiceCollection services,string myFolder = "DHsys")
         {
             //TODO:Use isolation storage instead
             string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),myFolder);
@@ -55,17 +57,13 @@ namespace Infrastructure.Extensions
                 Directory.CreateDirectory(updateFilesFolder);
             }
         }
-        public static void SetUpdateSettings(this IServiceCollection services)
+        public static void AddApplicationUpdater(this IServiceCollection services)
         {
-            using (var provider = services.BuildServiceProvider())
-            {
-                var updateSettingsWriter = provider.GetService<OptionWriter<AutoUpdateSettings>>();
-                updateSettingsWriter.Update(settings =>
-                {
-                    settings.UpdateFileUrl
-                   //TODO:Add dsa public key path
-                });
-            }
-        }
+            var provider = services.BuildServiceProvider();
+            var settings = provider.GetService<IOptions<AutoUpdateSettings>>();
+            var logger = provider.GetService<IAppLogger<Updater>>();
+            var updater = new Updater(logger,settings);
+            services.AddSingleton(typeof(IUpdater),updater);
+        }   
     }
 }

@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Infrastructure.Settings;
 using Desktop.ViewModels.Billings;
 using Infrastructure.Extensions;
+using Infrastructure.Interfaces;
 
 namespace Desktop
 {
@@ -62,9 +63,12 @@ namespace Desktop
             
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
-            services.ConfigureAppDataFolder(null);
+            services.Configure<AutoUpdateSettings>(configuration.GetSection(nameof(AutoUpdateSettings)));            
+            services.ConfigureAppDataFolder();
+            services.AddTransient(typeof(IAppLogger<>));
             services.AddTransient(typeof(MainWindow));
             services.AddTransient(typeof(MainWindowViewModel));
+            
             services.AddTransient<CreateBillingViewModel>();
             services.AddTransient<BillingListViewModel>();
             services.AddTransient<CreateProductViewModel>();
@@ -92,9 +96,8 @@ namespace Desktop
 
                 return navigationService;
             });
-            ServiceProvider = services.BuildServiceProvider();
-            var windowVm = ServiceProvider.GetService<MainWindowViewModel>();
+            ServiceProvider = services.BuildServiceProvider();            
             
-        }       
+        }                       
     }
 }
