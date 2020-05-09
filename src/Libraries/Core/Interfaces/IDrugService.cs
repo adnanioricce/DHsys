@@ -12,13 +12,16 @@ namespace Core.Interfaces
         //Task<IEnumerable<Drug>> GetDrugsFrom
         Drug SearchDrugByBarCode(string barCode);
         Task<Drug> SearchDrugByBarCodeAsync(string barCode);
+        Drug GetDrugByUniqueCode(string uniqueCode);        
+        Task<Drug> GetDrugByUniqueCodeAsync(string uniqueCode);        
+        IEnumerable<Drug> GetDrugsByNcm(IEnumerable<string> ncms);
         IEnumerable<Drug> SearchDrugsByName(string name);
         Task<Drug> SearchDrugsByNameAsync(string name);
         void CreateDrug(Drug product);
         void CreateDrug(Produto produto);
         void CreateDrugs(IEnumerable<Produto> produtos);
         void CreateDrugs(IEnumerable<Drug> drugs);
-        void UpdateDrugPrice(int drugId,DrugPrice newDrugPrice);        
+        void UpdateDrugPrice(int drugId,ProductPrice newDrugPrice);        
         
     }
 }
