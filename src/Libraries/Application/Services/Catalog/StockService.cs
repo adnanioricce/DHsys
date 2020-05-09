@@ -49,44 +49,11 @@ namespace Application.Services
         /// Gets the diff between the given drugs and the actual drugs
         ///</summary>  
         // ///<returns><
-        public IEnumerable<DrugDiff> GetDiff(IEnumerable<Drug> drugs)
-        {
-            var diffs = new List<DrugDiff>();
-            //Move boths to dictionaries to access more easily
-            var drugsDict = drugs.ToDictionary(d => d.Ncm);
-            //getting drugs that alreadly exists on database
+        public IEnumerable<Drug> GetItemsWithPriceChanged(IEnumerable<Drug> drugs)
+        {                        
+            var drugsDict = drugs.ToDictionary(d => d.Ncm);            
             var existingDrugs = _drugService.GetDrugsByNcm(drugs.Select(d => d.Ncm));
-            var existingDrugsDict = existingDrugs.ToDictionary(d => d.Ncm);                                                
-            //from getting the key and value of the given drugs
-            foreach (var (ncm,drug) in drugsDict)
-            {
-                //if drug don't exists, continue, if not...
-                if(!existingDrugsDict.TryGetValue(ncm,out var value)) continue;
-                // try to compare properties of both
-                var oldDrugProperties = drug.GetType()
-                                                .GetProperties()
-                                                // .Where(p => !p.PropertyType.IsClass)
-                                                .Select(p => new {Name = p.Name,Value = p.GetValue(drug) })
-                                                .ToDictionary(p => p.Name);
-                    var changedProperties = value.GetType()
-                    .GetProperties()
-                    // .Where(p => !p.PropertyType.IsClass)
-                    .Where(p => oldDrugProperties[p.Name] != p.GetValue(value))
-                    .Select(p => new PropertyDiff{
-                        PropertyName = p.Name,
-                        Value = p.GetValue(value)
-                    });
-                    //if not has changed continue
-                    if(changedProperties.Count() == 0) continue;
-                    //if has changed, add to list
-                    var diff = new DrugDiff{
-                            PreviousDrug = drug,
-                            CurrentDrug = value,
-                            ChangedProperties = changedProperties.ToDictionary(p => p.PropertyName)                        
-                        };     
-                    diffs.Add(diff);                 
-            }
-            return diffs;
+            return existingDrugs.Where(d => drugs.Any(dd => dd.Ncm == d.Ncm && dd.DrugCost != d.DrugCost));
         }        
     }
 }

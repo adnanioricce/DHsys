@@ -48,25 +48,24 @@ namespace Services.Tests.Catalog
             //Then
             var validEntries = repo.GetAll();
             Assert.Equal(3,validEntries.Count());
-        }             
-        
+        }                     
         [Fact]
-        public void Given_New_StockEntry_With_Differences_Between_Last_StockEntry_Of_Each_Product_When_Get_Diff_Between_Current_Products_And_StockEntry_Product_Then_Return_List_With_Previous_And_New_Product_Object()
+        public void Given_New_StockEntry_With_Drugs_With_DrugCostChanged_Between_Last_StockEntry_Of_Each_Product_When_Get_Diff_Between_Current_Products_And_StockEntry_Product_Then_Return_List_With_Previous_And_New_Product_Object()
         {
             //Given
             var oldDrug = DrugSeed.BaseCreateDrugEntity();
-            var newDrug = DrugSeed.BaseCreateDrugEntity();
-            newDrug.Description = "other" + newDrug.Description;                        
+            var newDrug = DrugSeed.BaseCreateDrugEntity();            
             oldDrug.Ncm = "300024567";
-            newDrug.Ncm = oldDrug.Ncm;                                          
+            newDrug.Ncm = oldDrug.Ncm;                                                      
+            newDrug.DrugCost += 0.01m;
             var service = new StockService(new FakeRepository<StockEntry>(),
             new DrugService(new FakeRepository<Drug>(new Drug[]{oldDrug}),null));
             //When
-            var diff = service.GetDiff(new List<Drug>{
+            var result = service.GetItemsWithPriceChanged(new List<Drug>{
                 newDrug
             });
             //Then
-            Assert.Equal(1,diff.Count());            
+            Assert.Equal(1,result.Count());            
         }              
         private IEnumerable<StockEntry> GetBaseStockEntries()
         {
