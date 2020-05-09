@@ -1,21 +1,19 @@
 ﻿using Infrastructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
-using NetSparkle;
 using Microsoft.Extensions.Options;
 using Infrastructure.Settings;
-using NetSparkle.Enums;
 using System.Reflection;
-
+using NetSparkleUpdater;
+using NetSparkleUpdater.Enums;
+using Infrastructure.Interfaces;
 namespace Infrastructure.Updates
 {
-    public class Updater
+    public class Updater : IUpdater
     {
         private readonly IAppLogger<Updater> _logger;
         private readonly AutoUpdateSettings _settings;
-        
+        private SparkleUpdater _sparkle;
+        private Task<UpdateInfo> _updateStatusTask;
         public Updater(IAppLogger<Updater> logger,
             IOptions<AutoUpdateSettings> settings)
         {
@@ -23,23 +21,29 @@ namespace Infrastructure.Updates
             _settings = settings.Value;
         }
         public void ConfigureUpdater()
-        {
-            var sparkle = new Sparkle(_settings.AppCastUrl,
-                new System.Drawing.Icon(_settings.AppIcon,32,32),
-                securityMode:ToSecurityMode(_settings.SecurityMode),
+        {            
+            var sparkle = new SparkleUpdater(_settings.UpdateFileUrl,                
+                securityMode: ToSecurityMode(_settings.SecurityMode),
                 dsaPublicKey:_settings.DsaPublicKey,
                 Assembly.GetExecutingAssembly().GetName().FullName);
-            //TODO:
-            
-        }
-        public bool HasUpdate() 
-        {
-            //TODO:
-            return true;
-        }
+            _sparkle = sparkle;
+            if (_settings.ShouldUpdateSilently)
+            {
+               _sparkle.CheckForUpdatesQuietly();                                
+            }
+            _sparkle.StartLoop(true);            
+        }                
         public async Task Update(bool silently)
         {
-            //TODO:            
+            var result = await _sparkle.CheckForUpdatesAtUserRequest();
+            if(result.Status == UpdateStatus.UpdateAvailable)
+            {
+                foreach (var update in result.Updates)
+                {
+                    _sparkle.InstallUpdate(update);                    
+                }
+                
+            }
         }
         private SecurityMode ToSecurityMode(string securityMode)
         {
