@@ -4,6 +4,11 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities.Stock;
 using Application.Services;
+using Tests.Lib.Seed;
+using Core.Entities.Catalog;
+using Core.Models.ApplicationResources.Catalog;
+using Core.Interfaces;
+using Moq;
 
 namespace Services.Tests.Catalog
 {
@@ -15,7 +20,7 @@ namespace Services.Tests.Catalog
             //Given
             var stocks = GetBaseStockEntries();
             var repo = new FakeRepository<StockEntry>();
-            var service = new StockService(repo);
+            var service = new StockService(repo,null);
             //When
             service.AddMultipleStockEntries(stocks);
             //Then
@@ -37,22 +42,31 @@ namespace Services.Tests.Catalog
             };
             stocks.Concat(invalidStocks);
             var repo = new FakeRepository<StockEntry>();
-            var service = new StockService(repo);
+            var service = new StockService(repo,null);
             //When
             service.AddMultipleStockEntries(stocks);
             //Then
             var validEntries = repo.GetAll();
             Assert.Equal(3,validEntries.Count());
-        }     
-        //TODO:     
+        }             
+        
         [Fact]
         public void Given_New_StockEntry_With_Differences_Between_Last_StockEntry_Of_Each_Product_When_Get_Diff_Between_Current_Products_And_StockEntry_Product_Then_Return_List_With_Previous_And_New_Product_Object()
         {
             //Given
-             
+            var oldDrug = DrugSeed.BaseCreateDrugEntity();
+            var newDrug = DrugSeed.BaseCreateDrugEntity();
+            newDrug.Description = "other" + newDrug.Description;                        
+            oldDrug.Ncm = "300024567";
+            newDrug.Ncm = oldDrug.Ncm;                                          
+            var service = new StockService(new FakeRepository<StockEntry>(),
+            new DrugService(new FakeRepository<Drug>(new Drug[]{oldDrug}),null));
             //When
-            
+            var diff = service.GetDiff(new List<Drug>{
+                newDrug
+            });
             //Then
+            Assert.Equal(1,diff.Count());            
         }              
         private IEnumerable<StockEntry> GetBaseStockEntries()
         {
@@ -64,6 +78,15 @@ namespace Services.Tests.Catalog
 
                 }
             };
+        }
+        private IDrugService GetFakeDrugService(Drug drug)
+        {
+            var fakeDrugService = new Mock<IDrugService>();
+            fakeDrugService.Setup(m => m.GetDrugsByNcm(It.IsAny<string[]>()))
+                           .Returns(new Drug[]{
+                                drug
+                           });
+            return fakeDrugService.Object; 
         }
     }
 }

@@ -4,16 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Catalog;
 using Core.Interfaces;
+using Core.Interfaces.NFe;
 using Core.Models;
 using Core.Models.XML;
 
 namespace Application.Services.NFe
 {
-    public class NFeDataExtractor
+    public class NFeDataExtractor : INFeDataExtractor
     {
-        private readonly NFeClient _nfeClient;
+        private readonly INFeClient _nfeClient;
         private readonly IDrugService _drugService;
-        public NFeDataExtractor(NFeClient nfeClient,IDrugService drugService)
+        public NFeDataExtractor(INFeClient nfeClient,IDrugService drugService)
         {
             _nfeClient = nfeClient;
             _drugService = drugService;
