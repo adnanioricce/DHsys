@@ -40,8 +40,14 @@ namespace Application.Services
         }
 
         public void CreateDrugs(IEnumerable<Drug> drugs)
-        {
-            throw new System.NotImplementedException();
+        {                        
+            foreach (var drug in drugs) {
+                if(drug.Produto is null) {
+                    drug.Produto = _produtoMapper.MapToLegacyModel(drug);
+                }
+            }
+            _drugRepository.AddRange(drugs);
+            _drugRepository.SaveChanges();
         }
 
         public Drug GetDrugByUniqueCode(string uniqueCode)

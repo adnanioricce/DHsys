@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Services.NFe;
+using Core.Entities.Catalog;
+using Core.Interfaces;
 using Core.Models.XML;
 using Moq;
 using Xunit;
 
-namespace Services.Tests
+namespace Services.Tests.Catalog
 {
     public class SupplierDataResourceClientTest
     {
@@ -17,7 +19,7 @@ namespace Services.Tests
             //Given
             string nfeKey = "";
             string cnpj = "";
-            var nfeClient = new NFeDataExtractor(GetFakeNFeClient(),);
+            var nfeClient = new NFeDataExtractor(GetFakeNFeClient(),GetFakeDrugService());
             //When
             var result = await nfeClient.GetProdutoseServicosByNFeKey(nfeKey,cnpj);
             //Then
@@ -29,7 +31,7 @@ namespace Services.Tests
             //Given
             string nfeKey = Guid.NewGuid().ToString();
             string cnpj = "123.456.890";
-            var nfeClient = new NFeDataExtractor(GetFakeNFeClient());
+            var nfeClient = new NFeDataExtractor(GetFakeNFeClient(),GetFakeDrugService());
             //When
             var result = await nfeClient.GetProdutoseServicosByNFeKey(nfeKey,cnpj);
             //Then
@@ -42,7 +44,7 @@ namespace Services.Tests
         {
             //Given
             string nfeKey = Guid.NewGuid().ToString();            
-            var nfeClient = new NFeDataExtractor(GetFakeNFeClient());
+            var nfeClient = new NFeDataExtractor(GetFakeNFeClient(),GetFakeDrugService());
             //When
             var result = await nfeClient.GetProdutoseServicosByNFeKey(nfeKey,cnpj);
             //Then
@@ -73,5 +75,31 @@ namespace Services.Tests
                          });
             return fakeNfeClient.Object;
         }        
+        private IDrugService GetFakeDrugService()
+        {
+            var fakeDrugService = new Mock<IDrugService>();
+            fakeDrugService.Setup(f => f.GetDrugsByNcm(It.IsAny<IEnumerable<string>>()))
+            .Returns(new Drug[]{
+                new Drug{
+                    Description = "fake description",
+                    DigitalBuleLink = "www.fakedrug.com",
+                    Dosage = "15MG",
+                    DrugCost = 12.99m,
+                    DrugName = "fake drug name",
+                    AbsoluteDosageInMg = 15,
+                    Section = "Bonificados",                    
+                },
+                new Drug{
+                    Description = "fake description",
+                    DigitalBuleLink = "www.fakedrug.com",
+                    Dosage = "15MG",
+                    DrugCost = 12.99m,
+                    DrugName = "fake drug name",
+                    AbsoluteDosageInMg = 15,
+                    Section = "Bonificados",                    
+                }
+            });
+            return fakeDrugService.Object;
+        }
     }
 }
