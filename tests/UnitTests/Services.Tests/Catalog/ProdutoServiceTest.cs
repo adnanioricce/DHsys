@@ -4,7 +4,7 @@ using Tests.Lib.Data;
 using Tests.Lib.Seed;
 using Xunit;
 
-namespace Services.Tests
+namespace Services.Tests.Catalog
 {
     public class ProdutoServiceTest
     {

@@ -39,7 +39,7 @@ namespace Application.Services
             return _stockEntryRepository.Query()
             .Where(s => string.Equals(s.NfNumber,nfNumber,StringComparison.OrdinalIgnoreCase))
             .FirstOrDefault();
-        }
+        }        
         
     }
 }

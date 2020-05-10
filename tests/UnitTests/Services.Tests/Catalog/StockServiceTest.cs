@@ -5,7 +5,7 @@ using System.Linq;
 using Core.Entities.Stock;
 using Application.Services;
 
-namespace Services.Tests
+namespace Services.Tests.Catalog
 {
     public class StockServiceTest
     {
@@ -43,7 +43,17 @@ namespace Services.Tests
             //Then
             var validEntries = repo.GetAll();
             Assert.Equal(3,validEntries.Count());
-        }                        
+        }     
+        //TODO:     
+        [Fact]
+        public void Given_New_StockEntry_With_Differences_Between_Last_StockEntry_Of_Each_Product_When_Get_Diff_Between_Current_Products_And_StockEntry_Product_Then_Return_List_With_Previous_And_New_Product_Object()
+        {
+            //Given
+             
+            //When
+            
+            //Then
+        }              
         private IEnumerable<StockEntry> GetBaseStockEntries()
         {
             return new List<StockEntry>{
