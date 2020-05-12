@@ -2,7 +2,7 @@
 using Xunit;
 using Core.Entities.LegacyScaffold;
 
-namespace Services.Tests
+namespace Services.Tests.Catalog
 {
     public class LegacyDataMapperTest
     {
