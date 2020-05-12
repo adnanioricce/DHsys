@@ -2,10 +2,10 @@ using Core.Entities.Catalog;
 
 namespace Core.Entities.Stock
 {
-    public class DrugStockEntry : BaseEntity
+    public class ProductStockEntry : BaseEntity
     {
-        public int DrugId { get; set; }
-        public virtual Drug Drug { get; set; }
+        public int ProductId { get; set; }
+        public virtual Product Product { get; set; }
         public int StockEntryId { get; set; }
         public virtual StockEntry StockEntry { get; set; }
     }

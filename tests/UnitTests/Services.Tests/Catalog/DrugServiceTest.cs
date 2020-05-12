@@ -9,7 +9,7 @@ using Core.Entities.LegacyScaffold;
 using System.Collections.Generic;
 using Core.Mappers;
 
-namespace Services.Tests
+namespace Services.Tests.Catalog
 {
     public class DrugServiceTest
     {
@@ -100,6 +100,20 @@ namespace Services.Tests
             var returnedDrug = service.SearchDrugByBarCode(drug.BarCode);
             //Then
             Assert.Equal(drug.BarCode,returnedDrug.BarCode);
+        }
+        [Fact]
+        public void Given_Ncm_string_code_From_Drug_Entity_When_Service_Receives_Code_Then_Return_Drug_With_Given_Ncm()
+        {
+            //Given
+            string ncm = "300212345";
+            var testDrug = new Drug{                
+                Ncm = ncm                
+            };            
+            var service = CreateService(testDrug);
+            //When
+            var drug = service.GetDrugsByNcm(new string[]{ ncm }).FirstOrDefault();
+            //Then
+            Assert.Equal(ncm,drug.Ncm);
         }
         //TODO:write a test for each method
         //TODO:Write a test for each "expected" situation

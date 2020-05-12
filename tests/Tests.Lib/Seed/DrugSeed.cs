@@ -9,6 +9,7 @@ namespace Tests.Lib.Seed
         {
             return new Drug{
                 ManufacturerId = 1,
+                Ncm = "30024561",
                 DrugName = "SomeDrugName 30mg 30cp",
                 Description = "no description",
                 Classification = "some classification",

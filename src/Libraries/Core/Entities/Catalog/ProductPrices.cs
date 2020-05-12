@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace Core.Entities.Catalog
 {
-    public  class DrugPrice : BaseEntity
+    public class ProductPrice : BaseEntity
     {        
-        public int DrugId { get; set; }
-        public DateTime? Pricestartdate { get; set; }
+        public int ProductId { get; set; }
+        public DateTimeOffset? Pricestartdate { get; set; }
         public decimal EndCustomerDrugPrice { get; set; }
         public decimal CostPrice { get; set; }
 
-        public virtual Drug Drug { get; set; }
+        public virtual Product Product { get; set; }
     }
 }
