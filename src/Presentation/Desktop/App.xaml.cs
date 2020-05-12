@@ -22,7 +22,7 @@ namespace Desktop
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         private readonly IHost host;
         public static IServiceProvider ServiceProvider { get; private set; }        

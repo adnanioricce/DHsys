@@ -5,15 +5,15 @@ using Infrastructure.Settings;
 using System.Reflection;
 using NetSparkleUpdater;
 using NetSparkleUpdater.Enums;
-using Infrastructure.Interfaces;
+using NetSparkleUpdater.Interfaces;
+
 namespace Infrastructure.Updates
 {
     public class Updater : IUpdater
     {
         private readonly IAppLogger<Updater> _logger;
         private readonly AutoUpdateSettings _settings;
-        private SparkleUpdater _sparkle;
-        private Task<UpdateInfo> _updateStatusTask;
+        private SparkleUpdater _sparkle;        
         public Updater(IAppLogger<Updater> logger,
             IOptions<AutoUpdateSettings> settings)
         {
@@ -32,7 +32,7 @@ namespace Infrastructure.Updates
                _sparkle.CheckForUpdatesQuietly();                                
             }
             _sparkle.StartLoop(true);            
-        }                
+        }              
         public async Task Update(bool silently)
         {
             var result = await _sparkle.CheckForUpdatesAtUserRequest();
@@ -41,8 +41,7 @@ namespace Infrastructure.Updates
                 foreach (var update in result.Updates)
                 {
                     _sparkle.InstallUpdate(update);                    
-                }
-                
+                }                                
             }
         }
         private SecurityMode ToSecurityMode(string securityMode)
