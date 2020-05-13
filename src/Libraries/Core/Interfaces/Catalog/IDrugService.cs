@@ -21,7 +21,7 @@ namespace Core.Interfaces
         void CreateDrug(Produto produto);
         void CreateDrugs(IEnumerable<Produto> produtos);
         void CreateDrugs(IEnumerable<Drug> drugs);
-        void UpdateDrugPrice(int drugId,ProductPrice newDrugPrice);        
-        
+        void UpdateDrugPrice(int drugId,ProductPrice newDrugPrice);
+        void UpdateDrug(int drugId,Drug drug);
     }
 }

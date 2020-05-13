@@ -29,5 +29,10 @@ namespace Application.Services.Catalog
             _produtoService.CreateProduto(produto);
             _drugService.CreateDrug(drug);
         }
+
+        public void UpdateDrugFrom(Drug drug)
+        {
+            //_drugService.
+        }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Application.Services.NFe;
 using Xunit;
@@ -14,7 +15,9 @@ namespace Api.IntegrationTests.Services.NFe
             //Given
             var nfeClient = new NFeClient();
             //When
-            var result = await nfeClient.GetNFeObject(nfeKey,cnpj);
+            var StartDate = DateTime.UtcNow.AddDays(-DateTime.UtcNow.Subtract(new DateTime(0, 0, 1)).TotalSeconds);
+            var EndDate = DateTime.UtcNow;
+            var result = await nfeClient.GetNFeObject(StartDate,EndDate,nfeKey,1,cnpj);
             //Then
             Assert.Equal(nfeKey,result.InfCfe.Id);
         }

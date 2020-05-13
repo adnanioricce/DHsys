@@ -31,7 +31,6 @@ namespace Application.Services
             return _billingRepository.Query()
             .Where(b => !b.IsPaid)
             .Take(limit is null ? 100 : limit.Value);            
-        }        
-        
+        }                   
     }
 }
