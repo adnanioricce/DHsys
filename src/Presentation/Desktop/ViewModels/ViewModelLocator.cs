@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Desktop.ViewModels.Product;
 using Desktop.ViewModels.Billings;
+using Desktop.ViewModels.Update;
 
 namespace Desktop.ViewModels
 {
@@ -11,5 +12,6 @@ namespace Desktop.ViewModels
         public CreateBillingViewModel CreateBillingViewModel => App.ServiceProvider.GetRequiredService<CreateBillingViewModel>();
         public ProductListViewModel ProductListViewModel => App.ServiceProvider.GetRequiredService<ProductListViewModel>();
         public CreateProductViewModel CreateProductViewModel => App.ServiceProvider.GetRequiredService<CreateProductViewModel>();
+        public ApplicationUpdateViewModel ApplicationUpdateViewModel => App.ServiceProvider.GetRequiredService<ApplicationUpdateViewModel>();
     }
 }

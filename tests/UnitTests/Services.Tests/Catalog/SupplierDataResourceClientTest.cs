@@ -21,9 +21,15 @@ namespace Services.Tests.Catalog
             string cnpj = "";
             var nfeClient = new NFeDataExtractor(GetFakeNFeClient(),GetFakeDrugService());
             //When
-            var result = await nfeClient.GetProdutoseServicosByNFeKey(nfeKey,cnpj);
+            var result = await nfeClient.GetProdutoseServicos(new Core.Models.ApplicationResources.Requests.GetProductsFromNFeRequest{
+                NFeKey = nfeKey,
+                CNPJ = cnpj,
+                StartDate = DateTime.UtcNow.AddDays(-DateTime.UtcNow.Subtract(new DateTime(0,0,1)).TotalSeconds),
+                EndDate = DateTime.UtcNow
+                //nfeKey,cnpj
+            });
             //Then
-            Assert.True(result.Success);
+            Assert.True(result.Success && result.Value.Any());
         }
         [Fact]
         public async Task Given_NFeKey_Of_No_existing_NFe_When_Send_Then_Should_Return_Success_Equal_False_With_Error_Message()
@@ -33,7 +39,13 @@ namespace Services.Tests.Catalog
             string cnpj = "123.456.890";
             var nfeClient = new NFeDataExtractor(GetFakeNFeClient(),GetFakeDrugService());
             //When
-            var result = await nfeClient.GetProdutoseServicosByNFeKey(nfeKey,cnpj);
+            var result = await nfeClient.GetProdutoseServicos(new Core.Models.ApplicationResources.Requests.GetProductsFromNFeRequest{
+                NFeKey = nfeKey,
+                CNPJ = cnpj,
+                StartDate = DateTime.UtcNow.AddDays(-DateTime.UtcNow.Subtract(new DateTime(0, 0, 1)).TotalSeconds),
+                EndDate = DateTime.UtcNow
+
+            });
             //Then
             Assert.True(!result.Success && result.Errors.Count() == 0);
         }
@@ -46,14 +58,19 @@ namespace Services.Tests.Catalog
             string nfeKey = Guid.NewGuid().ToString();            
             var nfeClient = new NFeDataExtractor(GetFakeNFeClient(),GetFakeDrugService());
             //When
-            var result = await nfeClient.GetProdutoseServicosByNFeKey(nfeKey,cnpj);
+            var result = await nfeClient.GetProdutoseServicos(new Core.Models.ApplicationResources.Requests.GetProductsFromNFeRequest{
+                NFeKey = nfeKey,
+                CNPJ = cnpj,
+                StartDate = DateTime.UtcNow.AddDays(-DateTime.UtcNow.Subtract(new DateTime(0, 0, 1)).TotalSeconds),
+                EndDate = DateTime.UtcNow
+            });
             //Then
             Assert.True(!result.Success && result.Errors.Count() == 0);
         }
         private NFeClient GetFakeNFeClient()
         {
             var fakeNfeClient = new Mock<NFeClient>();
-            fakeNfeClient.Setup(f => f.GetNFeObject(It.IsAny<string>(),It.IsAny<string>()))
+            fakeNfeClient.Setup(f => f.GetNFeObject(It.IsAny<DateTime>(),It.IsAny<DateTime>(),It.IsAny<string>(),It.IsAny<int>(),It.IsAny<string>()))
                          .ReturnsAsync(new xNFe{
                              InfCfe = new InfCFe{
                                  Det = new List<Det>{

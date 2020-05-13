@@ -16,6 +16,8 @@ using Infrastructure.Settings;
 using Desktop.ViewModels.Billings;
 using Infrastructure.Extensions;
 using Infrastructure.Interfaces;
+using Desktop.Extensions;
+using Desktop.ViewModels.Update;
 
 namespace Desktop
 {
@@ -65,14 +67,17 @@ namespace Desktop
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<AutoUpdateSettings>(configuration.GetSection(nameof(AutoUpdateSettings)));            
             services.ConfigureAppDataFolder();
-            services.AddTransient(typeof(IAppLogger<>));
+            services.AddApplicationUpdater();
+            services.AddApplicationServices();
+            services.AddCustomMappers();
+            //services.AddTransient(typeof(IAppLogger<>),typeof(AppLogger<>));
             services.AddTransient(typeof(MainWindow));
-            services.AddTransient(typeof(MainWindowViewModel));
-            
+            services.AddTransient(typeof(MainWindowViewModel));            
             services.AddTransient<CreateBillingViewModel>();
             services.AddTransient<BillingListViewModel>();
             services.AddTransient<CreateProductViewModel>();
             services.AddTransient<ProductListViewModel>();
+            services.AddTransient<ApplicationUpdateViewModel>();
             services.AddTransient<CreateProductView>();
             services.AddTransient<ProductListView>();
             services.AddTransient<ProductCardControlView>();

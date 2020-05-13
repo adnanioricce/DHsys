@@ -2,6 +2,7 @@
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -109,6 +110,13 @@ namespace Application.Services
             return await _drugRepository.Query()
                 .Where(d => EF.Functions.Like(d.DrugName.ToLower(), "%" + name.ToLower() + "%"))
                 .FirstOrDefaultAsync();
+        }
+
+        public void UpdateDrug(int drugId, Drug drug)
+        {
+            //var _drug = _drugRepository.GetBy(drugId);
+            //_drug.
+            throw new NotImplementedException();
         }
 
         public void UpdateDrugPrice(int drugId, ProductPrice newDrugPrice)

@@ -13,14 +13,14 @@ using Desktop.ViewModels.Billings;
 namespace Desktop.Tests.ViewModels
 {
     public class AddContaViewModelTests
-    {
-        private readonly List<Billing> contas = new List<Billing>();
+    {        
         
         [Fact]
         public void CreateConta_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var viewModel = new CreateBillingViewModel(GetMockRepository());
+            var contas = new List<Billing>();
+            var viewModel = new CreateBillingViewModel(GetMockRepository(contas));
             var model = new ContaModel {
                 DataDeVencimento = DateTime.UtcNow.AddDays(30).ToShortDateString(),
                 NomeEmpresa = "empresa",
@@ -32,14 +32,15 @@ namespace Desktop.Tests.ViewModels
             viewModel.CreateConta(model);
 
             // Assert            
-            Assert.Equal(1,contas.Count);
+            Assert.Single(contas);
         }
 
         [Fact]
         public void CanCreateConta_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var viewModel = new CreateBillingViewModel(GetMockRepository());
+            var contas = new List<Billing>();
+            var viewModel = new CreateBillingViewModel(GetMockRepository(contas));
             var model = new ContaModel
             {
                 DataDeVencimento = "01/11/20",
@@ -54,7 +55,7 @@ namespace Desktop.Tests.ViewModels
             // Assert
             Assert.True(result);
         }
-        private IRepository<Billing> GetMockRepository()
+        private IRepository<Billing> GetMockRepository(List<Billing> contas)
         {
             var mockRepo = new Mock<IRepository<Billing>>();
             mockRepo.Setup(r => r.Add(It.IsAny<Billing>()))

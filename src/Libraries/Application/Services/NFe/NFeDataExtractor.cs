@@ -6,6 +6,7 @@ using Core.Entities.Catalog;
 using Core.Interfaces;
 using Core.Interfaces.NFe;
 using Core.Models;
+using Core.Models.ApplicationResources.Requests;
 using Core.Models.XML;
 
 namespace Application.Services.NFe
@@ -19,21 +20,20 @@ namespace Application.Services.NFe
             _nfeClient = nfeClient;
             _drugService = drugService;
         }
-        public async Task<BaseResult<IEnumerable<Drug>>> GetProdutoseServicosByNFeKey(string nfeKey, string cnpj)
+        public async Task<BaseResult<IEnumerable<Drug>>> GetProdutoseServicos(GetProductsFromNFeRequest request)
         {
-            var nfe = await _nfeClient.GetNFeObject(nfeKey,cnpj);
+            var nfe = await _nfeClient.GetNFeObject(request.StartDate,request.EndDate,request.NFeKey,1,request.CNPJ);
             //! Get By NCM, check if CProd is the NCM
             var ncms = nfe.InfCfe.Det.Select(d => d.Prod.CProd);
             var existingDrugs = _drugService.GetDrugsByNcm(ncms);
             var newNcms = ncms.Where(ncm => existingDrugs.Any(d => string.Equals(d.Ncm,ncm,StringComparison.CurrentCultureIgnoreCase)));
             var newDrugs = nfe.InfCfe.Det.Where(d => newNcms.Any(ncm => string.Equals(ncm,d.Prod.CProd)))
-                                         .Select(d => ConvertProdToProduct(d.Prod));
-            // return existingDrugs newDrugs;
+                                         .Select(d => ConvertProdToProduct(d.Prod));            
             return new BaseResult<IEnumerable<Drug>>{
                 Value = Enumerable.Union(existingDrugs,newDrugs),
                 Success = true                
             };
-        }
+        }       
         private Drug ConvertProdToProduct(Prod prod)
         {
             return new Drug{
