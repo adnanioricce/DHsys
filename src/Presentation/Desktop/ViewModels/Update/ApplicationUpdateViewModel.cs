@@ -7,14 +7,15 @@ namespace Desktop.ViewModels.Update
     public class ApplicationUpdateViewModel : ViewModelBase
     {
         private readonly IUpdater _updater;
-        public RelayCommand<bool> UpdateApplicationCommand { get; set; }
+        public RelayCommand UpdateApplicationCommand { get; set; }
         public RelayCommand ConfigureUpdaterCommand { get; set; }
         public ApplicationUpdateViewModel(IUpdater updater)
         {
             _updater = updater;
             //TODO:this is not a good idea,try to set the updater settings in app startup
             ConfigureUpdaterCommand = new RelayCommand(_updater.ConfigureUpdater);
-            UpdateApplicationCommand = new RelayCommand<bool>(async (arg) => await _updater.Update(arg));
+            UpdateApplicationCommand = new RelayCommand(async () => await _updater.Update());
         }        
+        
     }
 }

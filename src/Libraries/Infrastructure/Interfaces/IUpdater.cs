@@ -1,10 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using Infrastructure.Settings;
+using System.Threading.Tasks;
 
 namespace Infrastructure.Interfaces
 {
     public interface IUpdater
     {
         void ConfigureUpdater();
-        Task Update(bool silently);
+        void UpdateSettings(AutoUpdateSettings settings);
+        Task Update();
     }
 }

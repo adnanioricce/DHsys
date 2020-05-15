@@ -62,7 +62,8 @@ namespace Infrastructure.Extensions
             var provider = services.BuildServiceProvider();
             var settings = provider.GetService<IOptions<AutoUpdateSettings>>();
             var logger = provider.GetService<IAppLogger<Updater>>();
-            var updater = new Updater(logger,settings);
+            var writer = provider.GetService <IWritableOptions<AutoUpdateSettings>>();
+            var updater = new Updater(logger,writer,settings);
             services.AddSingleton(typeof(IUpdater),updater);
         }   
     }

@@ -26,11 +26,7 @@ namespace Core.Interfaces
         /// </summary>
         /// <param name="entry">the entry to be inserted</param>
         void Add(T entry);        
-        /// <summary>
-        /// update a entry in the database
-        /// </summary>
-        /// <param name="entry">the entry to be updated</param>
-        void Update(T entry);
+        
         /// <summary>
         /// executes SQL query on database and return result in entity object
         /// </summary>

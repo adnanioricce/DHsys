@@ -7,5 +7,7 @@ namespace Core.Interfaces.Catalog
     public interface IProdutoService
     {        
         void CreateProduto(Produto produto);
+        void UpdateProduto(Produto produto);
+
     }
 }
