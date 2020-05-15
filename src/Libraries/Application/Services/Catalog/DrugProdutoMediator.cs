@@ -29,5 +29,13 @@ namespace Application.Services.Catalog
             _produtoService.CreateProduto(produto);
             _drugService.CreateDrug(drug);
         }
+
+        public void UpdateDrugFrom(Drug drug)
+        {
+            _drugService.UpdateDrug(drug.Id, drug);
+            var _drug = _drugService.GetDrugByUniqueCode(drug.UniqueCode);
+            var produto = _produtoMapper.MapToLegacyModel(_drug);
+            _produtoService.UpdateProduto(produto);
+        }
     }
 }

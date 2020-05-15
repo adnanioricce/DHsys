@@ -20,6 +20,7 @@ namespace Desktop.ViewModels.Billings
         }
         public void CreateConta(ContaModel model)
         {
+            //TODO:change to a IBillingService Call
             _contaRepository.Add(new Billing{
                 BeneficiaryName = model.NomeEmpresa,
                 EndDate = DateTime.TryParse(model.DataDeVencimento,out var result) ? result : DateTime.UtcNow,
@@ -30,12 +31,14 @@ namespace Desktop.ViewModels.Billings
         public bool CanCreateConta(ContaModel model)
         {
             var validator = new BillingValidator();
-            return validator.IsValid(new Billing
+            var result = validator.IsValid(new Billing
             {
                 EndDate = DateTime.Parse(model.DataDeVencimento),
                 BeneficiaryName = model.NomeEmpresa,
                 Price = model.Valor
             });
+            //TODO:Log errors
+            return result.Success;
         }
     }
 }

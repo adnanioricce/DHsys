@@ -1,5 +1,7 @@
-﻿using Core.Entities.Stock;
+﻿using Core.Entities.Catalog;
+using Core.Entities.Stock;
 using Core.Interfaces;
+using Core.Models.ApplicationResources.Catalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,9 +12,12 @@ namespace Application.Services
     public class StockService : IStockService
     {
         private readonly IRepository<StockEntry> _stockEntryRepository;
-        public StockService(IRepository<StockEntry> stockEntryRepository)
+        private readonly IDrugService _drugService; 
+        public StockService(IRepository<StockEntry> stockEntryRepository,
+        IDrugService drugService)
         {
             _stockEntryRepository = stockEntryRepository;
+            _drugService = drugService;
         }
 
         public void AddMultipleStockEntries(IEnumerable<StockEntry> stockentries)
@@ -40,6 +45,15 @@ namespace Application.Services
             .Where(s => string.Equals(s.NfNumber,nfNumber,StringComparison.OrdinalIgnoreCase))
             .FirstOrDefault();
         }
-        
+        ///<summary>
+        /// Gets the diff between the given drugs and the actual drugs
+        ///</summary>  
+        // ///<returns><
+        public IEnumerable<Drug> GetItemsWithPriceChanged(IEnumerable<Drug> drugs)
+        {                        
+            var drugsDict = drugs.ToDictionary(d => d.Ncm);            
+            var existingDrugs = _drugService.GetDrugsByNcm(drugs.Select(d => d.Ncm));
+            return existingDrugs.Where(d => drugs.Any(dd => dd.Ncm == d.Ncm && dd.DrugCost != d.DrugCost));
+        }        
     }
 }

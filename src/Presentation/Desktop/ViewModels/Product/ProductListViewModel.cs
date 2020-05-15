@@ -26,6 +26,7 @@ namespace Desktop.ViewModels.Product
                 ExecuteGetProductsBySearchPattern(_searchPattern);
             } }
         public RelayCommand<string> GetProductByCodeCommand { get; set; }
+        //public RelayCommand<string MyProperty { get; set; }
         public RelayCommand<string> GetProductsBySearchPatternCommand { get; set; }
         public ProductListViewModel(ILegacyRepository<Produto> produtoRepository)
         {

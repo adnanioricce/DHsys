@@ -2,6 +2,7 @@ using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Interfaces.Catalog;
+using System.Linq;
 
 namespace Application.Services.Catalog
 {
@@ -21,7 +22,17 @@ namespace Application.Services.Catalog
             _produtoDomainRepository.Add(produto);
             _produtoDomainRepository.SaveChanges();
             _produtoLegacyRepository.Add(produto);                     
+        }
 
+        public void UpdateProduto(Produto produto)
+        {
+            _produtoDomainRepository.Update(produto);
+            _produtoDomainRepository.SaveChanges();
+            var updateColumns = string.Join(',', produto.GetType()
+                .GetProperties()
+                .Select(p => $"{p.Name}=@{p.Name}"));
+            var sql = $"UPDATE Produto SET {updateColumns} WHERE prcodi = {produto.UniqueCode};";
+            _produtoLegacyRepository.Command(sql,produto);
         }
     }
 }

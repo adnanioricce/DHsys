@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Core.Validations
 {
-    public class BillingValidator : AbstractValidator<Billing>
+    public class BillingValidator : BaseValidator<Billing>
     {
         public BillingValidator()
         {
@@ -27,19 +27,6 @@ namespace Core.Validations
                 .NotNull()
                     .WithMessage("bill value can't be null");
                 
-        }        
-        public bool IsValid(Billing conta)
-        {
-            var result = Validate(conta);
-            if (result.Errors.Any())
-            {
-                Console.Out.WriteLine("validation of conta give the following errors:");
-                foreach (var error in result.Errors) {
-                    Console.Out.WriteLine(error);
-                }
-                return false;
-            }
-            return result.IsValid;
-        }
+        }                
     }
 }
