@@ -3,13 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Core.Entities;
 using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
-using Core.Entities.Stock;
 using Core.Interfaces;
-using Core.Models;
-using LibGit2Sharp;
 //TODO: Move this to DAL project
 namespace Core.Mappers
 {
@@ -52,9 +48,9 @@ namespace Core.Mappers
                 MinimumStock = int.TryParse(produto.EstMinimo.ToString(), out var minStockResult) ? minStockResult : 1,
                 MainSupplierName = produto.Ultfor
             };
-            drug.Drugprices.Add(new DrugPrice
+            drug.ProductPrices.Add(new ProductPrice
             {
-                Drug = drug,
+                Product = drug,
                 EndCustomerDrugPrice = decimal.TryParse(produto.Prcons.ToString(),out var price) ? price : 0.00m,
                 CostPrice = decimal.TryParse(produto.Prfabr.ToString(),out var fabrPrice) ? fabrPrice : 0.00m,
                 Pricestartdate = DateTime.UtcNow

@@ -20,4 +20,8 @@
     <ProjectReference Include="..\..\Tests.Lib\Tests.Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Settings\" />
+  </ItemGroup>
+
 </Project>

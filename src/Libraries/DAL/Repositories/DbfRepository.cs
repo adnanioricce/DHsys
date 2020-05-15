@@ -1,3 +1,4 @@
+using Core.Entities;
 using Core.Interfaces;
 using Infrastructure.Settings;
 using Microsoft.Extensions.Options;
@@ -8,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class DbfRepository<T> : ILegacyRepository<T> where T : class 
+    public class DbfRepository<T> : ILegacyRepository<T> where T : BaseEntity 
     {
         private readonly LegacyContext<T> _context;
-        private readonly string DbName;
+        private readonly string TableName;
         public DbfRepository(LegacyContext<T> context,IOptions<LegacyDatabaseSettings> dbSettings)
         {
             _context = context;
-            DbName = $"{dbSettings.Value.DataSource}\\{typeof(T).Name.ToUpper()}.dbf";
+            TableName = $"{dbSettings.Value.DataSource}\\{typeof(T).Name.ToUpper()}.dbf";
         }
         public void Add(T entry)
         {
@@ -24,7 +25,7 @@ namespace DAL
                 Value = null
             }).ToArray();   
             var queryBuilder = new StringBuilder();         
-            queryBuilder.Append($"INSERT INTO {this.DbName} VALUES(");
+            queryBuilder.Append($"INSERT INTO {this.TableName} VALUES(");
             for (int i = 0; i < fields.Length; i++)
             {                            
                 queryBuilder.Append($"@{fields[i].FieldName}");
@@ -35,7 +36,7 @@ namespace DAL
 
         public void Command(string query, T entity)
         {
-            throw new System.NotImplementedException();
+            _context.Command(query, entity);
         }
 
         public T GetById(int id)
@@ -45,7 +46,7 @@ namespace DAL
 
         public T GetById(string id)
         {
-            return _context.RawQuery($"SELECT * FROM {DbName} WHERE prcodi = {id}");
+            return _context.RawQuery($"SELECT * FROM {TableName} WHERE prcodi = {id}");
         }
 
         public IEnumerable<T> MultipleFromRawSqlQuery(string query)
@@ -69,10 +70,6 @@ namespace DAL
         {
             throw new System.NotImplementedException();
         }
-
-        public void Update(T entry)
-        {
-            throw new System.NotImplementedException();
-        }
+       
     }
 }

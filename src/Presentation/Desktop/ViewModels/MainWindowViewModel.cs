@@ -4,14 +4,17 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Desktop.Services;
+using Infrastructure.Interfaces;
+using Microsoft.Extensions.Options;
+using Infrastructure.Settings;
 
 namespace Desktop.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private object _currentDataContext = null;
-        private readonly CustomNavigationService _navigationService;
-        public RelayCommand<object> MoveToViewModelCommand { get; set; }                
+        private object _currentDataContext = null;        
+        public RelayCommand<object> MoveToViewModelCommand { get; set; }
+        public RelayCommand CheckForUpdatesCommand { get; set; }
         public object CurrentDataContext
         {
             get { return _currentDataContext; }
@@ -20,10 +23,10 @@ namespace Desktop.ViewModels
                 Set(ref _currentDataContext, value);
             }
         }
-        public MainWindowViewModel(CustomNavigationService navigationService)
-        {
-            _navigationService = navigationService;
-            MoveToViewModelCommand = new RelayCommand<object>(MoveToView);             
+        public MainWindowViewModel(IUpdater updater,IOptions<AutoUpdateSettings> settings)
+        {            
+            MoveToViewModelCommand = new RelayCommand<object>(MoveToView);
+            CheckForUpdatesCommand = new RelayCommand(() => updater.ConfigureUpdater());
         }
         public void MoveToView(object parameter)
         {            

@@ -36,7 +36,7 @@ namespace Infrastructure.Settings
             var jObject = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(physicalPath));
             var sectionObject = jObject.TryGetValue(_section, out JToken section) ?
                 JsonConvert.DeserializeObject<T>(section.ToString()) : (Value ?? new T());
-
+            
             applyChanges(sectionObject);
 
             jObject[_section] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
