@@ -87,9 +87,9 @@ namespace Core.Entities.Catalog
         /// Get or set the Many-To-Many reference to the Supplier Entity
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; } = new List<ProductSupplier>(); 
-        public virtual ICollection<ProductPrice> ProductPrices { get; set; }
-        public virtual ICollection<ProductStockEntry> Stockentries { get; set; } 
+        public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; } = new List<ProductSupplier>();
+        public virtual ICollection<ProductPrice> ProductPrices { get; set; } = new List<ProductPrice>();
+        public virtual ICollection<ProductStockEntry> Stockentries { get; set; } = new List<ProductStockEntry>();
         //Fields with unsure function
         #region Legacy field models
         public virtual Produto Produto { get; set; }

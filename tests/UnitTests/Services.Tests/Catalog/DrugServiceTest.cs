@@ -48,7 +48,8 @@ namespace Services.Tests.Catalog
             //Given
             var produtos = GetProdutoDataList();
             var repository = new FakeRepository<Drug>();
-            var service = new DrugService(repository,new ProdutoMapper(null));
+            var legacyRepository = new FakeLegacyProdutoRepository();
+            var service = new DrugService(repository,new ProdutoMapper(legacyRepository));
             //When
             service.CreateDrugs(produtos);
             //Then
@@ -85,7 +86,7 @@ namespace Services.Tests.Catalog
             //When
             var drugs = service.SearchDrugsByName(drug.DrugName);
             //Then
-            Assert.True(drugs.Any(d => string.Equals(d.DrugName,drug.DrugName,StringComparison.OrdinalIgnoreCase)));
+            Assert.Contains(drugs, d => string.Equals(d.DrugName,drug.DrugName,StringComparison.OrdinalIgnoreCase));
         }
         //? And if I receive more than one drug?
         [Fact]

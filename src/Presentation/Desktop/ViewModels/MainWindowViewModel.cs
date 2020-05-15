@@ -14,7 +14,7 @@ namespace Desktop.ViewModels
     {
         private object _currentDataContext = null;        
         public RelayCommand<object> MoveToViewModelCommand { get; set; }
-        public RelayCommand<bool> CheckForUpdatesCommand { get; set; }
+        public RelayCommand CheckForUpdatesCommand { get; set; }
         public object CurrentDataContext
         {
             get { return _currentDataContext; }
@@ -26,7 +26,7 @@ namespace Desktop.ViewModels
         public MainWindowViewModel(IUpdater updater,IOptions<AutoUpdateSettings> settings)
         {            
             MoveToViewModelCommand = new RelayCommand<object>(MoveToView);
-            CheckForUpdatesCommand = new RelayCommand<bool>(async (isSilently) => await updater.Update(settings.Value.ShouldUpdateSilently));
+            CheckForUpdatesCommand = new RelayCommand(() => updater.ConfigureUpdater());
         }
         public void MoveToView(object parameter)
         {            

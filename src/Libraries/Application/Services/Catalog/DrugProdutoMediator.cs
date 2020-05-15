@@ -32,7 +32,10 @@ namespace Application.Services.Catalog
 
         public void UpdateDrugFrom(Drug drug)
         {
-            //_drugService.
+            _drugService.UpdateDrug(drug.Id, drug);
+            var _drug = _drugService.GetDrugByUniqueCode(drug.UniqueCode);
+            var produto = _produtoMapper.MapToLegacyModel(_drug);
+            _produtoService.UpdateProduto(produto);
         }
     }
 }

@@ -25,10 +25,7 @@ namespace DAL
             optionsBuilder.UseLoggerFactory(_loggerFactory);
         }       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // modelBuilder.
-            // var assembly = new LegacyScaffoldType().GetType().Assembly;
-            // modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+        {            
             modelBuilder.Entity<Billing>(mapper =>
             {
                 mapper.ToTable("Billings");
