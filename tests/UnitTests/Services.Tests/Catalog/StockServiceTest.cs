@@ -32,7 +32,7 @@ namespace Services.Tests.Catalog
         {
             //Given
             var stocks = GetBaseStockEntries();
-            //TODO:Add invalid state
+            //TODO:Add invalid state StockEntry seed
             var invalidStocks = new List<StockEntry>{
                 new StockEntry{
 
@@ -65,7 +65,7 @@ namespace Services.Tests.Catalog
                 newDrug
             });
             //Then
-            Assert.Equal(1,result.Count());            
+            Assert.Single(result);            
         }              
         private IEnumerable<StockEntry> GetBaseStockEntries()
         {

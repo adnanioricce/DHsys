@@ -5,9 +5,21 @@ namespace Core.Entities.LegacyScaffold
 {
     public  class Produto : BaseEntity
     {        
+        /// <summary>
+        /// Get or set the Unique Code identification field for the current Produto object
+        /// </summary>
+        /// <value></value>
         public string Prcodi { get; set; }
+        /// <summary>
+        /// Get or set the Barcode for the current produto object
+        /// </summary>
+        /// <value></value>
         public string Prbarra { get; set; }
         public string Prreg { get; set; }
+        /// <summary>
+        /// Get or set the current name for the current <see cref="Core.Entities.LegacyScaffold.Produto"/> object
+        /// </summary>
+        /// <value></value>
         public string Prdesc { get; set; }
         public string Prlote { get; set; }
         public string Prpos { get; set; }

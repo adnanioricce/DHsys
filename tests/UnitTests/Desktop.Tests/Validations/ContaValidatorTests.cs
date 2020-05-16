@@ -29,7 +29,7 @@ namespace Desktop.Tests.Validations
             var result = contaValidator.IsValid(conta);
 
             // Then
-            Assert.True(result);            
+            Assert.True(result.Success);            
         }        
         [Theory]
         [InlineData("")]        
@@ -48,7 +48,7 @@ namespace Desktop.Tests.Validations
             var result = contaValidator.IsValid(conta);
 
             // Then
-            Assert.False(result);
+            Assert.False(result.Success);
         }
         [Theory]
         [InlineData(-10)]
@@ -68,7 +68,7 @@ namespace Desktop.Tests.Validations
             var result = contaValidator.IsValid(conta);
 
             // Then
-            Assert.False(result);
+            Assert.False(result.Success);
         }
     }
 }
