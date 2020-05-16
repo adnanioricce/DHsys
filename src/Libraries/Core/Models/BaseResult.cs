@@ -6,7 +6,6 @@ namespace Core.Models
     {
         public IEnumerable<string> Errors { get; set; } = new List<string>();
         public bool Success { get; set; }
-        public T Value { get; set; }
-        
-    }
+        public T Value { get; set; }        
+    }    
 }

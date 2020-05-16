@@ -28,6 +28,6 @@ namespace Core.Entities.Stock
             {                            
                 this.Drugs.Add(drug);
             }
-        }
+        }        
     }
 }

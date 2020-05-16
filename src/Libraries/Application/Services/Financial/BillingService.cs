@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Models;
 using Core.Validations;
 using DAL;
 using FluentValidation;
@@ -16,16 +17,24 @@ namespace Application.Services
         {
             _billingRepository = billingRepository;            
         }
-        public void AddBilling(Billing billing)
+        /// <summary>
+        /// Inserts a valid billing in the database
+        /// </summary>
+        /// <param name="billing">The billing object to be inserted.</param>
+        public BaseResult<Billing> AddBilling(Billing billing)
         {                    
             var validator = new BillingValidator();
-            if (validator.IsValid(billing))
-            {
-                _billingRepository.Add(billing);
-                _billingRepository.SaveChanges();
-            }
-            throw new ValidationException("was not possible to save billing because it have a invalid state");
+            var validationResult = validator.IsValid(billing);
+            if (!validationResult.Success) return validationResult;            
+            _billingRepository.Add(billing);
+            _billingRepository.SaveChanges();
+            return validationResult;            
         }
+        /// <summary>
+        /// Return the last 100 unpaid billings if no limit is specified, otherwise it take the last unpaid billing on the given limit
+        /// </summary>
+        /// <param name="limit">The limit of unpaid billings to return</param>
+        /// <returns>a collection of <see cref="Core.Entities.Billing"/> Entity objects with the IsPaid property equal false</returns>
         public IEnumerable<Billing> GetUnpaidBillings(int? limit = null)
         {
             return _billingRepository.Query()
