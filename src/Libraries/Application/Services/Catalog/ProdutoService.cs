@@ -17,14 +17,14 @@ namespace Application.Services.Catalog
             _produtoDomainRepository = produtoDomainRepository;
             
         }        
-        public void CreateProduto(Produto produto)
+        public virtual void CreateProduto(Produto produto)
         {
             _produtoDomainRepository.Add(produto);
             _produtoDomainRepository.SaveChanges();
             _produtoLegacyRepository.Add(produto);                     
         }
 
-        public void UpdateProduto(Produto produto)
+        public virtual void UpdateProduto(Produto produto)
         {
             _produtoDomainRepository.Update(produto);
             _produtoDomainRepository.SaveChanges();

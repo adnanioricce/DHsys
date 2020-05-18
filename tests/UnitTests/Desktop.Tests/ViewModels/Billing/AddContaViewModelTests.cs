@@ -9,6 +9,9 @@ using Desktop.Interfaces;
 using Core.Interfaces;
 using Core.Entities;
 using Desktop.ViewModels.Billings;
+using System.Linq;
+using Application.Services;
+using Tests.Lib.Data;
 
 namespace Desktop.Tests.ViewModels
 {
@@ -20,7 +23,8 @@ namespace Desktop.Tests.ViewModels
         {
             // Arrange
             var contas = new List<Billing>();
-            var viewModel = new CreateBillingViewModel(GetMockRepository(contas));
+            var fakeRepository = GetMockRepository(contas);
+            var viewModel = new CreateBillingViewModel(new BillingService(fakeRepository));
             var model = new ContaModel {
                 DataDeVencimento = DateTime.UtcNow.AddDays(30).ToShortDateString(),
                 NomeEmpresa = "empresa",
@@ -40,7 +44,7 @@ namespace Desktop.Tests.ViewModels
         {
             // Arrange
             var contas = new List<Billing>();
-            var viewModel = new CreateBillingViewModel(GetMockRepository(contas));
+            var viewModel = new CreateBillingViewModel(new BillingService(new FakeRepository<Billing>()));
             var model = new ContaModel
             {
                 DataDeVencimento = "01/11/20",
@@ -63,6 +67,18 @@ namespace Desktop.Tests.ViewModels
             mockRepo.Setup(r => r.SaveChanges())
                 .Callback(() => Console.WriteLine("saved"));
             return mockRepo.Object;
+        }
+        private IBillingService GetFakeBillingService(Billing billing)
+        {
+            var mockBillingService = new Mock<IBillingService>();
+            mockBillingService.Setup(b => b.AddBilling(It.IsAny<Billing>()))
+                .Returns(new Core.Models.BaseResult<Billing>
+                {
+                    Errors = null,
+                    Success = true,
+                    Value = billing
+                });
+            return mockBillingService.Object;
         }
     }
 }

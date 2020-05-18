@@ -12,8 +12,7 @@ namespace Desktop.ViewModels.Update
         public ApplicationUpdateViewModel(IUpdater updater)
         {
             _updater = updater;
-            //TODO:this is not a good idea,try to set the updater settings in app startup
-            ConfigureUpdaterCommand = new RelayCommand(_updater.ConfigureUpdater);
+            //TODO:try to set the updater settings in app startup            
             UpdateApplicationCommand = new RelayCommand(async () => await _updater.Update());
         }        
         

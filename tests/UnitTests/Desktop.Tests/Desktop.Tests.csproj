@@ -22,8 +22,4 @@
     <ProjectReference Include="..\..\Tests.Lib\Tests.Lib.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\Settings\" />
-  </ItemGroup>
-
 </Project>
