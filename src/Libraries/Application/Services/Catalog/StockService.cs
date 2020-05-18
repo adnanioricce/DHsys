@@ -20,7 +20,7 @@ namespace Application.Services
             _drugService = drugService;
         }
 
-        public void AddMultipleStockEntries(IEnumerable<StockEntry> stockentries)
+        public virtual void AddMultipleStockEntries(IEnumerable<StockEntry> stockentries)
         {   
             //TODO:Add Validation         
             var existingAndNewEntries = stockentries.Select(st => (Existing:GetByNfCode(st.NfNumber),Given:st));            
@@ -34,12 +34,17 @@ namespace Application.Services
             _stockEntryRepository.AddRange(existingEntries.Select(st => st.Existing));
             _stockEntryRepository.SaveChanges();
         }
-        public void AddStockEntry(StockEntry stockentry)
+        public virtual void AddStockEntry(StockEntry stockentry)
         {
             //TODO:Add Validation
             _stockEntryRepository.Add(stockentry);
         }
-        public StockEntry GetByNfCode(string nfNumber)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="nfNumber"></param>
+        /// <returns></returns>
+        public virtual StockEntry GetByNfCode(string nfNumber)
         {
             return _stockEntryRepository.Query()
             .Where(s => string.Equals(s.NfNumber,nfNumber,StringComparison.OrdinalIgnoreCase))
@@ -49,7 +54,7 @@ namespace Application.Services
         /// Gets the diff between the given drugs and the actual drugs
         ///</summary>  
         // ///<returns><
-        public IEnumerable<Drug> GetItemsWithPriceChanged(IEnumerable<Drug> drugs)
+        public virtual IEnumerable<Drug> GetItemsWithPriceChanged(IEnumerable<Drug> drugs)
         {                        
             var drugsDict = drugs.ToDictionary(d => d.Ncm);            
             var existingDrugs = _drugService.GetDrugsByNcm(drugs.Select(d => d.Ncm));

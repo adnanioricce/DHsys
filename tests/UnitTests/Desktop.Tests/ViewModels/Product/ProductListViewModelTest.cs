@@ -19,7 +19,7 @@ namespace Desktop.Tests.ViewModels
             var repository = new FakeLegacyProdutoRepository();
             repository.Add(entry);
             //When
-            var viewModel = new ProductListViewModel(repository);
+            var viewModel = new ProductListViewModel(repository,null);
             viewModel.ExecuteGetProductByCode(entry.Prcodi);
             //Then                              
             Assert.NotNull(viewModel.ProdutoCollection.FirstOrDefault());
@@ -39,7 +39,7 @@ namespace Desktop.Tests.ViewModels
                 Prdesc = searchPattern,
                 Prprinci = searchPattern,                
             });
-            var viewModel = new ProductListViewModel(repository);
+            var viewModel = new ProductListViewModel(repository,null);
             //When
             viewModel.ExecuteGetProductsBySearchPattern(searchPattern);
             //Then

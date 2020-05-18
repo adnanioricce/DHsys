@@ -12,7 +12,8 @@ namespace Desktop.ViewModels.Product
     public class ProductListViewModel : ViewModelBase
     {
         private readonly ILegacyRepository<Produto> _produtoRepository;
-        private ObservableCollection<ProductCardModel> produtoCollection = new ObservableCollection<ProductCardModel>();
+        private readonly IDrugService _drugService;
+        private ObservableCollection<ProductCardModel> produtoCollection = new ObservableCollection<ProductCardModel>();        
         public ObservableCollection<ProductCardModel> ProdutoCollection { get { return produtoCollection; } set 
             {   if (produtoCollection == value) return;
                 Set(ref produtoCollection, value);
@@ -26,13 +27,15 @@ namespace Desktop.ViewModels.Product
                 ExecuteGetProductsBySearchPattern(_searchPattern);
             } }
         public RelayCommand<string> GetProductByCodeCommand { get; set; }
-        //public RelayCommand<string MyProperty { get; set; }
+        public RelayCommand<string> GetProductByBarcodeCommand { get; set; }        
         public RelayCommand<string> GetProductsBySearchPatternCommand { get; set; }
-        public ProductListViewModel(ILegacyRepository<Produto> produtoRepository)
+        
+        public ProductListViewModel(ILegacyRepository<Produto> produtoRepository,IDrugService drugService)
         {
             _produtoRepository = produtoRepository;
             GetProductByCodeCommand = new RelayCommand<string>(ExecuteGetProductByCode);
             GetProductsBySearchPatternCommand = new RelayCommand<string>(ExecuteGetProductsBySearchPattern);
+            GetProductByBarcodeCommand = new RelayCommand<string>(ExecuteGetProductByBarcode);
             ProdutoCollection.Add(new ProductCardModel
             {
                 Barcode = "1234567788123213",
@@ -43,7 +46,8 @@ namespace Desktop.ViewModels.Product
                 FrontImage = "",
                 Name = "Ibuprofeno"
             });
-        }       
+            _drugService = drugService;
+        }               
         public void ExecuteGetProductByCode(string parameter)
         {
             var produto = _produtoRepository.GetById((string)parameter);
@@ -88,7 +92,22 @@ namespace Desktop.ViewModels.Product
                     }));
                 }
             });
-
-        }               
+        }      
+        public void ExecuteGetProductByBarcode(string barcode)
+        {
+            var drug = _drugService.SearchDrugByBarCode(barcode);
+            ProdutoCollection.Clear();
+            ProdutoCollection.Add(new ProductCardModel
+            {
+                Code = drug.UniqueCode,
+                Barcode = drug.BarCode,
+                Description = drug.Description,
+                CostPrice = drug.CostPrice,
+                EndCustomerPrice = drug.EndCustomerPrice.HasValue ? drug.EndCustomerPrice.Value : 0,
+                Name = drug.DrugName,
+                FrontImage = "../../Resources/placeholder.png",
+                StockQuantity = drug.QuantityInStock.HasValue ? drug.QuantityInStock.Value : 0
+            });
+        }
     }
 }
