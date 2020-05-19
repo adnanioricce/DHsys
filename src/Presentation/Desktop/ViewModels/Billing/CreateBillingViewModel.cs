@@ -5,6 +5,7 @@ using Core.Interfaces;
 using Core.Entities;
 using Core.Validations;
 using System;
+using Core.Entities.Financial;
 
 namespace Desktop.ViewModels.Billings
 {

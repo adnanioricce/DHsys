@@ -1,21 +1,24 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Entities;
+using Core.Entities.Financial;
+using Core.Entities.Stock;
 using Core.Interfaces;
 using Core.Models;
 using Core.Validations;
-using DAL;
 using FluentValidation;
 
 namespace Application.Services
 {
     public class BillingService : IBillingService
     {
-        private readonly IRepository<Billing> _billingRepository;        
-        public BillingService(IRepository<Billing> billingRepository)
+        private readonly IRepository<Billing> _billingRepository;
+        private readonly IRepository<Beneficiary> _beneficiaryRepository;        
+        public BillingService(IRepository<Billing> billingRepository,
+            IRepository<Beneficiary> beneficiaryRepository)
         {
-            _billingRepository = billingRepository;            
+            _billingRepository = billingRepository;
+            _beneficiaryRepository = beneficiaryRepository;
         }
         /// <summary>
         /// Inserts a valid billing in the database
@@ -26,6 +29,20 @@ namespace Application.Services
             var validator = new BillingValidator();
             var validationResult = validator.IsValid(billing);
             if (!validationResult.Success) return validationResult;            
+            if(!HasBeneficiary(billing.BeneficiaryId,billing.BeneficiaryName))
+            {
+                return BaseResult<Billing>.CreateFailResult(new string[] { "no beneficiary was provided with the billing" }, billing);                
+            }            
+            if(billing.BeneficiaryId == 0){
+
+                var beneficiaryByName = GetBeneficiaryByName(billing.BeneficiaryName);
+                billing.BeneficiaryId = beneficiaryByName.Id;                
+            }else
+            {
+                var beneficiaryById = _beneficiaryRepository.GetBy(billing.BeneficiaryId);
+                billing.BeneficiaryName = beneficiaryById.Name;
+            }
+            
             _billingRepository.Add(billing);
             _billingRepository.SaveChanges();
             return validationResult;            
@@ -40,6 +57,36 @@ namespace Application.Services
             return _billingRepository.Query()
             .Where(b => !b.IsPaid)
             .Take(limit is null ? 100 : limit.Value);            
-        }                   
+        }
+        /// <summary>
+        /// Return all 100 billings with the given beneficiary name
+        /// </summary>
+        /// <param name="beneficiaryName"></param>
+        /// <returns></returns>
+        public IEnumerable<Billing> GetBillingsByBeneficiaryName(string beneficiaryName)
+        {
+            return _billingRepository.Query()
+                                     .Where(b => b.BeneficiaryName == beneficiaryName);
+        }
+        private Beneficiary GetBeneficiaryByName(string name)
+        {            
+            return _beneficiaryRepository.Query()
+                .Where(m => m.Name == name)
+                .FirstOrDefault();                        
+        }        
+        private bool HasBeneficiary(int beneficiaryId,string beneficiaryName)
+        {
+            if (string.IsNullOrEmpty(beneficiaryName) && beneficiaryId == 0) return false;
+            if (beneficiaryId > 0)
+            {
+                var billingById = _beneficiaryRepository.GetBy(beneficiaryId);
+                return !(billingById is null);
+            }
+            var billingByName = _beneficiaryRepository.Query()
+                                                  .Where(b => string.Compare(beneficiaryName, b.Name) <= 4 
+                                                  && string.Compare(beneficiaryName, b.Name) >= 0)
+                                                  .FirstOrDefault();
+            return !(billingByName is null);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 namespace Core.Entities
 {
@@ -15,6 +16,10 @@ namespace Core.Entities
         /// used for better compability with legacy system and to handle stock CRUD operations
         /// </summary>
         /// <value></value>
-        public string UniqueCode { get; set; }      
+        public string UniqueCode { get; set; }
+        /// <summary>
+        /// Get or Set the last time this entity was updated
+        /// </summary>
+        public DateTimeOffset LastUpdatedOn { get; set; } = DateTimeOffset.UtcNow;
     }
 }

@@ -4,6 +4,7 @@ using Xunit;
 using Tests.Lib.Data;
 using Core.Entities;
 using Desktop.ViewModels.Billings;
+using Core.Entities.Financial;
 
 namespace Desktop.Tests.ViewModels
 {
