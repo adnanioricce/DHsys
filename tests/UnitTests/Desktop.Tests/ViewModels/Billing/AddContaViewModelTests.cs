@@ -12,6 +12,7 @@ using Desktop.ViewModels.Billings;
 using System.Linq;
 using Application.Services;
 using Tests.Lib.Data;
+using Core.Entities.Financial;
 
 namespace Desktop.Tests.ViewModels
 {
@@ -24,7 +25,7 @@ namespace Desktop.Tests.ViewModels
             // Arrange
             var contas = new List<Billing>();
             var fakeRepository = GetMockRepository(contas);
-            var viewModel = new CreateBillingViewModel(new BillingService(fakeRepository));
+            var viewModel = new CreateBillingViewModel(new BillingService(fakeRepository,null));
             var model = new ContaModel {
                 DataDeVencimento = DateTime.UtcNow.AddDays(30).ToShortDateString(),
                 NomeEmpresa = "empresa",
@@ -44,7 +45,7 @@ namespace Desktop.Tests.ViewModels
         {
             // Arrange
             var contas = new List<Billing>();
-            var viewModel = new CreateBillingViewModel(new BillingService(new FakeRepository<Billing>()));
+            var viewModel = new CreateBillingViewModel(new BillingService(new FakeRepository<Billing>(),null));
             var model = new ContaModel
             {
                 DataDeVencimento = "01/11/20",

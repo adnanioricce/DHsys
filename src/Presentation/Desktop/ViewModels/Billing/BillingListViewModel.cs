@@ -1,4 +1,5 @@
 ﻿using Core.Entities;
+using Core.Entities.Financial;
 using Core.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;

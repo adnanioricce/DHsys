@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Entities.Catalog;
+using Core.Entities.Financial;
 using Core.Entities.LegacyScaffold;
 using Core.Entities.Stock;
 using Microsoft.EntityFrameworkCore;

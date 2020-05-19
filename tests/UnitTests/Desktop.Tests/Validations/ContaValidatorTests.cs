@@ -3,6 +3,7 @@ using System;
 using Xunit;
 using Core.Validations;
 using Core.Entities;
+using Core.Entities.Financial;
 
 namespace Desktop.Tests.Validations
 {

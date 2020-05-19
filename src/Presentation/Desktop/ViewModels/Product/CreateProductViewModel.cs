@@ -29,7 +29,7 @@ namespace Desktop.ViewModels.Product
             _drugProdutoMediator = drugProdutoMediator;
             CreateDrugCommand = new RelayCommand<Drug>(_drugProdutoMediator.CreateDrugFrom,CanExecuteCreateDrug);
             var manufacturers = manufactuerRepository.Query()
-                .Select(m => new ManufacturerModel { Id = m.Id, ManufacturerName = m.ManufacturerName });
+                .Select(m => new ManufacturerModel { Id = m.Id, ManufacturerName = m.Name});
             foreach(var manufacturer in manufacturers)
             {
                 Manufacturers.Add(manufacturer);
