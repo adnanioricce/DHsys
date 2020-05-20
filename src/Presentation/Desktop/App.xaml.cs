@@ -18,6 +18,7 @@ using Infrastructure.Extensions;
 using Infrastructure.Interfaces;
 using Desktop.Extensions;
 using Desktop.ViewModels.Update;
+using Application.Extensions;
 
 namespace Desktop
 {
@@ -61,8 +62,7 @@ namespace Desktop
             base.OnExit(e);
         }
 
-        private void ConfigureServices(IConfiguration configuration, IServiceCollection services){                        
-            
+        private void ConfigureServices(IConfiguration configuration, IServiceCollection services){                                    
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<AutoUpdateSettings>(configuration.GetSection(nameof(AutoUpdateSettings)));            
@@ -70,19 +70,8 @@ namespace Desktop
             services.AddApplicationUpdater();
             services.AddApplicationServices();
             services.AddCustomMappers();
-            //services.AddTransient(typeof(IAppLogger<>),typeof(AppLogger<>));
-            services.AddTransient(typeof(MainWindow));
-            services.AddTransient(typeof(MainWindowViewModel));            
-            services.AddTransient<CreateBillingViewModel>();
-            services.AddTransient<BillingListViewModel>();
-            services.AddTransient<CreateProductViewModel>();
-            services.AddTransient<ProductListViewModel>();
-            services.AddTransient<ApplicationUpdateViewModel>();
-            services.AddTransient<CreateProductView>();
-            services.AddTransient<ProductListView>();
-            services.AddTransient<ProductCardControlView>();
-            services.AddTransient<BillingListView>();
-            services.AddTransient<CreateBillingView>();
+            AddViews(services);
+            AddViewModels(services);
             services.AddDbContext<DbContext, MainContext>(opt =>
              {
                  opt.UseSqlite("database.db");
@@ -90,19 +79,37 @@ namespace Desktop
             services.AddScoped(typeof(LegacyContext<>));
             services.AddTransient(typeof(ILegacyRepository<>),typeof(DbfRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-            services.AddScoped<CustomNavigationService>(sp =>
-            {
-                var navigationService = new CustomNavigationService(sp);
-                navigationService.Configure(Desktop.Windows.MainWindow, typeof(MainWindow));
-                navigationService.Configure(Desktop.Windows.BillingListView, typeof(BillingListView));
-                navigationService.Configure(Desktop.Windows.CreateBillingView, typeof(CreateBillingView));
-                navigationService.Configure(Desktop.Windows.CreateProductView, typeof(CreateProductView));
-                navigationService.Configure(Desktop.Windows.ProductListView, typeof(ProductListView));
-
-                return navigationService;
-            });
-            ServiceProvider = services.BuildServiceProvider();            
-            
-        }                       
+            services.AddScoped<CustomNavigationService>(ConfigureNavigationService);            
+            ServiceProvider = services.BuildServiceProvider();
+            ServiceProvider.TryCreateDatabase(ServiceProvider.GetRequiredService<MainContext>());            
+        }                 
+        private void AddViews(IServiceCollection services)
+        {
+            services.AddTransient(typeof(MainWindow));
+            services.AddTransient<CreateProductView>();
+            services.AddTransient<ProductListView>();
+            services.AddTransient<ProductCardControlView>();
+            services.AddTransient<BillingListView>();
+            services.AddTransient<CreateBillingView>();
+        }
+        private void AddViewModels(IServiceCollection services)
+        {
+            services.AddTransient(typeof(MainWindowViewModel));
+            services.AddTransient<CreateBillingViewModel>();
+            services.AddTransient<BillingListViewModel>();
+            services.AddTransient<CreateProductViewModel>();
+            services.AddTransient<ProductListViewModel>();
+            services.AddTransient<ApplicationUpdateViewModel>();
+        }
+        private CustomNavigationService ConfigureNavigationService(IServiceProvider provider)
+        {
+            var navigationService = new CustomNavigationService(provider);
+            navigationService.Configure(Desktop.Windows.MainWindow, typeof(MainWindow));
+            navigationService.Configure(Desktop.Windows.BillingListView, typeof(BillingListView));
+            navigationService.Configure(Desktop.Windows.CreateBillingView, typeof(CreateBillingView));
+            navigationService.Configure(Desktop.Windows.CreateProductView, typeof(CreateProductView));
+            navigationService.Configure(Desktop.Windows.ProductListView, typeof(ProductListView));
+            return navigationService;
+        }
     }
 }

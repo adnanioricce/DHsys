@@ -1,6 +1,9 @@
-﻿using Infrastructure.Interfaces;
+﻿using DAL;
+using Infrastructure.Interfaces;
 using Infrastructure.Settings;
 using Infrastructure.Updates;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -8,7 +11,7 @@ using Microsoft.Extensions.Options;
 using System;
 using System.IO;
 
-namespace Infrastructure.Extensions
+namespace Application.Extensions
 {
     public static class ServiceCollectionExtensions
     {
@@ -66,5 +69,19 @@ namespace Infrastructure.Extensions
             var updater = new Updater(logger,writer,settings);
             services.AddSingleton(typeof(IUpdater),updater);
         }   
+        public static void TryCreateDatabase(this IServiceProvider services,MainContext context)
+        {
+            RelationalDatabaseCreator creator = services.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
+            if (!creator.Exists())
+            {
+                creator.Create();
+                creator.CreateTables();
+            }
+            context.Database.Migrate();
+            if (creator.Exists())
+            {
+                //TODO:seed method
+            }
+        }        
     }
 }
