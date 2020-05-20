@@ -39,7 +39,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Lib", "tests\Tests.Li
 EndProject
 Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Desktop.Setup", "src\Presentation\Desktop.Setup\Desktop.Setup.wixproj", "{E76F7908-B1FA-42ED-8344-81ADDED946A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Tests", "tests\UnitTests\Core.Tests\Core.Tests.csproj", "{725578F6-3FE9-47EF-BF0D-F64D2CECF717}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Tests", "tests\UnitTests\Core.Tests\Core.Tests.csproj", "{725578F6-3FE9-47EF-BF0D-F64D2CECF717}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
