@@ -17,11 +17,13 @@ namespace Infrastructure.Settings
         private readonly IOptionsMonitor<T> _options;
         private readonly string _file;
         private readonly string _section;
-		public OptionWriter(IHostEnvironment environment,                      
+		public OptionWriter(IHostEnvironment environment,
+                      IOptionsMonitor<T> options,
                       string file)
 		{
 			_environment = environment;			
 			_file = file;
+            _options = options;
 		}
 
         public T Value => _options.CurrentValue;

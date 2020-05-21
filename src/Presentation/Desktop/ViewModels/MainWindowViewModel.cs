@@ -7,6 +7,7 @@ using Desktop.Services;
 using Infrastructure.Interfaces;
 using Microsoft.Extensions.Options;
 using Infrastructure.Settings;
+using NetSparkleUpdater.Interfaces;
 
 namespace Desktop.ViewModels
 {
@@ -15,6 +16,7 @@ namespace Desktop.ViewModels
         private object _currentDataContext = null;        
         public RelayCommand<object> MoveToViewModelCommand { get; set; }
         public RelayCommand CheckForUpdatesCommand { get; set; }
+        private readonly IUpdater _updater;
         public object CurrentDataContext
         {
             get { return _currentDataContext; }
@@ -24,13 +26,18 @@ namespace Desktop.ViewModels
             }
         }
         public MainWindowViewModel(IUpdater updater,IOptions<AutoUpdateSettings> settings)
-        {            
+        {
+            _updater = updater;
             MoveToViewModelCommand = new RelayCommand<object>(MoveToView);
-            CheckForUpdatesCommand = new RelayCommand(() => updater.ConfigureUpdater());
+            CheckForUpdatesCommand = new RelayCommand(ConfigureUpdater);
         }
         public void MoveToView(object parameter)
         {            
             CurrentDataContext = parameter;            
         }        
+        public void ConfigureUpdater()
+        {
+            _updater.ConfigureUpdater(new NetSparkleUpdater.UI.WPF.UIFactory());
+        }
     }
 }

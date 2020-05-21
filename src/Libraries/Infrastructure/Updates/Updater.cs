@@ -23,19 +23,42 @@ namespace Infrastructure.Updates
             _settingsWriter = settingsWriter;
             _settings = settings.Value;
         }
+
+        public AutoUpdateSettings Settings { get { return _settingsWriter.Value; } }
+
+        public void CheckForUpdates()
+        {
+            _sparkle.StartLoop(true);
+        }
+
         public void ConfigureUpdater()
-        {            
-            var sparkle = new SparkleUpdater(_settings.UpdateFileUrl,                
+        {
+            string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+            var sparkle = new SparkleUpdater(_settings.UpdateFileUrl,
                 securityMode: ToSecurityMode(_settings.SecurityMode),
-                dsaPublicKey:_settings.DsaPublicKey,
-                Assembly.GetExecutingAssembly().GetName().FullName);
-            //sparkle.UIFactory = NetSparkleUpdater.
+                dsaPublicKey: _settings.DsaPublicKey,
+                assemblyName);            
             _sparkle = sparkle;
             if (_settings.ShouldUpdateSilently)
             {
                _sparkle.CheckForUpdatesQuietly();                                
+            }              
+        }
+        public void ConfigureUpdater(IUIFactory uiFactory)
+        {
+            string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+            var sparkle = new SparkleUpdater(_settings.UpdateFileUrl,
+                securityMode: ToSecurityMode(_settings.SecurityMode),
+                dsaPublicKey: _settings.DsaPublicKey
+                )
+            { 
+                UIFactory = uiFactory
+            };
+            _sparkle = sparkle;
+            if (_settings.ShouldUpdateSilently)
+            {
+                _sparkle.CheckForUpdatesQuietly();
             }
-            _sparkle.StartLoop(true);            
         }
         public async Task Update()
         {

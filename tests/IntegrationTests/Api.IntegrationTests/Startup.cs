@@ -1,10 +1,13 @@
 ﻿using Application;
+using Application.Extensions;
 using Application.Services;
 using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Mappers;
 using DAL;
+using Infrastructure.Interfaces;
+using Infrastructure.Logging;
 using Infrastructure.Settings;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -33,9 +36,9 @@ namespace Api.IntegrationTests
         public virtual void Configure()
         {
 
-        }
+        }        
         protected void ConfigureServices(IServiceCollection services) 
-        {
+        {            
             
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
@@ -48,20 +51,18 @@ namespace Api.IntegrationTests
             ,dbSettingsSection["ExtendedProperties"]
             ,dbSettingsSection["UserID"]
             ,dbSettingsSection["Password"]);
+            
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<GitSettings>(configuration.GetSection(nameof(GitSettings)));
             services.Configure<AppSettings>(configuration);
-            services.AddDbContext<DbContext, MainContext>(opt => opt.UseSqlite("./Data/database.db"));
-            // services.AddScoped<IDbConnection>(db => new SqliteConnection(sqliteConnStr));         
+            services.AddDbContext<DbContext, MainContext>(opt => opt.UseSqlite("./Data/database.db"));            
             services.AddScoped(typeof(LegacyContext<>));
-            services.AddScoped<MainContext>();
-            services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));         
-            services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
-            services.AddTransient<ILegacyDataMapper<Drug,Produto>, ProdutoMapper>();
-            services.AddTransient<IStockService, StockService>();
-            services.AddTransient<IDrugService, DrugService>();
-            services.AddTransient<IBillingService, BillingService>();            
-            
+            services.AddScoped<MainContext>();            
+            services.ConfigureAppDataFolder();
+            services.AddApplicationUpdater();
+            services.AddApplicationServices();
+            services.AddCustomMappers();
+            services.AddTransient(typeof(IAppLogger<>),typeof(LoggerAdapter<>));
             services.AddTransient<ConnectionResolver>(db => key =>  {                
                 return key switch
                 {
