@@ -24,6 +24,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.IO;
+using DAL.Extensions;
 
 [assembly: TestFramework("Api.Tests.DIStartup", "Api.Tests")]
 namespace Api.Tests
@@ -36,12 +37,12 @@ namespace Api.Tests
         }
         protected void ConfigureServices(IServiceCollection services) 
         {
-            // sqliteConnStr = $"./data/{DateTimeOffset.UtcNow.Date.ToShortDateString()}-{Guid.NewGuid().ToString().Substring(0,5)}";
+            string sqliteConnStr = $"DataSource={Guid.NewGuid().ToString()}.db";
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
             services.AddDbContext<DbContext, MainContext>(opt => {
-                opt.UseSqlite("./Data/database.db");
+                opt.UseSqlite(sqliteConnStr);
                 opt.EnableSensitiveDataLogging();
                 opt.EnableDetailedErrors();                
             });                
@@ -61,7 +62,7 @@ namespace Api.Tests
                 return key switch
                 {
                     //our local database
-                    "local" => new SQLiteConnection("./Data/database.db"),
+                    "local" => new SQLiteConnection(sqliteConnStr),
                     //a legacy shared database from which source changes in real world environment
                     "source" => new OleDbConnection(legacySettings.ToString()),
                     //a remote database to keep some changes
@@ -78,17 +79,18 @@ namespace Api.Tests
         protected override void Configure(IServiceProvider provider)
         {
             var context = (MainContext)provider.GetService<MainContext>();
-            if(!File.Exists("./Data/database.db")){
-                context.Database.EnsureDeleted();
-                string sql = context.Database.GenerateCreateScript();
-                context.Database.ExecuteSqlRaw(sql);
-                context.SeedDataForIntegrationTests(DrugSeed.GetDataForHttpGetMethods().ToArray());
-            }else {
-                var migrations = context.Database.GetPendingMigrations();
-                if(migrations.Any()){
-                    context.Database.Migrate();
-                }
-            }            
+            context.ApplyUpgrades();
+            //if(!File.Exists("./Data/database.db")){
+            //    context.Database.EnsureDeleted();
+            //    string sql = context.Database.GenerateCreateScript();
+            //    context.Database.ExecuteSqlRaw(sql);
+            //    context.SeedDataForIntegrationTests(DrugSeed.GetDataForHttpGetMethods().ToArray());
+            //}else {
+            //    var migrations = context.Database.GetPendingMigrations();
+            //    if(migrations.Any()){
+            //        context.Database.Migrate();
+            //    }
+            //}            
             
         }
     }

@@ -16,7 +16,7 @@ namespace Infrastructure.Settings
 		private readonly IHostEnvironment _environment;		
         private readonly IOptionsMonitor<T> _options;
         private readonly string _file;
-        private readonly string _section;
+        //private readonly string _section;
 		public OptionWriter(IHostEnvironment environment,
                       IOptionsMonitor<T> options,
                       string file)
@@ -36,12 +36,12 @@ namespace Infrastructure.Settings
             var physicalPath = fileInfo.PhysicalPath;
 
             var jObject = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(physicalPath));
-            var sectionObject = jObject.TryGetValue(_section, out JToken section) ?
+            var sectionObject = jObject.TryGetValue(nameof(T), out JToken section) ?
                 JsonConvert.DeserializeObject<T>(section.ToString()) : (Value ?? new T());
             
             applyChanges(sectionObject);
 
-            jObject[_section] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
+            jObject[nameof(T)] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
             File.WriteAllText(physicalPath, JsonConvert.SerializeObject(jObject, Formatting.Indented));
         }
     }

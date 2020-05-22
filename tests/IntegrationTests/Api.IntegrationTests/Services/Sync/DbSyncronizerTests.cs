@@ -16,24 +16,26 @@ using System.Diagnostics;
 using System.Linq;
 using Xunit;
 using Application;
+using Microsoft.EntityFrameworkCore;
 
 namespace Api.IntegrationTests.Services.Sync
 {
     public class DbSyncronizerTests : IDisposable
     {
-        private readonly IDbConnection _connection;
+        private readonly DbContext _context;
         private readonly IDbConnection _sourceConnection;
         private readonly IDbSynchronizer _dbSyncronizer;
         
-        public DbSyncronizerTests(IDbSynchronizer dbSyncronizer)
+        public DbSyncronizerTests(IDbSynchronizer dbSyncronizer,DbContext context)
         {
-            _connection = new SqliteConnection("Data Source=database.db");            
+            //_connection = new SqliteConnection("Data Source=database.db");            
+            _context = context;
             _dbSyncronizer = dbSyncronizer;
         }
 
         public void Dispose()
         {
-            _connection.Dispose();
+            _context.Dispose();
         }
 
         [Fact]
@@ -72,15 +74,16 @@ namespace Api.IntegrationTests.Services.Sync
                     }
                 }
             });
-            _connection.Open();
-            var command = _connection.CreateCommand();
-            var insertScript = $"INSERT INTO AGENDA(Bairro,Cep) VALUES({string.Join(',', request.RecordDiffs[1].ColumsChanged.Select(c => $"'{c.Value}'"))})";
+            var connection = _context.Database.GetDbConnection();
+            connection.Open();
+            var command = connection.CreateCommand();
+            var insertScript = $"INSERT INTO AGENDA(LastUpdatedOn,Bairro,Cep) VALUES(CURRENT_TIMESTAMP,{string.Join(',', request.RecordDiffs[1].ColumsChanged.Select(c => $"'{c.Value}'"))})";
             command.CommandText = insertScript;
             var insertResult = command.ExecuteNonQuery();
-            _connection.Close();
+            connection.Close();
             //When
             var syncScript = _dbSyncronizer.GenerateSyncScriptForEntity(request);
-            _connection.Open();
+            connection.Open();
             command.CommandText = syncScript;
             int syncResult = command.ExecuteNonQuery();
             Assert.Equal(1,syncResult);

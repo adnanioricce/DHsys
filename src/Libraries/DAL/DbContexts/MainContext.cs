@@ -19,10 +19,11 @@ namespace DAL
         {
             this.ChangeTracker.LazyLoadingEnabled = true;            
         }        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {            
-            optionsBuilder.UseSqlite("Data Source=./database.db");                                    
-        }       
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlite("Data Source=./database.db");
+        //    base.OnConfiguring(optionsBuilder);
+        //}       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {            
             modelBuilder.Entity<Billing>(mapper =>
