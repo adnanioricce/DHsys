@@ -6,6 +6,7 @@ using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Mappers;
 using DAL;
+using DAL.Extensions;
 using Infrastructure.Interfaces;
 using Infrastructure.Logging;
 using Infrastructure.Settings;
@@ -38,8 +39,8 @@ namespace Api.IntegrationTests
 
         }        
         protected void ConfigureServices(IServiceCollection services) 
-        {            
-            
+        {
+            string sqliteConnString = $"DataSource=./Data/{Guid.NewGuid().ToString()}.db";
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
@@ -55,19 +56,20 @@ namespace Api.IntegrationTests
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<GitSettings>(configuration.GetSection(nameof(GitSettings)));
             services.Configure<AppSettings>(configuration);
-            services.AddDbContext<DbContext, MainContext>(opt => opt.UseSqlite("./Data/database.db"));            
+            services.AddDbContext<DbContext, MainContext>(opt => opt.UseSqlite(sqliteConnString));            
             services.AddScoped(typeof(LegacyContext<>));
             services.AddScoped<MainContext>();            
             services.ConfigureAppDataFolder();
             services.AddApplicationUpdater();
             services.AddApplicationServices();
             services.AddCustomMappers();
+            services.ConfigureWritable<AutoUpdateSettings>();
             services.AddTransient(typeof(IAppLogger<>),typeof(LoggerAdapter<>));
             services.AddTransient<ConnectionResolver>(db => key =>  {                
                 return key switch
                 {
                     //our local database
-                    "local" => new SQLiteConnection(sqliteConnStr),
+                    "local" => new SQLiteConnection(sqliteConnString),
                     //a legacy shared database from which source changes in real world environment
                     "source" => new OleDbConnection(settings.ToString()),
                     //a remote database to keep some changes
@@ -82,11 +84,12 @@ namespace Api.IntegrationTests
             using (var scope = provider.CreateScope()){
                 var sp = scope.ServiceProvider;
                 var context = sp.GetService<DbContext>();
-                if (context.Database.EnsureDeleted()){
-                    context.Database.ExecuteSqlRaw(context.Database.GenerateCreateScript());
-                    return;
-                }
-                context.Database.Migrate();                
+                context.ApplyUpgrades();
+                //if (context.Database.EnsureDeleted()){
+                //    context.Database.ExecuteSqlRaw(context.Database.GenerateCreateScript());
+                //    return;
+                //}
+                //context.Database.Migrate();                
             }
             base.Configure(provider);
         }

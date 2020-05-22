@@ -24,8 +24,7 @@ namespace Application.Extensions
     public static class ServiceCollectionExtensions
     {
         //? I think is valid to remember that you still have to configure the option model before calling this
-        public static void ConfigureWritable<T>(this IServiceCollection services,
-            string sectionKey,            
+        public static void ConfigureWritable<T>(this IServiceCollection services,                        
             string file = "appsettings.json") where T : class, new()
         {            
             services.AddTransient<IWritableOptions<T>>(provider =>

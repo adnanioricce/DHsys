@@ -19,6 +19,7 @@ using System.Data.SQLite;
 using Core.Extensions;
 using Infrastructure.Extensions;
 using Infrastructure.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
@@ -64,7 +65,7 @@ namespace Application.Services
             foreach (var record in request.RecordDiffs) {                
                 if (!record.Value.IsNew){                                     
                     string ColumnsAndValues = string.Join(",", record.Value.ColumsChanged.Select(WriteUpdateSetToCorrectSqlType));
-                    sqlCommandBuilder.Append($"UPDATE {type.Name} SET {ColumnsAndValues} WHERE Id = {record.Value.RecordIndex};");
+                    sqlCommandBuilder.Append($"UPDATE {type.Name} SET LastUpdatedOn = CURRENT_TIMESTAMP,{ColumnsAndValues} WHERE Id = {record.Value.RecordIndex};");
                     continue;
                 }                
                 var entity = Converter.Invoke(null, new object[] { record.Value.RecordValue });
@@ -77,7 +78,7 @@ namespace Application.Services
                     });
                 string values = string.Join(',', fields.Select(f => WriteInsertValuesToCorrectSqlType(f.Value)));
                 string columnNames = string.Join(",", fields.Select(f => f.FieldName));
-                sqlCommandBuilder.Append($"INSERT INTO {type.Name.ToUpper()}({columnNames}) VALUES({values});");
+                sqlCommandBuilder.Append($"INSERT INTO {type.Name.ToUpper()}(UniqueCode,LastUpdatedOn,{columnNames}) VALUES('{fields.FirstOrDefault().Value}',CURRENT_TIMESTAMP,{values});");
             }
             return sqlCommandBuilder.ToString();
         }
@@ -131,12 +132,17 @@ namespace Application.Services
                 }
             }
         }
+        /// <summary>
+        /// Sync data From Source database (legacy system) To Local (current system) database
+        /// </summary>
+        /// <param name="sourceDatabaseFolder">the folder with the database(.dbf) files</param>
+        /// <returns>a number with the affected rows</returns>
         public int SyncSourceDatabaseWithLocalDatabase(string sourceDatabaseFolder)
         {
             //?the existence of this method is worted?
             var changes = MapDbfsToDataset(Directory.GetFiles(sourceDatabaseFolder,"*.DBF"),_sourceDbConnection);
             try {
-                string queryTemplate = "SELECT * FROM {0} WHERE UniqueCode = {1};";
+                string queryTemplate = "SELECT * FROM {0} WHERE UniqueCode = '{1}';";
                 var commandBuilder = GetCommandBuilder(_localDbConnection,_localDataAdapter);                
                 var queryBuilder = new StringBuilder();                                                
                 _localDbConnection.Open();
@@ -153,13 +159,13 @@ namespace Application.Services
                         var queryResult = queryCommand.ExecuteScalar();
                         if(IsQueryResultNull(queryResult)){
                             var values = string.Join(',',changes.Tables[i].Rows[j].ItemArray.Select(WriteInsertValuesToCorrectSqlType));                            
-                            queryBuilder.AppendLine($"INSERT INTO {changes.Tables[i].TableName}(UniqueCode,{fields}) VALUES({changes.Tables[i].Rows[j].ItemArray[0]},{values});");
+                            queryBuilder.AppendLine($"INSERT INTO {changes.Tables[i].TableName}(UniqueCode,LastUpdatedOn,{fields}) VALUES(CURRENT_TIMESTAMP,{changes.Tables[i].Rows[j].ItemArray[0]},{values});");
                             continue;
                         }            
                         string columnsToUpdate = string.Join(',', changes.Tables[i].Rows[j].ItemArray
                             .Select(WriteInsertValuesToCorrectSqlType)
                             .Select((item,index) => $"{columns[index]}={item}"));                        
-                        queryBuilder.AppendLine($"UPDATE {changes.Tables[i].TableName} SET {columnsToUpdate} WHERE UniqueCode = {queryResult};");                                                        
+                        queryBuilder.AppendLine($"UPDATE {changes.Tables[i].TableName} SET LastUpdatedOn=CURRENT_TIMESTAMP,{columnsToUpdate} WHERE UniqueCode = {queryResult};");                                                        
                     }                    
                 }                    
                 var command = _localDbConnection.CreateCommand();    
