@@ -6,7 +6,9 @@
         xmlns:vm="clr-namespace:Desktop.ViewModels.Billings"
         xmlns:productVms="clr-namespace:Desktop.ViewModels.Product"
         xmlns:contaViews="clr-namespace:Desktop.Views.Conta"
+        xmlns:settingsVms="clr-namespace:Desktop.ViewModels.Settings"
         xmlns:productViews="clr-namespace:Desktop.Views.Product"
+        xmlns:settingsView="clr-namespace:Desktop.Views.Settings"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Desktop"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -34,6 +36,9 @@
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:BillingListViewModel}">
             <contaViews:BillingListView/>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type settingsVms:SettingsViewModel}">
+            <settingsView:SettingsView/>
         </DataTemplate>
     </Window.Resources>
     <i:Interaction.Triggers>
@@ -90,6 +95,8 @@
                         Grid.Row="0" 
                         Grid.Column="1"
                         Margin="1,1,1,1"
+                        Command="{Binding MoveToViewModelCommand}"
+                        CommandParameter="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
                         >
                     <Button.Content>
                         <md:PackIcon Width="12" Height="12" Kind="Settings">
@@ -101,6 +108,10 @@
                 </Button>
             </Grid>
         </md:ColorZone>
-        <ContentPresenter Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="5" Content="{Binding CurrentDataContext}" />
+        <ContentPresenter Grid.Row="1" 
+                          Grid.Column="0" 
+                          Grid.RowSpan="4" 
+                          Grid.ColumnSpan="5" 
+                          Content="{Binding CurrentDataContext}" />
     </Grid> 
 </Window>

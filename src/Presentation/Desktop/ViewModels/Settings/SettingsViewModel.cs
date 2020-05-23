@@ -1,10 +1,19 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
 namespace Desktop.ViewModels.Settings
 {
-    public class SettingsViewModel
+    public class SettingsViewModel : ViewModelBase
     {
-        public object CurrentSectionViewModel { get; set; }
+        private object _currentDataContext = null;
+        public object CurrentSectionViewModel
+    {
+            get { return _currentDataContext; }
+            set
+            {                
+                Set(ref _currentDataContext, value);
+            }
+        }
         public RelayCommand<object> ChangeSectionViewModelCommand { get; set; }
         public SettingsViewModel()
         {

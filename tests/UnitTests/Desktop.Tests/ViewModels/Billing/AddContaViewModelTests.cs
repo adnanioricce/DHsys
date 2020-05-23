@@ -25,13 +25,18 @@ namespace Desktop.Tests.ViewModels
             // Arrange
             var contas = new List<Billing>();
             var fakeRepository = GetMockRepository(contas);
-            var viewModel = new CreateBillingViewModel(new BillingService(fakeRepository,null));
+            var fakeBeneficiaryRepository = new FakeRepository<Beneficiary>();
+            var viewModel = new CreateBillingViewModel(new BillingService(fakeRepository,fakeBeneficiaryRepository));
             var model = new ContaModel {
                 DataDeVencimento = DateTime.UtcNow.AddDays(30).ToShortDateString(),
                 NomeEmpresa = "empresa",
                 Valor = 123.99m,
                 EstaPago = false
             };
+            fakeBeneficiaryRepository.Add(new Beneficiary
+            {
+                Name = "empresa"
+            });
 
             // Act
             viewModel.CreateConta(model);

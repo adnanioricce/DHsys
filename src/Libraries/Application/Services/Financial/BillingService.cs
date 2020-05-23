@@ -37,7 +37,8 @@ namespace Application.Services
 
                 var beneficiaryByName = GetBeneficiaryByName(billing.BeneficiaryName);
                 billing.BeneficiaryId = beneficiaryByName.Id;                
-            }else
+            }
+            else
             {
                 var beneficiaryById = _beneficiaryRepository.GetBy(billing.BeneficiaryId);
                 billing.BeneficiaryName = beneficiaryById.Name;

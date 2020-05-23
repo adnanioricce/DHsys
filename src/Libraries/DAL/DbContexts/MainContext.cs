@@ -11,20 +11,19 @@ namespace DAL
 {
     public class MainContext : DbContext
     {
-        //public DbSet<Conta> Contas { get; set; }
-        private readonly ILoggerFactory _loggerFactory;
-        public MainContext(DbContextOptions<MainContext> options,ILoggerFactory loggerFactory) : base(options)
+        public MainContext() : base()
         {
-            this.ChangeTracker.LazyLoadingEnabled = true;
-            _loggerFactory = loggerFactory;
+
+        }
+        public MainContext(DbContextOptions<MainContext> options) : base(options)
+        {
+            this.ChangeTracker.LazyLoadingEnabled = true;            
         }        
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            
-            optionsBuilder.UseSqlite("Data Source=./database.db");            
-            //TODO:Create flag to switch this between development and production. Production should not do this
-            optionsBuilder.UseLoggerFactory(_loggerFactory);
-        }       
+        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        //{
+        //    optionsBuilder.UseSqlite("Data Source=./database.db");
+        //    base.OnConfiguring(optionsBuilder);
+        //}       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {            
             modelBuilder.Entity<Billing>(mapper =>
