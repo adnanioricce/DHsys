@@ -48,5 +48,8 @@
     <EmbeddedResource Remove="Data\TestGitRepository\**" />
     <None Remove="Data\TestGitRepository\**" />
   </ItemGroup>
+  <ItemGroup>
+    <None Remove="TestData\Source\AGENDA.DBF" />
+  </ItemGroup>
 
 </Project>

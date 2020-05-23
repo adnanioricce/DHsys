@@ -6,8 +6,8 @@ using Api.Models;
 using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
-using Core.Models.Resources;
-using Core.Models.Resources.Requests;
+using Core.Models.ApplicationResources;
+using Core.Models.ApplicationResources.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 

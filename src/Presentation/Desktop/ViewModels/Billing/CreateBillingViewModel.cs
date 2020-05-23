@@ -5,37 +5,41 @@ using Core.Interfaces;
 using Core.Entities;
 using Core.Validations;
 using System;
+using Core.Entities.Financial;
 
 namespace Desktop.ViewModels.Billings
 {
     public class CreateBillingViewModel : ViewModelBase
-    {
-        private readonly IRepository<Billing> _contaRepository;
+    {        
         public ContaModel Model { get; set; }
-        public RelayCommand CreateContaCommand { get; set; }        
+        public RelayCommand CreateContaCommand { get; set; }
+        private readonly IBillingService _billingService;
         //TODO: Write UI validations
-        public CreateBillingViewModel(IRepository<Billing> contaRepository)
+        public CreateBillingViewModel(IBillingService billingService)
         {
-            _contaRepository = contaRepository;
+            _billingService = billingService;            
         }
         public void CreateConta(ContaModel model)
-        {
-            _contaRepository.Add(new Billing{
+        {                
+            _billingService.AddBilling(new Billing
+            {
                 BeneficiaryName = model.NomeEmpresa,
-                EndDate = DateTime.TryParse(model.DataDeVencimento,out var result) ? result : DateTime.UtcNow,
+                EndDate = DateTime.TryParse(model.DataDeVencimento, out var result) ? result : DateTime.UtcNow,
                 Price = model.Valor
-            });
-            _contaRepository.SaveChanges();
+            });            
         }
         public bool CanCreateConta(ContaModel model)
         {
             var validator = new BillingValidator();
-            return validator.IsValid(new Billing
+            var result = validator.IsValid(new Billing
             {
                 EndDate = DateTime.Parse(model.DataDeVencimento),
                 BeneficiaryName = model.NomeEmpresa,
                 Price = model.Valor
             });
+            //TODO:Log errors
+            return result.Success;
         }
+
     }
 }

@@ -30,6 +30,7 @@ namespace Tests.Lib.Data
             }
             entry.Id = counter;
             context.Add(entry.Id, entry);
+            ++counter;
         }
 
         public void AddRange(IEnumerable<T> entities)
