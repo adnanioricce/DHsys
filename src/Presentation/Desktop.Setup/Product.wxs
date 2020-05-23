@@ -8,8 +8,7 @@
 
   <?define UpgradeCode = "{1673EEF6-482B-42A1-9644-CAA72D86BCB8}"?>  
   <!--Define main product-->
-  <Product
-    Id="$(var.ProductCode)"
+  <Product Id="*"
            Name="!(loc.ProductName_$(var.Platform))"
            Language="!(loc.Language)"
            Version="$(var.BuildVersion)"
@@ -17,7 +16,8 @@
            UpgradeCode="$(var.UpgradeCode)"
            >
     <!--Provide package details-->
-    <Package InstallerVersion="200"
+    <Package Id="*"
+             InstallerVersion="200"
              Compressed="yes"
              InstallScope="perMachine"
              Platform="$(var.Platform)"
@@ -28,8 +28,32 @@
              Languages="!(loc.Language)"
              
              />
+    <!--  Major upgrade  -->
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="$(var.BuildVersion)" 
+                      OnlyDetect="yes" 
+                      Property="NEWERVERSIONDETECTED" />
+      <UpgradeVersion Minimum="1.0.0" 
+                      IncludeMinimum="yes" 
+                      Maximum="$(var.BuildVersion)" 
+                      IncludeMaximum="no" 
+                      Property="OLDERVERSIONBEINGUPGRADED" />
+    </Upgrade>
+
+    <!--<InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallValidate" />
+    </InstallExecuteSequence>-->
+
+    <!--<Condition Message="!(loc.NewerVersionDetected)">
+      NOT NEWERVERSIONDETECTED
+    </Condition>-->
+      
+    
     <!--Downgrade error message-->
-    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
+    <MajorUpgrade Schedule="afterInstallInitialize"
+                  DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" 
+                  AllowSameVersionUpgrades="yes"
+                  />
     <!-- Include .cab file into .msi file -->
     <MediaTemplate 
       EmbedCab="yes"
