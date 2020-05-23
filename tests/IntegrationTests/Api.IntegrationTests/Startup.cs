@@ -60,8 +60,7 @@ namespace Api.IntegrationTests
             services.AddTransient<ILegacyDataMapper<Drug,Produto>, ProdutoMapper>();
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IDrugService, DrugService>();
-            services.AddTransient<IBillingService, BillingService>();
-            services.AddTransient<IDataResourceClient, SupplierDataResourceClient>();
+            services.AddTransient<IBillingService, BillingService>();            
             
             services.AddTransient<ConnectionResolver>(db => key =>  {                
                 return key switch
@@ -73,8 +72,7 @@ namespace Api.IntegrationTests
                     //a remote database to keep some changes
                     "remote" => new NpgsqlConnection(npgConnStr),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
-                };
-                // new SqliteConnection(connString)    
+                };                
             });      
             services.AddTransient<IDbSynchronizer, DbSynchronizer>();                        
         }

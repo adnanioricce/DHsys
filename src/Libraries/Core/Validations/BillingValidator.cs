@@ -1,19 +1,18 @@
 ﻿using Core.Entities;
+using Core.Entities.Financial;
 using FluentValidation;
 using System;
 using System.Linq;
 
 namespace Core.Validations
 {
-    public class BillingValidator : AbstractValidator<Billing>
+    public class BillingValidator : BaseValidator<Billing>
     {
         public BillingValidator()
         {
-            RuleFor(c => c.BeneficiaryName)
-                .NotNull()
-                    .WithMessage("NomeEmpresa can't be null")
-                .Length(1, 250)
-                    .WithMessage("the NomeEmpresa should have at least 1 character and be less than 250 characters");
+            RuleFor(c => c)
+                .Must(c => !string.IsNullOrEmpty(c.BeneficiaryName) || c.BeneficiaryId > 0)                
+                    .WithMessage("there is no beneficiary related to the object");                            
             RuleFor(c => c.EndDate)               
                 .Must(c =>
                 {                                     
@@ -27,19 +26,6 @@ namespace Core.Validations
                 .NotNull()
                     .WithMessage("bill value can't be null");
                 
-        }        
-        public bool IsValid(Billing conta)
-        {
-            var result = Validate(conta);
-            if (result.Errors.Any())
-            {
-                Console.Out.WriteLine("validation of conta give the following errors:");
-                foreach (var error in result.Errors) {
-                    Console.Out.WriteLine(error);
-                }
-                return false;
-            }
-            return result.IsValid;
-        }
+        }                
     }
 }

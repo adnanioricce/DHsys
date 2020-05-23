@@ -6,6 +6,7 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:local="clr-namespace:Desktop.Views.Product"
       xmlns:vms="clr-namespace:Desktop.ViewModels.Product"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"      
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -20,7 +21,7 @@
             <local:CreateProductView/>
         </DataTemplate>
     </UserControl.Resources>
-    <Grid>
+    <Grid x:Name="productViewGrid">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
@@ -28,16 +29,30 @@
             <RowDefinition Height="2*"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Grid.Row="0">
-            <TextBox x:Name="txtCodigoProduto" md:HintAssist.Hint="Codigo do Produto" Background="White"/>
-            <TextBox x:Name="txtQuantidade" md:HintAssist.Hint="Quantidade" Background="White" IsReadOnly="True"/>
-            <TextBox x:Name="txtQuantidadeEntrando" md:HintAssist.Hint="Quantidade A adicionar/retirar" Background="White"/>
-            <TextBox x:Name="txtDescricao" md:HintAssist.Hint="Descrição" Background="White"/>
-            <TextBox x:Name="txtNCM" md:HintAssist.Hint="NCM" Background="White"/>
-            <!--<TextBox x:Name="txtNomeBeneficiario" md:HintAssist.Hint="Nome do Beneficiario" Background="White" />
-            <TextBox x:Name="txtDataVencimento" md:HintAssist.Hint="Data de Vencimento da conta" Background="White"/>
-            <TextBox x:Name="txtValor" md:HintAssist.Hint="Valor a pagar" Background="White"/>
-            <DataGrid x:Name="_dataGrid"/>-->
+        <StackPanel Grid.Row="0" DataContext="{Binding Model}">
+            <TextBox Text="{Binding Codigo,UpdateSourceTrigger=PropertyChanged}" x:Name="txtCodigoProduto" md:HintAssist.Hint="Codigo do Produto" Background="White"/>
+            <TextBox Text="{Binding Descricao,UpdateSourceTrigger=PropertyChanged}" x:Name="txtNome" md:HintAssist.Hint="Descrição" Background="White"/>
+            <TextBox Text="{Binding Quantidade,UpdateSourceTrigger=PropertyChanged}" x:Name="txtQuantidade" md:HintAssist.Hint="Quantidade em estoque" Background="White" IsReadOnly="True"/>
+            <TextBox Text="{Binding QuantidadeAInserir,UpdateSourceTrigger=PropertyChanged}" x:Name="txtQuantidadeEntrando" md:HintAssist.Hint="Quantidade A adicionar/retirar" Background="White"/>
+            <TextBox Text="{Binding CodigoDeBarras,UpdateSourceTrigger=PropertyChanged}" x:Name="txtCodigoDeBarras" md:HintAssist.Hint="Codigo De Barras" Background="White"/>
+            <TextBox Text="{Binding NCM,UpdateSourceTrigger=PropertyChanged}" x:Name="txtNCM" md:HintAssist.Hint="NCM" Background="White"/>
+            <TextBox Text="{Binding EstoqueMinimo,UpdateSourceTrigger=PropertyChanged}" x:Name="txtEstoqueMinimo" md:HintAssist.Hint="Estoque minimo" Background="White"/>
+            <TextBox Text="{Binding ICMS,UpdateSourceTrigger=PropertyChanged}" x:Name="txtICMS" md:HintAssist.Hint="ICMS" Background="White"/>
+            <TextBox Text="{Binding PrecoFabrica,UpdateSourceTrigger=PropertyChanged}" x:Name="txtPrecoFabrica" md:HintAssist.Hint="Preço de Fabrica" Background="White"/>
+            <TextBox Text="{Binding Margem,UpdateSourceTrigger=PropertyChanged}" x:Name="txtMargem" md:HintAssist.Hint="Margem de lucro" Background="White"/>
+            <TextBox Text="{Binding PrecoConsumidor,UpdateSourceTrigger=PropertyChanged}" x:Name="txtPrecoConsumidor" md:HintAssist.Hint="Preço Consumidor" Background="White"/>
+            <TextBox Text="{Binding Condicao,UpdateSourceTrigger=PropertyChanged}" x:Name="txtCondicao" md:HintAssist.Hint="Condição" Background="White"/>
+            <ListBox x:Name="listBoxLaboratorios" 
+                     md:HintAssist.Hint="Etiqueta Padrão" 
+                     Background="White"
+                     ItemsSource="{Binding ElementName=productViewGrid,Path=DataContext.Manufacturers}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Name}"/>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+                
+            </ListBox>
         </StackPanel>
         <Button Grid.Row="1" x:Name="btnConfirm" Content="Confirmar" />
     </Grid>

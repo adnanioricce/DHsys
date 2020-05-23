@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:Desktop.Views.Product"
       xmlns:vms="clr-namespace:Desktop.ViewModels.Product"
       xmlns:models="clr-namespace:Desktop.Models"
-      xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="900"      
       DataContext="{Binding Source={StaticResource Locator}, Path=ProductListViewModel}">
@@ -29,7 +29,19 @@
                 <ColumnDefinition MinWidth="300" Width="9*"/>
                 <ColumnDefinition MinWidth="30" Width="1*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding SearchPattern,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" Background="White" FontSize="20" md:HintAssist.Hint="Termo a procurar"/>
+            <TextBox Text="{Binding SearchPattern,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" Background="White" FontSize="20" md:HintAssist.Hint="Termo a procurar">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="KeyEventArgs">
+                        <i:InvokeCommandAction Command="{Binding GetProductByCodeCommand}" />
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+                <!--<i:-->
+                <!--<i:Int.Triggers>
+                    <i:EventTrigger EventName="PreviewKeyDown">
+                        <i:InvokeCommandAction Command="{Binding Path=TestMeCommand}" />
+                    </i:EventTrigger>
+                </i:Int.Triggers>-->
+            </TextBox>
             <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="parameters" FontSize="9"/>
         </Grid>
         <DataGrid Grid.Row="1" ItemsSource="{Binding ProdutoCollection,Mode=TwoWay}">

@@ -1,9 +1,10 @@
-﻿using System.Reflection;
+﻿using System.Text;
+using System.Reflection;
 using Application.Services;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Models.Dbf;
-using Core.Models.Resources.Requests;
+using Core.Models.ApplicationResources.Requests;
 using DAL;
 using dBASE.NET;
 using Microsoft.Data.Sqlite;
@@ -82,30 +83,17 @@ namespace Api.IntegrationTests.Services.Sync
             _connection.Open();
             command.CommandText = syncScript;
             int syncResult = command.ExecuteNonQuery();
-            var query = "SELECT * FROM Agenda WHERE Id = 1";
-            command.CommandText = query;
-            var reader = command.ExecuteReader();
-            var expectedAgenda = request.RecordDiffs[1].RecordValue as Agenda;
-            var agenda = new Agenda();                     
-            while (reader.Read())
-            {                             
-                agenda.Bairro = reader["Bairro"].ToString();                
-                agenda.Cep = reader["Cep"].ToString();               
-            }
-            _connection.Close();
-            //Then
-            Assert.Equal(expectedAgenda.Bairro, agenda.Bairro);
-            Assert.Equal(expectedAgenda.Cep, agenda.Cep);
+            Assert.Equal(1,syncResult);
         }
         [Fact]
         public void WhenDataSourceFilesChange_WriteAllChangesOnLocalDataSource_ThenReturnAffectedNumberOfRecords()
         {
             //Given                 
-            string dataSourceFolder = "./TestData";                      
+            string dataSourceFolder = "./TestData/Source";                      
             //When            
             int result = _dbSyncronizer.SyncSourceDatabaseWithLocalDatabase(dataSourceFolder);
             //Then
-            Assert.Equal(2,result);
+            Assert.Equal(189,result);
         }        
         private void WriteDbfToWhenDataSourceFilesChangesNeedTestData(IEnumerable<object> data,string dbfPath)
         {

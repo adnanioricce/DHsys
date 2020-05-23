@@ -43,7 +43,8 @@ namespace Api
         public void ConfigureServices(IServiceCollection services)
         {
 
-            string connString = Configuration.GetConnectionString("SqliteConnection");                 
+            string localConnString = Configuration.GetConnectionString("SqliteConnection");
+            string remoteConnString = Configuration.GetConnectionString("RemoteConnection");
             services.AddControllers();
             services.AddGrpc();
             services.AddSwaggerGen(c =>
@@ -54,7 +55,7 @@ namespace Api
             services.AddDbContext<DbContext, MainContext>(
                 opt => 
                 {
-                    opt.UseSqlite(connString)
+                    opt.UseSqlite(localConnString)
                       .EnableDetailedErrors();
                     opt.UseLazyLoadingProxies();
                 });
@@ -71,15 +72,16 @@ namespace Api
                     settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });
+            var legacySettings = Configuration.GetSection(nameof(LegacyDatabaseSettings)).Get<LegacyDatabaseSettings>();
             services.AddTransient<ConnectionResolver>(db => key =>  {
                 return key switch
                 {
                     //our local database
-                    "local" => new SqliteConnection(connString),
+                    "local" => new SqliteConnection(localConnString),
                     //a legacy shared database from which source changes in real world environment
-                    "source" => new OleDbConnection(connString),
+                    "source" => new OleDbConnection(legacySettings.ToString()),
                     //a remote database to keep some changes
-                    "remote" => new NpgsqlConnection(connString),
+                    "remote" => new NpgsqlConnection(remoteConnString),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };
                 // new SqliteConnection(connString)    

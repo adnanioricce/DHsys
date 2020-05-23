@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Entities.Catalog;
+using Core.Entities.Financial;
 using Core.Entities.LegacyScaffold;
 using Core.Entities.Stock;
 using Microsoft.EntityFrameworkCore;
@@ -25,10 +26,7 @@ namespace DAL
             optionsBuilder.UseLoggerFactory(_loggerFactory);
         }       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            // modelBuilder.
-            // var assembly = new LegacyScaffoldType().GetType().Assembly;
-            // modelBuilder.ApplyConfigurationsFromAssembly(assembly);
+        {            
             modelBuilder.Entity<Billing>(mapper =>
             {
                 mapper.ToTable("Billings");

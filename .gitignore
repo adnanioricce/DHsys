@@ -9,14 +9,18 @@
 *.userosscache
 *.sln.docstates
 TestSecrets/**/*.*
-Resources/
-Resources/**/*.*
+resources/
+resources/**/*.*
 src/UI/appsettings.json
-TestData/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 .ionide
 .vscode
+.msix
+ComponentsGenerated.wxs
+DesktopRelease/
+Desktop.exe
+*.db
 # Mono auto generated files
 mono_crash.*
 

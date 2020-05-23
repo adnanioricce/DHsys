@@ -14,13 +14,17 @@ using Desktop.ViewModels.Product;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Settings;
 using Desktop.ViewModels.Billings;
+using Infrastructure.Extensions;
+using Infrastructure.Interfaces;
+using Desktop.Extensions;
+using Desktop.ViewModels.Update;
 
 namespace Desktop
 {
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
-    public partial class App : Application
+    public partial class App : System.Windows.Application
     {
         private readonly IHost host;
         public static IServiceProvider ServiceProvider { get; private set; }        
@@ -57,16 +61,23 @@ namespace Desktop
             base.OnExit(e);
         }
 
-        private void ConfigureServices(IConfiguration configuration, IServiceCollection services)
-        {                        
+        private void ConfigureServices(IConfiguration configuration, IServiceCollection services){                        
+            
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
+            services.Configure<AutoUpdateSettings>(configuration.GetSection(nameof(AutoUpdateSettings)));            
+            services.ConfigureAppDataFolder();
+            services.AddApplicationUpdater();
+            services.AddApplicationServices();
+            services.AddCustomMappers();
+            //services.AddTransient(typeof(IAppLogger<>),typeof(AppLogger<>));
             services.AddTransient(typeof(MainWindow));
-            services.AddTransient(typeof(MainWindowViewModel));
+            services.AddTransient(typeof(MainWindowViewModel));            
             services.AddTransient<CreateBillingViewModel>();
             services.AddTransient<BillingListViewModel>();
             services.AddTransient<CreateProductViewModel>();
             services.AddTransient<ProductListViewModel>();
+            services.AddTransient<ApplicationUpdateViewModel>();
             services.AddTransient<CreateProductView>();
             services.AddTransient<ProductListView>();
             services.AddTransient<ProductCardControlView>();
@@ -75,8 +86,7 @@ namespace Desktop
             services.AddDbContext<DbContext, MainContext>(opt =>
              {
                  opt.UseSqlite("database.db");
-             });
-            //services.AddScoped<MainContext>();            
+             });            
             services.AddScoped(typeof(LegacyContext<>));
             services.AddTransient(typeof(ILegacyRepository<>),typeof(DbfRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
@@ -91,9 +101,8 @@ namespace Desktop
 
                 return navigationService;
             });
-            ServiceProvider = services.BuildServiceProvider();
-            var windowVm = ServiceProvider.GetService<MainWindowViewModel>();
+            ServiceProvider = services.BuildServiceProvider();            
             
-        }       
+        }                       
     }
 }
