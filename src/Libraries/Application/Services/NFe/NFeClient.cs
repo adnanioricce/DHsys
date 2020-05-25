@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using ACBr.Net.NFSe;
 using Core.Interfaces.NFe;
 using Core.Models.XML;
-//using ACBr.Net.
 namespace Application.Services.NFe
 {
     public class NFeClient : INFeClient

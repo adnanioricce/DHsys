@@ -9,14 +9,14 @@ namespace Desktop.ViewModels.Update
 {
     public class ApplicationUpdateViewModel : ViewModelBase
     {
-        private readonly IUpdater _updater;
-        private readonly IOptionsMonitor<AutoUpdateSettings> _settings;
+        private readonly IUpdater _updater;        
         private ApplicationUpdateSettingsModel _settingsModel = null;
         public ApplicationUpdateSettingsModel AppUpdateSettingsModel { get { return _settingsModel; }
             set 
             {
-                if (_settingsModel == value)
-                    Set(ref _settingsModel, value);
+                if (_settingsModel == value) return;
+                
+                Set(ref _settingsModel, value);
             } 
         }
         public RelayCommand LoadCommand { get; set; }
@@ -30,7 +30,7 @@ namespace Desktop.ViewModels.Update
             UpdateApplicationCommand = new RelayCommand(async () => await _updater.Update());
             EditUpdateSettingsCommand = new RelayCommand<AutoUpdateSettings>(_updater.UpdateSettings);
             LoadCommand = new RelayCommand(Load);            
-        }        
+        }
         public void Load()
         {
             _settingsModel = new ApplicationUpdateSettingsModel
@@ -39,7 +39,6 @@ namespace Desktop.ViewModels.Update
                 ShouldUpdateSilently = _updater.Settings.ShouldUpdateSilently,
                 UpdateFileUrl = _updater.Settings.UpdateFileUrl
             };           
-        }
-        
+        }        
     }
 }

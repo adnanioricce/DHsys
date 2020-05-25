@@ -1,15 +1,10 @@
-
 using Moq;
 using System;
 using System.Collections.Generic;
 using Desktop.Models;
-using Desktop.ViewModels;
 using Xunit;
-using Desktop.Interfaces;
 using Core.Interfaces;
-using Core.Entities;
 using Desktop.ViewModels.Billings;
-using System.Linq;
 using Application.Services;
 using Tests.Lib.Data;
 using Core.Entities.Financial;
