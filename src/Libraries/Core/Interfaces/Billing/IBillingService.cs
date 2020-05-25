@@ -7,6 +7,7 @@ namespace Core.Interfaces
     public interface IBillingService
     {
         BaseResult<Billing> AddBilling(Billing billing);
+        BaseResult<IEnumerable<Billing>> AddBillingsFromFile(string csvFilePath);
         IEnumerable<Billing> GetUnpaidBillings(int? limit);
         IEnumerable<Billing> GetBillingsByBeneficiaryName(string beneficiaryName);
     }
