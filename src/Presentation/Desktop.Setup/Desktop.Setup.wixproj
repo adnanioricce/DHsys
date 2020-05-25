@@ -7,7 +7,7 @@
     <ProjectGuid>e76f7908-b1fa-42ed-8344-81added946a7</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>Desktop-$(Configuration)-$(Platform)</OutputName>
-    <OutputType>Package</OutputType>        
+    <OutputType>Package</OutputType>          
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -74,10 +74,10 @@
     </GetAssemblyIdentity>
     <!-- Define some variables -->
     <PropertyGroup>
-      <DefineConstants>BuildVersion=%(AssemblyVersion.Version);BasePath=..\Desktop\bin\$(configuration)\netcoreapp3.1\win-$(Platform)\publish</DefineConstants>
+      <DefineConstants>BuildVersion=%(AssemblyVersion.Version);BasePath=..\Desktop\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish</DefineConstants>
     </PropertyGroup>
     <!-- get file components from publish folder  -->
-    <HeatDirectory OutputFile="ComponentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="..\Desktop\bin\$(configuration)\netcoreapp3.1\win-$(Platform)\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />
+    <HeatDirectory OutputFile="ComponentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="..\Desktop\bin\$(configuration)\netcoreapp3.1\win-$(Platform)\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)"  PreprocessorVariable="var.BasePath" />
   </Target>
   <Target Name="AfterBuild">
   </Target>
