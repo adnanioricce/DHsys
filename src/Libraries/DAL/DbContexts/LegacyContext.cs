@@ -12,6 +12,7 @@ namespace DAL
     /// <summary>
     /// Context to handle database of legacy system
     /// </summary>
+    //TODO: you probably don't need the T parameter, change it to a object instead and run the tests
     public class LegacyContext<T>
     {
         private readonly IDbConnection _connection;
