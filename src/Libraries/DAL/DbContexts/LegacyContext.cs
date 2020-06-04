@@ -17,14 +17,16 @@ namespace DAL
     {
         private readonly IDbConnection _connection;
 
-        public EntityField[] Fields { get; } = typeof(T).GetProperties().Select(x => new EntityField {
+        public EntityField[] Fields { get; } = typeof(T)
+            .GetProperties()
+            .Select(x => new EntityField {
                 FieldName = x.Name,
                 Value = null
             }).ToArray();
 
-        public LegacyContext(IOptions<LegacyDatabaseSettings> options)
+        public LegacyContext(IOptions<DatabaseSettings> options)
         {
-            _connection = new OleDbConnection(options.Value.ToString());                                     
+            _connection = new OleDbConnection(options.Value.LegacyDatabaseSettings.ToString());                                     
             
         }
         public T RawQuery(string sql)

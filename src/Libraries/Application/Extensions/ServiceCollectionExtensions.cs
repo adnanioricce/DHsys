@@ -7,6 +7,8 @@ using Core.Interfaces;
 using Core.Interfaces.Catalog;
 using Core.Mappers;
 using DAL;
+using DAL.DbContexts;
+using DAL.Extensions;
 using Infrastructure.Interfaces;
 using Infrastructure.Settings;
 using Infrastructure.Updates;
@@ -18,6 +20,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
 using System.IO;
+using System.Reflection;
 
 namespace Application.Extensions
 {
@@ -75,22 +78,6 @@ namespace Application.Extensions
             var writer = provider.GetService <IWritableOptions<AutoUpdateSettings>>();
             var updater = new Updater(logger,writer,settings);
             services.AddSingleton(typeof(IUpdater),updater);
-        }   
-        public static void TryCreateDatabase(this IServiceProvider services,MainContext context)
-        {
-            //RelationalDatabaseCreator creator = services.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
-            //if(context.Database.)
-            context.Database.Migrate();
-            //if (!creator.Exists())
-            //{
-            //    creator.Create();
-            //    creator.CreateTables();
-            //}
-            //context.Database.Migrate();
-            //if (creator.Exists())
-            //{
-            //    //TODO:seed method
-            //}
         }
         public static void AddApplicationServices(this IServiceCollection services)
         {
@@ -99,12 +86,43 @@ namespace Application.Extensions
             services.AddTransient<IProdutoService, ProdutoService>();
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IBillingService, BillingService>();
-            services.AddTransient<IDbSynchronizer, DbSynchronizer>();
+            services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
             services.AddTransient<ISyncQueryBuilder, SyncQueryBuilder>();
+        }
+        public static void AddDataStore(this IServiceCollection services,IConfiguration configuration)
+        {
+            services.AddDbContextPool<BaseContext, LocalContext>(opt =>
+            {
+                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection");
+                opt.UseSqlite(connStr);
+                opt.UseLazyLoadingProxies();
+            });
+            services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
+            {
+                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection");
+                opt.UseNpgsql(connStr);
+                opt.UseLazyLoadingProxies();
+            });
+            services.AddScoped<LocalContext>();
+            services.AddTransient<DbContextResolver>(provider => key => {
+                string option = key.ToLower();
+                return option switch
+                {
+                    "remote" => provider.GetRequiredService<RemoteContext>(),
+                    "local" => provider.GetRequiredService<LocalContext>(),
+                    _ => provider.GetRequiredService<LocalContext>()
+                };
+            });
+            //services.AddScoped<BaseContext,LocalContext>();
+            services.AddScoped(typeof(LegacyContext<>));
         }
         public static void AddCustomMappers(this IServiceCollection services)
         {
             services.AddTransient<ILegacyDataMapper<Drug, Produto>, ProdutoMapper>();
         }
+        public static void TryCreateDatabase(this IServiceProvider services, BaseContext context)
+        {            
+            context.Database.Migrate();            
+        }        
     }
 }

@@ -16,12 +16,14 @@ namespace Desktop.ViewModels.Billings
         private string _searchPattern = string.Empty;
         public string SearchPattern { get { return _searchPattern; } set { OnSearch(value); } }
         public RelayCommand<string> SearchUpdateCommand { get; set; }
+        public RelayCommand LoadBillingsCommand { get; set; }
         public ObservableCollection<Billing> Contas { get; set; }
         public BillingListViewModel(IRepository<Billing> contaRepository)
         {
             _contaRepository = contaRepository;
             SearchUpdateCommand = new RelayCommand<string>(OnSearch);
             Contas = new ObservableCollection<Billing>();
+            LoadBillingsCommand = new RelayCommand(OnLoadBillings);
         }
         
         public virtual void OnSearch(string value)
@@ -39,7 +41,10 @@ namespace Desktop.ViewModels.Billings
                     UpdateBillingCollection(Contas, _contaRepository.GetAll());
             }
         }       
-
+        public virtual void OnLoadBillings()
+        {
+            UpdateBillingCollection(Contas,_contaRepository.GetAll());
+        }
         private void UpdateBillingCollection(ObservableCollection<Billing> contas,IEnumerable<Billing> novasContas)
         {            
             Contas.Clear();

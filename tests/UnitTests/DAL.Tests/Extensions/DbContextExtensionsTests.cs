@@ -1,3 +1,4 @@
+using DAL.DbContexts;
 using DAL.Extensions;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
@@ -36,15 +37,15 @@ namespace DAL.Tests.Extensions
             Assert.Null(result);
         }
 
-        private MainContext CreateContext()
+        private BaseContext CreateContext()
         {            
-            var context = new MainContext(CreateOptions(new SqliteConnection($"DataSource=:memory:")));
+            var context = new BaseContext(CreateOptions(new SqliteConnection($"DataSource=:memory:")));
             return context;
         }
 
-        private DbContextOptions<MainContext> CreateOptions(SqliteConnection connection)
+        private DbContextOptions<BaseContext> CreateOptions(SqliteConnection connection)
         {            
-            var optionsBuilder = new DbContextOptionsBuilder<MainContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<BaseContext>();
             optionsBuilder.UseSqlite(connection);
             return optionsBuilder.Options;
         }

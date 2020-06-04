@@ -14,6 +14,8 @@ using Application.Extensions;
 using Desktop.Extensions;
 using System.Reflection;
 using System.IO;
+using DAL.DbContexts;
+using DAL.Extensions;
 
 namespace Desktop
 {
@@ -64,8 +66,9 @@ namespace Desktop
             string assemblyName = assembly.GetName().Name;
             File.WriteAllText(assemblyName, assemblyContent);
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
-            services.Configure<AutoUpdateSettings>(configuration.GetSection(nameof(AutoUpdateSettings)));
+            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));
+            services.Configure<LegacyDatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}:{nameof(LegacyDatabaseSettings)}"));
+            services.Configure<AutoUpdateSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(AutoUpdateSettings)}"));
             services.ConfigureWritableOptionsModel();
             services.ConfigureAppDataFolder();            
             services.AddApplicationUpdater();            
@@ -73,17 +76,13 @@ namespace Desktop
             services.AddCustomMappers();
             services.AddViews();
             services.AddViewModels();
-            services.AddDbContext<DbContext, MainContext>(opt =>
-             {
-                 opt.UseSqlite("database.db");
-             });
-            services.AddScoped<MainContext>();
-            services.AddScoped(typeof(LegacyContext<>));
+            services.AddDataStore(configuration);
             services.AddTransient(typeof(ILegacyRepository<>),typeof(DbfRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddScoped<CustomNavigationService>(ConfigureNavigationService);            
             ServiceProvider = services.BuildServiceProvider();
-            ServiceProvider.TryCreateDatabase(ServiceProvider.GetRequiredService<MainContext>());            
+            var dbResolver = ServiceProvider.GetRequiredService<DbContextResolver>();
+            ServiceProvider.TryCreateDatabase(dbResolver("local"));            
         }                        
         private CustomNavigationService ConfigureNavigationService(IServiceProvider provider)
         {

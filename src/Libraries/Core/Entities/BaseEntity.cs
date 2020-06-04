@@ -10,16 +10,24 @@ namespace Core.Entities
         /// On database level, it's a primary key 
         /// </summary>
         /// <value></value>
-        public int Id { get; set; }
+        public virtual int Id { get; set; }
         /// <summary>
-        /// Get or Set A unique string code for the product. 
-        /// used for better compability with legacy system and to handle stock CRUD operations
+        /// Get or Set A unique string code for the entity. 
+        /// used for better compability with legacy system and to handle CRUD operations
         /// </summary>
         /// <value></value>
-        public string UniqueCode { get; set; }
+        public virtual string UniqueCode { get; set; }
+        /// <summary>
+        /// Get or Set a flag indicating if this entity was deleted
+        /// </summary>
+        public virtual bool IsDeleted { get; set; }
+        /// <summary>
+        /// Get or Set when current entity was created
+        /// </summary>
+        public virtual DateTimeOffset CreatedAt { get; set; }
         /// <summary>
         /// Get or Set the last time this entity was updated
         /// </summary>
-        public DateTimeOffset LastUpdatedOn { get; set; } = DateTimeOffset.UtcNow;
+        public virtual DateTimeOffset LastUpdatedOn { get; set; } = DateTimeOffset.UtcNow;
     }
 }

@@ -6,17 +6,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.Extensions;
 using Application;
+using Application.Extensions;
 using Application.Services;
 using Core.Entities.Catalog;
 using Core.Entities.LegacyScaffold;
 using Core.Interfaces;
 using Core.Mappers;
 using DAL;
+using DAL.DbContexts;
+using DAL.Extensions;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -42,29 +46,30 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            string localConnString = Configuration.GetConnectionString("SqliteConnection");
+            string localConnString = Configuration.GetConnectionString("LocalConnection");
             string remoteConnString = Configuration.GetConnectionString("RemoteConnection");
             services.AddControllers();
             services.AddGrpc();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DH Api", Version = "v1" });
             });
-            services.AddTransient<IDbSynchronizer, DbSynchronizer>();
-            services.AddDbContext<DbContext, MainContext>(
-                opt => 
-                {
-                    opt.UseSqlite(localConnString)
-                      .EnableDetailedErrors();
-                    opt.UseLazyLoadingProxies();
-                });
-            services.AddScoped<MainContext>();
+            services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
+            services.AddDataStore(Configuration);
+            //services.AddDbContextPool<BaseContext, LocalContext>(
+            //    opt => 
+            //    {
+            //        opt.UseSqlite(localConnString)
+            //          .EnableDetailedErrors();
+            //        opt.UseLazyLoadingProxies();
+            //    });
+            //services.AddScoped<DbContext>();
             services.Configure<LegacyDatabaseSettings>(Configuration.GetSection(nameof(LegacyDatabaseSettings)));
             services.Configure<GitSettings>(Configuration.GetSection(nameof(GitSettings)));
             services.AddScoped(typeof(LegacyContext<>));
             services.AddScoped(typeof(ILegacyRepository<>), typeof(DbfRepository<>));
             services.AddTransient<ILegacyDataMapper<Drug,Produto>,ProdutoMapper>();           
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient(typeof(IRepository<>),typeof(Repository<>));            
             services.AddTransient<IDrugService, DrugService>();
             services.AddMvc()
                 .AddNewtonsoftJson(settings => {
@@ -80,7 +85,7 @@ namespace Api
                     //a legacy shared database from which source changes in real world environment
                     "source" => new OleDbConnection(legacySettings.ToString()),
                     //a remote database to keep some changes
-                    "remote" => new NpgsqlConnection(remoteConnString),
+                    "remote" => new SqlConnection(remoteConnString),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };
                 // new SqliteConnection(connString)    

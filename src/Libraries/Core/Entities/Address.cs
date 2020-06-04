@@ -12,8 +12,7 @@ namespace Core.Entities
             Manufacturer = new HashSet<Manufacturer>();
             Suppliers = new HashSet<Supplier>();
         }
-
-        public int AddressId { get; set; }
+        
         public string FirstAddressLine { get; set; }
         public string SecondAddressLine { get; set; }
         public string Zipcode { get; set; }
