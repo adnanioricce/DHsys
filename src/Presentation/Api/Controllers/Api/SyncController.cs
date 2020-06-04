@@ -22,10 +22,10 @@ namespace Api.Controllers.Api
     [Route("api/v1/[Controller]")]
     public class SyncController : ControllerBase
     {
-        private readonly IDbSynchronizer _dbSyncronizer;
+        private readonly ILegacyDbSynchronizer _dbSyncronizer;
         private readonly IDbConnection _connection;
         private readonly string _dbfSourceFolder;
-        public SyncController(IDbSynchronizer dbSynchronizer,ConnectionResolver connection,IOptions<LegacyDatabaseSettings> legacyDbSettings)
+        public SyncController(ILegacyDbSynchronizer dbSynchronizer,ConnectionResolver connection,IOptions<LegacyDatabaseSettings> legacyDbSettings)
         {
             _dbSyncronizer = dbSynchronizer;
             _connection = connection("local");

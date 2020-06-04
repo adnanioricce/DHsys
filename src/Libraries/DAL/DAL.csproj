@@ -21,8 +21,8 @@
   <ItemGroup>
     <PackageReference Include="dapper" Version="2.0.30" />    
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />    
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.3" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.3" />
     <PackageReference Include="System.Data.OleDb" Version="4.7.0" />
@@ -34,6 +34,10 @@
   </ItemGroup>  
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>  
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+    <Folder Include="Migrations\Remote\" />
   </ItemGroup>
 
 </Project>

@@ -23,7 +23,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.Services
 {
-    public class DbSynchronizer : IDbSynchronizer
+    public class LegacyDbSynchronizer : ILegacyDbSynchronizer
     {        
         private readonly IDbConnection _sourceDbConnection;        
         private readonly IDbConnection _localDbConnection;
@@ -32,7 +32,7 @@ namespace Application.Services
         private readonly List<string> _dbfFilesChanged;
         private static MethodInfo Converter;
         private readonly Dictionary<string,Type> LegacyTypes = new Dictionary<string, Type>();
-        public DbSynchronizer(ConnectionResolver connectionResolver)
+        public LegacyDbSynchronizer(ConnectionResolver connectionResolver)
         {                                             
             LegacyTypes = Assembly.Load(typeof(Core.Core).Assembly.FullName)
                 .GetTypes()
@@ -78,7 +78,7 @@ namespace Application.Services
                     });
                 string values = string.Join(',', fields.Select(f => WriteInsertValuesToCorrectSqlType(f.Value)));
                 string columnNames = string.Join(",", fields.Select(f => f.FieldName));
-                sqlCommandBuilder.Append($"INSERT INTO {type.Name.ToUpper()}(UniqueCode,LastUpdatedOn,{columnNames}) VALUES('{fields.FirstOrDefault().Value}',CURRENT_TIMESTAMP,{values});");
+                sqlCommandBuilder.Append($"INSERT INTO {type.Name.ToUpper()}(UniqueCode,CreatedAt,LastUpdatedOn,{columnNames}) VALUES('{fields.FirstOrDefault().Value}',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,{values});");
             }
             return sqlCommandBuilder.ToString();
         }
@@ -159,7 +159,7 @@ namespace Application.Services
                         var queryResult = queryCommand.ExecuteScalar();
                         if(IsQueryResultNull(queryResult)){
                             var values = string.Join(',',changes.Tables[i].Rows[j].ItemArray.Select(WriteInsertValuesToCorrectSqlType));                            
-                            queryBuilder.AppendLine($"INSERT INTO {changes.Tables[i].TableName}(UniqueCode,LastUpdatedOn,{fields}) VALUES(CURRENT_TIMESTAMP,{changes.Tables[i].Rows[j].ItemArray[0]},{values});");
+                            queryBuilder.AppendLine($"INSERT INTO {changes.Tables[i].TableName}(LastUpdatedOn,CreatedAt,UniqueCode,{fields}) VALUES(CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,{changes.Tables[i].Rows[j].ItemArray[0]},{values});");
                             continue;
                         }            
                         string columnsToUpdate = string.Join(',', changes.Tables[i].Rows[j].ItemArray

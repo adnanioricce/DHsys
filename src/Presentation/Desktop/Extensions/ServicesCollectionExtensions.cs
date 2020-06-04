@@ -43,9 +43,11 @@ namespace Desktop.Extensions
         }
         public static void ConfigureWritableOptionsModel(this IServiceCollection services)
         {
-            services.ConfigureWritable<AutoUpdateSettings>(nameof(AutoUpdateSettings));
-            services.ConfigureWritable<AppSettings>(nameof(AppSettings));
-            services.ConfigureWritable<LegacyDatabaseSettings>(nameof(LegacyDatabaseSettings));
+            services.ConfigureWritable<AutoUpdateSettings>();            
+            services.ConfigureWritable<LegacyDatabaseSettings>();
+            services.ConfigureWritable<ConnectionStrings>();
+            services.ConfigureWritable<DatabaseSettings>();
+            services.ConfigureWritable<AppSettings>();
         }
     }
 }

@@ -9,7 +9,8 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800"
-             DataContext="{Binding Source={StaticResource Locator},Path=ApplicationUpdateViewModel}">
+             DataContext="{Binding Source={StaticResource Locator},Path=ApplicationUpdateViewModel}"
+             x:Name="_userControlRoot">
     <UserControl.Resources>
         <DataTemplate DataType="{x:Type vms:ApplicationUpdateViewModel}">
             <local:ApplicationUpdateView/>
@@ -36,15 +37,17 @@
                        Background="Transparent"
                        HorizontalAlignment="Center"
                        FontSize="24"/>
-                <StackPanel>
-                    <TextBox md:HintAssist.Hint="Update File Url" Text="{Binding AppUpdateSettingsModel.UpdateFileUrl,Mode=TwoWay}"/>
-                    <TextBox md:HintAssist.Hint="Dsa Public Key" Text="{Binding AppUpdateSettingsModel.DsaPublicKey,Mode=TwoWay}"/>
+                <StackPanel DataContext="{Binding Path=AppUpdateSettingsModel}">
+                    <TextBox md:HintAssist.Hint="Update File Url" Text="{Binding UpdateFileUrl,Mode=TwoWay}"/>
+                    <TextBox md:HintAssist.Hint="Dsa Public Key" Text="{Binding DsaPublicKey,Mode=TwoWay}"/>
                     <StackPanel Orientation="Horizontal">
                         <Label Content="Update Silently?" />
-                        <RibbonCheckBox IsChecked="{Binding AppUpdateSettingsModel.ShouldUpdateSilently}"/>
+                        <RibbonCheckBox IsChecked="{Binding ShouldUpdateSilently}"/>
                     </StackPanel>
-                    <Button Content="Save Changes" />
                 </StackPanel>
+                <Button Content="Save Changes" 
+                            Command="{Binding EditUpdateSettingsCommand}" 
+                            CommandParameter="{Binding AppUpdateSettingsModel}" />
             </StackPanel>
         </md:ColorZone>
 

@@ -1,5 +1,6 @@
 ﻿using Application.Extensions;
 using DAL;
+using DAL.DbContexts;
 using DAL.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,8 +19,8 @@ namespace Api.Extensions
         public static void BuildDatabase(this IApplicationBuilder application,IWebHostEnvironment env)
         {            
             if (!env.IsDevelopment()) return;
-            using var scope = application.ApplicationServices.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<MainContext>();
+            using var scope = application.ApplicationServices.CreateScope();            
+            var context = scope.ServiceProvider.GetRequiredService<BaseContext>();
             context.ApplyUpgrades();
         }
     }

@@ -3,18 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Interfaces;
 using Core.Entities;
+using DAL.DbContexts;
+using DAL.Extensions;
+using System.Reflection;
 
 namespace DAL
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        protected virtual MainContext Context { get; }
+        protected virtual BaseContext Context { get; }
         protected virtual DbSet<T> DbSet { get; }
-        public Repository(DbContext dbContext)
+        public Repository(DbContextResolver contextResolver) 
         {
-            Context = (MainContext)dbContext;
+            string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+            Context = assemblyName.Contains("Api") ? contextResolver("remote") : contextResolver("local");
             DbSet = Context.Set<T>();
-        }
+        }        
         public virtual void Add(T entry)
         {
             DbSet.Add(entry);

@@ -4,7 +4,7 @@ using System.Data;
 
 namespace Core.Interfaces
 {
-    public interface IDbSynchronizer
+    public interface ILegacyDbSynchronizer
     {
         /// <summary>
         /// Generates a script with the the update or insert script of given Records

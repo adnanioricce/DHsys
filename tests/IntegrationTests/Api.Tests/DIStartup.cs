@@ -25,6 +25,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.IO;
 using DAL.Extensions;
+using DAL.DbContexts;
 
 [assembly: TestFramework("Api.Tests.DIStartup", "Api.Tests")]
 namespace Api.Tests
@@ -41,13 +42,13 @@ namespace Api.Tests
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            services.AddDbContext<DbContext, MainContext>(opt => {
+            services.AddDbContext<BaseContext, LocalContext>(opt => {
                 opt.UseSqlite(sqliteConnStr);
                 opt.EnableSensitiveDataLogging();
                 opt.EnableDetailedErrors();                
-            });                
+            });                            
             services.AddScoped(typeof(LegacyContext<>));
-            services.AddScoped<MainContext>();
+            services.AddScoped<DbContext>();
             services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));         
             services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
             services.AddTransient<ILegacyDataMapper<Drug,Produto>, ProdutoMapper>();
@@ -55,7 +56,7 @@ namespace Api.Tests
             services.AddTransient<IDrugService, DrugService>();
             services.AddTransient<IBillingService, BillingService>();
             //services.AddTransient<IDataResourceClient, SupplierDataResourceClient>();
-            services.AddTransient<IDbSynchronizer, DbSynchronizer>();
+            services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             var legacySettings = configuration.GetSection(nameof(LegacyDatabaseSettings)).Get<LegacyDatabaseSettings>();
             services.AddTransient<ConnectionResolver>(db => key => {
@@ -78,19 +79,8 @@ namespace Api.Tests
         }
         protected override void Configure(IServiceProvider provider)
         {
-            var context = (MainContext)provider.GetService<MainContext>();
-            context.ApplyUpgrades();
-            //if(!File.Exists("./Data/database.db")){
-            //    context.Database.EnsureDeleted();
-            //    string sql = context.Database.GenerateCreateScript();
-            //    context.Database.ExecuteSqlRaw(sql);
-            //    context.SeedDataForIntegrationTests(DrugSeed.GetDataForHttpGetMethods().ToArray());
-            //}else {
-            //    var migrations = context.Database.GetPendingMigrations();
-            //    if(migrations.Any()){
-            //        context.Database.Migrate();
-            //    }
-            //}            
+            var context = (BaseContext)provider.GetService<BaseContext>();
+            context.ApplyUpgrades();                     
             
         }
     }

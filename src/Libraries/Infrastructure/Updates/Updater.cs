@@ -37,7 +37,7 @@ namespace Infrastructure.Updates
             var sparkle = new SparkleUpdater(_settings.UpdateFileUrl,
                 securityMode: ToSecurityMode(_settings.SecurityMode),
                 dsaPublicKey: _settings.DsaPublicKey,
-                assemblyName);            
+                assemblyName); 
             _sparkle = sparkle;
             if (_settings.ShouldUpdateSilently)
             {
@@ -45,8 +45,7 @@ namespace Infrastructure.Updates
             }              
         }
         public void ConfigureUpdater(IUIFactory uiFactory)
-        {
-            string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+        {            
             var sparkle = new SparkleUpdater(_settings.UpdateFileUrl,
                 securityMode: ToSecurityMode(_settings.SecurityMode),
                 dsaPublicKey: _settings.DsaPublicKey
@@ -74,7 +73,7 @@ namespace Infrastructure.Updates
 
         public void UpdateSettings(AutoUpdateSettings settings)
         {
-            //TODO:Validation to avoid user to break update process
+            //TODO:Validation to avoid user to break update process            
             _settingsWriter.Update((options) => options = settings);
         }
 
