@@ -1,5 +1,5 @@
 ﻿using AspNetCore.Http.Extensions;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Models.Dbf;
 using Core.Models.ApplicationResources.Requests;
 using System;

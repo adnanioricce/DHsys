@@ -1,6 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Core.Entities;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace DAL.DbContexts
@@ -10,5 +13,6 @@ namespace DAL.DbContexts
         public RemoteContext(DbContextOptions<RemoteContext> options) : base(options)
         {
         }
+        
     }
 }

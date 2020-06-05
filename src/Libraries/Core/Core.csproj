@@ -9,6 +9,10 @@
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />    
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\NovaPasta\" />
+  </ItemGroup>
+
  
   
 

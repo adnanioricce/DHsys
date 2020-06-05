@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 
 namespace Tests.Lib.Data

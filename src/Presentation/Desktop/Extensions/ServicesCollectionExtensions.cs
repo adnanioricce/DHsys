@@ -3,7 +3,7 @@ using Application.Services;
 using Application.Services.Catalog;
 using Application.Services.Sync;
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Interfaces.Catalog;
 using Core.Mappers;

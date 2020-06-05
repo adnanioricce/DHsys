@@ -1,7 +1,7 @@
 using System.Linq;
 using Tests.Lib.Data;
 using Xunit;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Desktop.ViewModels.Product;
 
 namespace Desktop.Tests.ViewModels

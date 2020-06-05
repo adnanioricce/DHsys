@@ -1,4 +1,4 @@
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Entities.Stock;
 using System;
 using System.Collections;

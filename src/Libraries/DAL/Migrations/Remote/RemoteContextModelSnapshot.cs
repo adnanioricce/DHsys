@@ -75,7 +75,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 422, DateTimeKind.Unspecified).AddTicks(8374), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int?>("DrugId")
                         .HasColumnType("int");
@@ -90,10 +92,14 @@ namespace DAL.Migrations.Remote
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 422, DateTimeKind.Unspecified).AddTicks(8834), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int?>("MinimalAgeOfUse")
                         .HasColumnType("int");
@@ -137,7 +143,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 422, DateTimeKind.Unspecified).AddTicks(2215), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
@@ -156,10 +164,14 @@ namespace DAL.Migrations.Remote
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 422, DateTimeKind.Unspecified).AddTicks(2585), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("MainSupplierName")
                         .HasColumnType("nvarchar(max)");
@@ -214,16 +226,22 @@ namespace DAL.Migrations.Remote
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 429, DateTimeKind.Unspecified).AddTicks(3344), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("EndCustomerDrugPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 429, DateTimeKind.Unspecified).AddTicks(3726), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTimeOffset?>("Pricestartdate")
                         .HasColumnType("datetimeoffset");
@@ -249,16 +267,22 @@ namespace DAL.Migrations.Remote
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 429, DateTimeKind.Unspecified).AddTicks(9880), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 430, DateTimeKind.Unspecified).AddTicks(219), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -279,6 +303,46 @@ namespace DAL.Migrations.Remote
                     b.ToTable("ProductShelfLife");
                 });
 
+            modelBuilder.Entity("Core.Entities.Catalog.ProductStockEntry", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 430, DateTimeKind.Unspecified).AddTicks(5746), new TimeSpan(0, 0, 0, 0, 0)));
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 430, DateTimeKind.Unspecified).AddTicks(6113), new TimeSpan(0, 0, 0, 0, 0)));
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StockEntryId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("StockEntryId");
+
+                    b.ToTable("ProductStockEntry");
+                });
+
             modelBuilder.Entity("Core.Entities.Catalog.ProductSupplier", b =>
                 {
                     b.Property<int>("Id")
@@ -287,13 +351,19 @@ namespace DAL.Migrations.Remote
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 431, DateTimeKind.Unspecified).AddTicks(1707), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 431, DateTimeKind.Unspecified).AddTicks(2055), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
@@ -313,27 +383,31 @@ namespace DAL.Migrations.Remote
                     b.ToTable("ProductSupplier");
                 });
 
-            modelBuilder.Entity("Core.Entities.Client", b =>
+            modelBuilder.Entity("Core.Entities.Financial.Beneficiary", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 421, DateTimeKind.Unspecified).AddTicks(4250), new TimeSpan(0, 0, 0, 0, 0)));
 
-                    b.Property<string>("Cpf")
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 421, DateTimeKind.Unspecified).AddTicks(4693), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -343,9 +417,9 @@ namespace DAL.Migrations.Remote
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.ToTable("Beneficiary");
 
-                    b.ToTable("Client");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Beneficiary");
                 });
 
             modelBuilder.Entity("Core.Entities.Financial.Billing", b =>
@@ -399,10 +473,10 @@ namespace DAL.Migrations.Remote
                             BeneficiaryId = 0,
                             BeneficiaryName = "empresa",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            EndDate = new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Utc).AddTicks(1681),
+                            EndDate = new DateTime(2020, 6, 5, 20, 1, 54, 397, DateTimeKind.Utc).AddTicks(6733),
                             IsDeleted = false,
                             IsPaid = false,
-                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Unspecified).AddTicks(1022), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 397, DateTimeKind.Unspecified).AddTicks(5693), new TimeSpan(0, 0, 0, 0, 0)),
                             PersonType = 0,
                             Price = 12.99m
                         },
@@ -412,16 +486,16 @@ namespace DAL.Migrations.Remote
                             BeneficiaryId = 0,
                             BeneficiaryName = "empresa 2",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            EndDate = new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Utc).AddTicks(3824),
+                            EndDate = new DateTime(2020, 6, 5, 20, 1, 54, 397, DateTimeKind.Utc).AddTicks(8836),
                             IsDeleted = false,
                             IsPaid = false,
-                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Unspecified).AddTicks(3817), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 397, DateTimeKind.Unspecified).AddTicks(8826), new TimeSpan(0, 0, 0, 0, 0)),
                             PersonType = 0,
                             Price = 22.99m
                         });
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Agenda", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Agenda", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -473,7 +547,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("AGENDA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Balcon", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Balcon", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -528,8 +602,20 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CPF")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Senha")
                         .HasColumnName("SENHA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -537,7 +623,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("BALCON");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Brindes", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Brindes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -547,6 +633,15 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codigo")
                         .HasColumnName("CODIGO")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nome")
                         .HasColumnName("NOME")
@@ -560,17 +655,23 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("QTDE")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("BRINDES");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Cadlab", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Cadlab", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("DtAlter")
                         .HasColumnName("DT_ALTER")
@@ -628,6 +729,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("FOTELE")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Labrev")
                         .HasColumnName("LABREV")
                         .HasColumnType("nvarchar(max)");
@@ -652,6 +756,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("LAPERC")
                         .HasColumnType("float");
 
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Latipo")
                         .HasColumnName("LATIPO")
                         .HasColumnType("nvarchar(max)");
@@ -668,17 +775,23 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("NOMARQ")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CADLAB");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Cadprom", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Cadprom", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Fonome")
                         .HasColumnName("FONOME")
@@ -688,8 +801,17 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("FOTELE")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Lacodi")
                         .HasColumnName("LACODI")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("Valid")
@@ -701,12 +823,15 @@ namespace DAL.Migrations.Remote
                     b.ToTable("CADPROM");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Caixa", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Caixa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("CxAdm")
                         .HasColumnName("CX_ADM")
@@ -736,12 +861,21 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CX_VALOR")
                         .HasColumnType("float");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CAIXA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Cancdia", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Cancdia", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -756,6 +890,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODFUN")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
@@ -768,8 +905,17 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("FILIAL")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Ticket")
                         .HasColumnName("TICKET")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -777,7 +923,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("CANCDIA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Cartao", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Cartao", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -787,6 +933,15 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codigo")
                         .HasColumnName("CODIGO")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nome")
                         .HasColumnName("NOME")
@@ -808,12 +963,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TAXA")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CARTAO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Chdevol", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Chdevol", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -840,6 +998,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CONTA")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
@@ -847,6 +1008,15 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTime?>("Datae")
                         .HasColumnName("DATAE")
                         .HasColumnType("datetime");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
                         .HasColumnName("VALOR")
@@ -857,7 +1027,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("CHDEVOL");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Cheque", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Cheque", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -888,6 +1058,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CONTA")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
@@ -899,6 +1072,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Filial")
                         .HasColumnName("FILIAL")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Obs")
                         .HasColumnName("OBS")
@@ -920,6 +1099,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TICKET")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("Valor")
                         .HasColumnName("VALOR")
                         .HasColumnType("float");
@@ -929,7 +1111,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("Cheque");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.CliMed", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.CliMed", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -940,6 +1122,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CPF_CRM")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Endereco")
                         .HasColumnName("ENDERECO")
                         .HasColumnType("nvarchar(max)");
@@ -947,6 +1132,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Fone")
                         .HasColumnName("FONE")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nome")
                         .HasColumnName("NOME")
@@ -956,12 +1147,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SEXO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CliMed");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Clicheq", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Clicheq", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -988,6 +1182,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CPF")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Datanasc")
                         .HasColumnName("DATANASC")
                         .HasColumnType("datetime");
@@ -1000,6 +1197,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("FONE")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Nome")
                         .HasColumnName("NOME")
                         .HasColumnType("nvarchar(max)");
@@ -1008,12 +1211,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("RG")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CLICHEQ");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Cliente", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Cliente", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1104,12 +1310,24 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CLUPAGTO")
                         .HasColumnType("datetime");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CLIENTE");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Clipago", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Clipago", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1120,6 +1338,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CLIENTE")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("Credito")
                         .HasColumnName("CREDITO")
                         .HasColumnType("float");
@@ -1127,6 +1348,15 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
                         .HasColumnName("VALOR")
@@ -1137,7 +1367,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("CLIPAGO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Contas", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Contas", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1148,8 +1378,20 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("COD")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Hist")
                         .HasColumnName("HIST")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1157,12 +1399,15 @@ namespace DAL.Migrations.Remote
                     b.ToTable("CONTAS");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Conv", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Conv", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Cvbalc")
                         .HasColumnName("CVBALC")
@@ -1232,17 +1477,29 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("FUCODI")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CONV");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Convenio", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Convenio", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Cvbalc")
                         .HasColumnName("CVBALC")
@@ -1320,12 +1577,21 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("FUCODI")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("CONVENIO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Debcli", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Debcli", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1372,6 +1638,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("COMISSAO")
                         .HasColumnType("float");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Descomp")
                         .HasColumnName("DESCOMP")
                         .HasColumnType("nvarchar(max)");
@@ -1380,8 +1649,17 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("DT_PAGTO")
                         .HasColumnType("datetime");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("VlPago")
@@ -1393,7 +1671,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("DEBCLI");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Delivery", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Delivery", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1444,6 +1722,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CPF")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Datanasc")
                         .HasColumnName("DATANASC")
                         .HasColumnType("datetime");
@@ -1472,6 +1753,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMPRESSO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Nome")
                         .HasColumnName("NOME")
                         .HasColumnType("nvarchar(max)");
@@ -1484,12 +1771,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ULT_COMPRA")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("DELIVERY");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Despesas", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Despesas", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1500,12 +1790,24 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CAIXA")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Historico")
                         .HasColumnName("HISTORICO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
@@ -1517,7 +1819,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("DESPESAS");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Empresa", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Empresa", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -1527,6 +1829,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codgolden")
                         .HasColumnName("CODGOLDEN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("DesAce")
                         .HasColumnName("DES_ACE")
@@ -1680,6 +1985,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IBGEMUN")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Libperf")
                         .HasColumnName("LIBPERF")
                         .HasColumnType("nvarchar(max)");
@@ -1687,6 +1998,9 @@ namespace DAL.Migrations.Remote
                     b.Property<double?>("PercDesc")
                         .HasColumnName("PERC_DESC")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Vidaav")
                         .HasColumnName("VIDAAV")
@@ -1705,12 +2019,15 @@ namespace DAL.Migrations.Remote
                     b.ToTable("EMPRESA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Encomen", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Encomen", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Endata")
                         .HasColumnName("ENDATA")
@@ -1720,8 +2037,17 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ENQTDE")
                         .HasColumnType("float");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1729,12 +2055,15 @@ namespace DAL.Migrations.Remote
                     b.ToTable("ENCOMEN");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ent", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Descfin")
                         .HasColumnName("DESCFIN")
@@ -1784,6 +2113,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMPRETQ")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Notafis")
                         .HasColumnName("NOTAFIS")
                         .HasColumnType("nvarchar(max)");
@@ -1800,6 +2135,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SOETIQ")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Usuario")
                         .HasColumnName("USUARIO")
                         .HasColumnType("nvarchar(max)");
@@ -1809,12 +2147,15 @@ namespace DAL.Migrations.Remote
                     b.ToTable("ENT");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Entpro", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Entpro", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Descfin")
                         .HasColumnName("DESCFIN")
@@ -1868,6 +2209,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMPRETQ")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Lote")
                         .HasColumnName("LOTE")
                         .HasColumnType("nvarchar(max)");
@@ -1888,6 +2235,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SOETIQ")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Usuario")
                         .HasColumnName("USUARIO")
                         .HasColumnType("nvarchar(max)");
@@ -1897,16 +2247,25 @@ namespace DAL.Migrations.Remote
                     b.ToTable("ENTPRO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Estq0045", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Estq0045", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("EstMinimo")
                         .HasColumnName("EST_MINIMO")
                         .HasColumnType("float");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prbarra")
                         .HasColumnName("PRBARRA")
@@ -1932,17 +2291,29 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SECAO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("ESTQ0045");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Etiqperf", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Etiqperf", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
@@ -1962,6 +2333,9 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Prdesc2")
                         .HasColumnName("PRDESC2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -1969,12 +2343,21 @@ namespace DAL.Migrations.Remote
                     b.ToTable("ETIQPERF");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Etiqprom", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Etiqprom", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
@@ -1996,17 +2379,29 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("PRDESC2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("ETIQPROM");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Etiqueta", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Etiqueta", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
@@ -2024,12 +2419,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("PRDESC2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("ETIQUETA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Faltas", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Faltas", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2040,12 +2438,24 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("BALCON")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -2053,12 +2463,15 @@ namespace DAL.Migrations.Remote
                     b.ToTable("FALTAS");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Fechconv", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Fechconv", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -2066,6 +2479,15 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Fucdem")
                         .HasColumnName("FUCDEM")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
@@ -2077,7 +2499,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("FECHCONV");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Filial", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Filial", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2123,6 +2545,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Aplica9")
                         .HasColumnName("APLICA9")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Desc1")
                         .HasColumnName("DESC1")
@@ -2208,6 +2633,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("FILTELE")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Subsec1")
                         .HasColumnName("SUBSEC1")
                         .HasColumnType("nvarchar(max)");
@@ -2248,12 +2679,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SUBSEC9")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("FILIAL");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Funcio", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Funcio", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2263,6 +2697,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codgolden")
                         .HasColumnName("CODGOLDEN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Datademi")
                         .HasColumnName("DATADEMI")
@@ -2352,6 +2789,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMPRESSO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("Totdebcr")
                         .HasColumnName("TOTDEBCR")
                         .HasColumnType("float");
@@ -2360,17 +2803,23 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TOTDEBSR")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("FUNCIO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Histor", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Histor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Desconto")
                         .HasColumnName("DESCONTO")
@@ -2379,6 +2828,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Distrib")
                         .HasColumnName("DISTRIB")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Notafis")
                         .HasColumnName("NOTAFIS")
@@ -2396,6 +2851,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TOTAL")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("Vencto")
                         .HasColumnName("VENCTO")
                         .HasColumnType("datetime");
@@ -2405,7 +2863,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("HISTOR");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ibpt", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ibpt", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2416,6 +2874,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODIGO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Imp1")
                         .HasColumnName("IMP1")
                         .HasColumnType("nvarchar(max)");
@@ -2424,17 +2885,35 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMP2")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("IBPT");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Invent", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Invent", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Lote")
                         .HasColumnName("LOTE")
@@ -2460,21 +2939,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TPMED")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("INVENT");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Logsys", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Logsys", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nivel")
                         .HasColumnName("NIVEL")
@@ -2488,6 +2979,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TIME")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Usuario")
                         .HasColumnName("USUARIO")
                         .HasColumnType("nvarchar(max)");
@@ -2497,7 +2991,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("LOGSYS");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Malclien", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Malclien", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2548,6 +3042,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CPF")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Datanasc")
                         .HasColumnName("DATANASC")
                         .HasColumnType("datetime");
@@ -2580,6 +3077,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMPRESSO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Nome")
                         .HasColumnName("NOME")
                         .HasColumnType("nvarchar(max)");
@@ -2592,12 +3095,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ULT_COMPRA")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("MALCLIEN");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Merctran", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Merctran", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2607,6 +3113,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Comissao")
                         .HasColumnName("COMISSAO")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Desconto")
                         .HasColumnName("DESCONTO")
@@ -2624,6 +3133,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ETIQUETA")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
                         .HasColumnType("nvarchar(max)");
@@ -2640,6 +3155,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("QTDE")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("VlTotal")
                         .HasColumnName("VL_TOTAL")
                         .HasColumnType("float");
@@ -2649,7 +3167,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("MERCTRAN");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Mov", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Mov", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2692,6 +3210,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CPF")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
@@ -2707,6 +3228,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Hora")
                         .HasColumnName("HORA")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NFiscal")
                         .HasColumnName("N_FISCAL")
@@ -2740,12 +3267,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TPVD")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("MOV");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Movm", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Movm", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2784,6 +3314,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODCLI")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
@@ -2795,6 +3328,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Hora")
                         .HasColumnName("HORA")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NFiscal")
                         .HasColumnName("N_FISCAL")
@@ -2820,12 +3359,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TPVD")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("MOVM");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Movme", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Movme", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2844,9 +3386,18 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODCLI")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Pedido")
                         .HasColumnName("PEDIDO")
@@ -2878,6 +3429,9 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Tpvd")
                         .HasColumnName("TPVD")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("VlTot")
@@ -2897,7 +3451,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("MOVME");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Movmes", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Movmes", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2916,6 +3470,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODCLI")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
@@ -2923,6 +3480,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Ecf")
                         .HasColumnName("ECF")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Pedido")
                         .HasColumnName("PEDIDO")
@@ -2956,6 +3519,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TPVD")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("VlTot")
                         .HasColumnName("VL_TOT")
                         .HasColumnType("float");
@@ -2973,7 +3539,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("MOVMES");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Movnf", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Movnf", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -2988,6 +3554,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CPF")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
@@ -3000,6 +3569,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ECF")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
                         .HasColumnType("nvarchar(max)");
@@ -3010,6 +3585,9 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Ticket")
                         .HasColumnName("TICKET")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("VlTot")
@@ -3025,7 +3603,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("MOVNF");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Movpop", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Movpop", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3052,6 +3630,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CPFCLI")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Crm")
                         .HasColumnName("CRM")
                         .HasColumnType("nvarchar(max)");
@@ -3067,6 +3648,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Ecf")
                         .HasColumnName("ECF")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
@@ -3088,6 +3675,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TOT_DESCON")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("VlTot")
                         .HasColumnName("VL_TOT")
                         .HasColumnType("float");
@@ -3105,7 +3695,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("MOVPOP");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Natureza", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Natureza", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3116,8 +3706,20 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODIGO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Nome")
                         .HasColumnName("NOME")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -3125,7 +3727,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("NATUREZA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Newcli", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Newcli", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3152,6 +3754,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODIGO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Datanasc")
                         .HasColumnName("DATANASC")
                         .HasColumnType("datetime");
@@ -3172,6 +3777,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMPRESSO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Nome")
                         .HasColumnName("NOME")
                         .HasColumnType("nvarchar(max)");
@@ -3188,12 +3799,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ULT_COMPRA")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("NEWCLI");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Newfunc", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Newfunc", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3203,6 +3817,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codgolden")
                         .HasColumnName("CODGOLDEN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Datademi")
                         .HasColumnName("DATADEMI")
@@ -3284,6 +3901,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMPRESSO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("Totdebcr")
                         .HasColumnName("TOTDEBCR")
                         .HasColumnType("float");
@@ -3292,17 +3915,29 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TOTDEBSR")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("NEWFUNC");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Newprec", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Newprec", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Prcddt")
                         .HasColumnName("PRCDDT")
@@ -3328,12 +3963,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("PRFABR")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("NEWPREC");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Newprod", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Newprod", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3356,6 +3994,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("COMISSAO")
                         .HasColumnType("float");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("DescMax")
                         .HasColumnName("DESC_MAX")
                         .HasColumnType("float");
@@ -3371,6 +4012,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Etgraf")
                         .HasColumnName("ETGRAF")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prbarra")
                         .HasColumnName("PRBARRA")
@@ -3536,6 +4183,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ULTPED")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("Vendant")
                         .HasColumnName("VENDANT")
                         .HasColumnType("float");
@@ -3549,12 +4199,21 @@ namespace DAL.Migrations.Remote
                     b.ToTable("NEWPROD");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Newtab", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Newtab", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Mesano")
                         .HasColumnName("MESANO")
@@ -3564,12 +4223,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("NEWTAB")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("NEWTAB");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Nfe", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Nfe", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3584,6 +4246,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODIGO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Descricao")
                         .HasColumnName("DESCRICAO")
                         .HasColumnType("nvarchar(max)");
@@ -3596,6 +4261,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMP")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Ncm")
                         .HasColumnName("NCM")
                         .HasColumnType("nvarchar(max)");
@@ -3606,6 +4277,9 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Qtde")
                         .HasColumnName("QTDE")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Valor")
@@ -3621,7 +4295,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("NFE");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Nota", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Nota", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3640,6 +4314,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CLIENTE")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("Icms")
                         .HasColumnName("ICMS")
                         .HasColumnType("float");
@@ -3647,6 +4324,12 @@ namespace DAL.Migrations.Remote
                     b.Property<double?>("Icmssub")
                         .HasColumnName("ICMSSUB")
                         .HasColumnType("float");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NFiscal")
                         .HasColumnName("N_FISCAL")
@@ -3704,20 +4387,35 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("NVALOR")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("NOTA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Notaf", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Notaf", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("NumNota")
                         .HasColumnName("NUM_NOTA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -3725,15 +4423,27 @@ namespace DAL.Migrations.Remote
                     b.ToTable("NOTAF");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Nped", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Nped", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Numped")
                         .HasColumnName("NUMPED")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -3741,15 +4451,27 @@ namespace DAL.Migrations.Remote
                     b.ToTable("NPED");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.NumTmp", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.NumTmp", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Numero")
                         .HasColumnName("NUMERO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -3757,12 +4479,15 @@ namespace DAL.Migrations.Remote
                     b.ToTable("NumTmp");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Numped", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Numped", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Desconto")
                         .HasColumnName("DESCONTO")
@@ -3771,6 +4496,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Fornec")
                         .HasColumnName("FORNEC")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Numero")
                         .HasColumnName("NUMERO")
@@ -3784,12 +4515,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("PRZPAGTO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("NUMPED");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ped0204", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ped0204", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3799,6 +4533,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codint")
                         .HasColumnName("CODINT")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Eloja1")
                         .HasColumnName("ELOJA1")
@@ -3819,6 +4556,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Forn")
                         .HasColumnName("FORN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Mloja1")
                         .HasColumnName("MLOJA1")
@@ -3862,6 +4605,9 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Prdesc")
                         .HasColumnName("PRDESC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
@@ -3873,7 +4619,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("PED0204");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ped0301", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ped0301", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3883,6 +4629,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codint")
                         .HasColumnName("CODINT")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Eloja1")
                         .HasColumnName("ELOJA1")
@@ -3903,6 +4652,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Forn")
                         .HasColumnName("FORN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Mloja1")
                         .HasColumnName("MLOJA1")
@@ -3946,6 +4701,9 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Prdesc")
                         .HasColumnName("PRDESC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
@@ -3957,7 +4715,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("PED0301");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ped0406", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ped0406", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -3967,6 +4725,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codint")
                         .HasColumnName("CODINT")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Eloja1")
                         .HasColumnName("ELOJA1")
@@ -3987,6 +4748,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Forn")
                         .HasColumnName("FORN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Mloja1")
                         .HasColumnName("MLOJA1")
@@ -4030,6 +4797,9 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Prdesc")
                         .HasColumnName("PRDESC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
@@ -4041,7 +4811,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("PED0406");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ped1103", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ped1103", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4051,6 +4821,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codint")
                         .HasColumnName("CODINT")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Eloja1")
                         .HasColumnName("ELOJA1")
@@ -4071,6 +4844,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Forn")
                         .HasColumnName("FORN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Mloja1")
                         .HasColumnName("MLOJA1")
@@ -4114,6 +4893,9 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Prdesc")
                         .HasColumnName("PRDESC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
@@ -4125,7 +4907,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("PED1103");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ped1406", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ped1406", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4135,6 +4917,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codint")
                         .HasColumnName("CODINT")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Eloja1")
                         .HasColumnName("ELOJA1")
@@ -4155,6 +4940,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Forn")
                         .HasColumnName("FORN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Mloja1")
                         .HasColumnName("MLOJA1")
@@ -4198,6 +4989,9 @@ namespace DAL.Migrations.Remote
 
                     b.Property<string>("Prdesc")
                         .HasColumnName("PRDESC")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
@@ -4209,7 +5003,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("PED1406");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ped1912", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ped1912", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4219,6 +5013,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Codint")
                         .HasColumnName("CODINT")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Eloja1")
                         .HasColumnName("ELOJA1")
@@ -4239,6 +5036,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Forn")
                         .HasColumnName("FORN")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Mloja1")
                         .HasColumnName("MLOJA1")
@@ -4284,6 +5087,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("PRDESC")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("Valor")
                         .HasColumnName("VALOR")
                         .HasColumnType("float");
@@ -4293,12 +5099,21 @@ namespace DAL.Migrations.Remote
                     b.ToTable("PED1912");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Pedidos", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Pedidos", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prcdla")
                         .HasColumnName("PRCDLA")
@@ -4324,12 +5139,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("STATUS")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("PEDIDOS");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Prodextr", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Prodextr", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4352,6 +5170,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CONCOR4")
                         .HasColumnType("float");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
                         .HasColumnType("nvarchar(max)");
@@ -4364,12 +5191,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("PRDESC")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("PRODEXTR");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Produto", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Produto", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4641,7 +5471,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("PRODUTO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Psico", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Psico", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4659,6 +5489,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Cnpj")
                         .HasColumnName("CNPJ")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Crm")
                         .HasColumnName("CRM")
@@ -4683,6 +5516,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Idade")
                         .HasColumnName("IDADE")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Lote")
                         .HasColumnName("LOTE")
@@ -4788,6 +5627,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("UNIDADE")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Usomed")
                         .HasColumnName("USOMED")
                         .HasColumnType("nvarchar(max)");
@@ -4797,7 +5639,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("PSICO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Rancliqt", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Rancliqt", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4816,9 +5658,18 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODCLI")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
@@ -4844,6 +5695,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TOT_DESCON")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("VlTot")
                         .HasColumnName("VL_TOT")
                         .HasColumnType("float");
@@ -4857,7 +5711,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("RANCLIQT");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ranclivl", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ranclivl", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4880,6 +5734,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CODCLI")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
@@ -4887,6 +5744,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Hora")
                         .HasColumnName("HORA")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NFiscal")
                         .HasColumnName("N_FISCAL")
@@ -4904,12 +5767,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TOT_VEN")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("RANCLIVL");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Reconst", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Reconst", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4920,9 +5786,18 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ARQCoreVO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Necessita")
                         .HasColumnName("NECESSITA")
@@ -4932,12 +5807,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("POSICAO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("RECONST");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Reducao", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Reducao", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -4972,6 +5850,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("COO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("nvarchar(max)");
@@ -4983,6 +5864,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Gtda")
                         .HasColumnName("GTDA")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nsi")
                         .HasColumnName("NSI")
@@ -5004,17 +5891,29 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TRIBUTO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("REDUCAO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Relator", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Relator", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Nivel")
                         .HasColumnName("NIVEL")
@@ -5024,12 +5923,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("RELATORIO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("relator");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.ResAno", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.ResAno", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -5039,6 +5941,9 @@ namespace DAL.Migrations.Remote
                     b.Property<double?>("CliAtds")
                         .HasColumnName("CLI_ATDS")
                         .HasColumnType("float");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Descrec")
                         .HasColumnName("DESCREC")
@@ -5052,6 +5957,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ENTRADAS")
                         .HasColumnType("float");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("MesRef")
                         .HasColumnName("MES_REF")
                         .HasColumnType("nvarchar(max)");
@@ -5063,6 +5974,9 @@ namespace DAL.Migrations.Remote
                     b.Property<double?>("TotEstoq")
                         .HasColumnName("TOT_ESTOQ")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("VdaConv")
                         .HasColumnName("VDA_CONV")
@@ -5085,7 +5999,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("ResAno");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Retirada", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Retirada", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -5096,12 +6010,24 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("CAIXA")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
 
                     b.Property<string>("Hora")
                         .HasColumnName("HORA")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valorch")
@@ -5117,12 +6043,21 @@ namespace DAL.Migrations.Remote
                     b.ToTable("RETIRADA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Sal", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Sal", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Salcod")
                         .HasColumnName("SALCOD")
@@ -5132,17 +6067,29 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SALNOME")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("SAL");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Secao", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Secao", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Secodi")
                         .HasColumnName("SECODI")
@@ -5152,17 +6099,29 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SENOME")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("SECAO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Senha", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Senha", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Sen")
                         .HasColumnName("SEN")
@@ -5332,17 +6291,29 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SENVLPON")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("SENHA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Servico", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Servico", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Svcodi")
                         .HasColumnName("SVCODI")
@@ -5388,20 +6359,35 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SVVEN2")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("SERVICO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Sistema", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Sistema", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Ticket")
                         .HasColumnName("TICKET")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Usuario")
@@ -5413,15 +6399,27 @@ namespace DAL.Migrations.Remote
                     b.ToTable("SISTEMA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Slpharma", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Slpharma", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Reconst")
                         .HasColumnName("RECONST")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -5429,12 +6427,21 @@ namespace DAL.Migrations.Remote
                     b.ToTable("SLPHARMA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Subsecao", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Subsecao", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Secaopert")
                         .HasColumnName("SECAOPERT")
@@ -5464,6 +6471,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SUBSEPREC")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("Valrec")
                         .HasColumnName("VALREC")
                         .HasColumnType("float");
@@ -5473,7 +6483,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("SUBSECAO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Tabela", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Tabela", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -5487,6 +6497,9 @@ namespace DAL.Migrations.Remote
                     b.Property<double?>("Barra")
                         .HasColumnName("BARRA")
                         .HasColumnType("float");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Ctr")
                         .HasColumnName("CTR")
@@ -5512,9 +6525,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IPI")
                         .HasColumnType("float");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LabNom")
                         .HasColumnName("LAB_NOM")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("MedApr")
                         .HasColumnName("MED_APR")
@@ -5556,17 +6575,23 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("UNI")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("TABELA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Temp", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Temp", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Desconto")
                         .HasColumnName("DESCONTO")
@@ -5575,6 +6600,12 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Descricao")
                         .HasColumnName("DESCRICAO")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
@@ -5592,6 +6623,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("QTDE")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("VlTotal")
                         .HasColumnName("VL_TOTAL")
                         .HasColumnType("float");
@@ -5601,12 +6635,15 @@ namespace DAL.Migrations.Remote
                     b.ToTable("TEMP");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Tempo", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Tempo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<double?>("Desconto")
                         .HasColumnName("DESCONTO")
@@ -5619,6 +6656,12 @@ namespace DAL.Migrations.Remote
                     b.Property<double?>("Estoque")
                         .HasColumnName("ESTOQUE")
                         .HasColumnType("float");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Pedido")
                         .HasColumnName("PEDIDO")
@@ -5640,6 +6683,9 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("QTDE")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double?>("VlTotal")
                         .HasColumnName("VL_TOTAL")
                         .HasColumnType("float");
@@ -5649,19 +6695,31 @@ namespace DAL.Migrations.Remote
                     b.ToTable("TEMPO");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Ticket", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Ticket", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Ecf")
                         .HasColumnName("ECF")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Ticket1")
                         .HasColumnName("TICKET")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UniqueCode")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -5669,7 +6727,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("TICKET");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Transfer", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Transfer", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -5679,6 +6737,9 @@ namespace DAL.Migrations.Remote
                     b.Property<string>("Balcon")
                         .HasColumnName("BALCON")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Etiqueta")
                         .HasColumnName("ETIQUETA")
@@ -5696,6 +6757,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("IMPRESSO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
                         .HasColumnType("nvarchar(max)");
@@ -5712,17 +6779,23 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("TRDATA")
                         .HasColumnType("datetime");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("TRANSFER");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco1", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco1", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5732,21 +6805,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO1");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco10", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco10", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5756,21 +6841,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO10");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco11", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco11", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5780,21 +6877,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO11");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco12", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco12", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5804,21 +6913,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO12");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco13", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco13", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5828,21 +6949,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO13");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco14", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco14", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5852,21 +6985,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO14");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco15", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco15", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5876,21 +7021,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO15");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco16", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco16", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5900,21 +7057,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO16");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco17", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco17", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5924,21 +7093,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO17");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco18", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco18", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5948,21 +7129,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO18");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco19", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco19", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5972,21 +7165,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO19");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco2", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco2", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -5996,21 +7201,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO2");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco20", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco20", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -6020,21 +7237,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO20");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco3", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco3", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -6044,21 +7273,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO3");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco4", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco4", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -6068,21 +7309,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO4");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco5", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco5", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -6092,21 +7345,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO5");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco6", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco6", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -6116,21 +7381,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO6");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco7", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco7", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -6140,21 +7417,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO7");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco8", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco8", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -6164,21 +7453,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO8");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Troco9", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Troco9", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
@@ -6188,25 +7489,46 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("INITROCO")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<double?>("TrocoIni")
                         .HasColumnName("TROCO_INI")
                         .HasColumnType("float");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
                     b.ToTable("TROCO9");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Urv", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Urv", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<double?>("Valor")
                         .HasColumnName("VALOR")
@@ -6217,7 +7539,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("URV");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Usefarma", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Usefarma", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -6264,6 +7586,15 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("ACESSO9")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<string>("Nivel")
                         .HasColumnName("NIVEL")
                         .HasColumnType("nvarchar(max)");
@@ -6276,21 +7607,33 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("SENHA")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("USEFARMA");
                 });
 
-            modelBuilder.Entity("Core.Entities.LegacyScaffold.Usoint", b =>
+            modelBuilder.Entity("Core.Entities.Legacy.Usoint", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
                     b.Property<DateTime?>("Data")
                         .HasColumnName("DATA")
                         .HasColumnType("datetime");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Prcodi")
                         .HasColumnName("PRCODI")
@@ -6300,78 +7643,12 @@ namespace DAL.Migrations.Remote
                         .HasColumnName("QTDE")
                         .HasColumnType("float");
 
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
                     b.ToTable("USOINT");
-                });
-
-            modelBuilder.Entity("Core.Entities.Stock.Manufacturer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Cnpj")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.ToTable("Manufacturers");
-                });
-
-            modelBuilder.Entity("Core.Entities.Stock.ProductStockEntry", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StockEntryId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("StockEntryId");
-
-                    b.ToTable("ProductStockEntry");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.StockEntry", b =>
@@ -6381,17 +7658,23 @@ namespace DAL.Migrations.Remote
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime?>("CreatedAt")
-                        .HasColumnType("datetime2");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 860, DateTimeKind.Unspecified).AddTicks(6858), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("DrugMaturityDate")
                         .HasColumnType("datetime2");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 860, DateTimeKind.Unspecified).AddTicks(7200), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("LotCode")
                         .HasColumnType("nvarchar(max)");
@@ -6418,7 +7701,7 @@ namespace DAL.Migrations.Remote
 
                     b.HasIndex("SupplierId");
 
-                    b.ToTable("StockEntries");
+                    b.ToTable("StockEntry");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.Supplier", b =>
@@ -6435,13 +7718,19 @@ namespace DAL.Migrations.Remote
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 861, DateTimeKind.Unspecified).AddTicks(2249), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 861, DateTimeKind.Unspecified).AddTicks(2822), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("SupplierName")
                         .HasColumnType("nvarchar(max)");
@@ -6454,6 +7743,42 @@ namespace DAL.Migrations.Remote
                     b.HasIndex("AddressId");
 
                     b.ToTable("Supplier");
+                });
+
+            modelBuilder.Entity("Core.Entities.Sync.Syncronization", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 582, DateTimeKind.Unspecified).AddTicks(460), new TimeSpan(0, 0, 0, 0, 0)));
+
+                    b.Property<bool>("IsDeleted")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bit")
+                        .HasDefaultValue(false);
+
+                    b.Property<DateTimeOffset>("LastSyncronization")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("datetimeoffset")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 582, DateTimeKind.Unspecified).AddTicks(3486), new TimeSpan(0, 0, 0, 0, 0)));
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedFrom")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Syncronization");
                 });
 
             modelBuilder.Entity("Core.Entities.Catalog.Drug", b =>
@@ -6516,6 +7841,37 @@ namespace DAL.Migrations.Remote
                     b.HasDiscriminator().HasValue("Drug");
                 });
 
+            modelBuilder.Entity("Core.Entities.Client", b =>
+                {
+                    b.HasBaseType("Core.Entities.Financial.Beneficiary");
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cpf")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasDiscriminator().HasValue("Client");
+                });
+
+            modelBuilder.Entity("Core.Entities.Stock.Manufacturer", b =>
+                {
+                    b.HasBaseType("Core.Entities.Financial.Beneficiary");
+
+                    b.Property<int?>("AddressId")
+                        .HasColumnName("Manufacturer_AddressId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Cnpj")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasDiscriminator().HasValue("Manufacturer");
+                });
+
             modelBuilder.Entity("Core.Entities.Catalog.DrugInformation", b =>
                 {
                     b.HasOne("Core.Entities.Catalog.Drug", "Drug")
@@ -6525,7 +7881,7 @@ namespace DAL.Migrations.Remote
 
             modelBuilder.Entity("Core.Entities.Catalog.Product", b =>
                 {
-                    b.HasOne("Core.Entities.LegacyScaffold.Produto", "Produto")
+                    b.HasOne("Core.Entities.Legacy.Produto", "Produto")
                         .WithMany()
                         .HasForeignKey("ProdutoId");
                 });
@@ -6548,6 +7904,21 @@ namespace DAL.Migrations.Remote
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Core.Entities.Catalog.ProductStockEntry", b =>
+                {
+                    b.HasOne("Core.Entities.Catalog.Product", "Product")
+                        .WithMany("Stockentries")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Stock.StockEntry", "StockEntry")
+                        .WithMany()
+                        .HasForeignKey("StockEntryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Core.Entities.Catalog.ProductSupplier", b =>
                 {
                     b.HasOne("Core.Entities.Catalog.Product", "Product")
@@ -6559,35 +7930,6 @@ namespace DAL.Migrations.Remote
                     b.HasOne("Core.Entities.Stock.Supplier", "Supplier")
                         .WithMany("Products")
                         .HasForeignKey("SupplierId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Core.Entities.Client", b =>
-                {
-                    b.HasOne("Core.Entities.Address", "Address")
-                        .WithMany("Clients")
-                        .HasForeignKey("AddressId");
-                });
-
-            modelBuilder.Entity("Core.Entities.Stock.Manufacturer", b =>
-                {
-                    b.HasOne("Core.Entities.Address", "Address")
-                        .WithMany("Manufacturer")
-                        .HasForeignKey("AddressId");
-                });
-
-            modelBuilder.Entity("Core.Entities.Stock.ProductStockEntry", b =>
-                {
-                    b.HasOne("Core.Entities.Catalog.Product", "Product")
-                        .WithMany("Stockentries")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Core.Entities.Stock.StockEntry", "StockEntry")
-                        .WithMany()
-                        .HasForeignKey("StockEntryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -6611,6 +7953,20 @@ namespace DAL.Migrations.Remote
                     b.HasOne("Core.Entities.Stock.StockEntry", null)
                         .WithMany("Drugs")
                         .HasForeignKey("StockEntryId");
+                });
+
+            modelBuilder.Entity("Core.Entities.Client", b =>
+                {
+                    b.HasOne("Core.Entities.Address", "Address")
+                        .WithMany("Clients")
+                        .HasForeignKey("AddressId");
+                });
+
+            modelBuilder.Entity("Core.Entities.Stock.Manufacturer", b =>
+                {
+                    b.HasOne("Core.Entities.Address", "Address")
+                        .WithMany("Manufacturer")
+                        .HasForeignKey("AddressId");
                 });
 #pragma warning restore 612, 618
         }

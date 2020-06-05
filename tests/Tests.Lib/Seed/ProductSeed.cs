@@ -19,7 +19,7 @@ namespace Tests.Lib.Seed
                 BarCode = Guid.NewGuid().ToString(),
                 UniqueCode = "40028922",                
             };
-            product.Produto = new Core.Entities.LegacyScaffold.Produto{
+            product.Produto = new Core.Entities.Legacy.Produto{
                 Prfabr = 14.99d,
                 Prcons = 32.99d,                    
                 Prbarra = product.BarCode,

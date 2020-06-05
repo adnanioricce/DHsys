@@ -1,4 +1,4 @@
-﻿using Core.Entities.LegacyScaffold;
+﻿using Core.Entities.Legacy;
 using Core.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;

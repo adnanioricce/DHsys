@@ -75,8 +75,7 @@ namespace Desktop
             services.AddApplicationServices();            
             services.AddCustomMappers();
             services.AddViews();
-            services.AddViewModels();
-            services.AddDataStore(configuration);
+            services.AddViewModels();            
             services.AddTransient(typeof(ILegacyRepository<>),typeof(DbfRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddScoped<CustomNavigationService>(ConfigureNavigationService);            

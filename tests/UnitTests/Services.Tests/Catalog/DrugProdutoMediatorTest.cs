@@ -1,7 +1,7 @@
 using System.Linq;
 using Application.Services.Catalog;
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Interfaces.Catalog;
 using Moq;

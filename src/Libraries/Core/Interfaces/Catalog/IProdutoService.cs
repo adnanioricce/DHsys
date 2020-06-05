@@ -1,5 +1,5 @@
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 
 namespace Core.Interfaces.Catalog
 {

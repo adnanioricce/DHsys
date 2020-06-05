@@ -1,4 +1,4 @@
-﻿using Core.Entities.LegacyScaffold;
+﻿using Core.Entities.Legacy;
 using System.Collections.Generic;
 
 namespace Core.Models.ApplicationResources.Requests

@@ -2,7 +2,7 @@ using System.IO;
 using Api.Controllers.Api;
 using AspNetCore.Http.Extensions;
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
 using Core.Models.ApplicationResources.Requests;
@@ -29,17 +29,16 @@ namespace Api.Tests.Controllers.Api
         {
             // Arrange
             var baseUrl = "api/Drugs/search/list?name={0}";            
-            string name = "Lixiana";
+            string name = "Dipirona";
             string requestUrl = string.Format(baseUrl, name);
             // Act
             //var result = _client.get
             var result = await _client.GetAsync(requestUrl);
-            result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IEnumerable<Drug>>>();
             // Assert
             var count = valueResult.ResultObject.Count();
             Assert.True(valueResult.Success);
-            Assert.Equal(1, count);            
+            Assert.True(valueResult.ResultObject.Count() > 0);
         }
 
         [Fact]
@@ -47,16 +46,11 @@ namespace Api.Tests.Controllers.Api
         {
             // Arrange
             string baseUrl = "api/Drugs/search?barcode={0}";            
-            string barCode = "0987654321012";
+            string barCode = "1234567890123";
             string requestUrl = string.Format(baseUrl, barCode);
             // Act
             //var result = drugsController.GetDrugByBarCode(barCode);
-            var result = await _client.GetAsync(requestUrl);
-            if(!result.IsSuccessStatusCode)
-            {
-                string message = await result.Content.ReadAsStringAsync();
-                File.WriteAllText($"log-GET_GetDrugByBarCode_StateUnderTest_ExpectedBehavior.txt",message);
-            }
+            var result = await _client.GetAsync(requestUrl);           
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<Drug>>();
             // Assert
