@@ -104,11 +104,11 @@ namespace Api.IntegrationTests
                     .ToList()
                     .ForEach(c => {
                         if ((c.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists())
-                        {
-                            c.ApplyUpgrades();                             
+                        {                            
+                            c.ApplyUpgrades();
                         }
                         else
-                        {                            
+                        {
                             c.Database.Migrate();
                         }
                     });                          

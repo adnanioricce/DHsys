@@ -399,10 +399,10 @@ namespace DAL.Migrations.Remote
                             BeneficiaryId = 0,
                             BeneficiaryName = "empresa",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            EndDate = new DateTime(2020, 6, 4, 15, 6, 33, 333, DateTimeKind.Utc).AddTicks(4418),
+                            EndDate = new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Utc).AddTicks(1681),
                             IsDeleted = false,
                             IsPaid = false,
-                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 4, 15, 6, 33, 333, DateTimeKind.Unspecified).AddTicks(3782), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Unspecified).AddTicks(1022), new TimeSpan(0, 0, 0, 0, 0)),
                             PersonType = 0,
                             Price = 12.99m
                         },
@@ -412,10 +412,10 @@ namespace DAL.Migrations.Remote
                             BeneficiaryId = 0,
                             BeneficiaryName = "empresa 2",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            EndDate = new DateTime(2020, 6, 4, 15, 6, 33, 333, DateTimeKind.Utc).AddTicks(6467),
+                            EndDate = new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Utc).AddTicks(3824),
                             IsDeleted = false,
                             IsPaid = false,
-                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 4, 15, 6, 33, 333, DateTimeKind.Unspecified).AddTicks(6458), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Unspecified).AddTicks(3817), new TimeSpan(0, 0, 0, 0, 0)),
                             PersonType = 0,
                             Price = 22.99m
                         });

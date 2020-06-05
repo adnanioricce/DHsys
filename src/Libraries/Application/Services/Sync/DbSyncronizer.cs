@@ -46,14 +46,13 @@ namespace Application.Services.Sync
         public async Task<BaseResult<object>> SyncLocalDbWithRemoteDbAsync(LocalContext localContext,RemoteContext remoteContext)
         {
             var (remoteConnection, localConnection) = (remoteContext.Database.GetDbConnection(),localContext.Database.GetDbConnection());            
-            var (serverProvider, clientProvider) = (GetSqlSyncProvider(remoteConnection),GetSqlSyncProvider(localConnection));            
-            var tableNames = remoteContext.Model
-                    .GetEntityTypes()
-                    .Select(e => e.GetTableName())
-                    .ToArray();
-            var agent = new SyncAgent(clientProvider, serverProvider,tableNames
-                    );
-            var syncContext = await agent.SynchronizeAsync();
+            var (serverProvider, clientProvider) = (GetSqlSyncProvider(remoteConnection),GetSqlSyncProvider(localConnection));
+            var tableNames = remoteContext.Model.GetEntityTypes()
+                                                .Select(e => e.GetTableName())
+                                                .Distinct()
+                                                .ToArray();            
+            var agent = new SyncAgent(clientProvider, serverProvider,tableNames);
+            var syncContext = await agent.SynchronizeAsync(Dotmim.Sync.Enumerations.SyncType.Reinitialize);
             _logger.LogInformation($"Syncronization result:{syncContext.ToString()}");
             return new BaseResult<object> {
                 Value = syncContext,

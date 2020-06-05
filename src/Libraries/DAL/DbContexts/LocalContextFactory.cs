@@ -6,14 +6,14 @@ using System.Text;
 
 namespace DAL.DbContexts
 {
-    public class BaseContextFactory : IDesignTimeDbContextFactory<BaseContext>
+    public class LocalContextFactory : IDesignTimeDbContextFactory<LocalContext>
     {
-        public BaseContext CreateDbContext(string[] args)
+        public LocalContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<BaseContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<LocalContext>();
             optionsBuilder.UseSqlite("Data Source=migration-placeholder.db");
 
-            return new BaseContext(optionsBuilder.Options);
+            return new LocalContext(optionsBuilder.Options);
         }
     }
 }

@@ -40,13 +40,13 @@ namespace Api.IntegrationTests.Services.Sync
             var remoteEntities = _remoteContext.Model.GetEntityTypes();
             // Then
             Assert.True(result.Success);
-            Assert.Equal(remoteEntities, localEntities);
+            Assert.Equal(remoteEntities.Count(), localEntities.Count());
             localContext.Dispose();
         }        
         private LocalContext CreateContext()
         {
             var context = new LocalContext(CreateOptions(new SqliteConnection($"DataSource={Guid.NewGuid().ToString()}.db")));
-            context.ApplyUpgrades();
+            //context.ApplyUpgrades();
             var models = context.Model.GetEntityTypes().Select(e => e.GetTableName());
             return context;
         }
