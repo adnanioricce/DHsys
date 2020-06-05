@@ -52,7 +52,8 @@ namespace DAL.Extensions
         public static void ApplyUpgrades(this BaseContext context)
         {
             var migrator = context.Database.GetService<IMigrator>();
-            var pendingMigrations = context.GetPendingMigrationScripts().ToList();
+            var pendingMigrations = context.GetPendingMigrationScripts().Select(s => s.Replace("\r\nGO", " "))
+                                                                        .ToList();
             if (pendingMigrations.Any())
             {                
                 pendingMigrations.ForEach(migration => context.Database.ExecuteSqlRaw(migration));
@@ -62,8 +63,9 @@ namespace DAL.Extensions
         {
             var migrator = context.Database.GetService<IMigrator>();
             var pendingMigrations = context.Database.GetPendingMigrations().ToList();            
-            var scriptsEnum = pendingMigrations.GetEnumerator();            
-            var scripts = pendingMigrations.Select(m => migrator.GenerateScript(toMigration:m));
+            var scriptsEnum = pendingMigrations.GetEnumerator();
+            var idempotent = !context.Database.IsSqlite() ? true : false;
+            var scripts = pendingMigrations.Select(m => migrator.GenerateScript(toMigration:m,idempotent:idempotent));
             return scripts;
         }
         public static void BuildModel(this ModelBuilder modelBuilder)

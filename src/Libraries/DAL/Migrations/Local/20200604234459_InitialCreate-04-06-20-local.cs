@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace DAL.Migrations
+namespace DAL.Migrations.Local
 {
-    public partial class InitialCreate02062020 : Migration
+    public partial class InitialCreate040620local : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -2812,12 +2812,12 @@ namespace DAL.Migrations
             migrationBuilder.InsertData(
                 table: "Billings",
                 columns: new[] { "Id", "BeneficiaryId", "BeneficiaryName", "CreatedAt", "Discount", "EndDate", "IsDeleted", "IsPaid", "LastUpdatedOn", "PersonType", "Price", "UniqueCode" },
-                values: new object[] { 1, 0, "empresa", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 3, 1, 24, 55, 656, DateTimeKind.Utc).AddTicks(9746), false, false, new DateTimeOffset(new DateTime(2020, 6, 3, 1, 24, 55, 656, DateTimeKind.Unspecified).AddTicks(9088), new TimeSpan(0, 0, 0, 0, 0)), 0, 12.99m, null });
+                values: new object[] { 1, 0, "empresa", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 4, 23, 44, 58, 125, DateTimeKind.Utc).AddTicks(9876), false, false, new DateTimeOffset(new DateTime(2020, 6, 4, 23, 44, 58, 125, DateTimeKind.Unspecified).AddTicks(9258), new TimeSpan(0, 0, 0, 0, 0)), 0, 12.99m, null });
 
             migrationBuilder.InsertData(
                 table: "Billings",
                 columns: new[] { "Id", "BeneficiaryId", "BeneficiaryName", "CreatedAt", "Discount", "EndDate", "IsDeleted", "IsPaid", "LastUpdatedOn", "PersonType", "Price", "UniqueCode" },
-                values: new object[] { 2, 0, "empresa 2", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 3, 1, 24, 55, 657, DateTimeKind.Utc).AddTicks(1845), false, false, new DateTimeOffset(new DateTime(2020, 6, 3, 1, 24, 55, 657, DateTimeKind.Unspecified).AddTicks(1827), new TimeSpan(0, 0, 0, 0, 0)), 0, 22.99m, null });
+                values: new object[] { 2, 0, "empresa 2", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 4, 23, 44, 58, 126, DateTimeKind.Utc).AddTicks(1921), false, false, new DateTimeOffset(new DateTime(2020, 6, 4, 23, 44, 58, 126, DateTimeKind.Unspecified).AddTicks(1912), new TimeSpan(0, 0, 0, 0, 0)), 0, 22.99m, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Client_AddressId",

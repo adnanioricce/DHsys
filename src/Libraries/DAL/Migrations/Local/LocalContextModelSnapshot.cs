@@ -5,10 +5,10 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace DAL.Migrations
+namespace DAL.Migrations.Local
 {
-    [DbContext(typeof(BaseContext))]
-    partial class BaseContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(LocalContext))]
+    partial class LocalContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -388,10 +388,10 @@ namespace DAL.Migrations
                             BeneficiaryId = 0,
                             BeneficiaryName = "empresa",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            EndDate = new DateTime(2020, 6, 3, 1, 24, 55, 656, DateTimeKind.Utc).AddTicks(9746),
+                            EndDate = new DateTime(2020, 6, 4, 23, 44, 58, 125, DateTimeKind.Utc).AddTicks(9876),
                             IsDeleted = false,
                             IsPaid = false,
-                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 3, 1, 24, 55, 656, DateTimeKind.Unspecified).AddTicks(9088), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 4, 23, 44, 58, 125, DateTimeKind.Unspecified).AddTicks(9258), new TimeSpan(0, 0, 0, 0, 0)),
                             PersonType = 0,
                             Price = 12.99m
                         },
@@ -401,10 +401,10 @@ namespace DAL.Migrations
                             BeneficiaryId = 0,
                             BeneficiaryName = "empresa 2",
                             CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            EndDate = new DateTime(2020, 6, 3, 1, 24, 55, 657, DateTimeKind.Utc).AddTicks(1845),
+                            EndDate = new DateTime(2020, 6, 4, 23, 44, 58, 126, DateTimeKind.Utc).AddTicks(1921),
                             IsDeleted = false,
                             IsPaid = false,
-                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 3, 1, 24, 55, 657, DateTimeKind.Unspecified).AddTicks(1827), new TimeSpan(0, 0, 0, 0, 0)),
+                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 4, 23, 44, 58, 126, DateTimeKind.Unspecified).AddTicks(1912), new TimeSpan(0, 0, 0, 0, 0)),
                             PersonType = 0,
                             Price = 22.99m
                         });

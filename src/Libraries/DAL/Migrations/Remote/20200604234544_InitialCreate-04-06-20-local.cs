@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DAL.Migrations.Remote
 {
-    public partial class InitialCreate02062020 : Migration
+    public partial class InitialCreate040620local : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -13,7 +12,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -36,7 +35,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -59,7 +58,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     BACODI = table.Column<string>(nullable: true),
                     BANOME = table.Column<string>(nullable: true),
                     BACOMI = table.Column<double>(nullable: true),
@@ -84,7 +83,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -107,7 +106,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     PONTOS = table.Column<double>(nullable: true),
@@ -123,7 +122,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     LACODI = table.Column<string>(nullable: true),
                     FONOME = table.Column<string>(nullable: true),
                     FOAPEL = table.Column<string>(nullable: true),
@@ -147,7 +146,7 @@ namespace DAL.Migrations.Remote
                     LAULNO = table.Column<string>(nullable: true),
                     LATIPO = table.Column<string>(nullable: true),
                     NOMARQ = table.Column<string>(nullable: true),
-                    DT_ALTER = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DT_ALTER = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -159,11 +158,11 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     LACODI = table.Column<string>(nullable: true),
                     FONOME = table.Column<string>(nullable: true),
                     FOTELE = table.Column<string>(nullable: true),
-                    VALID = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    VALID = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -175,11 +174,11 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CX_ATEND = table.Column<string>(nullable: true),
-                    CX_DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CX_DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     CX_VALOR = table.Column<double>(nullable: true),
-                    CX_REC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CX_REC = table.Column<DateTime>(type: "datetime", nullable: true),
                     CX_ADM = table.Column<string>(nullable: true),
                     CX_CART = table.Column<double>(nullable: true),
                     CX_TIPO = table.Column<string>(nullable: true)
@@ -194,13 +193,13 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FILIAL = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     CODEMP = table.Column<string>(nullable: true),
                     CODFUN = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    DATAC = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATAC = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -212,7 +211,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     PRAZO = table.Column<string>(nullable: true),
@@ -230,14 +229,14 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CHEQUE = table.Column<string>(nullable: true),
                     AGENCIA = table.Column<string>(nullable: true),
                     BANCO = table.Column<string>(nullable: true),
                     CONTA = table.Column<string>(nullable: true),
                     VALOR = table.Column<double>(nullable: true),
-                    DATAE = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATAE = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     CLIENTE = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -250,14 +249,14 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CHEQUE = table.Column<string>(nullable: true),
                     AGENCIA = table.Column<string>(nullable: true),
                     BANCO = table.Column<string>(nullable: true),
                     CONTA = table.Column<string>(nullable: true),
                     VALOR = table.Column<double>(nullable: true),
-                    DATAE = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATAE = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     SITUACAO = table.Column<string>(nullable: true),
                     BAIXA = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
@@ -277,11 +276,11 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
-                    DATANASC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATANASC = table.Column<DateTime>(type: "datetime", nullable: true),
                     CIDADE = table.Column<string>(nullable: true),
                     BAIRRO = table.Column<string>(nullable: true),
                     CEP = table.Column<string>(nullable: true),
@@ -299,7 +298,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CLCODI = table.Column<string>(nullable: true),
                     CLNOME = table.Column<string>(nullable: true),
                     CLENDE = table.Column<string>(nullable: true),
@@ -309,14 +308,14 @@ namespace DAL.Migrations.Remote
                     CLDEBI = table.Column<double>(nullable: true),
                     CLPAGTO = table.Column<double>(nullable: true),
                     CLLIME = table.Column<double>(nullable: true),
-                    CLCOMPRA = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    CLUPAGTO = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CLCOMPRA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CLUPAGTO = table.Column<DateTime>(type: "datetime", nullable: true),
                     CLCIDA = table.Column<string>(nullable: true),
                     CLDESC = table.Column<string>(nullable: true),
                     CLDESMED = table.Column<double>(nullable: true),
                     CLDESPER = table.Column<double>(nullable: true),
                     CLBAIRRO = table.Column<string>(nullable: true),
-                    CLNASC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CLNASC = table.Column<DateTime>(type: "datetime", nullable: true),
                     CLRG = table.Column<string>(nullable: true),
                     CLOBS = table.Column<string>(nullable: true),
                     CLCPF = table.Column<string>(nullable: true),
@@ -332,7 +331,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CPF_CRM = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
@@ -349,9 +348,9 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CLIENTE = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     VALOR = table.Column<double>(nullable: true),
                     CREDITO = table.Column<double>(nullable: true)
                 },
@@ -365,7 +364,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     COD = table.Column<string>(nullable: true),
                     HIST = table.Column<string>(nullable: true)
                 },
@@ -379,22 +378,22 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FUCDEM = table.Column<string>(nullable: true),
                     FUCODI = table.Column<string>(nullable: true),
                     CVNOTA = table.Column<string>(nullable: true),
                     CVBALC = table.Column<string>(nullable: true),
-                    CVDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CVDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     CVVALOURV = table.Column<double>(nullable: true),
                     CVOBSV = table.Column<string>(nullable: true),
                     CVTICK = table.Column<string>(nullable: true),
                     CVRECEITA = table.Column<string>(nullable: true),
-                    CVDTREC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CVDTREC = table.Column<DateTime>(type: "datetime", nullable: true),
                     CVPSUSO = table.Column<string>(nullable: true),
                     CVENTREGA = table.Column<string>(nullable: true),
                     CVVALOCRZ = table.Column<double>(nullable: true),
                     CVCOMISSAO = table.Column<double>(nullable: true),
-                    CVLIBCOM = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CVLIBCOM = table.Column<DateTime>(type: "datetime", nullable: true),
                     CVFILIAL = table.Column<string>(nullable: true),
                     CVTITULAR = table.Column<string>(nullable: true)
                 },
@@ -408,24 +407,24 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FUCDEM = table.Column<string>(nullable: true),
                     FUCODI = table.Column<string>(nullable: true),
                     CVNOTA = table.Column<string>(nullable: true),
                     CVBALC = table.Column<string>(nullable: true),
-                    CVDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    CVMESDESC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CVDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CVMESDESC = table.Column<DateTime>(type: "datetime", nullable: true),
                     CVVALOURV = table.Column<double>(nullable: true),
                     CVOBSV = table.Column<string>(nullable: true),
                     CVTICK = table.Column<string>(nullable: true),
                     CVRECEITA = table.Column<string>(nullable: true),
                     CVREC = table.Column<string>(nullable: true),
-                    CVDTREC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CVDTREC = table.Column<DateTime>(type: "datetime", nullable: true),
                     CVPSUSO = table.Column<string>(nullable: true),
                     CVENTREGA = table.Column<string>(nullable: true),
                     CVVALOCRZ = table.Column<double>(nullable: true),
                     CVCOMISSAO = table.Column<double>(nullable: true),
-                    CVLIBCOM = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CVLIBCOM = table.Column<DateTime>(type: "datetime", nullable: true),
                     CVFILIAL = table.Column<string>(nullable: true),
                     CVTITULAR = table.Column<string>(nullable: true)
                 },
@@ -439,11 +438,11 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CLCODI = table.Column<string>(nullable: true),
                     BACODI = table.Column<string>(nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
-                    CLDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    CLDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     CLQTDE = table.Column<double>(nullable: true),
                     CLPAGO = table.Column<string>(nullable: true),
                     CLDESC = table.Column<double>(nullable: true),
@@ -453,7 +452,7 @@ namespace DAL.Migrations.Remote
                     DESCOMP = table.Column<string>(nullable: true),
                     COMISSAO = table.Column<double>(nullable: true),
                     VL_PAGO = table.Column<double>(nullable: true),
-                    DT_PAGTO = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DT_PAGTO = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -465,17 +464,17 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
-                    DATANASC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATANASC = table.Column<DateTime>(type: "datetime", nullable: true),
                     CIDADE = table.Column<string>(nullable: true),
                     BAIRRO = table.Column<string>(nullable: true),
                     CEP = table.Column<string>(nullable: true),
                     FONE = table.Column<string>(nullable: true),
                     BALCON = table.Column<string>(nullable: true),
-                    DTCAD = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DTCAD = table.Column<DateTime>(type: "datetime", nullable: true),
                     RG = table.Column<string>(nullable: true),
                     CPF = table.Column<string>(nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
@@ -486,7 +485,7 @@ namespace DAL.Migrations.Remote
                     CLCLASSI = table.Column<string>(nullable: true),
                     CLOBS1 = table.Column<string>(nullable: true),
                     CLOBS2 = table.Column<string>(nullable: true),
-                    ULT_COMPRA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    ULT_COMPRA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -498,8 +497,8 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     HISTORICO = table.Column<string>(nullable: true),
                     VALOR = table.Column<double>(nullable: true),
                     CAIXA = table.Column<string>(nullable: true)
@@ -514,7 +513,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     EMCODI = table.Column<string>(nullable: true),
                     EMRASO = table.Column<string>(nullable: true),
                     EMENDE = table.Column<string>(nullable: true),
@@ -570,9 +569,9 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ENQTDE = table.Column<double>(nullable: true),
-                    ENDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    ENDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -585,8 +584,8 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ENDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ENDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     ENQTDE = table.Column<double>(nullable: true),
                     ENVALO = table.Column<double>(nullable: true),
@@ -614,8 +613,8 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ENDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ENDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     ENQTDE = table.Column<double>(nullable: true),
                     ENVALO = table.Column<double>(nullable: true),
@@ -632,7 +631,7 @@ namespace DAL.Migrations.Remote
                     ENVALODES = table.Column<double>(nullable: true),
                     FORNEC = table.Column<string>(nullable: true),
                     LOTE = table.Column<string>(nullable: true),
-                    EMISSNF = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    EMISSNF = table.Column<DateTime>(type: "datetime", nullable: true),
                     NOTAFIS = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -645,7 +644,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -664,7 +663,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRDESC1 = table.Column<string>(nullable: true),
                     PRDESC2 = table.Column<string>(nullable: true),
@@ -681,7 +680,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRDESC1 = table.Column<string>(nullable: true),
                     PRDESC2 = table.Column<string>(nullable: true),
@@ -698,7 +697,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRDESC1 = table.Column<string>(nullable: true),
                     PRDESC2 = table.Column<string>(nullable: true),
@@ -714,9 +713,9 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     BALCON = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -729,9 +728,9 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FUCDEM = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     VALOR = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
@@ -744,7 +743,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FILCODI = table.Column<string>(nullable: true),
                     FILNOME = table.Column<string>(nullable: true),
                     FILENDE = table.Column<string>(nullable: true),
@@ -797,7 +796,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FUCDEM = table.Column<string>(nullable: true),
                     FUCODI = table.Column<string>(nullable: true),
                     FUNOME = table.Column<string>(nullable: true),
@@ -814,7 +813,7 @@ namespace DAL.Migrations.Remote
                     TOTDEBCR = table.Column<double>(nullable: true),
                     TOTDEBSR = table.Column<double>(nullable: true),
                     DEMITIDO = table.Column<string>(nullable: true),
-                    DATADEMI = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATADEMI = table.Column<DateTime>(type: "datetime", nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
                     FULIMITE = table.Column<double>(nullable: true),
                     FUOBS1 = table.Column<string>(nullable: true),
@@ -822,7 +821,7 @@ namespace DAL.Migrations.Remote
                     FUOBS3 = table.Column<string>(nullable: true),
                     FUBLOQ = table.Column<string>(nullable: true),
                     CODGOLDEN = table.Column<string>(nullable: true),
-                    FUDATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    FUDATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -834,11 +833,11 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     DISTRIB = table.Column<string>(nullable: true),
                     NOTAFIS = table.Column<string>(nullable: true),
-                    VENCTO = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    RECEBTO = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    VENCTO = table.Column<DateTime>(type: "datetime", nullable: true),
+                    RECEBTO = table.Column<DateTime>(type: "datetime", nullable: true),
                     PEDIDO = table.Column<string>(nullable: true),
                     TOTAL = table.Column<double>(nullable: true),
                     DESCONTO = table.Column<double>(nullable: true)
@@ -853,7 +852,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CODIGO = table.Column<string>(nullable: true),
                     IMP1 = table.Column<string>(nullable: true),
                     IMP2 = table.Column<string>(nullable: true)
@@ -868,7 +867,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRREG = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -886,8 +885,8 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     USUARIO = table.Column<string>(nullable: true),
                     TIME = table.Column<string>(nullable: true),
                     NIVEL = table.Column<string>(nullable: true),
@@ -903,17 +902,17 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
-                    DATANASC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATANASC = table.Column<DateTime>(type: "datetime", nullable: true),
                     CIDADE = table.Column<string>(nullable: true),
                     BAIRRO = table.Column<string>(nullable: true),
                     CEP = table.Column<string>(nullable: true),
                     FONE = table.Column<string>(nullable: true),
                     BALCON = table.Column<string>(nullable: true),
-                    DTCAD = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DTCAD = table.Column<DateTime>(type: "datetime", nullable: true),
                     RG = table.Column<string>(nullable: true),
                     CPF = table.Column<string>(nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
@@ -925,7 +924,7 @@ namespace DAL.Migrations.Remote
                     CLOBS1 = table.Column<string>(nullable: true),
                     CLOBS2 = table.Column<string>(nullable: true),
                     FILIAL = table.Column<string>(nullable: true),
-                    ULT_COMPRA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    ULT_COMPRA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -937,7 +936,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true),
@@ -959,7 +958,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     N_FISCAL = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     TOT_VEN = table.Column<double>(nullable: true),
@@ -969,7 +968,7 @@ namespace DAL.Migrations.Remote
                     ECF = table.Column<string>(nullable: true),
                     CPF = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     BACODI = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     CAIXA = table.Column<string>(nullable: true),
@@ -992,14 +991,14 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     N_FISCAL = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     TOT_VEN = table.Column<double>(nullable: true),
                     TOT_ANT = table.Column<double>(nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     TPVD = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     BACODI = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     CAIXA = table.Column<string>(nullable: true),
@@ -1021,7 +1020,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
@@ -1029,7 +1028,7 @@ namespace DAL.Migrations.Remote
                     TOT_DESCON = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     BACODI = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     TPVD = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
@@ -1048,7 +1047,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
@@ -1056,7 +1055,7 @@ namespace DAL.Migrations.Remote
                     TOT_DESCON = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     BACODI = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     TPVD = table.Column<string>(nullable: true),
                     ECF = table.Column<string>(nullable: true),
@@ -1076,12 +1075,12 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     ECF = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
@@ -1098,15 +1097,15 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
                     VLLIQCoreD = table.Column<double>(nullable: true),
                     TOT_DESCON = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    DATAREC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATAREC = table.Column<DateTime>(type: "datetime", nullable: true),
                     ECF = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     VL_TOT = table.Column<double>(nullable: true),
@@ -1127,7 +1126,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true)
                 },
@@ -1141,7 +1140,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
@@ -1150,12 +1149,12 @@ namespace DAL.Migrations.Remote
                     CEP = table.Column<string>(nullable: true),
                     FONE = table.Column<string>(nullable: true),
                     RG = table.Column<string>(nullable: true),
-                    DATANASC = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATANASC = table.Column<DateTime>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
                     DESCONTO = table.Column<double>(nullable: true),
                     CLCLASSI = table.Column<string>(nullable: true),
-                    ULT_COMPRA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    ULT_COMPRA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1167,7 +1166,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FUCDEM = table.Column<string>(nullable: true),
                     FUCODI = table.Column<string>(nullable: true),
                     FUNOME = table.Column<string>(nullable: true),
@@ -1182,7 +1181,7 @@ namespace DAL.Migrations.Remote
                     TOTDEBCR = table.Column<double>(nullable: true),
                     TOTDEBSR = table.Column<double>(nullable: true),
                     DEMITIDO = table.Column<string>(nullable: true),
-                    DATADEMI = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATADEMI = table.Column<DateTime>(type: "datetime", nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
                     FULIMITE = table.Column<double>(nullable: true),
                     FUOBS1 = table.Column<string>(nullable: true),
@@ -1190,7 +1189,7 @@ namespace DAL.Migrations.Remote
                     FUOBS3 = table.Column<string>(nullable: true),
                     FUBLOQ = table.Column<string>(nullable: true),
                     CODGOLDEN = table.Column<string>(nullable: true),
-                    FUDATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    FUDATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1202,12 +1201,12 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRCONS = table.Column<double>(nullable: true),
                     PRCONSCV = table.Column<double>(nullable: true),
                     PRFABR = table.Column<double>(nullable: true),
-                    PRCDDT = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    PRCDDT = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCDLUCR = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
@@ -1220,7 +1219,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRREG = table.Column<string>(nullable: true),
@@ -1246,9 +1245,9 @@ namespace DAL.Migrations.Remote
                     PRPORTA = table.Column<string>(nullable: true),
                     PRSITU = table.Column<string>(nullable: true),
                     PRULTE = table.Column<double>(nullable: true),
-                    PRDTUL = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    PRCDDT = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    PRDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    PRDTUL = table.Column<DateTime>(type: "datetime", nullable: true),
+                    PRCDDT = table.Column<DateTime>(type: "datetime", nullable: true),
+                    PRDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCDLUCR = table.Column<double>(nullable: true),
                     PRICMS = table.Column<double>(nullable: true),
                     TIPO = table.Column<string>(nullable: true),
@@ -1259,8 +1258,8 @@ namespace DAL.Migrations.Remote
                     PRCDIMP2 = table.Column<string>(nullable: true),
                     PREMB = table.Column<double>(nullable: true),
                     PRENTR = table.Column<double>(nullable: true),
-                    UL_VEN = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    ULTPED = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    UL_VEN = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ULTPED = table.Column<DateTime>(type: "datetime", nullable: true),
                     ULTFOR = table.Column<string>(nullable: true),
                     PRCLAS = table.Column<string>(nullable: true),
                     PRMESANT = table.Column<double>(nullable: true),
@@ -1283,7 +1282,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NEWTAB = table.Column<string>(nullable: true),
                     MESANO = table.Column<string>(nullable: true)
                 },
@@ -1297,7 +1296,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     CAMPO = table.Column<string>(nullable: true),
                     CODIGO = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
@@ -1319,7 +1318,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     N_FISCAL = table.Column<string>(nullable: true),
                     CLIENTE = table.Column<string>(nullable: true),
                     NVALOR = table.Column<double>(nullable: true),
@@ -1337,7 +1336,7 @@ namespace DAL.Migrations.Remote
                     NICMS25 = table.Column<double>(nullable: true),
                     NATUREZA = table.Column<string>(nullable: true),
                     N_NATU = table.Column<string>(nullable: true),
-                    NDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    NDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     NCANCELADA = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1350,7 +1349,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NUM_NOTA = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1363,7 +1362,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NUMPED = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1376,7 +1375,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     FORNEC = table.Column<string>(nullable: true),
                     PRZPAGTO = table.Column<string>(nullable: true),
                     DESCONTO = table.Column<double>(nullable: true),
@@ -1393,7 +1392,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NUMERO = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1406,7 +1405,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1436,7 +1435,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1466,7 +1465,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1496,7 +1495,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1526,7 +1525,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1556,7 +1555,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1586,13 +1585,13 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     PRCDLA = table.Column<string>(nullable: true),
                     PRFABR = table.Column<double>(nullable: true),
                     STATUS = table.Column<string>(nullable: true),
-                    PRDATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    PRDATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1604,7 +1603,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
                     PRCONS = table.Column<double>(nullable: true),
@@ -1623,7 +1622,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -1659,9 +1658,9 @@ namespace DAL.Migrations.Remote
                     PRPORTA = table.Column<string>(nullable: true),
                     PRSITU = table.Column<string>(nullable: true),
                     PRULTE = table.Column<double>(nullable: true),
-                    PRDTUL = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    PRCDDT = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    PRDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    PRDTUL = table.Column<DateTime>(type: "datetime", nullable: true),
+                    PRCDDT = table.Column<DateTime>(type: "datetime", nullable: true),
+                    PRDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCDLUCR = table.Column<double>(nullable: true),
                     PRICMS = table.Column<double>(nullable: true),
                     TIPO = table.Column<string>(nullable: true),
@@ -1672,8 +1671,8 @@ namespace DAL.Migrations.Remote
                     PRCDIMP2 = table.Column<string>(nullable: true),
                     PREMB = table.Column<double>(nullable: true),
                     PRENTR = table.Column<double>(nullable: true),
-                    UL_VEN = table.Column<DateTime>(type: "timestamp", nullable: true),
-                    ULTPED = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    UL_VEN = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ULTPED = table.Column<DateTime>(type: "datetime", nullable: true),
                     ULTFOR = table.Column<string>(nullable: true),
                     PRCLAS = table.Column<string>(nullable: true),
                     PRMESANT = table.Column<double>(nullable: true),
@@ -1687,7 +1686,7 @@ namespace DAL.Migrations.Remote
                     PRPIS = table.Column<string>(nullable: true),
                     PRUN = table.Column<string>(nullable: true),
                     PRNCMS = table.Column<string>(nullable: true),
-                    PRVALID = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    PRVALID = table.Column<DateTime>(type: "datetime", nullable: true),
                     VENDATU = table.Column<double>(nullable: true),
                     VENDANT = table.Column<double>(nullable: true)
                 },
@@ -1701,7 +1700,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     PRREG = table.Column<string>(nullable: true),
@@ -1715,7 +1714,7 @@ namespace DAL.Migrations.Remote
                     UFCONS = table.Column<string>(nullable: true),
                     LOTE = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     MOTIVO = table.Column<string>(nullable: true),
                     USOMED = table.Column<string>(nullable: true),
@@ -1724,7 +1723,7 @@ namespace DAL.Migrations.Remote
                     ORGAO = table.Column<string>(nullable: true),
                     PACIENTE = table.Column<string>(nullable: true),
                     UF = table.Column<string>(nullable: true),
-                    EMISSAO = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    EMISSAO = table.Column<DateTime>(type: "datetime", nullable: true),
                     NF = table.Column<string>(nullable: true),
                     CNPJ = table.Column<string>(nullable: true),
                     FORNEC = table.Column<string>(nullable: true),
@@ -1737,7 +1736,7 @@ namespace DAL.Migrations.Remote
                     TPIDADE = table.Column<string>(nullable: true),
                     PROLONG = table.Column<string>(nullable: true),
                     UNIDADE = table.Column<string>(nullable: true),
-                    NASC = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    NASC = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1749,14 +1748,14 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
                     TOT_DESCON = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     BACODI = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     VL_TOT = table.Column<double>(nullable: true),
@@ -1773,12 +1772,12 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     N_FISCAL = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     TOT_VEN = table.Column<double>(nullable: true),
                     TIPO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     BACODI = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     CAIXA = table.Column<string>(nullable: true),
@@ -1795,10 +1794,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ARQCoreVO = table.Column<string>(nullable: true),
                     POSICAO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     NECESSITA = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1811,7 +1810,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RZAUT = table.Column<string>(nullable: true),
                     GTDA = table.Column<string>(nullable: true),
                     CANCELA = table.Column<string>(nullable: true),
@@ -1838,7 +1837,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RELATORIO = table.Column<string>(nullable: true),
                     NIVEL = table.Column<string>(nullable: true)
                 },
@@ -1852,7 +1851,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     MES_REF = table.Column<string>(nullable: true),
                     CLI_ATDS = table.Column<double>(nullable: true),
                     VEN_MES = table.Column<double>(nullable: true),
@@ -1875,8 +1874,8 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     VALORDH = table.Column<double>(nullable: true),
                     VALORCH = table.Column<double>(nullable: true),
                     HORA = table.Column<string>(nullable: true),
@@ -1892,7 +1891,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SALCOD = table.Column<string>(nullable: true),
                     SALNOME = table.Column<string>(nullable: true)
                 },
@@ -1906,7 +1905,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SECODI = table.Column<string>(nullable: true),
                     SENOME = table.Column<string>(nullable: true)
                 },
@@ -1920,14 +1919,14 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SEN = table.Column<string>(nullable: true),
                     SENCHEQ = table.Column<string>(nullable: true),
                     SENCIT = table.Column<string>(nullable: true),
                     SENCLICH = table.Column<string>(nullable: true),
                     SENCLIP = table.Column<string>(nullable: true),
                     SENCONT = table.Column<string>(nullable: true),
-                    SENDATE = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    SENDATE = table.Column<DateTime>(type: "datetime", nullable: true),
                     SENDEFA = table.Column<string>(nullable: true),
                     SENDESC = table.Column<double>(nullable: true),
                     SENDESC1 = table.Column<double>(nullable: true),
@@ -1952,7 +1951,7 @@ namespace DAL.Migrations.Remote
                     SENMULTA = table.Column<double>(nullable: true),
                     SENNIV = table.Column<string>(nullable: true),
                     SENPAR = table.Column<string>(nullable: true),
-                    SENPCLI = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    SENPCLI = table.Column<DateTime>(type: "datetime", nullable: true),
                     SENPME = table.Column<double>(nullable: true),
                     SENPONTO = table.Column<double>(nullable: true),
                     SENPORT = table.Column<string>(nullable: true),
@@ -1974,7 +1973,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SVCODI = table.Column<string>(nullable: true),
                     SVDESC = table.Column<string>(nullable: true),
                     SVPREC = table.Column<double>(nullable: true),
@@ -1997,7 +1996,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     USUARIO = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true)
                 },
@@ -2011,7 +2010,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RECONST = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -2024,7 +2023,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     SUBSECODI = table.Column<string>(nullable: true),
                     SUBSENOME = table.Column<string>(nullable: true),
                     SUBSEPREC = table.Column<string>(nullable: true),
@@ -2044,7 +2043,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     ABC = table.Column<string>(nullable: true),
                     CTR = table.Column<string>(nullable: true),
                     NOM = table.Column<string>(nullable: true),
@@ -2054,7 +2053,7 @@ namespace DAL.Migrations.Remote
                     FRA1 = table.Column<double>(nullable: true),
                     UNI = table.Column<double>(nullable: true),
                     IPI = table.Column<double>(nullable: true),
-                    DTVIG = table.Column<DateTime>(type: "timestamp", nullable: true),
+                    DTVIG = table.Column<DateTime>(type: "datetime", nullable: true),
                     NEUTRO = table.Column<string>(nullable: true),
                     NEGPOS = table.Column<string>(nullable: true),
                     CUSTOM = table.Column<string>(nullable: true),
@@ -2075,7 +2074,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
                     PRCONS = table.Column<double>(nullable: true),
@@ -2094,7 +2093,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     PRCODI = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true),
@@ -2115,7 +2114,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TICKET = table.Column<string>(nullable: true),
                     ECF = table.Column<string>(nullable: true)
                 },
@@ -2129,8 +2128,8 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    TRDATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    TRDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     BALCON = table.Column<string>(nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true),
@@ -2150,10 +2149,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2165,10 +2164,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2180,10 +2179,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2195,10 +2194,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2210,10 +2209,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2225,10 +2224,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2240,10 +2239,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2255,10 +2254,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2270,10 +2269,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2285,10 +2284,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2300,10 +2299,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2315,10 +2314,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2330,10 +2329,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2345,10 +2344,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2360,10 +2359,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2375,10 +2374,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2390,10 +2389,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2405,10 +2404,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2420,10 +2419,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2435,10 +2434,10 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true)
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2450,8 +2449,8 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     VALOR = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
@@ -2464,7 +2463,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     NOME = table.Column<string>(nullable: true),
                     SENHA = table.Column<string>(nullable: true),
                     NIVEL = table.Column<string>(nullable: true),
@@ -2489,8 +2488,8 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    DATA = table.Column<DateTime>(type: "timestamp", nullable: true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true)
                 },
@@ -2504,7 +2503,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -2529,7 +2528,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -2554,7 +2553,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -2579,7 +2578,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
@@ -2608,7 +2607,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -2671,7 +2670,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -2703,7 +2702,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -2729,7 +2728,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -2755,7 +2754,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -2785,7 +2784,7 @@ namespace DAL.Migrations.Remote
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UniqueCode = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
@@ -2810,14 +2809,15 @@ namespace DAL.Migrations.Remote
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            //migrationBuilder.InsertData(
-            //    table: "Billings",
-            //    columns: new[] { "Id", "BeneficiaryId", "BeneficiaryName", "CreatedAt", "Discount", "EndDate", "IsDeleted", "IsPaid", "LastUpdatedOn", "PersonType", "Price", "UniqueCode" },
-            //    values: new object[,]
-            //    {
-            //        { 1, 0, "empresa", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 3, 2, 3, 25, 553, DateTimeKind.Utc).AddTicks(7916), false, false, new DateTimeOffset(new DateTime(2020, 6, 3, 2, 3, 25, 553, DateTimeKind.Unspecified).AddTicks(7097), new TimeSpan(0, 0, 0, 0, 0)), 0, 12.99m, null },
-            //        { 2, 0, "empresa 2", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 3, 2, 3, 25, 554, DateTimeKind.Utc).AddTicks(715), false, false, new DateTimeOffset(new DateTime(2020, 6, 3, 2, 3, 25, 554, DateTimeKind.Unspecified).AddTicks(688), new TimeSpan(0, 0, 0, 0, 0)), 0, 22.99m, null }
-            //    });
+            migrationBuilder.InsertData(
+                table: "Billings",
+                columns: new[] { "Id", "BeneficiaryId", "BeneficiaryName", "CreatedAt", "Discount", "EndDate", "IsDeleted", "IsPaid", "LastUpdatedOn", "PersonType", "Price", "UniqueCode" },
+                values: new object[] { 1, 0, "empresa", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Utc).AddTicks(1681), false, false, new DateTimeOffset(new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Unspecified).AddTicks(1022), new TimeSpan(0, 0, 0, 0, 0)), 0, 12.99m, null });
+
+            migrationBuilder.InsertData(
+                table: "Billings",
+                columns: new[] { "Id", "BeneficiaryId", "BeneficiaryName", "CreatedAt", "Discount", "EndDate", "IsDeleted", "IsPaid", "LastUpdatedOn", "PersonType", "Price", "UniqueCode" },
+                values: new object[] { 2, 0, "empresa 2", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Utc).AddTicks(3824), false, false, new DateTimeOffset(new DateTime(2020, 6, 4, 23, 45, 43, 473, DateTimeKind.Unspecified).AddTicks(3817), new TimeSpan(0, 0, 0, 0, 0)), 0, 22.99m, null });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Client_AddressId",
