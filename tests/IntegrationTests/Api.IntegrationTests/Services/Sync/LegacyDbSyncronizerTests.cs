@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Reflection;
 using Application.Services;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Models.Dbf;
 using Core.Models.ApplicationResources.Requests;

@@ -20,7 +20,7 @@ namespace Api.Extensions
         {            
             if (!env.IsDevelopment()) return;
             using var scope = application.ApplicationServices.CreateScope();            
-            var context = scope.ServiceProvider.GetRequiredService<BaseContext>();
+            var context = scope.ServiceProvider.GetServices<BaseContext>().FirstOrDefault(c => c is LocalContext);
             context.ApplyUpgrades();
         }
     }

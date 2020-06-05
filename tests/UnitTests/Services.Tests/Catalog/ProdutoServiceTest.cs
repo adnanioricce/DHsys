@@ -1,5 +1,5 @@
 using Application.Services.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Tests.Lib.Data;
 using Tests.Lib.Seed;
 using Xunit;

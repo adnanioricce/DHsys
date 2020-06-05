@@ -1,5 +1,5 @@
 ﻿using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -102,7 +102,8 @@ namespace Application.Services
 
         public virtual IEnumerable<Drug> SearchDrugsByName(string name)
         {
-            return _drugRepository.Query().Where(d => d.DrugName.Contains(name));
+            return _drugRepository.Query().Where(d => EF.Functions.Like(d.DrugName.ToLower(), "%" + name.ToLower() + "%") 
+                || EF.Functions.Like(d.Description.ToLower(), "%" + name.ToLower() + "%"));
         }
 
         public virtual async Task<Drug> SearchDrugsByNameAsync(string name)

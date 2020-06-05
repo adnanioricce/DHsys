@@ -7,8 +7,7 @@ namespace Core.Entities.Stock
     public class StockEntry : BaseEntity
     {                
         public int? SupplierId { get; set; }
-        public int? Quantity { get; set; }
-        public DateTime? CreatedAt { get; set; }
+        public int? Quantity { get; set; }        
         public DateTime? DrugMaturityDate { get; set; }
         public string NfNumber { get; set; }
         public DateTime? NfEmissionDate { get; set; }

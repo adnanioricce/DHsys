@@ -1,4 +1,4 @@
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 
 namespace Tests.Lib.Seed
 {

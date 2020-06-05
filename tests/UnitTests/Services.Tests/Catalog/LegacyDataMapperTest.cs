@@ -1,6 +1,6 @@
 ﻿using System;
 using Xunit;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 
 namespace Services.Tests.Catalog
 {

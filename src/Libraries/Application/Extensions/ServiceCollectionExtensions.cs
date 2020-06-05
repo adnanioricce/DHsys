@@ -2,7 +2,7 @@
 using Application.Services.Catalog;
 using Application.Services.Sync;
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Interfaces.Catalog;
 using Core.Mappers;
@@ -12,6 +12,8 @@ using DAL.Extensions;
 using Infrastructure.Interfaces;
 using Infrastructure.Settings;
 using Infrastructure.Updates;
+using Microsoft.Data.SqlClient;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +21,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
+using System.Collections.Generic;
+using System.Data.OleDb;
 using System.IO;
 using System.Reflection;
 
@@ -89,32 +93,55 @@ namespace Application.Extensions
             services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
             services.AddTransient<ISyncQueryBuilder, SyncQueryBuilder>();
         }
-        public static void AddDataStore(this IServiceCollection services,IConfiguration configuration)
-        {
+        public static void AddDataStore(this IServiceCollection services,
+            IConfiguration configuration,
+            Action<DbContextOptionsBuilder> localContextOptions = null,
+            Action<DbContextOptionsBuilder> remoteContextOptions = null)
+        {            
             services.AddDbContextPool<BaseContext, LocalContext>(opt =>
-            {
-                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection");
-                opt.UseSqlite(connStr);
+            {                
                 opt.UseLazyLoadingProxies();
+                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection");
+                if (localContextOptions == null)
+                {
+                    opt.UseSqlite(connStr);
+                    return;
+                }
+                localContextOptions(opt);
             });
             services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
-            {
-                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection");
-                opt.UseNpgsql(connStr);
+            {                
                 opt.UseLazyLoadingProxies();
-            });
-            services.AddScoped<LocalContext>();
-            services.AddTransient<DbContextResolver>(provider => key => {
-                string option = key.ToLower();
-                return option switch
+                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection");
+                if (remoteContextOptions == null)
                 {
-                    "remote" => provider.GetRequiredService<RemoteContext>(),
-                    "local" => provider.GetRequiredService<LocalContext>(),
-                    _ => provider.GetRequiredService<LocalContext>()
-                };
+                    opt.UseSqlServer(connStr);
+                    return;
+                }
+                //TODO:
             });
-            //services.AddScoped<BaseContext,LocalContext>();
+            services.AddScoped<BaseContext,LocalContext>();
+            services.AddScoped<BaseContext, RemoteContext>();            
             services.AddScoped(typeof(LegacyContext<>));
+            services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+        }
+        public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
+        {
+            services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
+            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));
+            services.Configure<LegacyDatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}:{nameof(LegacyDatabaseSettings)}"));
+            services.Configure<AutoUpdateSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(AutoUpdateSettings)}"));
+            services.Configure<ConnectionStrings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(ConnectionStrings)}"));
+            services.ConfigureApplicationWritableOptions();
+        }
+        public static void ConfigureApplicationWritableOptions(this IServiceCollection services)
+        {
+            services.ConfigureWritable<AutoUpdateSettings>();
+            services.ConfigureWritable<LegacyDatabaseSettings>();
+            services.ConfigureWritable<ConnectionStrings>();
+            services.ConfigureWritable<DatabaseSettings>();
+            services.ConfigureWritable<AppSettings>();
         }
         public static void AddCustomMappers(this IServiceCollection services)
         {

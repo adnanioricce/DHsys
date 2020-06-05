@@ -1,5 +1,5 @@
 using System;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 
 namespace Core.Entities.Catalog
 {

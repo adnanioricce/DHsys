@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace Core.Entities.Legacy
+{
+    public  class Prodextr : BaseEntity
+    {
+        
+        public string Prcodi { get; set; }
+        public string Prdesc { get; set; }
+        public double? Prcons { get; set; }
+        public double? Concor1 { get; set; }
+        public double? Concor2 { get; set; }
+        public double? Concor3 { get; set; }
+        public double? Concor4 { get; set; }
+    }
+}

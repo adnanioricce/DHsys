@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using Core.Entities;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Models.Dbf;
 using Core.Models.ApplicationResources.Requests;
@@ -36,7 +36,7 @@ namespace Application.Services
         {                                             
             LegacyTypes = Assembly.Load(typeof(Core.Core).Assembly.FullName)
                 .GetTypes()
-                .Where(t => t.Namespace == typeof(ILegacyScaffold).Namespace && t.IsClass)                
+                .Where(t => t.Namespace == typeof(ILegacy).Namespace && t.IsClass)                
                 .ToDictionary(v => v.Name);
             _localDbConnection = connectionResolver("local");
             _sourceDbConnection = connectionResolver("source");

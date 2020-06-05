@@ -2,7 +2,7 @@
 using Api.Tests.Seed;
 using Application.Services;
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Mappers;
 using DAL;
@@ -26,6 +26,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.IO;
 using DAL.Extensions;
 using DAL.DbContexts;
+using Microsoft.Data.SqlClient;
 
 [assembly: TestFramework("Api.Tests.DIStartup", "Api.Tests")]
 namespace Api.Tests
@@ -42,20 +43,36 @@ namespace Api.Tests
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            services.AddDbContext<BaseContext, LocalContext>(opt => {
+            services.AddDbContextPool<BaseContext, LocalContext>(opt => {
                 opt.UseSqlite(sqliteConnStr);
                 opt.EnableSensitiveDataLogging();
                 opt.EnableDetailedErrors();                
-            });                            
-            services.AddScoped(typeof(LegacyContext<>));
-            services.AddScoped<DbContext>();
+            });
+            services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
+             {
+                 opt.UseSqlServer(configuration.GetValue<string>("AppSettings:ConnectionStrings:RemoteConnection"));
+                 opt.EnableSensitiveDataLogging();
+                 opt.EnableDetailedErrors();
+             });
+            services.AddScoped<BaseContext, LocalContext>();
+            services.AddScoped<BaseContext, RemoteContext>();
+            services.AddTransient<DbContextResolver>(provider => key => {
+                string option = key.ToLower();
+                var services = provider.GetServices(typeof(BaseContext));
+                return option switch
+                {
+                    "remote" => (BaseContext)services.FirstOrDefault(d => (d is RemoteContext)),
+                    "local" => (BaseContext)services.FirstOrDefault(d => (d is LocalContext)),
+                    _ => (BaseContext)services.FirstOrDefault(d => (d is LocalContext))
+                };
+            });
+            services.AddScoped(typeof(LegacyContext<>));            
             services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));         
             services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
             services.AddTransient<ILegacyDataMapper<Drug,Produto>, ProdutoMapper>();
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IDrugService, DrugService>();
-            services.AddTransient<IBillingService, BillingService>();
-            //services.AddTransient<IDataResourceClient, SupplierDataResourceClient>();
+            services.AddTransient<IBillingService, BillingService>();            
             services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             var legacySettings = configuration.GetSection(nameof(LegacyDatabaseSettings)).Get<LegacyDatabaseSettings>();
@@ -67,7 +84,7 @@ namespace Api.Tests
                     //a legacy shared database from which source changes in real world environment
                     "source" => new OleDbConnection(legacySettings.ToString()),
                     //a remote database to keep some changes
-                    "remote" => new NpgsqlConnection(""),
+                    "remote" => new SqlConnection(configuration.GetConnectionString("RemoteConnection")),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };
             });
@@ -79,9 +96,8 @@ namespace Api.Tests
         }
         protected override void Configure(IServiceProvider provider)
         {
-            var context = (BaseContext)provider.GetService<BaseContext>();
-            context.ApplyUpgrades();                     
-            
+            var contexts = provider.GetServices<BaseContext>().ToList();
+            contexts.ForEach(context => context.ApplyUpgrades());
         }
     }
 }

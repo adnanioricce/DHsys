@@ -5,7 +5,7 @@ using System;
 using Application.Services;
 using Core.Entities.Catalog;
 using Core.Interfaces;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using System.Collections.Generic;
 using Core.Mappers;
 

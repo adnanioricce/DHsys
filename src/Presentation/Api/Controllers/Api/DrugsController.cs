@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.Models;
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
 using Core.Models.ApplicationResources.Requests;
@@ -24,21 +24,34 @@ namespace Api.Controllers.Api
         }
         // GET: api/Drugs/search/{name}
         [HttpGet("search/list")]
-        public ActionResult<BaseResourceResponse<IEnumerable<Drug>>> GetDrugsByName([FromQuery]CatalogQuery query)
+        public ActionResult<BaseResourceResponse<IList<Drug>>> GetDrugsByName([FromQuery]CatalogQuery query)
         {
-            return Ok(new BaseResourceResponse<IEnumerable<Drug>>
+            var drugs = _drugService.SearchDrugsByName(query.Name).ToList();
+            if(drugs.Count == 0)
             {
-                ResultObject = _drugService.SearchDrugsByName(query.Name),
-                Success = true
-            });
+                //return new BaseResourceResponse<IList<Drug>>{
+                return BadRequest($"there is no drug with the pattern {query.Name} on it's name");
+                //};
+            }
+            return Ok(new BaseResourceResponse<IList<Drug>>
+            {
+                ResultObject = drugs,
+                Success = true,
+                ErrorMessage = ""
+            });            
         }
         // GET: api/Drugs/search/{barcode}
         [HttpGet("search")]
         public ActionResult<BaseResourceResponse<Drug>> GetDrugByBarCode(string barcode)
         {
+            var drug = _drugService.SearchDrugByBarCode(barcode);
+            if(drug is null)
+            {
+                return BadRequest($"There is no drug with name {barcode}");
+            }
             return Ok(new BaseResourceResponse<Drug>
             {
-                ResultObject = _drugService.SearchDrugByBarCode(barcode),
+                ResultObject = drug,
                 Success = true
             });
         }
