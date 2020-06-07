@@ -46,13 +46,18 @@
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
   </ItemGroup>
+  <PropertyGroup>
+      <WixToolPath>..\..\..\tools\wix\3.11\</WixToolPath>
+      <WixTargetsPath>$(WixToolPath)wix.targets</WixTargetsPath>
+      <WixTasksPath>$(WixToolPath)WixTasks.dll</WixTasksPath>
+</PropertyGroup>
   <ItemGroup>
     <WixExtension Include="WixUtilExtension">
-      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <HintPath>..\..\..\tools\wix\3.11\WixUtilExtension.dll</HintPath>
       <Name>WixUtilExtension</Name>
     </WixExtension>
     <WixExtension Include="WixUIExtension">
-      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <HintPath>..\..\..\tools\wix\3.11\WixUIExtension.dll</HintPath>
       <Name>WixUIExtension</Name>
     </WixExtension>
   </ItemGroup>
