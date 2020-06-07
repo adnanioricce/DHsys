@@ -7,6 +7,7 @@
   <?endif?>
 
   <?define UpgradeCode = "{1673EEF6-482B-42A1-9644-CAA72D86BCB8}"?>  
+  <?define LicenseFilePath = ".\Assets\License.rtf"?>
   <!--Define main product-->
   <Product Id="*"
            Name="!(loc.ProductName_$(var.Platform))"
@@ -59,11 +60,11 @@
       EmbedCab="yes"
       />
     <!--Use the icon.png for this installer (shows up in Add/Remove programs) -->
-    <Icon Id="icon.ico" SourceFile="$(var.Desktop.ProjectDir)\icon.ico"/>
+    <Icon Id="icon.ico" SourceFile="..\Desktop\icon.ico"/>
     <Property Id="ARPPRODUCTICON">icon.ico</Property>
     <Property Id="ARPURLINFOABOUT">https://www.DHolandas.com</Property>
     <UIRef Id="WixUI_Minimal"/>
-    <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\Assets\License.rtf"/>
+    <WixVariable Id="WixUILicenseRtf" Value=".\Assets\License.rtf"/>
     <!-- If you want to change the background images of the installer, you can do the following -->
     <!--<WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Assets\Background.bmp"-->
     <!--<WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Assets\Banner.bmp"-->
