@@ -9,8 +9,9 @@ namespace DAL.DataMappings.Financial
     {
         public override void Configure(EntityTypeBuilder<Billing> mapper)
         {
+            base.Configure(mapper);
             mapper.ToTable("Billings");
-            mapper.HasKey(prop => prop.Id);
+            //mapper.HasKey(prop => prop.Id);
             mapper.HasData(new[] {
                 new Billing
                 {

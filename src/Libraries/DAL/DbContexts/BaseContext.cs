@@ -26,7 +26,7 @@ namespace DAL.DbContexts
         {            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {                        
+        {
             base.OnModelCreating(modelBuilder);
             var assemblyWithConfigurations = GetType().Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assemblyWithConfigurations);

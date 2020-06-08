@@ -8,6 +8,7 @@ namespace DAL.DataMappings.Stock
         public override void Configure(EntityTypeBuilder<Manufacturer> builder)
         {
             base.Configure(builder);
+            builder.Property(p => p.Cnpj);
         }
     }
 }

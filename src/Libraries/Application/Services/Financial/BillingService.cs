@@ -67,7 +67,7 @@ namespace Application.Services
         public IEnumerable<Billing> GetBillingsByBeneficiaryName(string beneficiaryName)
         {
             return _billingRepository.Query()
-                                     .Where(b => b.BeneficiaryName == beneficiaryName);
+                                     .Where(b => b.BeneficiaryName.Contains(beneficiaryName));
         }
         private Beneficiary GetBeneficiaryByName(string name)
         {            

@@ -13,6 +13,7 @@ namespace Desktop.ViewModels.Billings
     {        
         public ContaModel Model { get; set; }
         public RelayCommand CreateContaCommand { get; set; }
+        public RelayCommand CreateBillingsFromCsvCommand { get; set; }
         private readonly IBillingService _billingService;
         //TODO: Write UI validations
         public CreateBillingViewModel(IBillingService billingService)
@@ -40,6 +41,9 @@ namespace Desktop.ViewModels.Billings
             //TODO:Log errors
             return result.Success;
         }
-
+        public void ExecuteCreateBillingFromCsv(string csvFile)
+        {
+            
+        }
     }
 }
