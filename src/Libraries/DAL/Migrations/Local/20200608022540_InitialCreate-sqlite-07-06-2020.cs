@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DAL.Migrations.Local
 {
-    public partial class InitialCreate040620local : Migration
+    public partial class InitialCreatesqlite07062020 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,9 +14,9 @@ namespace DAL.Migrations.Local
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 971, DateTimeKind.Unspecified).AddTicks(2740), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 971, DateTimeKind.Unspecified).AddTicks(3146), new TimeSpan(0, 0, 0, 0, 0))),
                     FirstAddressLine = table.Column<string>(nullable: true),
                     SecondAddressLine = table.Column<string>(nullable: true),
                     Zipcode = table.Column<string>(nullable: true),
@@ -59,6 +59,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     BACODI = table.Column<string>(nullable: true),
                     BANOME = table.Column<string>(nullable: true),
                     BACOMI = table.Column<double>(nullable: true),
@@ -85,9 +89,9 @@ namespace DAL.Migrations.Local
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 967, DateTimeKind.Unspecified).AddTicks(4181), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 967, DateTimeKind.Unspecified).AddTicks(4660), new TimeSpan(0, 0, 0, 0, 0))),
                     BeneficiaryId = table.Column<int>(nullable: false),
                     BeneficiaryName = table.Column<string>(nullable: true),
                     PersonType = table.Column<int>(nullable: false),
@@ -107,6 +111,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     PONTOS = table.Column<double>(nullable: true),
@@ -123,6 +131,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     LACODI = table.Column<string>(nullable: true),
                     FONOME = table.Column<string>(nullable: true),
                     FOAPEL = table.Column<string>(nullable: true),
@@ -159,6 +171,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     LACODI = table.Column<string>(nullable: true),
                     FONOME = table.Column<string>(nullable: true),
                     FOTELE = table.Column<string>(nullable: true),
@@ -175,6 +191,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CX_ATEND = table.Column<string>(nullable: true),
                     CX_DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     CX_VALOR = table.Column<double>(nullable: true),
@@ -194,6 +214,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     FILIAL = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     CODEMP = table.Column<string>(nullable: true),
@@ -212,6 +236,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     PRAZO = table.Column<string>(nullable: true),
@@ -230,6 +258,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CHEQUE = table.Column<string>(nullable: true),
                     AGENCIA = table.Column<string>(nullable: true),
                     BANCO = table.Column<string>(nullable: true),
@@ -250,6 +282,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CHEQUE = table.Column<string>(nullable: true),
                     AGENCIA = table.Column<string>(nullable: true),
                     BANCO = table.Column<string>(nullable: true),
@@ -277,6 +313,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
@@ -299,6 +339,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CLCODI = table.Column<string>(nullable: true),
                     CLNOME = table.Column<string>(nullable: true),
                     CLENDE = table.Column<string>(nullable: true),
@@ -332,6 +376,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CPF_CRM = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
@@ -349,6 +397,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CLIENTE = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     VALOR = table.Column<double>(nullable: true),
@@ -365,6 +417,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     COD = table.Column<string>(nullable: true),
                     HIST = table.Column<string>(nullable: true)
                 },
@@ -379,6 +435,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     FUCDEM = table.Column<string>(nullable: true),
                     FUCODI = table.Column<string>(nullable: true),
                     CVNOTA = table.Column<string>(nullable: true),
@@ -408,6 +468,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     FUCDEM = table.Column<string>(nullable: true),
                     FUCODI = table.Column<string>(nullable: true),
                     CVNOTA = table.Column<string>(nullable: true),
@@ -439,6 +503,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CLCODI = table.Column<string>(nullable: true),
                     BACODI = table.Column<string>(nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
@@ -465,6 +533,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
@@ -498,6 +570,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     HISTORICO = table.Column<string>(nullable: true),
                     VALOR = table.Column<double>(nullable: true),
@@ -514,6 +590,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     EMCODI = table.Column<string>(nullable: true),
                     EMRASO = table.Column<string>(nullable: true),
                     EMENDE = table.Column<string>(nullable: true),
@@ -570,6 +650,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ENQTDE = table.Column<double>(nullable: true),
                     ENDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true)
@@ -585,6 +669,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ENDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     ENQTDE = table.Column<double>(nullable: true),
@@ -614,6 +702,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ENDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     ENQTDE = table.Column<double>(nullable: true),
@@ -645,6 +737,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -664,6 +760,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRDESC1 = table.Column<string>(nullable: true),
                     PRDESC2 = table.Column<string>(nullable: true),
@@ -681,6 +781,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRDESC1 = table.Column<string>(nullable: true),
                     PRDESC2 = table.Column<string>(nullable: true),
@@ -698,6 +802,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRDESC1 = table.Column<string>(nullable: true),
                     PRDESC2 = table.Column<string>(nullable: true),
@@ -714,6 +822,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     BALCON = table.Column<string>(nullable: true)
@@ -729,6 +841,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     FUCDEM = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     VALOR = table.Column<double>(nullable: true)
@@ -744,6 +860,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     FILCODI = table.Column<string>(nullable: true),
                     FILNOME = table.Column<string>(nullable: true),
                     FILENDE = table.Column<string>(nullable: true),
@@ -797,6 +917,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     FUCDEM = table.Column<string>(nullable: true),
                     FUCODI = table.Column<string>(nullable: true),
                     FUNOME = table.Column<string>(nullable: true),
@@ -834,6 +958,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     DISTRIB = table.Column<string>(nullable: true),
                     NOTAFIS = table.Column<string>(nullable: true),
                     VENCTO = table.Column<DateTime>(type: "datetime", nullable: true),
@@ -853,6 +981,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CODIGO = table.Column<string>(nullable: true),
                     IMP1 = table.Column<string>(nullable: true),
                     IMP2 = table.Column<string>(nullable: true)
@@ -868,6 +1000,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRREG = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -886,6 +1022,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     USUARIO = table.Column<string>(nullable: true),
                     TIME = table.Column<string>(nullable: true),
@@ -903,6 +1043,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
@@ -937,6 +1081,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true),
@@ -959,6 +1107,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     N_FISCAL = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     TOT_VEN = table.Column<double>(nullable: true),
@@ -992,6 +1144,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     N_FISCAL = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     TOT_VEN = table.Column<double>(nullable: true),
@@ -1021,6 +1177,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
@@ -1048,6 +1208,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
@@ -1076,6 +1240,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
@@ -1098,6 +1266,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
@@ -1127,6 +1299,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true)
                 },
@@ -1141,6 +1317,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
@@ -1167,6 +1347,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     FUCDEM = table.Column<string>(nullable: true),
                     FUCODI = table.Column<string>(nullable: true),
                     FUNOME = table.Column<string>(nullable: true),
@@ -1202,6 +1386,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRCONS = table.Column<double>(nullable: true),
                     PRCONSCV = table.Column<double>(nullable: true),
@@ -1220,6 +1408,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRREG = table.Column<string>(nullable: true),
@@ -1283,6 +1475,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     NEWTAB = table.Column<string>(nullable: true),
                     MESANO = table.Column<string>(nullable: true)
                 },
@@ -1297,6 +1493,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CAMPO = table.Column<string>(nullable: true),
                     CODIGO = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
@@ -1319,6 +1519,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     N_FISCAL = table.Column<string>(nullable: true),
                     CLIENTE = table.Column<string>(nullable: true),
                     NVALOR = table.Column<double>(nullable: true),
@@ -1350,6 +1554,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     NUM_NOTA = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1363,6 +1571,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     NUMPED = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1376,6 +1588,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     FORNEC = table.Column<string>(nullable: true),
                     PRZPAGTO = table.Column<string>(nullable: true),
                     DESCONTO = table.Column<double>(nullable: true),
@@ -1393,6 +1609,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     NUMERO = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1406,6 +1626,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1436,6 +1660,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1466,6 +1694,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1496,6 +1728,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1526,6 +1762,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1556,6 +1796,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRBARRA = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
@@ -1586,6 +1830,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     PRCDLA = table.Column<string>(nullable: true),
@@ -1604,6 +1852,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRDESC = table.Column<string>(nullable: true),
                     PRCONS = table.Column<double>(nullable: true),
@@ -1701,6 +1953,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     PRREG = table.Column<string>(nullable: true),
@@ -1749,6 +2005,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
@@ -1773,6 +2033,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     N_FISCAL = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     TOT_VEN = table.Column<double>(nullable: true),
@@ -1795,6 +2059,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ARQCoreVO = table.Column<string>(nullable: true),
                     POSICAO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true),
@@ -1811,6 +2079,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     RZAUT = table.Column<string>(nullable: true),
                     GTDA = table.Column<string>(nullable: true),
                     CANCELA = table.Column<string>(nullable: true),
@@ -1838,6 +2110,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     RELATORIO = table.Column<string>(nullable: true),
                     NIVEL = table.Column<string>(nullable: true)
                 },
@@ -1852,6 +2128,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     MES_REF = table.Column<string>(nullable: true),
                     CLI_ATDS = table.Column<double>(nullable: true),
                     VEN_MES = table.Column<double>(nullable: true),
@@ -1875,6 +2155,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     VALORDH = table.Column<double>(nullable: true),
                     VALORCH = table.Column<double>(nullable: true),
@@ -1892,6 +2176,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     SALCOD = table.Column<string>(nullable: true),
                     SALNOME = table.Column<string>(nullable: true)
                 },
@@ -1906,6 +2194,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     SECODI = table.Column<string>(nullable: true),
                     SENOME = table.Column<string>(nullable: true)
                 },
@@ -1920,6 +2212,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     SEN = table.Column<string>(nullable: true),
                     SENCHEQ = table.Column<string>(nullable: true),
                     SENCIT = table.Column<string>(nullable: true),
@@ -1974,6 +2270,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     SVCODI = table.Column<string>(nullable: true),
                     SVDESC = table.Column<string>(nullable: true),
                     SVPREC = table.Column<double>(nullable: true),
@@ -1997,6 +2297,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     USUARIO = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true)
                 },
@@ -2011,6 +2315,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     RECONST = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -2024,6 +2332,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     SUBSECODI = table.Column<string>(nullable: true),
                     SUBSENOME = table.Column<string>(nullable: true),
                     SUBSEPREC = table.Column<string>(nullable: true),
@@ -2039,11 +2351,33 @@ namespace DAL.Migrations.Local
                 });
 
             migrationBuilder.CreateTable(
+                name: "Syncronization",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 91, DateTimeKind.Unspecified).AddTicks(5849), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 91, DateTimeKind.Unspecified).AddTicks(9454), new TimeSpan(0, 0, 0, 0, 0))),
+                    UpdatedFrom = table.Column<string>(nullable: true),
+                    LastSyncronization = table.Column<DateTimeOffset>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Syncronization", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TABELA",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ABC = table.Column<string>(nullable: true),
                     CTR = table.Column<string>(nullable: true),
                     NOM = table.Column<string>(nullable: true),
@@ -2075,6 +2409,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
                     PRCONS = table.Column<double>(nullable: true),
@@ -2094,6 +2432,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true),
@@ -2115,6 +2457,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TICKET = table.Column<string>(nullable: true),
                     ECF = table.Column<string>(nullable: true)
                 },
@@ -2129,6 +2475,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TRDATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     BALCON = table.Column<string>(nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
@@ -2150,6 +2500,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2165,6 +2519,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2180,6 +2538,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2195,6 +2557,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2210,6 +2576,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2225,6 +2595,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2240,6 +2614,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2255,6 +2633,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2270,6 +2652,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2285,6 +2671,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2300,6 +2690,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2315,6 +2709,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2330,6 +2728,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2345,6 +2747,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2360,6 +2766,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2375,6 +2785,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2390,6 +2804,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2405,6 +2823,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2420,6 +2842,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2435,6 +2861,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true)
@@ -2450,6 +2880,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     VALOR = table.Column<double>(nullable: true)
                 },
@@ -2464,6 +2898,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     NOME = table.Column<string>(nullable: true),
                     SENHA = table.Column<string>(nullable: true),
                     NIVEL = table.Column<string>(nullable: true),
@@ -2489,6 +2927,10 @@ namespace DAL.Migrations.Local
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    UniqueCode = table.Column<string>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     DATA = table.Column<DateTime>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true)
@@ -2499,53 +2941,36 @@ namespace DAL.Migrations.Local
                 });
 
             migrationBuilder.CreateTable(
-                name: "Client",
+                name: "Beneficiaries",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 3, DateTimeKind.Unspecified).AddTicks(2015), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 3, DateTimeKind.Unspecified).AddTicks(2690), new TimeSpan(0, 0, 0, 0, 0))),
                     Name = table.Column<string>(nullable: true),
-                    AddressId = table.Column<int>(nullable: true),
-                    Cpf = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Client", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Client_Addresses_AddressId",
-                        column: x => x.AddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Manufacturers",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
-                    UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    AddressId = table.Column<int>(nullable: true),
+                    AddressId = table.Column<int>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Cpf = table.Column<string>(maxLength: 12, nullable: true),
                     Cnpj = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Manufacturers", x => x.Id);
+                    table.PrimaryKey("PK_Beneficiaries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Manufacturers_Addresses_AddressId",
+                        name: "FK_Beneficiaries_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Beneficiaries_Addresses_AddressId1",
+                        column: x => x.AddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -2555,9 +2980,9 @@ namespace DAL.Migrations.Local
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 407, DateTimeKind.Unspecified).AddTicks(764), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 407, DateTimeKind.Unspecified).AddTicks(1069), new TimeSpan(0, 0, 0, 0, 0))),
                     AddressId = table.Column<int>(nullable: true),
                     SupplierName = table.Column<string>(nullable: true),
                     Cnpj = table.Column<string>(nullable: true)
@@ -2574,17 +2999,17 @@ namespace DAL.Migrations.Local
                 });
 
             migrationBuilder.CreateTable(
-                name: "StockEntries",
+                name: "StockEntry",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 406, DateTimeKind.Unspecified).AddTicks(4855), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 406, DateTimeKind.Unspecified).AddTicks(5234), new TimeSpan(0, 0, 0, 0, 0))),
                     SupplierId = table.Column<int>(nullable: true),
                     Quantity = table.Column<int>(nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: true),
                     DrugMaturityDate = table.Column<DateTime>(nullable: true),
                     NfNumber = table.Column<string>(nullable: true),
                     NfEmissionDate = table.Column<DateTime>(nullable: true),
@@ -2593,9 +3018,9 @@ namespace DAL.Migrations.Local
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StockEntries", x => x.Id);
+                    table.PrimaryKey("PK_StockEntry", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StockEntries_Supplier_SupplierId",
+                        name: "FK_StockEntry_Supplier_SupplierId",
                         column: x => x.SupplierId,
                         principalTable: "Supplier",
                         principalColumn: "Id",
@@ -2609,9 +3034,9 @@ namespace DAL.Migrations.Local
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 4, DateTimeKind.Unspecified).AddTicks(7167), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 4, DateTimeKind.Unspecified).AddTicks(7790), new TimeSpan(0, 0, 0, 0, 0))),
                     Ncm = table.Column<string>(nullable: true),
                     QuantityInStock = table.Column<int>(nullable: true),
                     ReorderLevel = table.Column<int>(nullable: true),
@@ -2652,9 +3077,9 @@ namespace DAL.Migrations.Local
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Products_StockEntries_StockEntryId",
+                        name: "FK_Products_StockEntry_StockEntryId",
                         column: x => x.StockEntryId,
-                        principalTable: "StockEntries",
+                        principalTable: "StockEntry",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -2672,9 +3097,9 @@ namespace DAL.Migrations.Local
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 5, DateTimeKind.Unspecified).AddTicks(9529), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 5, DateTimeKind.Unspecified).AddTicks(9966), new TimeSpan(0, 0, 0, 0, 0))),
                     DrugId = table.Column<int>(nullable: true),
                     Indication = table.Column<string>(nullable: true),
                     CounterIndication = table.Column<string>(nullable: true),
@@ -2704,9 +3129,9 @@ namespace DAL.Migrations.Local
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 15, DateTimeKind.Unspecified).AddTicks(669), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 15, DateTimeKind.Unspecified).AddTicks(1167), new TimeSpan(0, 0, 0, 0, 0))),
                     ProductId = table.Column<int>(nullable: false),
                     Pricestartdate = table.Column<DateTimeOffset>(nullable: true),
                     EndCustomerDrugPrice = table.Column<decimal>(nullable: false),
@@ -2730,9 +3155,9 @@ namespace DAL.Migrations.Local
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 16, DateTimeKind.Unspecified).AddTicks(1388), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 16, DateTimeKind.Unspecified).AddTicks(1766), new TimeSpan(0, 0, 0, 0, 0))),
                     ProductId = table.Column<int>(nullable: false),
                     StockEntryId = table.Column<int>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: true),
@@ -2756,9 +3181,9 @@ namespace DAL.Migrations.Local
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 17, DateTimeKind.Unspecified).AddTicks(754), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 17, DateTimeKind.Unspecified).AddTicks(1205), new TimeSpan(0, 0, 0, 0, 0))),
                     ProductId = table.Column<int>(nullable: false),
                     StockEntryId = table.Column<int>(nullable: false)
                 },
@@ -2772,9 +3197,9 @@ namespace DAL.Migrations.Local
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_ProductStockEntry_StockEntries_StockEntryId",
+                        name: "FK_ProductStockEntry_StockEntry_StockEntryId",
                         column: x => x.StockEntryId,
-                        principalTable: "StockEntries",
+                        principalTable: "StockEntry",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -2786,9 +3211,9 @@ namespace DAL.Migrations.Local
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     UniqueCode = table.Column<string>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(nullable: false),
-                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
+                    IsDeleted = table.Column<bool>(nullable: false, defaultValue: false),
+                    CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 18, DateTimeKind.Unspecified).AddTicks(1878), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 40, 18, DateTimeKind.Unspecified).AddTicks(2352), new TimeSpan(0, 0, 0, 0, 0))),
                     ProductId = table.Column<int>(nullable: false),
                     SupplierId = table.Column<int>(nullable: false)
                 },
@@ -2811,28 +3236,28 @@ namespace DAL.Migrations.Local
 
             migrationBuilder.InsertData(
                 table: "Billings",
-                columns: new[] { "Id", "BeneficiaryId", "BeneficiaryName", "CreatedAt", "Discount", "EndDate", "IsDeleted", "IsPaid", "LastUpdatedOn", "PersonType", "Price", "UniqueCode" },
-                values: new object[] { 1, 0, "empresa", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 4, 23, 44, 58, 125, DateTimeKind.Utc).AddTicks(9876), false, false, new DateTimeOffset(new DateTime(2020, 6, 4, 23, 44, 58, 125, DateTimeKind.Unspecified).AddTicks(9258), new TimeSpan(0, 0, 0, 0, 0)), 0, 12.99m, null });
+                columns: new[] { "Id", "BeneficiaryId", "BeneficiaryName", "Discount", "EndDate", "IsPaid", "LastUpdatedOn", "PersonType", "Price", "UniqueCode" },
+                values: new object[] { 1, 0, "empresa", null, new DateTime(2020, 6, 8, 2, 25, 39, 967, DateTimeKind.Utc).AddTicks(9600), false, new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 967, DateTimeKind.Unspecified).AddTicks(8973), new TimeSpan(0, 0, 0, 0, 0)), 0, 12.99m, null });
 
             migrationBuilder.InsertData(
                 table: "Billings",
-                columns: new[] { "Id", "BeneficiaryId", "BeneficiaryName", "CreatedAt", "Discount", "EndDate", "IsDeleted", "IsPaid", "LastUpdatedOn", "PersonType", "Price", "UniqueCode" },
-                values: new object[] { 2, 0, "empresa 2", new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)), null, new DateTime(2020, 6, 4, 23, 44, 58, 126, DateTimeKind.Utc).AddTicks(1921), false, false, new DateTimeOffset(new DateTime(2020, 6, 4, 23, 44, 58, 126, DateTimeKind.Unspecified).AddTicks(1912), new TimeSpan(0, 0, 0, 0, 0)), 0, 22.99m, null });
+                columns: new[] { "Id", "BeneficiaryId", "BeneficiaryName", "Discount", "EndDate", "IsPaid", "LastUpdatedOn", "PersonType", "Price", "UniqueCode" },
+                values: new object[] { 2, 0, "empresa 2", null, new DateTime(2020, 6, 8, 2, 25, 39, 968, DateTimeKind.Utc).AddTicks(1659), false, new DateTimeOffset(new DateTime(2020, 6, 8, 2, 25, 39, 968, DateTimeKind.Unspecified).AddTicks(1650), new TimeSpan(0, 0, 0, 0, 0)), 0, 22.99m, null });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Client_AddressId",
-                table: "Client",
+                name: "IX_Beneficiaries_AddressId",
+                table: "Beneficiaries",
+                column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Beneficiaries_AddressId1",
+                table: "Beneficiaries",
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DrugInformation_DrugId",
                 table: "DrugInformation",
                 column: "DrugId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Manufacturers_AddressId",
-                table: "Manufacturers",
-                column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductPrice_ProductId",
@@ -2875,8 +3300,8 @@ namespace DAL.Migrations.Local
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StockEntries_SupplierId",
-                table: "StockEntries",
+                name: "IX_StockEntry_SupplierId",
+                table: "StockEntry",
                 column: "SupplierId");
 
             migrationBuilder.CreateIndex(
@@ -2892,6 +3317,9 @@ namespace DAL.Migrations.Local
 
             migrationBuilder.DropTable(
                 name: "BALCON");
+
+            migrationBuilder.DropTable(
+                name: "Beneficiaries");
 
             migrationBuilder.DropTable(
                 name: "Billings");
@@ -2922,9 +3350,6 @@ namespace DAL.Migrations.Local
 
             migrationBuilder.DropTable(
                 name: "CLICHEQ");
-
-            migrationBuilder.DropTable(
-                name: "Client");
 
             migrationBuilder.DropTable(
                 name: "CLIENTE");
@@ -3006,9 +3431,6 @@ namespace DAL.Migrations.Local
 
             migrationBuilder.DropTable(
                 name: "MALCLIEN");
-
-            migrationBuilder.DropTable(
-                name: "Manufacturers");
 
             migrationBuilder.DropTable(
                 name: "MERCTRAN");
@@ -3149,6 +3571,9 @@ namespace DAL.Migrations.Local
                 name: "SUBSECAO");
 
             migrationBuilder.DropTable(
+                name: "Syncronization");
+
+            migrationBuilder.DropTable(
                 name: "TABELA");
 
             migrationBuilder.DropTable(
@@ -3236,7 +3661,7 @@ namespace DAL.Migrations.Local
                 name: "Products");
 
             migrationBuilder.DropTable(
-                name: "StockEntries");
+                name: "StockEntry");
 
             migrationBuilder.DropTable(
                 name: "PRODUTO");

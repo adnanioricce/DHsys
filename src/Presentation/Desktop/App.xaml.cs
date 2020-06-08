@@ -14,8 +14,10 @@ using Application.Extensions;
 using Desktop.Extensions;
 using System.Reflection;
 using System.IO;
+using System.Linq;
 using DAL.DbContexts;
 using DAL.Extensions;
+using Infrastructure.Interfaces;
 
 namespace Desktop
 {
@@ -75,13 +77,26 @@ namespace Desktop
             services.AddApplicationServices();            
             services.AddCustomMappers();
             services.AddViews();
-            services.AddViewModels();            
+            services.AddViewModels();
+            services.AddDataStore(configuration,opt => opt.UseSqlite(configuration.GetValue<string>($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}:{nameof(ConnectionStrings)}:LocalConnection")));
             services.AddTransient(typeof(ILegacyRepository<>),typeof(DbfRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
-            services.AddScoped<CustomNavigationService>(ConfigureNavigationService);            
+            services.AddScoped<CustomNavigationService>(ConfigureNavigationService);
+            services.AddSingleton<IFileSystemService, IOService>();
+            services.AddTransient<DbContextResolver>(provider => key => {
+                string option = key.ToLower();
+                var services = provider.GetServices(typeof(BaseContext));
+                return option switch
+                {
+                    "remote" => (BaseContext)services.FirstOrDefault(d => (d is RemoteContext)),
+                    "local" => (BaseContext)services.FirstOrDefault(d => (d is LocalContext)),
+                    _ => (BaseContext)services.FirstOrDefault(d => (d is LocalContext))
+                };
+            });
             ServiceProvider = services.BuildServiceProvider();
             var dbResolver = ServiceProvider.GetRequiredService<DbContextResolver>();
-            ServiceProvider.TryCreateDatabase(dbResolver("local"));            
+            var dbcontext = dbResolver("local");
+            dbcontext.ApplyUpgrades();
         }                        
         private CustomNavigationService ConfigureNavigationService(IServiceProvider provider)
         {

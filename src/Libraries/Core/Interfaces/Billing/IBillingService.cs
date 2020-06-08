@@ -8,6 +8,7 @@ namespace Core.Interfaces
     {
         BaseResult<Billing> AddBilling(Billing billing);
         IEnumerable<Billing> GetUnpaidBillings(int? limit);
+        IEnumerable<Billing> GetBillings(int? limit);
         IEnumerable<Billing> GetBillingsByBeneficiaryName(string beneficiaryName);
     }
 }

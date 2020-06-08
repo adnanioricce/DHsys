@@ -11,6 +11,9 @@ namespace DAL.DataMappings.Stock
         public override void Configure(EntityTypeBuilder<Client> builder)
         {
             base.Configure(builder);
+            builder.Property(p => p.Cpf)
+                .HasMaxLength(12);            
+            
         }
     }
 }

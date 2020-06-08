@@ -37,6 +37,7 @@
   </ItemGroup>  
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="Migrations\Local\" />
     <Folder Include="Migrations\Remote\" />
     <Folder Include="Scripts\Remote\" />
   </ItemGroup>

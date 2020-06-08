@@ -6,11 +6,13 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using Desktop.Models;
+using System.IO;
 
 namespace Desktop.ViewModels.Product
 {
     public class ProductListViewModel : ViewModelBase
     {
+        private Task _legacyWorkerThread;
         private readonly ILegacyRepository<Produto> _produtoRepository;
         private readonly IDrugService _drugService;
         private ObservableCollection<ProductCardModel> produtoCollection = new ObservableCollection<ProductCardModel>();        
@@ -69,7 +71,8 @@ namespace Desktop.ViewModels.Product
         public void ExecuteGetProductsBySearchPattern(string pattern)
         {
             //TODO:Insecure code, throws exception when just user type 
-            Task.Run(() =>
+            if (!_legacyWorkerThread.IsCompleted) return;
+            var task = new Task(() =>
             {
                 var produtos = _produtoRepository.MultipleFromRawSqlQuery($@"SELECT * FROM PRODUTO.DBF 
                 WHERE prdesc LIKE '%{pattern}%' 
@@ -78,7 +81,7 @@ namespace Desktop.ViewModels.Product
                 OR prcodi LIKE '%{pattern}%'");
                 foreach (var produto in produtos)
                 {
-                    System.Windows.Application.Current.Dispatcher.Invoke(() => 
+                    System.Windows.Application.Current.Dispatcher.Invoke(() =>
                     ProdutoCollection.Add(new ProductCardModel
                     {
                         Code = produto.Prcodi,
@@ -92,6 +95,8 @@ namespace Desktop.ViewModels.Product
                     }));
                 }
             });
+            _legacyWorkerThread = task;
+            task.Start();            
         }      
         public void ExecuteGetProductByBarcode(string barcode)
         {

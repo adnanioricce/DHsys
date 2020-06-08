@@ -56,7 +56,16 @@ namespace DAL.Extensions
                                                                         .ToList();
             if (pendingMigrations.Any())
             {                
-                pendingMigrations.ForEach(migration => context.Database.ExecuteSqlRaw(migration));
+                pendingMigrations.ForEach(migration => {
+                    try
+                    {
+                        context.Database.ExecuteSqlRaw(migration);
+                    }catch(Exception ex)
+                    {
+                        //TODO:Log exception
+
+                    }
+                    });
             }
         }
         public static IEnumerable<string> GetPendingMigrationScripts(this BaseContext context)
