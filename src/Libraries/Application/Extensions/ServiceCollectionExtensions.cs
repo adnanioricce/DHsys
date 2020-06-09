@@ -7,6 +7,7 @@ using Core.Interfaces;
 using Core.Interfaces.Catalog;
 using Core.Mappers;
 using DAL;
+using DAL.DbContexts;
 using Infrastructure.Interfaces;
 using Infrastructure.Settings;
 using Infrastructure.Updates;
@@ -76,7 +77,7 @@ namespace Application.Extensions
             var updater = new Updater(logger,writer,settings);
             services.AddSingleton(typeof(IUpdater),updater);
         }   
-        public static void TryCreateDatabase(this IServiceProvider services,MainContext context)
+        public static void TryCreateDatabase(this IServiceProvider services,BaseContext context)
         {
             //RelationalDatabaseCreator creator = services.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
             //if(context.Database.)
