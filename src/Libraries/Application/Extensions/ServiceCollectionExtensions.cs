@@ -1,6 +1,8 @@
-﻿using Application.Services;
+﻿using Application.Mapping.Domain;
+using Application.Services;
 using Application.Services.Catalog;
 using Application.Services.Sync;
+using AutoMapper;
 using Core.Entities.Catalog;
 using Core.Entities.Legacy;
 using Core.Interfaces;
@@ -8,12 +10,9 @@ using Core.Interfaces.Catalog;
 using Core.Mappers;
 using DAL;
 using DAL.DbContexts;
-using DAL.Extensions;
 using Infrastructure.Interfaces;
 using Infrastructure.Settings;
 using Infrastructure.Updates;
-using Microsoft.Data.SqlClient;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
@@ -82,7 +81,7 @@ namespace Application.Extensions
             var writer = provider.GetService <IWritableOptions<AutoUpdateSettings>>();
             var updater = new Updater(logger,writer,settings);
             services.AddSingleton(typeof(IUpdater),updater);
-        }
+        }           
         public static void AddApplicationServices(this IServiceCollection services)
         {
             services.AddTransient<IDrugProdutoMediator, DrugProdutoMediator>();
@@ -147,9 +146,19 @@ namespace Application.Extensions
         {
             services.AddTransient<ILegacyDataMapper<Drug, Produto>, ProdutoMapper>();
         }
-        public static void TryCreateDatabase(this IServiceProvider services, BaseContext context)
+        public static void TryCreateDatabase(this IServiceProvider provider, BaseContext context)
         {            
             context.Database.Migrate();            
-        }        
+        }
+        public static void AddAutoMapperConfiguration(this IServiceCollection services) 
+        {
+            var mapperConfig = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new CatalogProfile());
+                cfg.AddProfile(new FinancialProfile());
+            });
+            var mapper = mapperConfig.CreateMapper();            
+            services.AddSingleton(mapper);
+        }
     }
 }

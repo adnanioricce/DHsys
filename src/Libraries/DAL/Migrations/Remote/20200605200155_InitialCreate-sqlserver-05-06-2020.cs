@@ -95,7 +95,7 @@ namespace DAL.Migrations.Remote
                     BeneficiaryId = table.Column<int>(nullable: false),
                     BeneficiaryName = table.Column<string>(nullable: true),
                     PersonType = table.Column<int>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: true),
+                    EndDate = table.Column<DateTimeOffset>(nullable: true),
                     Price = table.Column<decimal>(nullable: false),
                     Discount = table.Column<decimal>(nullable: true),
                     IsPaid = table.Column<bool>(nullable: false)
@@ -158,7 +158,7 @@ namespace DAL.Migrations.Remote
                     LAULNO = table.Column<string>(nullable: true),
                     LATIPO = table.Column<string>(nullable: true),
                     NOMARQ = table.Column<string>(nullable: true),
-                    DT_ALTER = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DT_ALTER = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -178,7 +178,7 @@ namespace DAL.Migrations.Remote
                     LACODI = table.Column<string>(nullable: true),
                     FONOME = table.Column<string>(nullable: true),
                     FOTELE = table.Column<string>(nullable: true),
-                    VALID = table.Column<DateTime>(type: "datetime", nullable: true)
+                    VALID = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -196,9 +196,9 @@ namespace DAL.Migrations.Remote
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CX_ATEND = table.Column<string>(nullable: true),
-                    CX_DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CX_DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CX_VALOR = table.Column<double>(nullable: true),
-                    CX_REC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CX_REC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CX_ADM = table.Column<string>(nullable: true),
                     CX_CART = table.Column<double>(nullable: true),
                     CX_TIPO = table.Column<string>(nullable: true)
@@ -222,8 +222,8 @@ namespace DAL.Migrations.Remote
                     TICKET = table.Column<string>(nullable: true),
                     CODEMP = table.Column<string>(nullable: true),
                     CODFUN = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
-                    DATAC = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    DATAC = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -267,8 +267,8 @@ namespace DAL.Migrations.Remote
                     BANCO = table.Column<string>(nullable: true),
                     CONTA = table.Column<string>(nullable: true),
                     VALOR = table.Column<double>(nullable: true),
-                    DATAE = table.Column<DateTime>(type: "datetime", nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATAE = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CLIENTE = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -291,8 +291,8 @@ namespace DAL.Migrations.Remote
                     BANCO = table.Column<string>(nullable: true),
                     CONTA = table.Column<string>(nullable: true),
                     VALOR = table.Column<double>(nullable: true),
-                    DATAE = table.Column<DateTime>(type: "datetime", nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATAE = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     SITUACAO = table.Column<string>(nullable: true),
                     BAIXA = table.Column<string>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
@@ -320,7 +320,7 @@ namespace DAL.Migrations.Remote
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
-                    DATANASC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATANASC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CIDADE = table.Column<string>(nullable: true),
                     BAIRRO = table.Column<string>(nullable: true),
                     CEP = table.Column<string>(nullable: true),
@@ -352,14 +352,14 @@ namespace DAL.Migrations.Remote
                     CLDEBI = table.Column<double>(nullable: true),
                     CLPAGTO = table.Column<double>(nullable: true),
                     CLLIME = table.Column<double>(nullable: true),
-                    CLCOMPRA = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CLUPAGTO = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CLCOMPRA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    CLUPAGTO = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CLCIDA = table.Column<string>(nullable: true),
                     CLDESC = table.Column<string>(nullable: true),
                     CLDESMED = table.Column<double>(nullable: true),
                     CLDESPER = table.Column<double>(nullable: true),
                     CLBAIRRO = table.Column<string>(nullable: true),
-                    CLNASC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CLNASC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CLRG = table.Column<string>(nullable: true),
                     CLOBS = table.Column<string>(nullable: true),
                     CLCPF = table.Column<string>(nullable: true),
@@ -402,7 +402,7 @@ namespace DAL.Migrations.Remote
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     CLIENTE = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     VALOR = table.Column<double>(nullable: true),
                     CREDITO = table.Column<double>(nullable: true)
                 },
@@ -443,17 +443,17 @@ namespace DAL.Migrations.Remote
                     FUCODI = table.Column<string>(nullable: true),
                     CVNOTA = table.Column<string>(nullable: true),
                     CVBALC = table.Column<string>(nullable: true),
-                    CVDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CVDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CVVALOURV = table.Column<double>(nullable: true),
                     CVOBSV = table.Column<string>(nullable: true),
                     CVTICK = table.Column<string>(nullable: true),
                     CVRECEITA = table.Column<string>(nullable: true),
-                    CVDTREC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CVDTREC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CVPSUSO = table.Column<string>(nullable: true),
                     CVENTREGA = table.Column<string>(nullable: true),
                     CVVALOCRZ = table.Column<double>(nullable: true),
                     CVCOMISSAO = table.Column<double>(nullable: true),
-                    CVLIBCOM = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CVLIBCOM = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CVFILIAL = table.Column<string>(nullable: true),
                     CVTITULAR = table.Column<string>(nullable: true)
                 },
@@ -476,19 +476,19 @@ namespace DAL.Migrations.Remote
                     FUCODI = table.Column<string>(nullable: true),
                     CVNOTA = table.Column<string>(nullable: true),
                     CVBALC = table.Column<string>(nullable: true),
-                    CVDATA = table.Column<DateTime>(type: "datetime", nullable: true),
-                    CVMESDESC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CVDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    CVMESDESC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CVVALOURV = table.Column<double>(nullable: true),
                     CVOBSV = table.Column<string>(nullable: true),
                     CVTICK = table.Column<string>(nullable: true),
                     CVRECEITA = table.Column<string>(nullable: true),
                     CVREC = table.Column<string>(nullable: true),
-                    CVDTREC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CVDTREC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CVPSUSO = table.Column<string>(nullable: true),
                     CVENTREGA = table.Column<string>(nullable: true),
                     CVVALOCRZ = table.Column<double>(nullable: true),
                     CVCOMISSAO = table.Column<double>(nullable: true),
-                    CVLIBCOM = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CVLIBCOM = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CVFILIAL = table.Column<string>(nullable: true),
                     CVTITULAR = table.Column<string>(nullable: true)
                 },
@@ -510,7 +510,7 @@ namespace DAL.Migrations.Remote
                     CLCODI = table.Column<string>(nullable: true),
                     BACODI = table.Column<string>(nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
-                    CLDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    CLDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CLQTDE = table.Column<double>(nullable: true),
                     CLPAGO = table.Column<string>(nullable: true),
                     CLDESC = table.Column<double>(nullable: true),
@@ -520,7 +520,7 @@ namespace DAL.Migrations.Remote
                     DESCOMP = table.Column<string>(nullable: true),
                     COMISSAO = table.Column<double>(nullable: true),
                     VL_PAGO = table.Column<double>(nullable: true),
-                    DT_PAGTO = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DT_PAGTO = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -540,13 +540,13 @@ namespace DAL.Migrations.Remote
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
-                    DATANASC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATANASC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CIDADE = table.Column<string>(nullable: true),
                     BAIRRO = table.Column<string>(nullable: true),
                     CEP = table.Column<string>(nullable: true),
                     FONE = table.Column<string>(nullable: true),
                     BALCON = table.Column<string>(nullable: true),
-                    DTCAD = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DTCAD = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     RG = table.Column<string>(nullable: true),
                     CPF = table.Column<string>(nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
@@ -557,7 +557,7 @@ namespace DAL.Migrations.Remote
                     CLCLASSI = table.Column<string>(nullable: true),
                     CLOBS1 = table.Column<string>(nullable: true),
                     CLOBS2 = table.Column<string>(nullable: true),
-                    ULT_COMPRA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    ULT_COMPRA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -574,7 +574,7 @@ namespace DAL.Migrations.Remote
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     HISTORICO = table.Column<string>(nullable: true),
                     VALOR = table.Column<double>(nullable: true),
                     CAIXA = table.Column<string>(nullable: true)
@@ -655,7 +655,7 @@ namespace DAL.Migrations.Remote
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ENQTDE = table.Column<double>(nullable: true),
-                    ENDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ENDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -673,7 +673,7 @@ namespace DAL.Migrations.Remote
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    ENDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ENDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     ENQTDE = table.Column<double>(nullable: true),
                     ENVALO = table.Column<double>(nullable: true),
@@ -706,7 +706,7 @@ namespace DAL.Migrations.Remote
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    ENDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    ENDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     ENQTDE = table.Column<double>(nullable: true),
                     ENVALO = table.Column<double>(nullable: true),
@@ -723,7 +723,7 @@ namespace DAL.Migrations.Remote
                     ENVALODES = table.Column<double>(nullable: true),
                     FORNEC = table.Column<string>(nullable: true),
                     LOTE = table.Column<string>(nullable: true),
-                    EMISSNF = table.Column<DateTime>(type: "datetime", nullable: true),
+                    EMISSNF = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     NOTAFIS = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -827,7 +827,7 @@ namespace DAL.Migrations.Remote
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     PRCODI = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     BALCON = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -846,7 +846,7 @@ namespace DAL.Migrations.Remote
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     FUCDEM = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     VALOR = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
@@ -937,7 +937,7 @@ namespace DAL.Migrations.Remote
                     TOTDEBCR = table.Column<double>(nullable: true),
                     TOTDEBSR = table.Column<double>(nullable: true),
                     DEMITIDO = table.Column<string>(nullable: true),
-                    DATADEMI = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATADEMI = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
                     FULIMITE = table.Column<double>(nullable: true),
                     FUOBS1 = table.Column<string>(nullable: true),
@@ -945,7 +945,7 @@ namespace DAL.Migrations.Remote
                     FUOBS3 = table.Column<string>(nullable: true),
                     FUBLOQ = table.Column<string>(nullable: true),
                     CODGOLDEN = table.Column<string>(nullable: true),
-                    FUDATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    FUDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -964,8 +964,8 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     DISTRIB = table.Column<string>(nullable: true),
                     NOTAFIS = table.Column<string>(nullable: true),
-                    VENCTO = table.Column<DateTime>(type: "datetime", nullable: true),
-                    RECEBTO = table.Column<DateTime>(type: "datetime", nullable: true),
+                    VENCTO = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    RECEBTO = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     PEDIDO = table.Column<string>(nullable: true),
                     TOTAL = table.Column<double>(nullable: true),
                     DESCONTO = table.Column<double>(nullable: true)
@@ -1026,7 +1026,7 @@ namespace DAL.Migrations.Remote
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     USUARIO = table.Column<string>(nullable: true),
                     TIME = table.Column<string>(nullable: true),
                     NIVEL = table.Column<string>(nullable: true),
@@ -1050,13 +1050,13 @@ namespace DAL.Migrations.Remote
                     CODIGO = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
                     ENDERECO = table.Column<string>(nullable: true),
-                    DATANASC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATANASC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     CIDADE = table.Column<string>(nullable: true),
                     BAIRRO = table.Column<string>(nullable: true),
                     CEP = table.Column<string>(nullable: true),
                     FONE = table.Column<string>(nullable: true),
                     BALCON = table.Column<string>(nullable: true),
-                    DTCAD = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DTCAD = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     RG = table.Column<string>(nullable: true),
                     CPF = table.Column<string>(nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
@@ -1068,7 +1068,7 @@ namespace DAL.Migrations.Remote
                     CLOBS1 = table.Column<string>(nullable: true),
                     CLOBS2 = table.Column<string>(nullable: true),
                     FILIAL = table.Column<string>(nullable: true),
-                    ULT_COMPRA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    ULT_COMPRA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1120,7 +1120,7 @@ namespace DAL.Migrations.Remote
                     ECF = table.Column<string>(nullable: true),
                     CPF = table.Column<string>(nullable: true),
                     NOME = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     BACODI = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     CAIXA = table.Column<string>(nullable: true),
@@ -1154,7 +1154,7 @@ namespace DAL.Migrations.Remote
                     TOT_ANT = table.Column<double>(nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     TPVD = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     BACODI = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     CAIXA = table.Column<string>(nullable: true),
@@ -1188,7 +1188,7 @@ namespace DAL.Migrations.Remote
                     TOT_DESCON = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     BACODI = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     TPVD = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
@@ -1219,7 +1219,7 @@ namespace DAL.Migrations.Remote
                     TOT_DESCON = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     BACODI = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     TPVD = table.Column<string>(nullable: true),
                     ECF = table.Column<string>(nullable: true),
@@ -1248,7 +1248,7 @@ namespace DAL.Migrations.Remote
                     PRQTDE = table.Column<double>(nullable: true),
                     VL_UNIT = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     ECF = table.Column<string>(nullable: true),
                     DESCRICAO = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
@@ -1276,8 +1276,8 @@ namespace DAL.Migrations.Remote
                     VLLIQCoreD = table.Column<double>(nullable: true),
                     TOT_DESCON = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
-                    DATAREC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    DATAREC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     ECF = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     VL_TOT = table.Column<double>(nullable: true),
@@ -1329,12 +1329,12 @@ namespace DAL.Migrations.Remote
                     CEP = table.Column<string>(nullable: true),
                     FONE = table.Column<string>(nullable: true),
                     RG = table.Column<string>(nullable: true),
-                    DATANASC = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATANASC = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
                     DESCONTO = table.Column<double>(nullable: true),
                     CLCLASSI = table.Column<string>(nullable: true),
-                    ULT_COMPRA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    ULT_COMPRA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1365,7 +1365,7 @@ namespace DAL.Migrations.Remote
                     TOTDEBCR = table.Column<double>(nullable: true),
                     TOTDEBSR = table.Column<double>(nullable: true),
                     DEMITIDO = table.Column<string>(nullable: true),
-                    DATADEMI = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATADEMI = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     IMPRESSO = table.Column<string>(nullable: true),
                     FULIMITE = table.Column<double>(nullable: true),
                     FUOBS1 = table.Column<string>(nullable: true),
@@ -1373,7 +1373,7 @@ namespace DAL.Migrations.Remote
                     FUOBS3 = table.Column<string>(nullable: true),
                     FUBLOQ = table.Column<string>(nullable: true),
                     CODGOLDEN = table.Column<string>(nullable: true),
-                    FUDATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    FUDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1394,7 +1394,7 @@ namespace DAL.Migrations.Remote
                     PRCONS = table.Column<double>(nullable: true),
                     PRCONSCV = table.Column<double>(nullable: true),
                     PRFABR = table.Column<double>(nullable: true),
-                    PRCDDT = table.Column<DateTime>(type: "datetime", nullable: true),
+                    PRCDDT = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     PRCDLUCR = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
@@ -1437,9 +1437,9 @@ namespace DAL.Migrations.Remote
                     PRPORTA = table.Column<string>(nullable: true),
                     PRSITU = table.Column<string>(nullable: true),
                     PRULTE = table.Column<double>(nullable: true),
-                    PRDTUL = table.Column<DateTime>(type: "datetime", nullable: true),
-                    PRCDDT = table.Column<DateTime>(type: "datetime", nullable: true),
-                    PRDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    PRDTUL = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    PRCDDT = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    PRDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     PRCDLUCR = table.Column<double>(nullable: true),
                     PRICMS = table.Column<double>(nullable: true),
                     TIPO = table.Column<string>(nullable: true),
@@ -1450,8 +1450,8 @@ namespace DAL.Migrations.Remote
                     PRCDIMP2 = table.Column<string>(nullable: true),
                     PREMB = table.Column<double>(nullable: true),
                     PRENTR = table.Column<double>(nullable: true),
-                    UL_VEN = table.Column<DateTime>(type: "datetime", nullable: true),
-                    ULTPED = table.Column<DateTime>(type: "datetime", nullable: true),
+                    UL_VEN = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    ULTPED = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     ULTFOR = table.Column<string>(nullable: true),
                     PRCLAS = table.Column<string>(nullable: true),
                     PRMESANT = table.Column<double>(nullable: true),
@@ -1540,7 +1540,7 @@ namespace DAL.Migrations.Remote
                     NICMS25 = table.Column<double>(nullable: true),
                     NATUREZA = table.Column<string>(nullable: true),
                     N_NATU = table.Column<string>(nullable: true),
-                    NDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    NDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     NCANCELADA = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -1839,7 +1839,7 @@ namespace DAL.Migrations.Remote
                     PRCDLA = table.Column<string>(nullable: true),
                     PRFABR = table.Column<double>(nullable: true),
                     STATUS = table.Column<string>(nullable: true),
-                    PRDATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    PRDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -1910,9 +1910,9 @@ namespace DAL.Migrations.Remote
                     PRPORTA = table.Column<string>(nullable: true),
                     PRSITU = table.Column<string>(nullable: true),
                     PRULTE = table.Column<double>(nullable: true),
-                    PRDTUL = table.Column<DateTime>(type: "datetime", nullable: true),
-                    PRCDDT = table.Column<DateTime>(type: "datetime", nullable: true),
-                    PRDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    PRDTUL = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    PRCDDT = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    PRDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     PRCDLUCR = table.Column<double>(nullable: true),
                     PRICMS = table.Column<double>(nullable: true),
                     TIPO = table.Column<string>(nullable: true),
@@ -1923,8 +1923,8 @@ namespace DAL.Migrations.Remote
                     PRCDIMP2 = table.Column<string>(nullable: true),
                     PREMB = table.Column<double>(nullable: true),
                     PRENTR = table.Column<double>(nullable: true),
-                    UL_VEN = table.Column<DateTime>(type: "datetime", nullable: true),
-                    ULTPED = table.Column<DateTime>(type: "datetime", nullable: true),
+                    UL_VEN = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
+                    ULTPED = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     ULTFOR = table.Column<string>(nullable: true),
                     PRCLAS = table.Column<string>(nullable: true),
                     PRMESANT = table.Column<double>(nullable: true),
@@ -1938,7 +1938,7 @@ namespace DAL.Migrations.Remote
                     PRPIS = table.Column<string>(nullable: true),
                     PRUN = table.Column<string>(nullable: true),
                     PRNCMS = table.Column<string>(nullable: true),
-                    PRVALID = table.Column<DateTime>(type: "datetime", nullable: true),
+                    PRVALID = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     VENDATU = table.Column<double>(nullable: true),
                     VENDANT = table.Column<double>(nullable: true)
                 },
@@ -1970,7 +1970,7 @@ namespace DAL.Migrations.Remote
                     UFCONS = table.Column<string>(nullable: true),
                     LOTE = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     MOTIVO = table.Column<string>(nullable: true),
                     USOMED = table.Column<string>(nullable: true),
@@ -1979,7 +1979,7 @@ namespace DAL.Migrations.Remote
                     ORGAO = table.Column<string>(nullable: true),
                     PACIENTE = table.Column<string>(nullable: true),
                     UF = table.Column<string>(nullable: true),
-                    EMISSAO = table.Column<DateTime>(type: "datetime", nullable: true),
+                    EMISSAO = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     NF = table.Column<string>(nullable: true),
                     CNPJ = table.Column<string>(nullable: true),
                     FORNEC = table.Column<string>(nullable: true),
@@ -1992,7 +1992,7 @@ namespace DAL.Migrations.Remote
                     TPIDADE = table.Column<string>(nullable: true),
                     PROLONG = table.Column<string>(nullable: true),
                     UNIDADE = table.Column<string>(nullable: true),
-                    NASC = table.Column<DateTime>(type: "datetime", nullable: true)
+                    NASC = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2015,7 +2015,7 @@ namespace DAL.Migrations.Remote
                     TOT_DESCON = table.Column<double>(nullable: true),
                     TICKET = table.Column<string>(nullable: true),
                     BACODI = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     TIPO = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     VL_TOT = table.Column<double>(nullable: true),
@@ -2041,7 +2041,7 @@ namespace DAL.Migrations.Remote
                     TICKET = table.Column<string>(nullable: true),
                     TOT_VEN = table.Column<double>(nullable: true),
                     TIPO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     BACODI = table.Column<string>(nullable: true),
                     CANCELADO = table.Column<string>(nullable: true),
                     CAIXA = table.Column<string>(nullable: true),
@@ -2065,7 +2065,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     ARQCoreVO = table.Column<string>(nullable: true),
                     POSICAO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     NECESSITA = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -2159,7 +2159,7 @@ namespace DAL.Migrations.Remote
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     VALORDH = table.Column<double>(nullable: true),
                     VALORCH = table.Column<double>(nullable: true),
                     HORA = table.Column<string>(nullable: true),
@@ -2222,7 +2222,7 @@ namespace DAL.Migrations.Remote
                     SENCLICH = table.Column<string>(nullable: true),
                     SENCLIP = table.Column<string>(nullable: true),
                     SENCONT = table.Column<string>(nullable: true),
-                    SENDATE = table.Column<DateTime>(type: "datetime", nullable: true),
+                    SENDATE = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     SENDEFA = table.Column<string>(nullable: true),
                     SENDESC = table.Column<double>(nullable: true),
                     SENDESC1 = table.Column<double>(nullable: true),
@@ -2247,7 +2247,7 @@ namespace DAL.Migrations.Remote
                     SENMULTA = table.Column<double>(nullable: true),
                     SENNIV = table.Column<string>(nullable: true),
                     SENPAR = table.Column<string>(nullable: true),
-                    SENPCLI = table.Column<DateTime>(type: "datetime", nullable: true),
+                    SENPCLI = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     SENPME = table.Column<double>(nullable: true),
                     SENPONTO = table.Column<double>(nullable: true),
                     SENPORT = table.Column<string>(nullable: true),
@@ -2387,7 +2387,7 @@ namespace DAL.Migrations.Remote
                     FRA1 = table.Column<double>(nullable: true),
                     UNI = table.Column<double>(nullable: true),
                     IPI = table.Column<double>(nullable: true),
-                    DTVIG = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DTVIG = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     NEUTRO = table.Column<string>(nullable: true),
                     NEGPOS = table.Column<string>(nullable: true),
                     CUSTOM = table.Column<string>(nullable: true),
@@ -2479,7 +2479,7 @@ namespace DAL.Migrations.Remote
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    TRDATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    TRDATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     BALCON = table.Column<string>(nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true),
@@ -2506,7 +2506,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2525,7 +2525,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2544,7 +2544,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2563,7 +2563,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2582,7 +2582,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2601,7 +2601,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2620,7 +2620,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2639,7 +2639,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2658,7 +2658,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2677,7 +2677,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2696,7 +2696,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2715,7 +2715,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2734,7 +2734,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2753,7 +2753,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2772,7 +2772,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2791,7 +2791,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2810,7 +2810,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2829,7 +2829,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2848,7 +2848,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2867,7 +2867,7 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
                     TROCO_INI = table.Column<double>(nullable: true),
                     INITROCO = table.Column<string>(nullable: true),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true)
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -2884,7 +2884,7 @@ namespace DAL.Migrations.Remote
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     VALOR = table.Column<double>(nullable: true)
                 },
                 constraints: table =>
@@ -2931,7 +2931,7 @@ namespace DAL.Migrations.Remote
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false),
-                    DATA = table.Column<DateTime>(type: "datetime", nullable: true),
+                    DATA = table.Column<DateTimeOffset>(type: "datetime", nullable: true),
                     PRCODI = table.Column<string>(nullable: true),
                     QTDE = table.Column<double>(nullable: true)
                 },
@@ -3011,9 +3011,9 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 860, DateTimeKind.Unspecified).AddTicks(7200), new TimeSpan(0, 0, 0, 0, 0))),
                     SupplierId = table.Column<int>(nullable: true),
                     Quantity = table.Column<int>(nullable: true),
-                    DrugMaturityDate = table.Column<DateTime>(nullable: true),
+                    DrugMaturityDate = table.Column<DateTimeOffset>(nullable: true),
                     NfNumber = table.Column<string>(nullable: true),
-                    NfEmissionDate = table.Column<DateTime>(nullable: true),
+                    NfEmissionDate = table.Column<DateTimeOffset>(nullable: true),
                     Totalcost = table.Column<decimal>(nullable: true),
                     LotCode = table.Column<string>(nullable: true)
                 },
@@ -3161,8 +3161,8 @@ namespace DAL.Migrations.Remote
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 430, DateTimeKind.Unspecified).AddTicks(219), new TimeSpan(0, 0, 0, 0, 0))),
                     ProductId = table.Column<int>(nullable: false),
                     StockEntryId = table.Column<int>(nullable: false),
-                    StartDate = table.Column<DateTime>(nullable: true),
-                    EndDate = table.Column<DateTime>(nullable: true)
+                    StartDate = table.Column<DateTimeOffset>(nullable: true),
+                    EndDate = table.Column<DateTimeOffset>(nullable: true)
                 },
                 constraints: table =>
                 {

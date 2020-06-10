@@ -1,13 +1,7 @@
 using Core.Entities;
-using Core.Entities.Catalog;
-using Core.Entities.Financial;
-using Core.Entities.Legacy;
-using Core.Entities.Stock;
 using Core.Entities.Sync;
-using DAL.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;

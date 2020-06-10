@@ -25,10 +25,12 @@ namespace Api.Controllers.Api
         private readonly ILegacyDbSynchronizer _dbSyncronizer;
         private readonly IDbConnection _connection;
         private readonly string _dbfSourceFolder;
-        public SyncController(ILegacyDbSynchronizer dbSynchronizer,ConnectionResolver connection,IOptions<LegacyDatabaseSettings> legacyDbSettings)
+        public SyncController(ILegacyDbSynchronizer dbSynchronizer,
+            ConnectionResolver connection,
+            IOptions<LegacyDatabaseSettings> legacyDbSettings)
         {
             _dbSyncronizer = dbSynchronizer;
-            _connection = connection("local");
+            _connection = connection("remote");
             _dbfSourceFolder = legacyDbSettings.Value.DataSource;
         }
         [HttpPost("sync_dbfs")]

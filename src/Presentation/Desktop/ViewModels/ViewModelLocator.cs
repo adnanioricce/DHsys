@@ -3,6 +3,7 @@ using Desktop.ViewModels.Product;
 using Desktop.ViewModels.Billings;
 using Desktop.ViewModels.Update;
 using Desktop.ViewModels.Settings;
+using Desktop.ViewModels.Transactions;
 
 namespace Desktop.ViewModels
 {
@@ -15,5 +16,6 @@ namespace Desktop.ViewModels
         public CreateProductViewModel CreateProductViewModel => App.ServiceProvider.GetRequiredService<CreateProductViewModel>();
         public ApplicationUpdateViewModel ApplicationUpdateViewModel => App.ServiceProvider.GetRequiredService<ApplicationUpdateViewModel>();
         public SettingsViewModel SettingsViewModel => App.ServiceProvider.GetRequiredService<SettingsViewModel>();
+        public TransactionListViewModel TransactionListViewModel => App.ServiceProvider.GetRequiredService<TransactionListViewModel>();
     }
 }

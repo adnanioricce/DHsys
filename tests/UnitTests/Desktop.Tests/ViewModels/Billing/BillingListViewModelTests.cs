@@ -36,6 +36,7 @@ namespace Desktop.Tests.ViewModels
         public void Given_csv_file_with_billings_When_Users_tries_to_open_file_from_dialog_Then_save_all_lines_on_database()
         {
             // Given
+            var repository = new FakeRepository<Billing>();
             // When
             // Then
         }

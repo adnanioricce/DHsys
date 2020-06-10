@@ -6,6 +6,7 @@ using Core.Entities;
 using DAL.DbContexts;
 using DAL.Extensions;
 using System.Reflection;
+using System.Threading.Tasks;
 
 namespace DAL
 {
@@ -54,9 +55,9 @@ namespace DAL
             DbSet.Update(entity);
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
-            Context.SaveChanges();
+            return Context.SaveChanges();
         }
 
         public T GetBy(string id)
@@ -67,6 +68,26 @@ namespace DAL
         public IQueryable<T> Query(string query)
         {
             return DbSet.FromSqlRaw<T>(query);
+        }
+
+        public async Task<T> GetByAsync(int id)
+        {
+            return await Context.FindAsync<T>(id);
+        }
+
+        public async Task<T> GetByAsync(string uniqueCode)
+        {
+            return await Context.FindAsync<T>(uniqueCode);
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await DbSet.ToListAsync();
+        }
+
+        public async Task<int> SaveChangesAsync()
+        {
+            return await Context.SaveChangesAsync();
         }
     }
 }
