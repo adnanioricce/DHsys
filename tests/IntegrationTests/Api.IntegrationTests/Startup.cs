@@ -80,6 +80,7 @@ namespace Api.IntegrationTests
             services.AddApplicationUpdater();
             services.AddApplicationServices();
             services.AddCustomMappers();
+            services.AddAutoMapperConfiguration();
             services.ConfigureWritable<AutoUpdateSettings>();
             services.AddTransient(typeof(IAppLogger<>),typeof(LoggerAdapter<>));
             services.AddTransient<ConnectionResolver>(db => key =>  {                
@@ -104,7 +105,7 @@ namespace Api.IntegrationTests
                     .ToList()
                     .ForEach(c => {
                         if ((c.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists())
-                        {                            
+                        {                                       
                             c.ApplyUpgrades();
                         }
                         else

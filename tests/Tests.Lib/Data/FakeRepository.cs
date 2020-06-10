@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Entities;
 using Core.Interfaces;
 
@@ -61,9 +62,10 @@ namespace Tests.Lib.Data
             return context.Values.AsQueryable();
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
             //TODO;
+            return 1;
         }
 
         public void Update(T entity)
@@ -79,6 +81,26 @@ namespace Tests.Lib.Data
         public IQueryable<T> Query(string query)
         {
             return context.Values.AsQueryable(); 
+        }
+
+        public Task<T> GetByAsync(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<T> GetByAsync(string uniqueCode)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IEnumerable<T>> GetAllAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }

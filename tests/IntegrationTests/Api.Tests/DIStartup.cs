@@ -27,6 +27,7 @@ using System.IO;
 using DAL.Extensions;
 using DAL.DbContexts;
 using Microsoft.Data.SqlClient;
+using Application.Extensions;
 
 [assembly: TestFramework("Api.Tests.DIStartup", "Api.Tests")]
 namespace Api.Tests
@@ -74,6 +75,7 @@ namespace Api.Tests
             services.AddTransient<IDrugService, DrugService>();
             services.AddTransient<IBillingService, BillingService>();            
             services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
+            services.AddAutoMapperConfiguration();
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             var legacySettings = configuration.GetSection(nameof(LegacyDatabaseSettings)).Get<LegacyDatabaseSettings>();
             services.AddTransient<ConnectionResolver>(db => key => {

@@ -1,9 +1,11 @@
+using Core.Interfaces.Data;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Core.Interfaces
 {
-    public interface IRepository<T>
+    public interface IRepository<T> : IAsyncRepository<T>
     {
         IEnumerable<T> GetAll();
         T GetBy(int id);
@@ -13,8 +15,7 @@ namespace Core.Interfaces
         void Update(T entity);
         void Delete(T entity);
         IQueryable<T> Query();
-        IQueryable<T> Query(string query);
-        
-        void SaveChanges();
+        IQueryable<T> Query(string query);        
+        int SaveChanges();        
     }
 }

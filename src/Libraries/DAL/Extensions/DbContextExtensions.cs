@@ -51,6 +51,15 @@ namespace DAL.Extensions
         }        
         public static void ApplyUpgrades(this BaseContext context)
         {
+            if(context is RemoteContext)
+            {
+                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");
+                //if(context is null)
+            }
+            if(context is LocalContext)
+            {
+                context = context as LocalContext ?? throw new InvalidCastException($"can't cast context {context} to LocalContext");
+            }
             var migrator = context.Database.GetService<IMigrator>();
             var pendingMigrations = context.GetPendingMigrationScripts().Select(s => s.Replace("\r\nGO", " "))
                                                                         .ToList();
@@ -65,15 +74,25 @@ namespace DAL.Extensions
                         //TODO:Log exception
 
                     }
-                    });
+                });
             }
         }
         public static IEnumerable<string> GetPendingMigrationScripts(this BaseContext context)
         {
+            if (context is RemoteContext)
+            {
+                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");
+                //if(context is null)
+            }
+            if (context is LocalContext)
+            {
+                context = context as LocalContext ?? throw new InvalidCastException($"can't cast context {context} to LocalContext");
+            }
             var migrator = context.Database.GetService<IMigrator>();
-            var pendingMigrations = context.Database.GetPendingMigrations().ToList();            
+            //If you don't do this, ef will try to execute migration from another context
+            var pendingMigrations = context.Database.GetPendingMigrations().Where(m => m.Contains(context.Database.ProviderName.ToLower())).ToList();          
             var scriptsEnum = pendingMigrations.GetEnumerator();
-            var idempotent = !context.Database.IsSqlite() ? true : false;
+            var idempotent = !context.Database.IsSqlite();
             var scripts = pendingMigrations.Select(m => migrator.GenerateScript(toMigration:m,idempotent:idempotent));
             return scripts;
         }        

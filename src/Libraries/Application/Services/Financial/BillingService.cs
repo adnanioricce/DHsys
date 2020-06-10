@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Financial;
@@ -88,6 +90,16 @@ namespace Application.Services
                                                   && string.Compare(beneficiaryName, b.Name) >= 0)
                                                   .FirstOrDefault();
             return !(billingByName is null);
+        }
+
+        public BaseResult<IEnumerable<Billing>> AddBillingsFromFile(string csvFilePath)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Billing> GetBillings(int? limit)
+        {
+            throw new NotImplementedException();
         }
     }
 }

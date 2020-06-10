@@ -1,12 +1,5 @@
 ﻿using Application.Extensions;
-using Application.Services;
-using Application.Services.Catalog;
-using Application.Services.Sync;
-using Core.Entities.Catalog;
-using Core.Entities.Legacy;
-using Core.Interfaces;
-using Core.Interfaces.Catalog;
-using Core.Mappers;
+using Desktop.MappingProfiles;
 using Desktop.ViewModels;
 using Desktop.ViewModels.Billings;
 using Desktop.ViewModels.Product;
@@ -14,7 +7,6 @@ using Desktop.ViewModels.Settings;
 using Desktop.ViewModels.Update;
 using Desktop.Views.Conta;
 using Desktop.Views.Product;
-using Infrastructure.Interfaces;
 using Infrastructure.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -48,6 +40,14 @@ namespace Desktop.Extensions
             services.ConfigureWritable<ConnectionStrings>();
             services.ConfigureWritable<DatabaseSettings>();
             services.ConfigureWritable<AppSettings>();
+        }
+        public static void AddDesktopAutoMapperConfiguration(this IServiceCollection services)
+        {
+            var mapperConfiguration = new AutoMapper.MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new DesktopFinancialProfile());
+            });
+            services.AddSingleton(mapperConfiguration.CreateMapper());
         }
     }
 }
