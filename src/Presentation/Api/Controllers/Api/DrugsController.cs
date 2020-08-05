@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Api.Models;
+using AutoMapper;
+using Core.ApplicationModels.Dtos.Catalog;
 using Core.Entities.Catalog;
 using Core.Entities.Legacy;
 using Core.Interfaces;
@@ -18,27 +20,22 @@ namespace Api.Controllers.Api
     public class DrugsController : ControllerBase
     {
         private readonly IDrugService _drugService;
-        public DrugsController(IDrugService drugService)
+        private readonly IMapper _mapper;
+        public DrugsController(IDrugService drugService,IMapper mapper)
         {
             _drugService = drugService;
+            _mapper = mapper;
         }
         // GET: api/Drugs/search/{name}
         [HttpGet("search/list")]
-        public ActionResult<BaseResourceResponse<IList<Drug>>> GetDrugsByName([FromQuery]CatalogQuery query)
+        public ActionResult<BaseResourceResponse<IList<DrugDto>>> GetDrugsByName([FromQuery]CatalogQuery query)
         {
             var drugs = _drugService.SearchDrugsByName(query.Name).ToList();
             if(drugs.Count == 0)
-            {
-                //return new BaseResourceResponse<IList<Drug>>{
-                return BadRequest($"there is no drug with the pattern {query.Name} on it's name");
-                //};
+            {                
+                return BadRequest($"there is no drug with the pattern {query.Name} on it's name");                
             }
-            return Ok(new BaseResourceResponse<IList<Drug>>
-            {
-                ResultObject = drugs,
-                Success = true,
-                ErrorMessage = ""
-            });            
+            return Ok(new BaseResourceResponse<IList<DrugDto>>("drugs created with success",drugs.Select(d => _mapper.Map<Drug, DrugDto>(d)).ToList()));            
         }
         // GET: api/Drugs/search/{barcode}
         [HttpGet("search")]
@@ -49,43 +46,36 @@ namespace Api.Controllers.Api
             {
                 return BadRequest($"There is no drug with name {barcode}");
             }
-            return Ok(new BaseResourceResponse<Drug>
-            {
-                ResultObject = drug,
-                Success = true
-            });
+            return Ok(new BaseResourceResponse<Drug>("", drug));            
         }
-        [HttpPost("create_from_produtos")]
-        public ActionResult<BaseResourceResponse<IEnumerable<Drug>>> CreateDrugsFromCollectionOfProduto([FromBody]CreateDrugFromProdutoRequest request)
-        {            
-            if (!request.CreatedProdutos.Any()) return new BadRequestObjectResult("there is no data to save"); 
-            //What I should do here?
-            _drugService.CreateDrugs(request.CreatedProdutos);
-            
-            return Ok(new BaseResourceResponse<IEnumerable<Drug>>
-            {                
-                Success = true
-            });
-        }        
-        [HttpPost("create_from_produto")]
-        public ActionResult<BaseResourceResponse> CreateDrugFromProduto([FromBody]Produto produto)
-        {
-            _drugService.CreateDrug(produto);
-            return Ok(new BaseResourceResponse
-            {
-                ErrorMessage = "",
-                Success = true
-            });
-        }
+        // POST: api/Drugs/create
         [HttpPost("create")]
         public ActionResult<BaseResourceResponse> CreateDrug(Drug drug)
         {
             _drugService.CreateDrug(drug);
             return Ok(new BaseResourceResponse
             {
-                ErrorMessage = "",
+                Message = "",
                 Success = true
             });
         }
+        // POST: api/Drugs/create_from_produtos
+        [HttpPost("create_from_produtos")]
+        public ActionResult<BaseResourceResponse<IEnumerable<Drug>>> CreateDrugsFromCollectionOfProduto([FromBody]CreateDrugFromProdutoRequest request)
+        {            
+            if (!request.CreatedProdutos.Any()) return new BadRequestObjectResult("there is no data to save"); 
+            //What I should do here?
+            _drugService.CreateDrugs(request.CreatedProdutos);
+
+            return Ok(new BaseResourceResponse<IEnumerable<Drug>>(errorMessage:"",resultObject:null));
+        }
+        // POST: api/Drugs/create_from_produto
+        [HttpPost("create_from_produto")]
+        public ActionResult<BaseResourceResponse> CreateDrugFromProduto([FromBody]Produto produto)
+        {
+            _drugService.CreateDrug(produto);
+            return Ok(new BaseResourceResponse(errorMessage: "", success: true));            
+        }
+        
     }
 }

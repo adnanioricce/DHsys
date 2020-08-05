@@ -21,7 +21,8 @@ namespace Desktop.ViewModels.Transactions
         public ObservableCollection<TransactionModel> FrontTransactions { get; set; } = new ObservableCollection<TransactionModel>();
         public RelayCommand LoadCommand { get; set; }
         public RelayCommand<DateTimeOffset> GetTransactionsByDateCommand { get; set; }
-        public TransactionListViewModel(ITransactionService transactionService,IMapper mapper)
+        public TransactionListViewModel(ITransactionService transactionService,
+            IMapper mapper)
         {
             _transacionService = transactionService;
             _mapper = mapper;

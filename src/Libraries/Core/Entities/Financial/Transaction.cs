@@ -14,5 +14,10 @@ namespace Core.Entities.Financial
         {
             Items.Add(item);
         }
+        public decimal CalculateTransactionTotal()
+        {
+            return this.Items.Sum(p => p.CustomerValue * p.Quantity);
+        }
+
     }
 }

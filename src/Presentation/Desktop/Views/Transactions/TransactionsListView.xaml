@@ -5,20 +5,20 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Desktop.Views.Transactions"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:vms="clr-namespace:Desktop.ViewModels.Product"
+             xmlns:vms="clr-namespace:Desktop.ViewModels.Transactions"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}"
-              TextElement.FontWeight="Regular"
-              TextElement.FontSize="13"
-              TextOptions.TextFormattingMode="Ideal"
-              TextOptions.TextRenderingMode="Auto"      
-              FontFamily="{DynamicResource MaterialDesignFont}"
-              DataContext="{Binding Source={StaticResource Locator},Path=}"
+             TextElement.FontWeight="Regular"
+             TextElement.FontSize="13"
+             TextOptions.TextFormattingMode="Ideal"
+             TextOptions.TextRenderingMode="Auto"      
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             DataContext="{Binding Source={StaticResource Locator},Path=TransactionListViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
-        <DataTemplate DataType="{x:Type vms:CreateProductViewModel}">
-            <local:CreateProductView/>
+        <DataTemplate DataType="{x:Type vms:TransactionListViewModel}">
+            <local:TransactionsListView/>
         </DataTemplate>
     </UserControl.Resources>
     <Grid>
@@ -29,7 +29,17 @@
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
         </Grid.RowDefinitions>
-        <ListView x:Name="_dataGrid" Grid.Row="2">
+        <StackPanel>
+            <ContextMenu>
+                <MenuItem Header="Mais Recente" />
+                <MenuItem Header="Mais Antigo" />
+                <MenuItem Header="Maior Valor" />
+                <MenuItem Header="Menor Valor" />
+                <MenuItem Header="Convenio" />
+                <MenuItem Header="Produto" />
+            </ContextMenu>
+        </StackPanel>
+        <ListView x:Name="_dataGrid" Grid.Row="1">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <materialDesign:Card>
@@ -38,7 +48,9 @@
                                 <ColumnDefinition/>
                             </Grid.ColumnDefinitions>
                             <StackPanel>
-                                <!--<TextBlock Text="{Binding }"/>-->
+                                <TextBlock Text="{Binding TransactionTotal}"/>
+                                <TextBlock Text="{Binding PaymentMethod}"/>
+                                <TextBlock Text="{Binding CreatedAt}"/>
                             </StackPanel>
                         </Grid>
                     </materialDesign:Card>

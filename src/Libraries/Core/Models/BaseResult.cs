@@ -2,6 +2,7 @@ using System.Collections.Generic;
 
 namespace Core.Models
 {
+    //!Possible replication of Application.Models.ApplicationResources.BaseResourceResponse
     public class BaseResult<T> 
     {
         public BaseResult()

@@ -13,7 +13,7 @@ namespace Desktop.Services
             {
                 _defaultPath = defaultPath;
             }
-        }
+        }        
         public virtual Stream OpenFile(string path)
         {
             if (!File.Exists(path))
