@@ -51,6 +51,13 @@ namespace Application.Services
             _drugRepository.SaveChanges();
         }
 
+        public Task<int> CreateDrugsAsync(IEnumerable<Produto> produtos)
+        {
+            var drugs = produtos.Select(p => _produtoMapper.MapToDomainModel(p));
+            _drugRepository.AddRange(drugs);
+            return _drugRepository.SaveChangesAsync();
+        }
+
         public virtual Drug GetDrugByUniqueCode(string uniqueCode)
         {
             return _drugRepository.Query()

@@ -1,5 +1,6 @@
 using Core.Entities.Catalog;
 using Core.Entities.Legacy;
+using System.Threading.Tasks;
 
 namespace Core.Interfaces.Catalog
 {
@@ -7,7 +8,6 @@ namespace Core.Interfaces.Catalog
     public interface IProdutoService
     {        
         void CreateProduto(Produto produto);
-        void UpdateProduto(Produto produto);
-
+        void UpdateProduto(Produto produto);        
     }
 }

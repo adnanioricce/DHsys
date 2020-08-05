@@ -93,7 +93,7 @@ namespace Api.Tests.Controllers.Api
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IEnumerable<Drug>>>();
             // Assert            
-            Assert.True(string.IsNullOrEmpty(valueResult.ErrorMessage));            
+            Assert.True(string.IsNullOrEmpty(valueResult.Message));            
             Assert.True(valueResult.Success);
         }
 
@@ -109,7 +109,7 @@ namespace Api.Tests.Controllers.Api
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse>();
             // Assert
-            Assert.True(string.IsNullOrEmpty(valueResult.ErrorMessage));
+            Assert.True(string.IsNullOrEmpty(valueResult.Message));
             Assert.True(valueResult.Success);
         }
 
@@ -141,7 +141,7 @@ namespace Api.Tests.Controllers.Api
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse>();
 
             // Assert
-            Assert.True(string.IsNullOrEmpty(valueResult.ErrorMessage));
+            Assert.True(string.IsNullOrEmpty(valueResult.Message));
             Assert.True(valueResult.Success);            
         }
         private Produto GetBaseProduto()
