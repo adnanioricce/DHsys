@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Core.Handlers
+namespace Core.Commands.Default
 {
     public class DefaultCreateRequest<TRequest> : IRequest where TRequest : BaseEntity 
     {

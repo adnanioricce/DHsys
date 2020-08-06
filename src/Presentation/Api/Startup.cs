@@ -79,6 +79,7 @@ namespace Api
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };
             });
+            services.AddMediator<Startup>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
