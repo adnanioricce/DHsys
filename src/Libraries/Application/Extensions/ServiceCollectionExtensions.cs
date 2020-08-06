@@ -24,7 +24,7 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.IO;
 using System.Reflection;
-
+using MediatR;
 namespace Application.Extensions
 {
     public static class ServiceCollectionExtensions
@@ -160,5 +160,9 @@ namespace Application.Extensions
             var mapper = mapperConfig.CreateMapper();            
             services.AddSingleton(mapper);
         }
+        public static void AddMediator<TStartup>(this IServiceCollection services)
+        {
+            services.AddMediatR(typeof(TStartup).Assembly);
+        }        
     }
 }
