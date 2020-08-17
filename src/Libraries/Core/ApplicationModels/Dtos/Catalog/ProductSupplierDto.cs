@@ -1,4 +1,5 @@
 using System;
+using Core.ApplicationModels.Dtos.Stock;
 using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog

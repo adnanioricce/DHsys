@@ -38,7 +38,7 @@ namespace Api.Tests.Controllers.Api
             // Assert
             var count = valueResult.ResultObject.Count();
             Assert.True(valueResult.Success);
-            Assert.True(valueResult.ResultObject.Count() > 0);
+            Assert.True(count > 0);
         }
 
         [Fact]

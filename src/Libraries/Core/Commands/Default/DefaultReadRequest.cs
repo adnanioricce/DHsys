@@ -7,7 +7,7 @@ namespace Core.Commands.Default
 {
     public class DefaultReadRequest<TEntity,TResponse> : IRequest<TResponse> where TEntity : BaseEntity
     {
-        public virtual int Id { get; set; }
+        public virtual object Id { get; set; }
         
     }
 }

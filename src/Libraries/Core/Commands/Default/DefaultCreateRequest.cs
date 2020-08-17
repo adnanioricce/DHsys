@@ -7,12 +7,20 @@ using System.Text;
 
 namespace Core.Commands.Default
 {
-    public class DefaultCreateRequest<TRequest> : IRequest where TRequest : BaseEntity 
+    public class DefaultCreateRequest<TEntity> : IRequest where TEntity : BaseEntity 
     {
-        public TRequest Entity { get; set; }
+        public TEntity Entity { get; set; }
     }
-    public class DefaultBulkCreateRequest<TRequest> : IRequest where TRequest : BaseEntity 
+    public class DefaultCreateRequest<TEntity,TResponse> : IRequest<TResponse> where TEntity : BaseEntity where TResponse : BaseResourceResponse
     {
-        public ICollection<TRequest> Entities { get; set; } = new List<TRequest>();
+        public TEntity Entity { get; set; }
+    }
+    public class DefaultBulkCreateRequest<TEntity> : IRequest where TEntity : BaseEntity 
+    {
+        public ICollection<TEntity> Entities { get; set; } = new List<TEntity>();
+    }
+    public class DefaultBulkCreateRequest<TEntity,TResponse> : IRequest<TResponse> where TEntity : BaseEntity
+    {
+        public ICollection<TEntity> Entities { get; set; } = new List<TEntity>();
     }
 }

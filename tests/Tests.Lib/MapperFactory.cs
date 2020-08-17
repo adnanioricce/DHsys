@@ -14,7 +14,7 @@ namespace Tests.Lib
             var mapperConfig = new MapperConfiguration(cfg => {
                 foreach (var profile in profiles)
                 {
-                    cfg.AddProfile(profile)
+                    cfg.AddProfile(profile);
                 }                
             });
             return mapperConfig.CreateMapper();

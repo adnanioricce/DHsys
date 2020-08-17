@@ -20,7 +20,7 @@ namespace Api.Controllers.Api
     public class DrugsController : ControllerBase
     {
         private readonly IDrugService _drugService;
-        private readonly IMapper _mapper;
+        private readonly IMapper _mapper;        
         public DrugsController(IDrugService drugService,IMapper mapper)
         {
             _drugService = drugService;
