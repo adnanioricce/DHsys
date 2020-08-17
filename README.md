@@ -1,8 +1,5 @@
-# DHsys 
-DHsys é um sistema ERP de código aberto para atender as necessidades de uma
-pequena farmácia com um sistema legado de 20 anos. Apesar do sistema ter sido
-feito pensando em uma farmácia de pequeno porte, o código pode ser útil a quem
-precise construir um sistema customizado. 
+# DHsys, Uma prova de conceito que ficou grande demais
+DHsys é um sistema ERP, de código aberto, desenvolvido como um POF enquanto procurava meios para automatizar certos processos de uma farmácia com um sistema legado de 20 anos. 
 # Como rodar o projeto 
 Há dois projetos que podem ser executados:
 O Projeto Web API em src/Presentation/Api e o projeto WPF Desktop em
