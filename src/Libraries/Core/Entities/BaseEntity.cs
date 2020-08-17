@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.VisualBasic.CompilerServices;
+using System;
 using System.Linq;
 
 namespace Core.Entities
@@ -29,5 +30,6 @@ namespace Core.Entities
         /// Get or Set the last time this entity was updated
         /// </summary>
         public virtual DateTimeOffset LastUpdatedOn { get; set; } = DateTimeOffset.UtcNow;
+       
     }
 }

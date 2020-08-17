@@ -7,6 +7,7 @@ using DAL.DbContexts;
 using DAL.Extensions;
 using System.Reflection;
 using System.Threading.Tasks;
+using Core.Extensions;
 
 namespace DAL
 {
@@ -55,37 +56,48 @@ namespace DAL
             DbSet.Update(entity);
         }
 
-        public int SaveChanges()
+        public virtual int SaveChanges()
         {
             return Context.SaveChanges();
         }
 
-        public T GetBy(string id)
+        public virtual T GetBy(string id)
         {
             return Context.Find<T>(id);
         }
 
-        public IQueryable<T> Query(string query)
+        public virtual IQueryable<T> Query(string query)
         {
             return DbSet.FromSqlRaw<T>(query);
         }
-
-        public async Task<T> GetByAsync(int id)
+        public virtual async Task<T> GetByAsync(object id)
+        {
+            if (id.IsNumber())
+            {
+                return await GetByAsync((int)id);
+            }
+            else if (id is string)
+            {
+                return await GetByAsync((string)id);
+            }
+            return await Context.FindAsync<T>(id);
+        }
+        public virtual async Task<T> GetByAsync(int id)
         {
             return await Context.FindAsync<T>(id);
         }
 
-        public async Task<T> GetByAsync(string uniqueCode)
+        public virtual async Task<T> GetByAsync(string uniqueCode)
         {
             return await Context.FindAsync<T>(uniqueCode);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await DbSet.ToListAsync();
         }
 
-        public async Task<int> SaveChangesAsync()
+        public virtual async Task<int> SaveChangesAsync()
         {
             return await Context.SaveChangesAsync();
         }

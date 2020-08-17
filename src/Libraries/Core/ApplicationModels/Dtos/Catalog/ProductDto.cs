@@ -8,6 +8,35 @@ namespace Core.ApplicationModels.Dtos.Catalog
 {
     public class ProductDto
     {
+        public ProductDto()
+        {
+
+        }
+        public ProductDto(ProductDto dto)
+        {
+            Ncm = dto.Ncm;
+            QuantityInStock = dto.QuantityInStock;
+            ReorderLevel = dto.ReorderLevel;
+            ReorderQuantity = dto.ReorderQuantity;
+            EndCustomerPrice = dto.EndCustomerPrice;
+            CostPrice = dto.CostPrice;
+            SavingPercentage = dto.SavingPercentage;
+            BarCode = dto.BarCode;
+            Description = dto.Description;
+            Section = dto.Section;
+            MaxDiscountPercentage = dto.MaxDiscountPercentage;
+            DiscountValue = dto.DiscountValue;
+            Commission = dto.Commission;
+            ICMS = dto.ICMS;
+            MinimumStock = dto.MinimumStock;
+            MainSupplierName = dto.MainSupplierName;
+            ProductSuppliers = dto.ProductSuppliers;
+            ProductPrices = dto.ProductPrices;
+            Stockentries = dto.Stockentries;
+            ShelfLifes = dto.ShelfLifes;
+            Produto = dto.Produto;
+            ProdutoId = dto.ProdutoId;
+        }
         public string Ncm { get; set; }
 
         public int? QuantityInStock { get; set; }

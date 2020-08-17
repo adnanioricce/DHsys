@@ -1,4 +1,4 @@
-﻿using Application.Dtos.Financial;
+﻿using Core.ApplicationModels.Dtos.Catalog;
 using AutoMapper;
 using Core.ApplicationModels.Dtos.Financial;
 using Core.Entities.Financial;
