@@ -19,7 +19,7 @@ namespace Api.IntegrationTests.Services.Sync
         private readonly RemoteContext _remoteContext;
         public DbSyncronizerTests(DbContextResolver contextResolver)
         {
-            _remoteContext = (RemoteContext)contextResolver("remote");
+            _remoteContext = (RemoteContext)contextResolver("remote");            
             var models = _remoteContext.Model.GetEntityTypes().Select(e => e.GetTableName());
         }
         [Fact]
