@@ -1,7 +1,6 @@
 ﻿using AspNetCore.Http.Extensions;
 using Core.Entities.Catalog;
 using Core.Models.ApplicationResources;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -9,7 +8,7 @@ using System.Threading.Tasks;
 using Tests.Lib;
 using Xunit;
 
-namespace Api.Tests.Api
+namespace Api.Tests
 {
     public class TransactionsControllerTests : IClassFixture<TestFixture<Startup>>
     {

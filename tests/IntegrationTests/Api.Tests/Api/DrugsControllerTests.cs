@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 using Tests.Lib;
 using Xunit;
 
-namespace Api.Tests.Controllers.Api
+namespace Api.Tests
 {
     public class DrugsControllerTests : IClassFixture<TestFixture<Startup>>
     {
