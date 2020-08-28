@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Core.ApplicationModels.Dtos.Financial;
 using Core.Commands.Default;
 using Core.Entities;
 using Core.Entities.Financial;
@@ -40,16 +41,15 @@ namespace Core.Tests.Commands
                     Success = true,
                     Message = "no error"
                 });
-            var handler = new DefaultReadHandler<Billing, BaseResourceResponse<Billing>>(fakeRepository,fakeMapper.Object);
-            var request = new DefaultReadRequest<Billing, BaseResourceResponse<Billing>>
+            var handler = new DefaultReadHandler<Billing, BillingDto>(fakeRepository,fakeMapper.Object);
+            var request = new DefaultReadRequest<BillingDto>
             {
                 Id = entity.Id
             };
             // When            
             var result = await handler.Handle(request, default(CancellationToken));
-            // Then
-            Assert.True(result.Success);
-            Assert.Equal(1, result.ResultObject.Id);
+            // Then            
+            Assert.Equal(1, result.Id);
 
         }
     }

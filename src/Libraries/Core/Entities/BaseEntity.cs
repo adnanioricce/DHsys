@@ -21,7 +21,7 @@ namespace Core.Entities
         /// <summary>
         /// Get or Set a flag indicating if this entity was deleted
         /// </summary>
-        public virtual bool IsDeleted { get; set; }
+        public virtual bool IsDeleted { get; set; } = false;
         /// <summary>
         /// Get or Set when current entity was created
         /// </summary>

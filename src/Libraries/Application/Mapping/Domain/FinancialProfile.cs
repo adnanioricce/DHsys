@@ -12,7 +12,9 @@ namespace Application.Mapping.Domain
             CreateMap<TransactionItem, TransactionDto>();
             CreateMap<TransactionDto, TransactionItem>();
             CreateMap<Transaction, TransactionDto>();
-            CreateMap<TransactionDto,Transaction>();            
+            CreateMap<TransactionDto,Transaction>();
+            CreateMap<Billing, BillingDto>();
+            CreateMap<BillingDto, Billing>();
         }
     }
 }

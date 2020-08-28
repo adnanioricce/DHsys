@@ -16,14 +16,19 @@ using Xunit;
 
 namespace Api.Tests
 {
-    public class DrugsControllerTests : IClassFixture<TestFixture<Startup>>
+    public class DrugsControllerTests : TestBase<Startup>
     {
         private readonly HttpClient _client;
-        public DrugsControllerTests(TestFixture<Startup> fixture)
+
+        public DrugsControllerTests(TestFixture<Startup> fixture) : base(fixture)
         {
             _client = fixture.Client;
-            
         }
+
+        //public DrugsControllerTests(TestFixture<Startup> fixture)
+        //{
+        //    _client = fixture.Client;            
+        //}
         [Fact]
         public async Task GET_GetDrugsByName_StateUnderTest_ExpectedBehavior()
         {
@@ -131,8 +136,6 @@ namespace Api.Tests
                 QuantityInStock = 2,
                 UniqueCode = "123456",
                 Produto = GetBaseProduto()
-
-                
             };
 
             // Act

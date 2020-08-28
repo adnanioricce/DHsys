@@ -25,6 +25,11 @@ using System.Data.OleDb;
 using System.IO;
 using System.Reflection;
 using MediatR;
+using Core.Handlers;
+using System.Linq;
+using Core.Commands.Default;
+using Core.Handlers.Financial;
+
 namespace Application.Extensions
 {
     public static class ServiceCollectionExtensions
@@ -162,7 +167,12 @@ namespace Application.Extensions
         }
         public static void AddMediator<TStartup>(this IServiceCollection services)
         {
-            services.AddMediatR(typeof(TStartup).Assembly);
+            var assembly = typeof(DefaultCreateHandler<>).Assembly;            
+            services.AddScoped(typeof(IRequestHandler<,>),typeof(DefaultReadHandler<,>));
+            services.AddScoped(typeof(IRequestHandler<,>), typeof(DefaultCreateHandler<>));
+            services.AddScoped<BillingHandler>();
+            services.AddMediatR(services.Where(s => s.ServiceType == typeof(IRequestHandler<,>)).Select(s => s.ImplementationType).ToArray());
+            //services.AddMediatR()
         }        
     }
 }
