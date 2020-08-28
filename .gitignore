@@ -16,6 +16,11 @@ src/UI/appsettings.json
 *.userprefs
 .ionide
 .vscode
+.msix
+ComponentsGenerated.wxs
+DesktopRelease/
+Desktop.exe
+*.db
 # Mono auto generated files
 mono_crash.*
 

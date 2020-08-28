@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Entities;
+using Core.Extensions;
 using Core.Interfaces;
 
 namespace Tests.Lib.Data
@@ -8,7 +10,7 @@ namespace Tests.Lib.Data
     public class FakeRepository<T> : IRepository<T> where T : BaseEntity
     {
         private readonly Dictionary<int, T> context = new Dictionary<int, T>();
-        private int counter = 1;        
+        private int counter = 1;
         public FakeRepository()
         {
             
@@ -30,7 +32,7 @@ namespace Tests.Lib.Data
             }
             entry.Id = counter;
             context.Add(entry.Id, entry);
-            ++counter;
+            counter++;
         }
 
         public void AddRange(IEnumerable<T> entities)
@@ -61,9 +63,10 @@ namespace Tests.Lib.Data
             return context.Values.AsQueryable();
         }
 
-        public void SaveChanges()
+        public int SaveChanges()
         {
             //TODO;
+            return 1;
         }
 
         public void Update(T entity)
@@ -80,5 +83,40 @@ namespace Tests.Lib.Data
         {
             return context.Values.AsQueryable(); 
         }
+
+        public Task<T> GetByAsync(int id)
+        {
+            return Task.FromResult(this.context[id]);
+        }
+
+        public Task<T> GetByAsync(string uniqueCode)
+        {
+            return Task.FromResult(this.context.Values
+                                               .Where(v => string.Equals(v.UniqueCode, uniqueCode, System.StringComparison.OrdinalIgnoreCase))
+                                               .FirstOrDefault());
+        }
+        public Task<T> GetByAsync(object id)
+        {
+            if (id.IsNumber())
+            {
+                return GetByAsync((int)id);
+            }
+            else if(id is string)
+            {
+                return GetByAsync((string)id);
+            }
+            return Task.FromResult(context[(int)id]);
+        }
+        public Task<IEnumerable<T>> GetAllAsync()
+        {
+            return Task.FromResult(this.context.Select(c => c.Value));
+        }
+
+        public Task<int> SaveChangesAsync()
+        {
+            return Task<int>.FromResult(0);
+        }
+
+        
     }
 }

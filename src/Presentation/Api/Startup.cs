@@ -6,17 +6,21 @@ using System.Linq;
 using System.Threading.Tasks;
 using Api.Extensions;
 using Application;
+using Application.Extensions;
 using Application.Services;
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Mappers;
 using DAL;
+using DAL.DbContexts;
+using DAL.Extensions;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -30,62 +34,51 @@ using Npgsql;
 
 namespace Api
 {
-    public class Startup
+    public class Startup : BaseStartup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
-
-        public IConfiguration Configuration { get; }
+        public Startup(IConfiguration configuration) : base(configuration)
+        {            
+        }        
 
         // This method gets called by the runtime. Use this method to add services to the container.
-        public void ConfigureServices(IServiceCollection services)
+        public override void ConfigureServices(IServiceCollection services)
         {
-
-            string localConnString = Configuration.GetConnectionString("SqliteConnection");
-            string remoteConnString = Configuration.GetConnectionString("RemoteConnection");
+            base.ConfigureServices(services);
             services.AddControllers();
             services.AddGrpc();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
-            });
-            services.AddTransient<IDbSynchronizer, DbSynchronizer>();
-            services.AddDbContext<DbContext, MainContext>(
-                opt => 
-                {
-                    opt.UseSqlite(localConnString)
-                      .EnableDetailedErrors();
-                    opt.UseLazyLoadingProxies();
-                });
-            services.AddScoped<MainContext>();
-            services.Configure<LegacyDatabaseSettings>(Configuration.GetSection(nameof(LegacyDatabaseSettings)));
-            services.Configure<GitSettings>(Configuration.GetSection(nameof(GitSettings)));
-            services.AddScoped(typeof(LegacyContext<>));
-            services.AddScoped(typeof(ILegacyRepository<>), typeof(DbfRepository<>));
-            services.AddTransient<ILegacyDataMapper<Drug,Produto>,ProdutoMapper>();           
-            services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
-            services.AddTransient<IDrugService, DrugService>();
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "DH Api", Version = "v1" });
+            });            
+                                 
             services.AddMvc()
                 .AddNewtonsoftJson(settings => {
                     settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-                });
-            var legacySettings = Configuration.GetSection(nameof(LegacyDatabaseSettings)).Get<LegacyDatabaseSettings>();
-            services.AddTransient<ConnectionResolver>(db => key =>  {
+                });            
+            services.AddDataStore(Configuration,opt => opt.UseSqlServer(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")));
+            services.AddTransient<DbContextResolver>(provider => key => {
+                string option = key.ToLower();
+                var contexts = provider.GetServices<BaseContext>();
+                return option switch
+                {
+                    "remote" => contexts.FirstOrDefault(c => c is RemoteContext),
+                    "local" => contexts.FirstOrDefault(c => c is LocalContext),
+                    _ => contexts.FirstOrDefault(c => c is LocalContext)
+                };
+            });
+            services.AddTransient<ConnectionResolver>(db => key => {
                 return key switch
                 {
                     //our local database
-                    "local" => new SqliteConnection(localConnString),
+                    "local" => new SqliteConnection(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection")),
                     //a legacy shared database from which source changes in real world environment
-                    "source" => new OleDbConnection(legacySettings.ToString()),
+                    "source" => new OleDbConnection(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LegacyConnection")),
                     //a remote database to keep some changes
-                    "remote" => new NpgsqlConnection(remoteConnString),
+                    "remote" => new SqlConnection(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };
-                // new SqliteConnection(connString)    
-            });       
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,5 +1,6 @@
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Entities.Stock;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ namespace Core.Entities.Catalog
     /// Product entity. It's used mainly as base entity    
     /// </summary>
     public class Product : BaseEntity
-    {
+    {        
         /// <summary>
         /// Get or Set product NCM.
         /// https://pt.wikipedia.org/wiki/Nomenclatura_Comum_do_Mercosul
@@ -40,6 +41,12 @@ namespace Core.Entities.Catalog
         /// <value></value>
         public decimal? EndCustomerPrice { get; set; }
         /// <summary>
+        /// Get or Set the buy cost of the product
+        /// </summary>
+        /// <value></value>
+        public decimal CostPrice { get; set; }
+        public decimal SavingPercentage { get; set; }
+        /// <summary>
         /// Get or set the barcode to be used to search for the product.
         /// On legacy model:Prbarra
         /// </summary>
@@ -61,11 +68,12 @@ namespace Core.Entities.Catalog
         /// Get or set max discount percentage that a product can be selled normally.
         /// On legacy model:desc_max
         /// </summary>
-        public decimal MaxDiscountPercentage { get; set; }
+        public decimal MaxDiscountPercentage { get; set; }        
         /// <summary>
         /// Get or set the absolute value of discount in product.        
         /// </summary>
         public decimal DiscountValue { get; set; }
+        
         /// <summary>
         /// Get or set the comission value from each product selled
         /// On legacy model:comissao
@@ -80,61 +88,49 @@ namespace Core.Entities.Catalog
         /// Get or set the minimun stock that this product should have.
         /// On legacy model:est_minimo
         /// </summary>
-        public int MinimumStock { get; set; }
+        public int MinimumStock { get; set; } = 1;
         public string MainSupplierName { get; set; }
         /// <summary>
         /// Get or set the Many-To-Many reference to the Supplier Entity
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; } = new List<ProductSupplier>(); 
-        //Fields with unsure function
-        #region Legacy field models
-        public virtual Produto Produto { get; set; }
-        public int? ProdutoId { get; set; }
-        //public string ProductData { get; set; }
-        
-        ////TODO:Try to find what  theses fields are for
-        //public string RegistroMs { get; set; }
-        //public string PrecoAPrazo { get; set; }
-        //public string EtiquetaPadrao { get; set; }
-        //public string EtiquetaBarras { get; set; }
-        //public string EtiquetaGrafica { get; set; }
-        //public string CodigoPadrao { get; set; }
-        //public string FarmaciaPopular { get; set; }
-        //public string IsencaoPISOuCONFISN { get; set; }
-        //public string Un { get; set; }
-        //public string Fixa { get; set; }
-        //public string Localizacao { get; set; }
-        //public string Condicao { get; set; } // -> Enum
-        //public string Ate { get; set; } // -> DateTime
-        //public string Sal { get; set; }
-        //public int Embalagem { get; set; }
-        //public string prdtul { get; set; }
-        //public string prcddt { get; set; }
-        //public decimal prcdlucr { get; set; }
-        //public string prcdimp { get; set; }
-        //public string prcdimp2 { get; set; }
-        //public string premb { get; set; }
-        //public string prentr { get; set; }
-        //public string ul_ven { get; set; }
-        //public string ultped { get; set; }
-        //public string prclas { get; set; }
-        //public string prmesant { get; set; }
-        //public string ultpreco { get; set; }
-        //public string prdesconv { get; set; }
-        //public string prpopular { get; set; }
-        //public string codesta { get; set; }
-        ////Venda anterior e venda atual?
-        //public int vendatu { get; set; }
-        //public int vendant { get; set; }
-        #endregion
+        public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; } = new List<ProductSupplier>();
+        public virtual ICollection<ProductPrice> ProductPrices { get; set; } = new List<ProductPrice>();
+        public virtual ICollection<ProductStockEntry> Stockentries { get; set; } = new List<ProductStockEntry>();
         /// <summary>
         /// get or set collection of Shelf life 
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();
-
+        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();        
+        #region Legacy field models
+        /// <summary>
+        /// Get or set a reference to the legacy model of the current object
+        /// </summary>
+        /// <value>the legacy model version of current object</value>
+        public virtual Produto Produto { get; set; }
+        public int? ProdutoId { get; set; }        
+        #endregion
         
-
+        #region Methods
+        public virtual void UpdatePrice(ProductPrice price)
+        {
+            this.ProductPrices.Add(price);
+            this.EndCustomerPrice = price.EndCustomerDrugPrice;
+            this.CostPrice = price.CostPrice;
+            this.SavingPercentage = price.CalculatePercentageSaving();
+            this.Produto.Prfabr = Convert.ToDouble(this.CostPrice);
+            this.Produto.Prcons = Convert.ToDouble(this.EndCustomerPrice);            
+        }
+        public virtual void UpdatePrice(decimal newEndCustomerPriceValue,decimal newCostPrice)
+        {
+            var price = new ProductPrice{
+                Pricestartdate = DateTimeOffset.UtcNow,
+                EndCustomerDrugPrice = newEndCustomerPriceValue,
+                CostPrice = newCostPrice,
+                ProductId = this.Id,
+            };
+            UpdatePrice(price);
+        }
+        #endregion
     }   
 }

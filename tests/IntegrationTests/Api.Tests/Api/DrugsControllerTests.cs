@@ -2,7 +2,7 @@ using System.IO;
 using Api.Controllers.Api;
 using AspNetCore.Http.Extensions;
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
 using Core.Models.ApplicationResources.Requests;
@@ -14,49 +14,48 @@ using System.Threading.Tasks;
 using Tests.Lib;
 using Xunit;
 
-namespace Api.Tests.Controllers.Api
+namespace Api.Tests
 {
     public class DrugsControllerTests : IClassFixture<TestFixture<Startup>>
     {
         private readonly HttpClient _client;
+
         public DrugsControllerTests(TestFixture<Startup> fixture)
         {
             _client = fixture.Client;
-            
         }
+
+        //public DrugsControllerTests(TestFixture<Startup> fixture)
+        //{
+        //    _client = fixture.Client;            
+        //}
         [Fact]
         public async Task GET_GetDrugsByName_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
             var baseUrl = "api/Drugs/search/list?name={0}";            
-            string name = "Lixiana";
+            string name = "Dipirona";
             string requestUrl = string.Format(baseUrl, name);
             // Act
             //var result = _client.get
             var result = await _client.GetAsync(requestUrl);
-            result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IEnumerable<Drug>>>();
             // Assert
             var count = valueResult.ResultObject.Count();
             Assert.True(valueResult.Success);
-            Assert.Equal(1, count);            
+            Assert.True(count > 0);
         }
 
         [Fact]
         public async Task GET_GetDrugByBarCode_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            string baseUrl = "api/Drugs/search?barcode={0}";            
-            string barCode = "0987654321012";
+            string baseUrl = "api/Drugs/search/{0}";            
+            string barCode = "1234567890123";
             string requestUrl = string.Format(baseUrl, barCode);
             // Act
             //var result = drugsController.GetDrugByBarCode(barCode);
-            var result = await _client.GetAsync(requestUrl);
-            if(!result.IsSuccessStatusCode)
-            {
-                string message = await result.Content.ReadAsStringAsync();
-                File.WriteAllText($"log-GET_GetDrugByBarCode_StateUnderTest_ExpectedBehavior.txt",message);
-            }
+            var result = await _client.GetAsync(requestUrl);           
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<Drug>>();
             // Assert
@@ -99,7 +98,7 @@ namespace Api.Tests.Controllers.Api
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IEnumerable<Drug>>>();
             // Assert            
-            Assert.True(string.IsNullOrEmpty(valueResult.ErrorMessage));            
+            Assert.True(string.IsNullOrEmpty(valueResult.Message));            
             Assert.True(valueResult.Success);
         }
 
@@ -115,7 +114,7 @@ namespace Api.Tests.Controllers.Api
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse>();
             // Assert
-            Assert.True(string.IsNullOrEmpty(valueResult.ErrorMessage));
+            Assert.True(string.IsNullOrEmpty(valueResult.Message));
             Assert.True(valueResult.Success);
         }
 
@@ -137,8 +136,6 @@ namespace Api.Tests.Controllers.Api
                 QuantityInStock = 2,
                 UniqueCode = "123456",
                 Produto = GetBaseProduto()
-
-                
             };
 
             // Act
@@ -147,7 +144,7 @@ namespace Api.Tests.Controllers.Api
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse>();
 
             // Assert
-            Assert.True(string.IsNullOrEmpty(valueResult.ErrorMessage));
+            Assert.True(string.IsNullOrEmpty(valueResult.Message));
             Assert.True(valueResult.Success);            
         }
         private Produto GetBaseProduto()

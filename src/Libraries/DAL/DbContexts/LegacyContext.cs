@@ -12,18 +12,21 @@ namespace DAL
     /// <summary>
     /// Context to handle database of legacy system
     /// </summary>
+    //TODO: you probably don't need the T parameter, change it to a object instead and run the tests
     public class LegacyContext<T>
     {
         private readonly IDbConnection _connection;
 
-        public EntityField[] Fields { get; } = typeof(T).GetProperties().Select(x => new EntityField {
+        public EntityField[] Fields { get; } = typeof(T)
+            .GetProperties()
+            .Select(x => new EntityField {
                 FieldName = x.Name,
                 Value = null
             }).ToArray();
 
-        public LegacyContext(IOptions<LegacyDatabaseSettings> options)
+        public LegacyContext(IOptions<DatabaseSettings> options)
         {
-            _connection = new OleDbConnection(options.Value.ToString());                                     
+            _connection = new OleDbConnection(options.Value.LegacyDatabaseSettings.ToString());                                     
             
         }
         public T RawQuery(string sql)

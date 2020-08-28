@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using DAL.DbContexts;
+using DAL.Extensions;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.AspNetCore.Mvc.ViewComponents;
@@ -39,16 +41,20 @@ namespace Tests.Lib
         }
 
         private TestServer Server;
+        public IServiceProvider ServiceProvider;        
 
         public TestFixture()
             : this(Path.Combine(""))
         {
+            
         }
 
         public HttpClient Client { get; }
 
         public void Dispose()
         {
+            var context = GetRemoteContext();
+            context.RestoreDatabase(context.GetDatabaseName());
             Client.Dispose();
             Server.Dispose();
         }
@@ -97,6 +103,15 @@ namespace Tests.Lib
             Client.BaseAddress = Server.BaseAddress;
             Client.DefaultRequestHeaders.Accept.Clear();
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            ServiceProvider = Server.Services;
+            var context = GetRemoteContext();
+            context.CreateDatabaseBackup();
         }
+        public RemoteContext GetRemoteContext()
+        {
+            var contextResolver = ServiceProvider.GetService<DbContextResolver>();
+            return (RemoteContext)contextResolver("remote");
+        }
+
     }
 }
