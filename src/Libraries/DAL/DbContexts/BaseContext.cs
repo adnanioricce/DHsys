@@ -27,11 +27,8 @@ namespace DAL.DbContexts
         }
         public override int SaveChanges()
         {
-            var entries = ChangeTracker
-            .Entries()
-            .Where(e => e.Entity is BaseEntity && (
-                e.State == EntityState.Added
-                || e.State == EntityState.Modified));
+            var entries = ChangeTracker.Entries()
+                                       .Where(e => e.Entity is BaseEntity && (e.State == EntityState.Added || e.State == EntityState.Modified));
 
             foreach (var entityEntry in entries)
             {

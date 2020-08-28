@@ -95,6 +95,45 @@ namespace DAL.Extensions
             var idempotent = !context.Database.IsSqlite();
             var scripts = pendingMigrations.Select(m => migrator.GenerateScript(toMigration:m,idempotent:idempotent));
             return scripts;
-        }        
+        }
+        /// <summary>
+        /// Creates a database backup for the current context (OBS: This is MSSQL specific). 
+        /// <para>If no value is provided for the backupFileName parameter, backupFileName is equal to the database name</para>
+        /// </summary>
+        /// <param name="context">the <see cref="RemoteContext"/> instance </param>
+        /// <param name="dbName">the name of the database to backup. Default is database name finded in the connection string. </param>
+        /// <param name="backupFileName">name of the backup file(.bak)</param>
+        public static void CreateDatabaseBackup(this RemoteContext context,string backupFileName = "",string dbName = "")
+        {
+            var connection = context.Database.GetDbConnection();
+            var _dbname = string.IsNullOrEmpty(dbName) ? connection.Database : dbName;
+            var _backupFileName = string.IsNullOrEmpty(backupFileName) ? _dbname : backupFileName;
+            string backupScript = $@"BACKUP DATABASE {_dbname} to DISK=N'{_backupFileName}.bak' WITH FORMAT, INIT, STATS=10;";
+            context.Database.ExecuteSqlRaw(backupScript);
+        }
+        /// <summary>
+        /// Restore the database to the last backup. OBS: This is MSSQL specific
+        /// </summary>
+        /// <param name="context">the <see cref="RemoteContext"/> instance </param>
+        /// <param name="dbName">the name of the database to restore </param>
+        /// <param name="backupFileName">the name of the backup filename </param>
+        public static void RestoreDatabase(this RemoteContext context, string backupFileName,string dbName = "")
+        {
+            var _dbname = string.IsNullOrEmpty(dbName) ? context.Database.GetDbConnection().Database : dbName;            
+            context.Database.ExecuteSqlRaw($@"  USE master;
+                                                ALTER DATABASE {_dbname}
+                                                SET SINGLE_USER                                                
+                                                WITH ROLLBACK IMMEDIATE
+                                                RESTORE DATABASE {_dbname} FROM DISK = '{backupFileName}.bak' WITH REPLACE");
+        }
+        /// <summary>
+        /// Returns the name of the Database
+        /// </summary>
+        /// <param name="context">the <see cref="RemoteContext"/> instance </param>
+        /// <returns>the database name string </returns>
+        public static string GetDatabaseName(this RemoteContext context)
+        {
+            return context.Database.GetDbConnection().Database;
+        }
     }
 }

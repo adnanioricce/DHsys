@@ -8,6 +8,7 @@ using DAL.Extensions;
 using System.Reflection;
 using System.Threading.Tasks;
 using Core.Extensions;
+using System;
 
 namespace DAL
 {
@@ -34,6 +35,7 @@ namespace DAL
         public virtual void Delete(T entity)
         {
             DbSet.Remove(entity);
+            Context.SaveChanges();
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -53,7 +55,13 @@ namespace DAL
 
         public virtual void Update(T entity)
         {
-            DbSet.Update(entity);
+            try
+            {
+                DbSet.Update(entity);
+            }catch(Exception ex)
+            {
+                throw;
+            }
         }
 
         public virtual int SaveChanges()

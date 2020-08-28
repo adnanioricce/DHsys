@@ -8,10 +8,9 @@ namespace DAL.DataMappings
     public class BaseEntityConfiguration<T> : IEntityTypeConfiguration<T> where T : BaseEntity
     {       
         public virtual void Configure(EntityTypeBuilder<T> builder)
-        {            
+        {
             builder.Property(p => p.IsDeleted)
-                .IsRequired()
-                .HasDefaultValue(false);
+                .IsRequired();
             builder.Property(p => p.CreatedAt)
                    .IsRequired()
                    .HasDefaultValue(DateTimeOffset.UtcNow)
@@ -20,6 +19,7 @@ namespace DAL.DataMappings
                 .IsRequired()
                 .HasDefaultValue(DateTimeOffset.UtcNow)
                 .ValueGeneratedOnUpdate();
+
         }
     }
 }

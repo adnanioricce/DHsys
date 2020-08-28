@@ -4,9 +4,9 @@ using Core.Entities;
 using Core.Extensions;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
-using LibGit2Sharp;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Threading.Tasks;
 
@@ -14,53 +14,64 @@ namespace Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DefaultApiController<TEntity> : ControllerBase where TEntity : BaseEntity
+    public class DefaultApiController<TEntity,TEntityResponse> : ControllerBase where TEntity : BaseEntity where TEntityResponse : class
     {
-        private readonly IMediator _mediator;
-        public DefaultApiController(IMediator mediator)
+        protected readonly IMediator _mediator;
+        protected readonly IRepository<TEntity> _repository;
+        public DefaultApiController(IMediator mediator, IRepository<TEntity> repository)
         {
             _mediator = mediator;
+            _repository = repository;
         }
         [HttpPost("create")]
-        public virtual async Task<BaseResourceResponse> CreateAsync(TEntity entity)
+        public virtual async Task<ActionResult<BaseResourceResponse>> CreateAsync(TEntity entity)
         {
-            var request = new DefaultCreateRequest<TEntity,BaseResourceResponse>
+            try
             {
-                Entity = entity
-            };
-            var result = await _mediator.Send(request);
-            return result;
+                _repository.Add(entity);
+                var result = await _repository.SaveChangesAsync();
+                return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(result));
+            }catch(Exception ex)
+            {
+                //TODO: log exception
+                throw;
+            } 
         }
-        [HttpGet("read")]
-        public virtual async Task<BaseResourceResponse> GetAsync(object id)
+        [HttpGet("{id}")]
+        public virtual async Task<ActionResult<BaseResourceResponse>> GetAsync([FromRoute]int id)
         {
-            var request = new DefaultReadRequest<TEntity, BaseResourceResponse<TEntity>>
+            try
+            {                
+                var result = await _repository.GetByAsync(id);
+                return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(result));
+            }
+            catch(Exception ex)
             {
-                Id = (int)id
-            };
-            var result = await _mediator.Send(request);
-            return result;
+                throw;
+            }
+            
         }
-        [HttpPut("update")]
-        public virtual async Task<BaseResourceResponse> UpdateAsync(object id, TEntity entity)
-        {
-            var request = new DefaultUpdateRequest<TEntity, BaseResourceResponse>
+        [HttpPut("{id}")]
+        public virtual async Task<ActionResult<BaseResourceResponse>> UpdateAsync([FromRoute]int id, [FromBody]TEntity entity)
+        {            
+            try
             {
-                Id = id,
-                Entity = entity
-            };
-            var result = await _mediator.Send(request);
-            return result;
+                _repository.Update(entity);
+                var result = await _repository.SaveChangesAsync();
+                return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(result));
+            }
+            catch(DbUpdateException ex)
+            {
+                throw ex;
+            }            
         }
-        [HttpDelete("delete")]
-        public virtual async Task<BaseResourceResponse> DeleteAsync(object id)
+        [HttpDelete("{id}")]
+        public virtual async Task<ActionResult<BaseResourceResponse>> DeleteAsync(int id)
         {
-            var request = new DefaultUpdateRequest<TEntity, BaseResourceResponse>
-            {
-                Id = id                
-            };
-            var result = await _mediator.Send(request);
-            return result;
+            var entity = await _repository.GetByAsync(id);
+            _repository.Delete(entity);
+            _repository.SaveChanges();
+            return Ok(BaseResourceResponse.DefaultSuccessResponse);
         }        
     }
 }
