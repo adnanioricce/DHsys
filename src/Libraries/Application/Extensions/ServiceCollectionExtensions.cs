@@ -14,21 +14,14 @@ using Infrastructure.Interfaces;
 using Infrastructure.Settings;
 using Infrastructure.Updates;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
-using System.Data.OleDb;
 using System.IO;
-using System.Reflection;
 using MediatR;
-using Core.Handlers;
 using System.Linq;
-using Core.Commands.Default;
-using Core.Handlers.Financial;
 
 namespace Application.Extensions
 {
@@ -164,15 +157,6 @@ namespace Application.Extensions
             });
             var mapper = mapperConfig.CreateMapper();            
             services.AddSingleton(mapper);
-        }
-        public static void AddMediator<TStartup>(this IServiceCollection services)
-        {
-            var assembly = typeof(DefaultCreateHandler<>).Assembly;            
-            services.AddScoped(typeof(IRequestHandler<,>),typeof(DefaultReadHandler<,>));
-            services.AddScoped(typeof(IRequestHandler<,>), typeof(DefaultCreateHandler<>));
-            services.AddScoped<BillingHandler>();
-            services.AddMediatR(services.Where(s => s.ServiceType == typeof(IRequestHandler<,>)).Select(s => s.ImplementationType).ToArray());
-            //services.AddMediatR()
-        }        
+        }              
     }
 }

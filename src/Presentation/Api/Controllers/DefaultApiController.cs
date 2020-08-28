@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using Core.Commands.Default;
-using Core.Entities;
-using Core.Extensions;
+﻿using Core.Entities;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
 using MediatR;
