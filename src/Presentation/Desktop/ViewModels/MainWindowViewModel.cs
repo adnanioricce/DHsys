@@ -4,14 +4,19 @@ using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Desktop.Services;
+using Infrastructure.Interfaces;
+using Microsoft.Extensions.Options;
+using Infrastructure.Settings;
+using NetSparkleUpdater.Interfaces;
 
 namespace Desktop.ViewModels
 {
     public class MainWindowViewModel : ViewModelBase
     {
-        private object _currentDataContext = null;
-        private readonly CustomNavigationService _navigationService;
-        public RelayCommand<object> MoveToViewModelCommand { get; set; }                
+        private object _currentDataContext = null;        
+        public RelayCommand<object> MoveToViewModelCommand { get; set; }
+        public RelayCommand CheckForUpdatesCommand { get; set; }
+        private readonly IUpdater _updater;
         public object CurrentDataContext
         {
             get { return _currentDataContext; }
@@ -20,14 +25,19 @@ namespace Desktop.ViewModels
                 Set(ref _currentDataContext, value);
             }
         }
-        public MainWindowViewModel(CustomNavigationService navigationService)
+        public MainWindowViewModel(IUpdater updater,IOptions<AutoUpdateSettings> settings)
         {
-            _navigationService = navigationService;
-            MoveToViewModelCommand = new RelayCommand<object>(MoveToView);             
+            _updater = updater;
+            MoveToViewModelCommand = new RelayCommand<object>(MoveToView);
+            CheckForUpdatesCommand = new RelayCommand(ConfigureUpdater);
         }
         public void MoveToView(object parameter)
         {            
             CurrentDataContext = parameter;            
         }        
+        public void ConfigureUpdater()
+        {
+            _updater.ConfigureUpdater(new NetSparkleUpdater.UI.WPF.UIFactory());
+        }
     }
 }

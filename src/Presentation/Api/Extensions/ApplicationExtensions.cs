@@ -1,6 +1,11 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Application.Extensions;
+using DAL;
+using DAL.DbContexts;
+using DAL.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
@@ -12,18 +17,11 @@ namespace Api.Extensions
     public static class ApplicationExtensions
     {
         public static void BuildDatabase(this IApplicationBuilder application,IWebHostEnvironment env)
-        {
+        {            
             if (!env.IsDevelopment()) return;
-
-            var dbContext = (DbContext)application.ApplicationServices.GetService(typeof(DbContext));
-            dbContext.Database.EnsureCreated();
-            //if (dbContext.Database.EnsureDeleted())
-            //{
-            //    var sqlScript = dbContext.Database.GenerateCreateScript();
-            //    dbContext.Database.ExecuteSqlRaw(sqlScript);                
-            //    return;
-            //}
-            //dbContext.Database.Migrate();
+            using var scope = application.ApplicationServices.CreateScope();            
+            var context = scope.ServiceProvider.GetServices<BaseContext>().FirstOrDefault(c => c is LocalContext);
+            context.ApplyUpgrades();
         }
     }
 }

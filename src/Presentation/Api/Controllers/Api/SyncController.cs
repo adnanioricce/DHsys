@@ -15,6 +15,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Infrastructure.Settings;
 using Application;
+using MediatR;
 
 namespace Api.Controllers.Api
 {
@@ -22,13 +23,16 @@ namespace Api.Controllers.Api
     [Route("api/v1/[Controller]")]
     public class SyncController : ControllerBase
     {
-        private readonly IDbSynchronizer _dbSyncronizer;
-        private readonly IDbConnection _connection;
+        private readonly ILegacyDbSynchronizer _dbSyncronizer;
+        private readonly IDbConnection _connection;        
         private readonly string _dbfSourceFolder;
-        public SyncController(IDbSynchronizer dbSynchronizer,ConnectionResolver connection,IOptions<LegacyDatabaseSettings> legacyDbSettings)
+        public SyncController(ILegacyDbSynchronizer dbSynchronizer,
+            ConnectionResolver connection,
+            IMediator mediator,
+            IOptions<LegacyDatabaseSettings> legacyDbSettings)
         {
             _dbSyncronizer = dbSynchronizer;
-            _connection = connection("local");
+            _connection = connection("remote");            
             _dbfSourceFolder = legacyDbSettings.Value.DataSource;
         }
         [HttpPost("sync_dbfs")]
@@ -47,6 +51,7 @@ namespace Api.Controllers.Api
                 _connection.Close();
                 return result;
             });
+
             if(!(result != -1))
             {
                 return StatusCode(500, "not all changes are writen on database");

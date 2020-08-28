@@ -3,18 +3,25 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Interfaces;
 using Core.Entities;
+using DAL.DbContexts;
+using DAL.Extensions;
+using System.Reflection;
+using System.Threading.Tasks;
+using Core.Extensions;
+using System;
 
 namespace DAL
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        protected virtual MainContext Context { get; }
+        protected virtual BaseContext Context { get; }
         protected virtual DbSet<T> DbSet { get; }
-        public Repository(DbContext dbContext)
+        public Repository(DbContextResolver contextResolver) 
         {
-            Context = (MainContext)dbContext;
+            string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
+            Context = assemblyName.Contains("Api") ? contextResolver("remote") : contextResolver("local");
             DbSet = Context.Set<T>();
-        }
+        }        
         public virtual void Add(T entry)
         {
             DbSet.Add(entry);
@@ -28,6 +35,7 @@ namespace DAL
         public virtual void Delete(T entity)
         {
             DbSet.Remove(entity);
+            Context.SaveChanges();
         }
 
         public virtual IEnumerable<T> GetAll()
@@ -47,22 +55,59 @@ namespace DAL
 
         public virtual void Update(T entity)
         {
-            DbSet.Update(entity);
+            try
+            {
+                DbSet.Update(entity);
+            }catch(Exception ex)
+            {
+                throw;
+            }
         }
 
-        public void SaveChanges()
+        public virtual int SaveChanges()
         {
-            Context.SaveChanges();
+            return Context.SaveChanges();
         }
 
-        public T GetBy(string id)
+        public virtual T GetBy(string id)
         {
             return Context.Find<T>(id);
         }
 
-        public IQueryable<T> Query(string query)
+        public virtual IQueryable<T> Query(string query)
         {
             return DbSet.FromSqlRaw<T>(query);
+        }
+        public virtual async Task<T> GetByAsync(object id)
+        {
+            if (id.IsNumber())
+            {
+                return await GetByAsync((int)id);
+            }
+            else if (id is string)
+            {
+                return await GetByAsync((string)id);
+            }
+            return await Context.FindAsync<T>(id);
+        }
+        public virtual async Task<T> GetByAsync(int id)
+        {
+            return await Context.FindAsync<T>(id);
+        }
+
+        public virtual async Task<T> GetByAsync(string uniqueCode)
+        {
+            return await Context.FindAsync<T>(uniqueCode);
+        }
+
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
+        {
+            return await DbSet.ToListAsync();
+        }
+
+        public virtual async Task<int> SaveChangesAsync()
+        {
+            return await Context.SaveChangesAsync();
         }
     }
 }

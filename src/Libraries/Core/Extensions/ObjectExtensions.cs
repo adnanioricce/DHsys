@@ -8,7 +8,7 @@ namespace Core.Extensions
                     || value is byte
                     || value is short
                     || value is ushort
-                    || value is int
+                    || value.GetType() == typeof(int)
                     || value is uint
                     || value is long
                     || value is ulong

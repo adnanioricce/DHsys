@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  <?if $(var.Platform)=x86 ?>
+  <?define ProductCode = "{48BCCD57-4A86-46DF-8496-8B881D389C71}"?>
+  <?else?>
+  <?define ProductCode = "{32570919-3789-4042-B107-D4E69F58CF6E}"?>
+  <?endif?>
+
+  <?define UpgradeCode = "{1673EEF6-482B-42A1-9644-CAA72D86BCB8}"?>  
+  <?define LicenseFilePath = ".\Assets\License.rtf"?>
+  <!--Define main product-->
+  <Product Id="*"
+           Name="!(loc.ProductName_$(var.Platform))"
+           Language="!(loc.Language)"
+           Version="$(var.BuildVersion)"
+           Manufacturer="!(loc.Company)"
+           UpgradeCode="$(var.UpgradeCode)"
+           >
+    <!--Provide package details-->
+    <Package Id="*"
+             InstallerVersion="200"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Platform="$(var.Platform)"
+             Manufacturer="!(loc.Company)"
+             Description="!(loc.Description)"
+             Keywords="!(loc.Keywords)"
+             Comments="!(loc.Comments)"
+             Languages="!(loc.Language)"
+             
+             />
+    <!--  Major upgrade  -->
+    <Upgrade Id="$(var.UpgradeCode)">
+      <UpgradeVersion Minimum="$(var.BuildVersion)" 
+                      OnlyDetect="yes" 
+                      Property="NEWERVERSIONDETECTED" />
+      <UpgradeVersion Minimum="1.0.0" 
+                      IncludeMinimum="yes" 
+                      Maximum="$(var.BuildVersion)" 
+                      IncludeMaximum="no" 
+                      Property="OLDERVERSIONBEINGUPGRADED" />
+    </Upgrade>
+
+    <!--<InstallExecuteSequence>
+      <RemoveExistingProducts Before="InstallValidate" />
+    </InstallExecuteSequence>-->
+
+    <!--<Condition Message="!(loc.NewerVersionDetected)">
+      NOT NEWERVERSIONDETECTED
+    </Condition>-->
+      
+    
+    <!--Downgrade error message-->
+    <MajorUpgrade Schedule="afterInstallInitialize"
+                  DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" 
+                  AllowSameVersionUpgrades="yes"
+                  />
+    <!-- Include .cab file into .msi file -->
+    <MediaTemplate 
+      EmbedCab="yes"
+      />
+    <!--Use the icon.png for this installer (shows up in Add/Remove programs) -->
+    <Icon Id="icon.ico" SourceFile="..\Desktop\icon.ico"/>
+    <Property Id="ARPPRODUCTICON">icon.ico</Property>
+    <Property Id="ARPURLINFOABOUT">https://www.DHolandas.com</Property>
+    <UIRef Id="WixUI_Minimal"/>
+    <WixVariable Id="WixUILicenseRtf" Value=".\Assets\License.rtf"/>
+    <!-- If you want to change the background images of the installer, you can do the following -->
+    <!--<WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Assets\Background.bmp"-->
+    <!--<WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Assets\Banner.bmp"-->
+    <!-- Define components, shortcuts, files etc... for installer-->
+    <Feature Id="ProductFeature"
+             Title="DHsys.Desktop"
+             Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="PublishedComponents" />
+    </Feature>
+  </Product>  
+</Wix>

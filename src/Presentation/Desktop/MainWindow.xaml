@@ -6,9 +6,12 @@
         xmlns:vm="clr-namespace:Desktop.ViewModels.Billings"
         xmlns:productVms="clr-namespace:Desktop.ViewModels.Product"
         xmlns:contaViews="clr-namespace:Desktop.Views.Conta"
+        xmlns:settingsVms="clr-namespace:Desktop.ViewModels.Settings"
         xmlns:productViews="clr-namespace:Desktop.Views.Product"
+        xmlns:settingsView="clr-namespace:Desktop.Views.Settings"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Desktop"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" 
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -18,7 +21,8 @@
         TextOptions.TextRenderingMode="Auto"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
-        DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"
+        DataContext="{Binding Source={StaticResource Locator}, Path=MainWindowViewModel}"       
+ 
         >
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:CreateBillingViewModel}">
@@ -33,7 +37,15 @@
         <DataTemplate DataType="{x:Type vm:BillingListViewModel}">
             <contaViews:BillingListView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type settingsVms:SettingsViewModel}">
+            <settingsView:SettingsView/>
+        </DataTemplate>
     </Window.Resources>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding CheckForUpdatesCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <Grid>
 		<Grid.ColumnDefinitions>
 			<ColumnDefinition MinWidth="50"/>
@@ -49,21 +61,57 @@
             <RowDefinition MinHeight="50"/>
             <RowDefinition MinHeight="50"/>
         </Grid.RowDefinitions>
-        <md:ColorZone Mode="PrimaryMid" Grid.Row="0" Grid.ColumnSpan="5" HorizontalAlignment="Stretch">
-            <StackPanel Orientation="Horizontal">
-                <Menu Grid.Row="0" Grid.Column="0">
+        <md:ColorZone Mode="PrimaryMid" 
+                      Grid.Row="0" 
+                      Grid.ColumnSpan="5" 
+                      HorizontalAlignment="Stretch">
+            <Grid Grid.Row="0" Grid.ColumnSpan="5" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"  
+                                      MinWidth="60" 
+                                      MaxWidth="100"/>
+                </Grid.ColumnDefinitions>
+                <Menu DockPanel.Dock="Top" Grid.Row="0" Grid.Column="0">
                     <MenuItem Header="Produtos">
-                        <MenuItem Header="Adicionar Produtos" Command="{Binding MoveToViewModelCommand}" CommandParameter="{Binding Source={StaticResource Locator},Path=CreateProductViewModel}"/>
+                        <MenuItem Header="Adicionar Produtos" 
+                                  Command="{Binding MoveToViewModelCommand}" 
+                                  CommandParameter="{Binding Source={StaticResource Locator},Path=CreateProductViewModel}"/>
                         <MenuItem Header="Editar Produtos"/>
-                        <MenuItem Header="Ver Produtos" Command="{Binding MoveToViewModelCommand}" CommandParameter="{Binding Source={StaticResource Locator},Path=ProductListViewModel}"/>
+                        <MenuItem Header="Ver Produtos" 
+                                  Command="{Binding MoveToViewModelCommand}" 
+                                  CommandParameter="{Binding Source={StaticResource Locator},Path=ProductListViewModel}"/>
                     </MenuItem>
                     <MenuItem Header="Contas">
-                        <MenuItem Header="Adicionar Conta" Command="{Binding MoveToViewModelCommand}" CommandParameter="{Binding Source={StaticResource Locator},Path=CreateBillingViewModel}"/>
-                        <MenuItem Header="Ver Contas" Command="{Binding MoveToViewModelCommand}" CommandParameter="{Binding Source={StaticResource Locator},Path=BillingListViewModel}"/>
+                        <MenuItem Header="Adicionar Conta" 
+                                  Command="{Binding MoveToViewModelCommand}" 
+                                  CommandParameter="{Binding Source={StaticResource Locator},Path=CreateBillingViewModel}"/>
+                        <MenuItem Header="Ver Contas" 
+                                  Command="{Binding MoveToViewModelCommand}" 
+                                  CommandParameter="{Binding Source={StaticResource Locator},Path=BillingListViewModel}"/>
                     </MenuItem>
                 </Menu>
-            </StackPanel>
+                <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 
+                        Grid.Row="0" 
+                        Grid.Column="1"
+                        Margin="1,1,1,1"
+                        Command="{Binding MoveToViewModelCommand}"
+                        CommandParameter="{Binding Source={StaticResource Locator},Path=SettingsViewModel}"
+                        >
+                    <Button.Content>
+                        <md:PackIcon Width="12" Height="12" Kind="Settings">
+                            <md:PackIcon.LayoutTransform>
+                                <ScaleTransform  ScaleX="3" ScaleY="3"/>
+                            </md:PackIcon.LayoutTransform>
+                        </md:PackIcon>
+                    </Button.Content>
+                </Button>
+            </Grid>
         </md:ColorZone>
-        <ContentPresenter Grid.Row="1" Grid.Column="0" Grid.RowSpan="4" Grid.ColumnSpan="5" Content="{Binding CurrentDataContext}" />
+        <ContentPresenter Grid.Row="1" 
+                          Grid.Column="0" 
+                          Grid.RowSpan="4" 
+                          Grid.ColumnSpan="5" 
+                          Content="{Binding CurrentDataContext}" />
     </Grid> 
 </Window>

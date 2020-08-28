@@ -2,7 +2,7 @@
 using Api.Tests.Seed;
 using Application.Services;
 using Core.Entities.Catalog;
-using Core.Entities.LegacyScaffold;
+using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Mappers;
 using DAL;
@@ -24,6 +24,10 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using System.IO;
+using DAL.Extensions;
+using DAL.DbContexts;
+using Microsoft.Data.SqlClient;
+using Application.Extensions;
 
 [assembly: TestFramework("Api.Tests.DIStartup", "Api.Tests")]
 namespace Api.Tests
@@ -36,36 +40,53 @@ namespace Api.Tests
         }
         protected void ConfigureServices(IServiceCollection services) 
         {
-            // sqliteConnStr = $"./data/{DateTimeOffset.UtcNow.Date.ToShortDateString()}-{Guid.NewGuid().ToString().Substring(0,5)}";
+            string sqliteConnStr = $"DataSource={Guid.NewGuid().ToString()}.db";
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            services.AddDbContext<DbContext, MainContext>(opt => {
-                opt.UseSqlite("./Data/database.db");
+            services.AddDbContextPool<BaseContext, LocalContext>(opt => {
+                opt.UseSqlite(sqliteConnStr);
                 opt.EnableSensitiveDataLogging();
                 opt.EnableDetailedErrors();                
-            });                
-            services.AddScoped(typeof(LegacyContext<>));
-            services.AddScoped<MainContext>();
+            });
+            services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
+             {
+                 opt.UseSqlServer(configuration.GetValue<string>("AppSettings:ConnectionStrings:RemoteConnection"));
+                 opt.EnableSensitiveDataLogging();
+                 opt.EnableDetailedErrors();
+             });
+            services.AddScoped<BaseContext, LocalContext>();
+            services.AddScoped<BaseContext, RemoteContext>();
+            services.AddTransient<DbContextResolver>(provider => key => {
+                string option = key.ToLower();
+                var services = provider.GetServices(typeof(BaseContext));
+                return option switch
+                {
+                    "remote" => (BaseContext)services.FirstOrDefault(d => (d is RemoteContext)),
+                    "local" => (BaseContext)services.FirstOrDefault(d => (d is LocalContext)),
+                    _ => (BaseContext)services.FirstOrDefault(d => (d is LocalContext))
+                };
+            });
+            services.AddScoped(typeof(LegacyContext<>));            
             services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));         
             services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
             services.AddTransient<ILegacyDataMapper<Drug,Produto>, ProdutoMapper>();
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IDrugService, DrugService>();
-            services.AddTransient<IBillingService, BillingService>();
-            //services.AddTransient<IDataResourceClient, SupplierDataResourceClient>();
-            services.AddTransient<IDbSynchronizer, DbSynchronizer>();
+            services.AddTransient<IBillingService, BillingService>();            
+            services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
+            services.AddAutoMapperConfiguration();
             services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
             var legacySettings = configuration.GetSection(nameof(LegacyDatabaseSettings)).Get<LegacyDatabaseSettings>();
             services.AddTransient<ConnectionResolver>(db => key => {
                 return key switch
                 {
                     //our local database
-                    "local" => new SQLiteConnection("./Data/database.db"),
+                    "local" => new SQLiteConnection(sqliteConnStr),
                     //a legacy shared database from which source changes in real world environment
                     "source" => new OleDbConnection(legacySettings.ToString()),
                     //a remote database to keep some changes
-                    "remote" => new NpgsqlConnection(""),
+                    "remote" => new SqlConnection(configuration.GetConnectionString("RemoteConnection")),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };
             });
@@ -77,19 +98,8 @@ namespace Api.Tests
         }
         protected override void Configure(IServiceProvider provider)
         {
-            var context = (MainContext)provider.GetService<MainContext>();
-            if(!File.Exists("./Data/database.db")){
-                context.Database.EnsureDeleted();
-                string sql = context.Database.GenerateCreateScript();
-                context.Database.ExecuteSqlRaw(sql);
-                context.SeedDataForIntegrationTests(DrugSeed.GetDataForHttpGetMethods().ToArray());
-            }else {
-                var migrations = context.Database.GetPendingMigrations();
-                if(migrations.Any()){
-                    context.Database.Migrate();
-                }
-            }            
-            
+            var contexts = provider.GetServices<BaseContext>().ToList();
+            contexts.ForEach(context => context.ApplyUpgrades());
         }
     }
 }
