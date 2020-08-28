@@ -16,11 +16,11 @@ using Xunit;
 
 namespace Api.Tests
 {
-    public class DrugsControllerTests : TestBase<Startup>
+    public class DrugsControllerTests : IClassFixture<TestFixture<Startup>>
     {
         private readonly HttpClient _client;
 
-        public DrugsControllerTests(TestFixture<Startup> fixture) : base(fixture)
+        public DrugsControllerTests(TestFixture<Startup> fixture)
         {
             _client = fixture.Client;
         }
@@ -50,7 +50,7 @@ namespace Api.Tests
         public async Task GET_GetDrugByBarCode_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            string baseUrl = "api/Drugs/search?barcode={0}";            
+            string baseUrl = "api/Drugs/search/{0}";            
             string barCode = "1234567890123";
             string requestUrl = string.Format(baseUrl, barCode);
             // Act

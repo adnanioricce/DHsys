@@ -39,7 +39,7 @@ namespace Api.Controllers.Api
         }
         // GET: api/Drugs/search/{barcode}
         [HttpGet("search")]
-        public ActionResult<BaseResourceResponse<Drug>> GetDrugByBarCode(string barcode)
+        public ActionResult<BaseResourceResponse<Drug>> GetDrugByBarCode([FromRoute]string barcode)
         {
             var drug = _drugService.SearchDrugByBarCode(barcode);
             if(drug is null)
