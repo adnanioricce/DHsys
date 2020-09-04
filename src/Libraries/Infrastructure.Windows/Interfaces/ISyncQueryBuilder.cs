@@ -1,7 +1,7 @@
 using System.Data;
-using Infrastructure.Models;
+using Infrastructure.Windows.Models;
 
-namespace Infrastructure.Interfaces
+namespace Infrastructure.Windows.Interfaces
 {
     public interface ISyncQueryBuilder
     {

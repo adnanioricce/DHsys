@@ -1,12 +1,12 @@
 using System;
 using System.Text;
 using System.Data;
-using Infrastructure.Interfaces;
-using Infrastructure.Models;
 using System.Linq;
 using System.Collections.Generic;
+using Infrastructure.Windows.Models;
+using Infrastructure.Windows.Interfaces;
 
-namespace Application.Services.Sync
+namespace Application.Windows.Services.Sync
 {
     public class SyncQueryBuilder : ISyncQueryBuilder
     {

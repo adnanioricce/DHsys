@@ -1,6 +1,4 @@
-﻿using System.Net;
-using Core.Entities;
-using Core.Entities.Legacy;
+﻿using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Models.Dbf;
 using Core.Models.ApplicationResources.Requests;
@@ -17,11 +15,11 @@ using System.Text;
 using System.Text.Json;
 using System.Data.SQLite;
 using Core.Extensions;
-using Infrastructure.Extensions;
-using Infrastructure.Models;
-using Microsoft.EntityFrameworkCore;
+using Infrastructure.Windows.Extensions;
+using Microsoft.Data.Sqlite;
+using Infrastructure.Windows.Models;
 
-namespace Application.Services
+namespace Application.Windows.Services.Sync
 {
     public class LegacyDbSynchronizer : ILegacyDbSynchronizer
     {        
@@ -139,7 +137,7 @@ namespace Application.Services
         /// <returns>a number with the affected rows</returns>
         public int SyncSourceDatabaseWithLocalDatabase(string sourceDatabaseFolder)
         {
-            //?the existence of this method is worted?
+            //?the existence of this method is worthed?
             var changes = MapDbfsToDataset(Directory.GetFiles(sourceDatabaseFolder,"*.DBF"),_sourceDbConnection);
             try {
                 string queryTemplate = "SELECT * FROM {0} WHERE UniqueCode = '{1}';";
@@ -260,7 +258,7 @@ namespace Application.Services
         }
         private DbDataAdapter GetDataAdapter(IDbConnection dbConnection)
         {
-            if(dbConnection is SQLiteConnection) return new SQLiteDataAdapter();
+            if(dbConnection is SqliteConnection) return new SQLiteDataAdapter();
             if(dbConnection is OleDbConnection) return new OleDbDataAdapter();
             return new System.Data.SQLite.SQLiteDataAdapter();            
         }

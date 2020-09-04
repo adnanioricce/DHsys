@@ -1,7 +1,6 @@
 ﻿using Application.Mapping.Domain;
 using Application.Services;
 using Application.Services.Catalog;
-using Application.Services.Sync;
 using AutoMapper;
 using Core.Entities.Catalog;
 using Core.Entities.Legacy;
@@ -86,9 +85,7 @@ namespace Application.Extensions
             services.AddTransient<IDrugService, DrugService>();
             services.AddTransient<IProdutoService, ProdutoService>();
             services.AddTransient<IStockService, StockService>();
-            services.AddTransient<IBillingService, BillingService>();
-            services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
-            services.AddTransient<ISyncQueryBuilder, SyncQueryBuilder>();
+            services.AddTransient<IBillingService, BillingService>();            
         }
         public static void AddDataStore(this IServiceCollection services,
             IConfiguration configuration,
@@ -119,23 +116,19 @@ namespace Application.Extensions
             });
             services.AddScoped<BaseContext,LocalContext>();
             services.AddScoped<BaseContext, RemoteContext>();            
-            services.AddScoped(typeof(LegacyContext<>));
-            services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
         public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
         {
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));
-            services.Configure<LegacyDatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}:{nameof(LegacyDatabaseSettings)}"));
+            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));            
             services.Configure<AutoUpdateSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(AutoUpdateSettings)}"));
             services.Configure<ConnectionStrings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(ConnectionStrings)}"));
             services.ConfigureApplicationWritableOptions();
         }
         public static void ConfigureApplicationWritableOptions(this IServiceCollection services)
         {
-            services.ConfigureWritable<AutoUpdateSettings>();
-            services.ConfigureWritable<LegacyDatabaseSettings>();
+            services.ConfigureWritable<AutoUpdateSettings>();            
             services.ConfigureWritable<ConnectionStrings>();
             services.ConfigureWritable<DatabaseSettings>();
             services.ConfigureWritable<AppSettings>();

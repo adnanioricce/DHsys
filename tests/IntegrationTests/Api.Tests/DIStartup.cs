@@ -66,25 +66,18 @@ namespace Api.Tests
                     "local" => (BaseContext)services.FirstOrDefault(d => (d is LocalContext)),
                     _ => (BaseContext)services.FirstOrDefault(d => (d is LocalContext))
                 };
-            });
-            services.AddScoped(typeof(LegacyContext<>));            
-            services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));         
+            });                                
             services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
             services.AddTransient<ILegacyDataMapper<Drug,Produto>, ProdutoMapper>();
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IDrugService, DrugService>();
-            services.AddTransient<IBillingService, BillingService>();            
-            services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
-            services.AddAutoMapperConfiguration();
-            services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
-            var legacySettings = configuration.GetSection(nameof(LegacyDatabaseSettings)).Get<LegacyDatabaseSettings>();
+            services.AddTransient<IBillingService, BillingService>();                        
+            services.AddAutoMapperConfiguration();            
             services.AddTransient<ConnectionResolver>(db => key => {
                 return key switch
                 {
                     //our local database
-                    "local" => new SQLiteConnection(sqliteConnStr),
-                    //a legacy shared database from which source changes in real world environment
-                    "source" => new OleDbConnection(legacySettings.ToString()),
+                    "local" => new SQLiteConnection(sqliteConnStr),                    
                     //a remote database to keep some changes
                     "remote" => new SqlConnection(configuration.GetConnectionString("RemoteConnection")),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),

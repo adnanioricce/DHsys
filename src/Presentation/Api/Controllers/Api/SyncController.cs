@@ -28,12 +28,11 @@ namespace Api.Controllers.Api
         private readonly string _dbfSourceFolder;
         public SyncController(ILegacyDbSynchronizer dbSynchronizer,
             ConnectionResolver connection,
-            IMediator mediator,
-            IOptions<LegacyDatabaseSettings> legacyDbSettings)
+            IMediator mediator)
         {
+            #warning don't load windows specific libs here
             _dbSyncronizer = dbSynchronizer;
-            _connection = connection("remote");            
-            _dbfSourceFolder = legacyDbSettings.Value.DataSource;
+            _connection = connection("remote");                        
         }
         [HttpPost("sync_dbfs")]
         public async Task<IActionResult> SyncDatabase([FromBody]SyncDatabaseRequest request)

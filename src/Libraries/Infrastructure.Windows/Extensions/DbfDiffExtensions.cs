@@ -3,9 +3,9 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using dBASE.NET;
-using Infrastructure.Models;
+using Infrastructure.Windows.Models;
 
-namespace Infrastructure.Extensions
+namespace Infrastructure.Windows.Extensions
 {
 	public static class DbfDiffExtensions
     {

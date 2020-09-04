@@ -1,13 +1,14 @@
 using Core.Entities;
 using Core.Interfaces;
-using Infrastructure.Settings;
+using DAL.Windows.Models;
+using Infrastructure.Windows.Settings;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DAL
+namespace DAL.Windows
 {
     public class DbfRepository<T> : ILegacyRepository<T> where T : BaseEntity 
     {
