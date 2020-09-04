@@ -8,6 +8,7 @@ using Desktop.ViewModels.Update;
 using Desktop.Views.Conta;
 using Desktop.Views.Product;
 using Infrastructure.Settings;
+using Infrastructure.Windows.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Desktop.Extensions

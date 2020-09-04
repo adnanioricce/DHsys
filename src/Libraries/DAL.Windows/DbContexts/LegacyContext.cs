@@ -3,11 +3,12 @@ using System.Data;
 using System.Data.OleDb;
 using System.Linq;
 using System.Threading.Tasks;
+using DAL.Windows.Models;
 using Dapper;
-using Infrastructure.Settings;
+using Infrastructure.Windows.Settings;
 using Microsoft.Extensions.Options;
 
-namespace DAL
+namespace DAL.Windows
 {
     /// <summary>
     /// Context to handle database of legacy system
@@ -24,9 +25,9 @@ namespace DAL
                 Value = null
             }).ToArray();
 
-        public LegacyContext(IOptions<DatabaseSettings> options)
+        public LegacyContext(IOptions<LegacyDatabaseSettings> options)
         {
-            _connection = new OleDbConnection(options.Value.LegacyDatabaseSettings.ToString());                                     
+            _connection = new OleDbConnection(options.Value.ToString());                                     
             
         }
         public T RawQuery(string sql)

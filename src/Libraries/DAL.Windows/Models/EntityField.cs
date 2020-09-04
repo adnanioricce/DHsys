@@ -1,4 +1,4 @@
-namespace DAL
+namespace DAL.Windows.Models
 {
     public class EntityField
     {

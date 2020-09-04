@@ -1,4 +1,4 @@
-namespace Infrastructure.Settings
+namespace Infrastructure.Windows.Settings
 {
     public class LegacyDatabaseSettings
     {

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Text;
 using dBASE.NET;
 
-namespace Infrastructure.Models
+namespace Infrastructure.Windows.Models
 {
 	public class DbfRecordDiff
     {
