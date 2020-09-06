@@ -1,30 +1,25 @@
 #r "paket:
-nuget Fake.DotNet.Cli
 nuget Fake.IO.FileSystem
+nuget Fake.DotNet.Cli
 nuget Fake.Core.Target
-nuget Fake.Core.String
-nuget Fake.Core.Process //"
+nuget Fake.Core.Process
+nuget Fake.Core.String //
+"
 #load ".fake/builddesktop.fsx/intellisense.fsx"
 open Fake
 open Fake.Core
 open Fake.DotNet
 open Fake.IO
-open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
+open Fake.IO.FileSystemOperators
 open Fake.Core.TargetOperators
-open System
-open System.IO
 let buildDir = "../build/"
-let packagesDir = buildDir + "Packages"
-let testDir = "./tests/"
-let sourceDir = "./src/"
-
-Target.initEnvironment ()
 
 Target.create "CleanApp" (fun _ ->
   Trace.log "--- Cleaning App ---"
   !! "../src/**/bin"
   ++ "../src/**/obj"
+  ++ "../build"
   |> Shell.cleanDirs 
 )
 Target.create "CleanTest" (fun _ -> 
@@ -33,10 +28,6 @@ Target.create "CleanTest" (fun _ ->
   ++ "../tests/**/obj"
   |> Shell.cleanDirs
 )
-Target.create "CleanBuild" (fun _ -> 
-  !! "../build/**/"
-  |> Shell.cleanDirs
-) 
 Target.create "BuildLibraries" (fun _ ->  
   Trace.log "--- Building Libraries  ---"
   !! "../src/Libraries/**/*.*proj"  
@@ -57,31 +48,38 @@ Target.create "BuildTest" (fun _ ->
 
 Target.create "RunUnitTests" (fun _ ->
   Trace.log "--- Executing Unit Tests ---"
-  !! "../tests/UnitTests/**/*.csproj"
+  !! "../tests/UnitTests/**/*.csproj"  
   |> Seq.iter (DotNet.test id)
 )
 Target.create "RunIntegrationTests" (fun _ ->
   Trace.log "--- Executing Integration Tests ---"
   !! "../tests/IntegrationTests/**/*.csproj"
+  -- "../tests/**/*Api*.csproj"
   |> Seq.iter (DotNet.test id)
 )
-Target.create "PublishApi" (fun _ ->
+Target.create "PublishDesktopApp" (fun _ ->
   Trace.log "--- Publishing Api ---"
-  !! "../src/**/Api.csproj"  
+  !! "../src/**/Desktop.csproj"  
   |> Seq.iter (DotNet.publish id)
+)
+Target.create "BuildMsiInstaller" (fun _ -> 
+  Trace.log "--- Building Msi Installer ---"
+  (CreateProcess.fromRawCommand "build_desktop_installer.cmd" []) 
+  |> Proc.run
+  |> ignore
 )
 
 Target.create "All" ignore
 
 "CleanApp"
-  ==> "CleanTest"
-  ==> "CleanBuild"
+  ==> "CleanTest"  
   ==> "BuildLibraries"
   ==> "BuildApps"
   ==> "BuildTest"
   ==> "RunUnitTests"
   ==> "RunIntegrationTests"    
-  ==> "PublishApi"  
+  ==> "PublishDesktopApp"  
+  ==> "BuildMsiInstaller"
   ==> "All"  
 
 Target.runOrDefault "All"
