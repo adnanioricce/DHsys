@@ -75,7 +75,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
         }
 
         public Drug ToModel()
-        {
+        {            
             return new Drug()
             {
                 BaseDrugId = BaseDrugId, 
