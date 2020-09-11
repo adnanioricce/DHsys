@@ -45,7 +45,6 @@ Target.create "BuildTest" (fun _ ->
   -- "../src/tests/**/*Desktop*.csproj"  
   |> Seq.iter (DotNet.build id)
 )
-
 Target.create "RunUnitTests" (fun _ ->
   Trace.log "--- Executing Unit Tests ---"
   !! "../tests/UnitTests/**/*.csproj"  
@@ -58,15 +57,9 @@ Target.create "RunIntegrationTests" (fun _ ->
   |> Seq.iter (DotNet.test id)
 )
 Target.create "PublishDesktopApp" (fun _ ->
-  Trace.log "--- Publishing Api ---"
+  Trace.log "--- Publishing Desktop App ---"
   !! "../src/**/Desktop.csproj"  
   |> Seq.iter (DotNet.publish id)
-)
-Target.create "BuildMsiInstaller" (fun _ -> 
-  Trace.log "--- Building Msi Installer ---"
-  (CreateProcess.fromRawCommand "build_desktop_installer.cmd" []) 
-  |> Proc.run
-  |> ignore
 )
 
 Target.create "All" ignore
@@ -78,8 +71,7 @@ Target.create "All" ignore
   ==> "BuildTest"
   ==> "RunUnitTests"
   ==> "RunIntegrationTests"    
-  ==> "PublishDesktopApp"  
-  ==> "BuildMsiInstaller"
+  ==> "PublishDesktopApp"    
   ==> "All"  
 
 Target.runOrDefault "All"

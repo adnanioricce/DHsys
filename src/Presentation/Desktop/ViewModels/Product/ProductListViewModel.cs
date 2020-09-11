@@ -12,7 +12,7 @@ namespace Desktop.ViewModels.Product
 {
     public class ProductListViewModel : ViewModelBase
     {
-        private Task _legacyWorkerThread;
+        private Task _legacyWorkerThread = default(Task);
         private readonly ILegacyRepository<Produto> _produtoRepository;
         private readonly IDrugService _drugService;
         private ObservableCollection<ProductCardModel> produtoCollection = new ObservableCollection<ProductCardModel>();        
@@ -71,7 +71,7 @@ namespace Desktop.ViewModels.Product
         public void ExecuteGetProductsBySearchPattern(string pattern)
         {
             //TODO:Insecure code, throws exception when just user type 
-            if (!_legacyWorkerThread.IsCompleted) return;
+            if (!(_legacyWorkerThread is null)) return;
             var task = new Task(() =>
             {
                 var produtos = _produtoRepository.MultipleFromRawSqlQuery($@"SELECT * FROM PRODUTO.DBF 

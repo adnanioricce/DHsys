@@ -4,7 +4,7 @@ nuget Fake.IO.FileSystem
 nuget Fake.Core.Target
 nuget Fake.Core.String
 nuget Fake.Core.Process //"
-#load ".fake/builddesktop.fsx/intellisense.fsx"
+#load ".fake/buildapi.fsx/intellisense.fsx"
 open Fake
 open Fake.Core
 open Fake.DotNet
@@ -15,7 +15,6 @@ open Fake.Core.TargetOperators
 open System
 open System.IO
 let buildDir = "../build/"
-let packagesDir = buildDir + "Packages"
 let testDir = "./tests/"
 let sourceDir = "./src/"
 
