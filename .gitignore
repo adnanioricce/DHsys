@@ -18,6 +18,7 @@ src/UI/appsettings.json
 .vscode
 .msix
 ComponentsGenerated.wxs
+**/ComponentsGenerated.wxs
 DesktopRelease/
 Desktop.exe
 *.db

@@ -9,7 +9,7 @@
     <PublishTrimmed>true</PublishTrimmed>
     <UseWPF>true</UseWPF>
     <Version>1.0.0</Version>
-    <PublishDir>..\..\builds\$(MSBuildProjectName)</PublishDir>
+    <PublishDir>..\..\..\build\$(MSBuildProjectName)\bin</PublishDir>
   </PropertyGroup>
 
   <ItemGroup>
