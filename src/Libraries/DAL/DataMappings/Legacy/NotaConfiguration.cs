@@ -1,65 +1,136 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class NotaConfiguration : BaseEntityConfiguration<Nota>
+    public partial class NotaMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Nota>
     {
-        public override void Configure(EntityTypeBuilder<Nota> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Nota> builder)
         {
-            entity.ToTable("NOTA");
+            #region Generated Configure
+            // table
+            builder.ToTable("nota", "public");
 
-            entity.Property(e => e.Base).HasColumnName("BASE");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Basesub).HasColumnName("BASESUB");
+            // properties
+            builder.Property(t => t.NFiscal)
+                .HasColumnName("n_fiscal")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.Cliente).HasColumnName("CLIENTE");
+            builder.Property(t => t.Cliente)
+                .HasColumnName("cliente")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Icms).HasColumnName("ICMS");
+            builder.Property(t => t.Nvalor)
+                .HasColumnName("nvalor")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Icmssub).HasColumnName("ICMSSUB");
+            builder.Property(t => t.Base)
+                .HasColumnName("base")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.NFiscal).HasColumnName("N_FISCAL");
+            builder.Property(t => t.Icms)
+                .HasColumnName("icms")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.NNatu).HasColumnName("N_NATU");
+            builder.Property(t => t.Basesub)
+                .HasColumnName("basesub")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Natureza).HasColumnName("NATUREZA");
+            builder.Property(t => t.Icmssub)
+                .HasColumnName("icmssub")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Nbase12).HasColumnName("NBASE12");
+            builder.Property(t => t.Nbase7)
+                .HasColumnName("nbase7")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Nbase18).HasColumnName("NBASE18");
+            builder.Property(t => t.Nicms7)
+                .HasColumnName("nicms7")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Nbase25).HasColumnName("NBASE25");
+            builder.Property(t => t.Nbase12)
+                .HasColumnName("nbase12")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Nbase7).HasColumnName("NBASE7");
+            builder.Property(t => t.Nicms12)
+                .HasColumnName("nicms12")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Ncancelada).HasColumnName("NCANCELADA");
+            builder.Property(t => t.Nbase18)
+                .HasColumnName("nbase18")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Ndata)
-                .HasColumnName("NDATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Nicms18)
+                .HasColumnName("nicms18")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Nicms12).HasColumnName("NICMS12");
+            builder.Property(t => t.Nbase25)
+                .HasColumnName("nbase25")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Nicms18).HasColumnName("NICMS18");
+            builder.Property(t => t.Nicms25)
+                .HasColumnName("nicms25")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Nicms25).HasColumnName("NICMS25");
+            builder.Property(t => t.Natureza)
+                .HasColumnName("natureza")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Nicms7).HasColumnName("NICMS7");
+            builder.Property(t => t.NNatu)
+                .HasColumnName("n_natu")
+                .HasColumnType("character varying(25)")
+                .HasMaxLength(25);
 
-            entity.Property(e => e.Nvalor).HasColumnName("NVALOR");
+            builder.Property(t => t.Ndata)
+                .HasColumnName("ndata")
+                .HasColumnType("date");
+
+            builder.Property(t => t.Ncancelada)
+                .HasColumnName("ncancelada")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "nota";
+        }
+
+        public struct Columns
+        {
+            public const string nFiscal = "n_fiscal";
+            public const string Cliente = "cliente";
+            public const string Nvalor = "nvalor";
+            public const string Base = "base";
+            public const string Icms = "icms";
+            public const string Basesub = "basesub";
+            public const string Icmssub = "icmssub";
+            public const string Nbase7 = "nbase7";
+            public const string Nicms7 = "nicms7";
+            public const string Nbase12 = "nbase12";
+            public const string Nicms12 = "nicms12";
+            public const string Nbase18 = "nbase18";
+            public const string Nicms18 = "nicms18";
+            public const string Nbase25 = "nbase25";
+            public const string Nicms25 = "nicms25";
+            public const string Natureza = "natureza";
+            public const string nNatu = "n_natu";
+            public const string Ndata = "ndata";
+            public const string Ncancelada = "ncancelada";
+        }
+        #endregion
     }
 }

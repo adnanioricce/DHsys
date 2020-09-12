@@ -1,33 +1,52 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class FechconvConfiguration : BaseEntityConfiguration<Fechconv>
+    public partial class FechconvMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Fechconv>
     {
-        public override void Configure(EntityTypeBuilder<Fechconv> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Fechconv> builder)
         {
-            entity.ToTable("FECHCONV");
+            #region Generated Configure
+            // table
+            builder.ToTable("fechconv", "public");
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Fucdem).HasColumnName("FUCDEM");
+            // properties
+            builder.Property(t => t.Fucdem)
+                .HasColumnName("fucdem")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Valor).HasColumnName("VALOR");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
+
+            builder.Property(t => t.Valor)
+                .HasColumnName("valor")
+                .HasColumnType("numeric(12,0)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "fechconv";
+        }
+
+        public struct Columns
+        {
+            public const string Fucdem = "fucdem";
+            public const string Data = "data";
+            public const string Valor = "valor";
+        }
+        #endregion
     }
 }

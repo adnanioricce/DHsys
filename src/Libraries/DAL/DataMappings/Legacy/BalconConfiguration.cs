@@ -1,51 +1,105 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class BalconConfiguration : BaseEntityConfiguration<Balcon>
+    public partial class BalconMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Balcon>
     {
-        public override void Configure(EntityTypeBuilder<Balcon> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Balcon> builder)
         {
-            entity.ToTable("BALCON");
+            #region Generated Configure
+            // table
+            builder.ToTable("balcon", "public");
 
-            entity.Property(e => e.Bacodi).HasColumnName("BACODI");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Bacomi).HasColumnName("BACOMI");
+            // properties
+            builder.Property(t => t.Bacodi)
+                .HasColumnName("bacodi")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Badevol).HasColumnName("BADEVOL");
+            builder.Property(t => t.Banome)
+                .HasColumnName("banome")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Banome).HasColumnName("BANOME");
+            builder.Property(t => t.Bacomi)
+                .HasColumnName("bacomi")
+                .HasColumnType("numeric(10,2)");
 
-            entity.Property(e => e.ComisAce).HasColumnName("COMIS_ACE");
+            builder.Property(t => t.Badevol)
+                .HasColumnName("badevol")
+                .HasColumnType("numeric(10,2)");
 
-            entity.Property(e => e.ComisBo).HasColumnName("COMIS_BO");
+            builder.Property(t => t.Cpf)
+                .HasColumnName("cpf")
+                .HasColumnType("character varying(11)")
+                .HasMaxLength(11);
 
-            entity.Property(e => e.ComisEti).HasColumnName("COMIS_ETI");
+            builder.Property(t => t.Senha)
+                .HasColumnName("senha")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.ComisOut).HasColumnName("COMIS_OUT");
+            builder.Property(t => t.ComisBo)
+                .HasColumnName("comis_bo")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.ComisPer).HasColumnName("COMIS_PER");
+            builder.Property(t => t.ComisPer)
+                .HasColumnName("comis_per")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.ComisPerc).HasColumnName("COMIS_PERC");
+            builder.Property(t => t.ComisAce)
+                .HasColumnName("comis_ace")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.ComisVar).HasColumnName("COMIS_VAR");
+            builder.Property(t => t.ComisVar)
+                .HasColumnName("comis_var")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Cpf).HasColumnName("CPF");
+            builder.Property(t => t.ComisEti)
+                .HasColumnName("comis_eti")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Senha).HasColumnName("SENHA");
+            builder.Property(t => t.ComisPerc)
+                .HasColumnName("comis_perc")
+                .HasColumnType("numeric(5,2)");
+
+            builder.Property(t => t.ComisOut)
+                .HasColumnName("comis_out")
+                .HasColumnType("numeric(5,2)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "balcon";
+        }
+
+        public struct Columns
+        {
+            public const string Bacodi = "bacodi";
+            public const string Banome = "banome";
+            public const string Bacomi = "bacomi";
+            public const string Badevol = "badevol";
+            public const string Cpf = "cpf";
+            public const string Senha = "senha";
+            public const string ComisBo = "comis_bo";
+            public const string ComisPer = "comis_per";
+            public const string ComisAce = "comis_ace";
+            public const string ComisVar = "comis_var";
+            public const string ComisEti = "comis_eti";
+            public const string ComisPerc = "comis_perc";
+            public const string ComisOut = "comis_out";
+        }
+        #endregion
     }
 }

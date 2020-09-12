@@ -1,29 +1,48 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class ContasConfiguration : BaseEntityConfiguration<Contas>
+    public partial class ContasMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Contas>
     {
-        public override void Configure(EntityTypeBuilder<Contas> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Contas> builder)
         {
-            entity.ToTable("CONTAS");
+            #region Generated Configure
+            // table
+            builder.ToTable("contas", "public");
 
-            entity.Property(e => e.Cod).HasColumnName("COD");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Hist).HasColumnName("HIST");
+            // properties
+            builder.Property(t => t.Cod)
+                .HasColumnName("cod")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
+
+            builder.Property(t => t.Hist)
+                .HasColumnName("hist")
+                .HasColumnType("character varying(25)")
+                .HasMaxLength(25);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "contas";
+        }
+
+        public struct Columns
+        {
+            public const string Cod = "cod";
+            public const string Hist = "hist";
+        }
+        #endregion
     }
 }

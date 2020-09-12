@@ -18,6 +18,7 @@ namespace Core.Entities.Legacy
         public string Eminsc { get; set; }
         public string Emfax { get; set; }
         public string Emcep { get; set; }
+        public string Emguia { get; set; }
         public string Emfilial { get; set; }
         public double? Emlimite { get; set; }
         public string DesTick { get; set; }

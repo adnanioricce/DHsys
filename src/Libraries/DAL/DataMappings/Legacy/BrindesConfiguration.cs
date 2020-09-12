@@ -1,33 +1,58 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class BrindesConfiguration : BaseEntityConfiguration<Brindes>
+    public partial class BrindesMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Brindes>
     {
-        public override void Configure(EntityTypeBuilder<Brindes> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Brindes> builder)
         {
-            entity.ToTable("BRINDES");
+            #region Generated Configure
+            // table
+            builder.ToTable("brindes", "public");
 
-            entity.Property(e => e.Codigo).HasColumnName("CODIGO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Nome).HasColumnName("NOME");
+            // properties
+            builder.Property(t => t.Codigo)
+                .HasColumnName("codigo")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Pontos).HasColumnName("PONTOS");
+            builder.Property(t => t.Nome)
+                .HasColumnName("nome")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Qtde).HasColumnName("QTDE");
+            builder.Property(t => t.Pontos)
+                .HasColumnName("pontos")
+                .HasColumnType("numeric(4,0)");
+
+            builder.Property(t => t.Qtde)
+                .HasColumnName("qtde")
+                .HasColumnType("numeric(4,0)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "brindes";
+        }
+
+        public struct Columns
+        {
+            public const string Codigo = "codigo";
+            public const string Nome = "nome";
+            public const string Pontos = "pontos";
+            public const string Qtde = "qtde";
+        }
+        #endregion
     }
 }

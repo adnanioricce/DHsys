@@ -69,8 +69,7 @@ namespace Core.Mappers
             drug.ShelfLifes.Add(new ProductShelfLife
             {
                 EndDate = produto.Prvalid
-            });
-            drug.Produto = produto;
+            });            
             drug.ProdutoId = produto.Id;
             string pattern = "\\d+[a-zA-z]";
             var regex = new Regex(pattern);

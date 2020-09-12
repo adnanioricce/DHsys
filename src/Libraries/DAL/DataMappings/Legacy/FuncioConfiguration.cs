@@ -1,79 +1,181 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class FuncioConfiguration : BaseEntityConfiguration<Funcio>
+    public partial class FuncioMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Funcio>
     {
-        public override void Configure(EntityTypeBuilder<Funcio> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Funcio> builder)
         {
-            entity.ToTable("FUNCIO");
+            #region Generated Configure
+            // table
+            builder.ToTable("funcio", "public");
 
-            entity.Property(e => e.Codgolden).HasColumnName("CODGOLDEN");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Datademi)
-                .HasColumnName("DATADEMI")
-                .HasColumnType("datetime");
+            // properties
+            builder.Property(t => t.Fucdem)
+                .HasColumnName("fucdem")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Demitido).HasColumnName("DEMITIDO");
+            builder.Property(t => t.Fucodi)
+                .HasColumnName("fucodi")
+                .HasColumnType("character varying(18)")
+                .HasMaxLength(18);
 
-            entity.Property(e => e.Fubai).HasColumnName("FUBAI");
+            builder.Property(t => t.Funome)
+                .HasColumnName("funome")
+                .HasColumnType("character varying(40)")
+                .HasMaxLength(40);
 
-            entity.Property(e => e.Fubloq).HasColumnName("FUBLOQ");
+            builder.Property(t => t.Fuend)
+                .HasColumnName("fuend")
+                .HasColumnType("character varying(40)")
+                .HasMaxLength(40);
 
-            entity.Property(e => e.Fucdem).HasColumnName("FUCDEM");
+            builder.Property(t => t.Fubai)
+                .HasColumnName("fubai")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Fucep).HasColumnName("FUCEP");
+            builder.Property(t => t.Fucid)
+                .HasColumnName("fucid")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Fucid).HasColumnName("FUCID");
+            builder.Property(t => t.Fuest)
+                .HasColumnName("fuest")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Fucodi).HasColumnName("FUCODI");
+            builder.Property(t => t.Fucep)
+                .HasColumnName("fucep")
+                .HasColumnType("character varying(9)")
+                .HasMaxLength(9);
 
-            entity.Property(e => e.Fudata)
-                .HasColumnName("FUDATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Fufone)
+                .HasColumnName("fufone")
+                .HasColumnType("character varying(12)")
+                .HasMaxLength(12);
 
-            entity.Property(e => e.Fudepto).HasColumnName("FUDEPTO");
+            builder.Property(t => t.Fusit)
+                .HasColumnName("fusit")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Fuend).HasColumnName("FUEND");
+            builder.Property(t => t.Fuplano)
+                .HasColumnName("fuplano")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Fuest).HasColumnName("FUEST");
+            builder.Property(t => t.Fuident)
+                .HasColumnName("fuident")
+                .HasColumnType("character varying(18)")
+                .HasMaxLength(18);
 
-            entity.Property(e => e.Fufone).HasColumnName("FUFONE");
+            builder.Property(t => t.Fudepto)
+                .HasColumnName("fudepto")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.FCoredent).HasColumnName("FCoreDENT");
+            builder.Property(t => t.Totdebcr)
+                .HasColumnName("totdebcr")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Fulimite).HasColumnName("FULIMITE");
+            builder.Property(t => t.Totdebsr)
+                .HasColumnName("totdebsr")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Funome).HasColumnName("FUNOME");
+            builder.Property(t => t.Demitido)
+                .HasColumnName("demitido")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Fuobs1).HasColumnName("FUOBS1");
+            builder.Property(t => t.Datademi)
+                .HasColumnName("datademi")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Fuobs2).HasColumnName("FUOBS2");
+            builder.Property(t => t.Impresso)
+                .HasColumnName("impresso")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Fuobs3).HasColumnName("FUOBS3");
+            builder.Property(t => t.Fulimite)
+                .HasColumnName("fulimite")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Fuplano).HasColumnName("FUPLANO");
+            builder.Property(t => t.Fuobs1)
+                .HasColumnName("fuobs1")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Fusit).HasColumnName("FUSIT");
+            builder.Property(t => t.Fuobs2)
+                .HasColumnName("fuobs2")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Impresso).HasColumnName("IMPRESSO");
+            builder.Property(t => t.Fuobs3)
+                .HasColumnName("fuobs3")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Totdebcr).HasColumnName("TOTDEBCR");
+            builder.Property(t => t.Fubloq)
+                .HasColumnName("fubloq")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Totdebsr).HasColumnName("TOTDEBSR");
+            builder.Property(t => t.Codgolden)
+                .HasColumnName("codgolden")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
+
+            builder.Property(t => t.Fudata)
+                .HasColumnName("fudata")
+                .HasColumnType("date");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "funcio";
+        }
+
+        public struct Columns
+        {
+            public const string Fucdem = "fucdem";
+            public const string Fucodi = "fucodi";
+            public const string Funome = "funome";
+            public const string Fuend = "fuend";
+            public const string Fubai = "fubai";
+            public const string Fucid = "fucid";
+            public const string Fuest = "fuest";
+            public const string Fucep = "fucep";
+            public const string Fufone = "fufone";
+            public const string Fusit = "fusit";
+            public const string Fuplano = "fuplano";
+            public const string Fuident = "fuident";
+            public const string Fudepto = "fudepto";
+            public const string Totdebcr = "totdebcr";
+            public const string Totdebsr = "totdebsr";
+            public const string Demitido = "demitido";
+            public const string Datademi = "datademi";
+            public const string Impresso = "impresso";
+            public const string Fulimite = "fulimite";
+            public const string Fuobs1 = "fuobs1";
+            public const string Fuobs2 = "fuobs2";
+            public const string Fuobs3 = "fuobs3";
+            public const string Fubloq = "fubloq";
+            public const string Codgolden = "codgolden";
+            public const string Fudata = "fudata";
+        }
+        #endregion
     }
 }

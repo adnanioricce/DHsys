@@ -1,35 +1,65 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class NumpedConfiguration : BaseEntityConfiguration<Numped>
+    public partial class NumpedMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Numped>
     {
-        public override void Configure(EntityTypeBuilder<Numped> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Numped> builder)
         {
-            entity.ToTable("NUMPED");
+            #region Generated Configure
+            // table
+            builder.ToTable("numped", "public");
 
-            entity.Property(e => e.Desconto).HasColumnName("DESCONTO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Fornec).HasColumnName("FORNEC");
+            // properties
+            builder.Property(t => t.Fornec)
+                .HasColumnName("fornec")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Numero).HasColumnName("NUMERO");
+            builder.Property(t => t.Przpagto)
+                .HasColumnName("przpagto")
+                .HasColumnType("character varying(10)")
+                .HasMaxLength(10);
 
-            entity.Property(e => e.Przentrega).HasColumnName("PRZENTREGA");
+            builder.Property(t => t.Desconto)
+                .HasColumnName("desconto")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Przpagto).HasColumnName("PRZPAGTO");
+            builder.Property(t => t.Numero)
+                .HasColumnName("numero")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
+
+            builder.Property(t => t.Przentrega)
+                .HasColumnName("przentrega")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "numped";
+        }
+
+        public struct Columns
+        {
+            public const string Fornec = "fornec";
+            public const string Przpagto = "przpagto";
+            public const string Desconto = "desconto";
+            public const string Numero = "numero";
+            public const string Przentrega = "przentrega";
+        }
+        #endregion
     }
 }

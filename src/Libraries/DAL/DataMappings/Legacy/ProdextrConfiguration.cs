@@ -1,39 +1,73 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class ProdextrConfiguration : BaseEntityConfiguration<Prodextr>
+    public partial class ProdextrMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Prodextr>
     {
-        public override void Configure(EntityTypeBuilder<Prodextr> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Prodextr> builder)
         {
-            entity.ToTable("PRODEXTR");
+            #region Generated Configure
+            // table
+            builder.ToTable("prodextr", "public");
 
-            entity.Property(e => e.Concor1).HasColumnName("CONCOR1");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Concor2).HasColumnName("CONCOR2");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Concor3).HasColumnName("CONCOR3");
+            builder.Property(t => t.Prdesc)
+                .HasColumnName("prdesc")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Concor4).HasColumnName("CONCOR4");
+            builder.Property(t => t.Prcons)
+                .HasColumnName("prcons")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            builder.Property(t => t.Concor1)
+                .HasColumnName("concor1")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Prcons).HasColumnName("PRCONS");
+            builder.Property(t => t.Concor2)
+                .HasColumnName("concor2")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Prdesc).HasColumnName("PRDESC");
+            builder.Property(t => t.Concor3)
+                .HasColumnName("concor3")
+                .HasColumnType("numeric(12,2)");
+
+            builder.Property(t => t.Concor4)
+                .HasColumnName("concor4")
+                .HasColumnType("numeric(12,2)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "prodextr";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Prdesc = "prdesc";
+            public const string Prcons = "prcons";
+            public const string Concor1 = "concor1";
+            public const string Concor2 = "concor2";
+            public const string Concor3 = "concor3";
+            public const string Concor4 = "concor4";
+        }
+        #endregion
     }
 }

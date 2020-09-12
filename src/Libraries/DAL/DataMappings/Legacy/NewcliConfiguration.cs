@@ -1,57 +1,117 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class NewcliConfiguration : BaseEntityConfiguration<Newcli>
+    public partial class NewcliMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Newcli>
     {
-        public override void Configure(EntityTypeBuilder<Newcli> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Newcli> builder)
         {
-            entity.ToTable("NEWCLI");
+            #region Generated Configure
+            // table
+            builder.ToTable("newcli", "public");
 
-            entity.Property(e => e.Bairro).HasColumnName("BAIRRO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Cep).HasColumnName("CEP");
+            // properties
+            builder.Property(t => t.Codigo)
+                .HasColumnName("codigo")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
 
-            entity.Property(e => e.Cidade).HasColumnName("CIDADE");
+            builder.Property(t => t.Nome)
+                .HasColumnName("nome")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Clclassi).HasColumnName("CLCLASSI");
+            builder.Property(t => t.Endereco)
+                .HasColumnName("endereco")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Codigo).HasColumnName("CODIGO");
+            builder.Property(t => t.Cidade)
+                .HasColumnName("cidade")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Datanasc)
-                .HasColumnName("DATANASC")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Bairro)
+                .HasColumnName("bairro")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Desconto).HasColumnName("DESCONTO");
+            builder.Property(t => t.Cep)
+                .HasColumnName("cep")
+                .HasColumnType("character varying(9)")
+                .HasMaxLength(9);
 
-            entity.Property(e => e.Endereco).HasColumnName("ENDERECO");
+            builder.Property(t => t.Fone)
+                .HasColumnName("fone")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Fone).HasColumnName("FONE");
+            builder.Property(t => t.Rg)
+                .HasColumnName("rg")
+                .HasColumnType("character varying(19)")
+                .HasMaxLength(19);
 
-            entity.Property(e => e.Impresso).HasColumnName("IMPRESSO");
+            builder.Property(t => t.Datanasc)
+                .HasColumnName("datanasc")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Nome).HasColumnName("NOME");
+            builder.Property(t => t.Tipo)
+                .HasColumnName("tipo")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
 
-            entity.Property(e => e.Rg).HasColumnName("RG");
+            builder.Property(t => t.Impresso)
+                .HasColumnName("impresso")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Tipo).HasColumnName("TIPO");
+            builder.Property(t => t.Desconto)
+                .HasColumnName("desconto")
+                .HasColumnType("numeric(2,0)");
 
-            entity.Property(e => e.UltCompra)
-                .HasColumnName("ULT_COMPRA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Clclassi)
+                .HasColumnName("clclassi")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            builder.Property(t => t.UltCompra)
+                .HasColumnName("ult_compra")
+                .HasColumnType("date");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "newcli";
+        }
+
+        public struct Columns
+        {
+            public const string Codigo = "codigo";
+            public const string Nome = "nome";
+            public const string Endereco = "endereco";
+            public const string Cidade = "cidade";
+            public const string Bairro = "bairro";
+            public const string Cep = "cep";
+            public const string Fone = "fone";
+            public const string Rg = "rg";
+            public const string Datanasc = "datanasc";
+            public const string Tipo = "tipo";
+            public const string Impresso = "impresso";
+            public const string Desconto = "desconto";
+            public const string Clclassi = "clclassi";
+            public const string UltCompra = "ult_compra";
+        }
+        #endregion
     }
 }

@@ -1,35 +1,58 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class DespesasConfiguration : BaseEntityConfiguration<Despesas>
+    public partial class DespesasMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Despesas>
     {
-        public override void Configure(EntityTypeBuilder<Despesas> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Despesas> builder)
         {
-            entity.ToTable("DESPESAS");
+            #region Generated Configure
+            // table
+            builder.ToTable("despesas", "public");
 
-            entity.Property(e => e.Caixa).HasColumnName("CAIXA");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            // properties
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Historico).HasColumnName("HISTORICO");
+            builder.Property(t => t.Historico)
+                .HasColumnName("historico")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Valor).HasColumnName("VALOR");
+            builder.Property(t => t.Valor)
+                .HasColumnName("valor")
+                .HasColumnType("numeric(12,2)");
+
+            builder.Property(t => t.Caixa)
+                .HasColumnName("caixa")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "despesas";
+        }
+
+        public struct Columns
+        {
+            public const string Data = "data";
+            public const string Historico = "historico";
+            public const string Valor = "valor";
+            public const string Caixa = "caixa";
+        }
+        #endregion
     }
 }

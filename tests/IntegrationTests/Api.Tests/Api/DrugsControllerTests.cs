@@ -135,7 +135,8 @@ namespace Api.Tests
                 ReorderQuantity = 5,
                 QuantityInStock = 2,
                 UniqueCode = "123456",
-                Produto = GetBaseProduto()
+                //Produto = GetBaseProduto()
+                ProdutoId = 1
             };
 
             // Act

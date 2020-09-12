@@ -7,7 +7,7 @@ namespace Core.Entities.Legacy
     {
         
         public double? TrocoIni { get; set; }
-        public string Initroco { get; set; }
+        public bool Initroco { get; set; }
         public DateTime? Data { get; set; }
     }
 }

@@ -1,33 +1,51 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class Troco18Configuration : BaseEntityConfiguration<Troco18>
+    public partial class Troco18Map
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Troco18>
     {
-        public override void Configure(EntityTypeBuilder<Troco18> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Troco18> builder)
         {
-            entity.ToTable("TROCO18");
+            #region Generated Configure
+            // table
+            builder.ToTable("troco18", "public");
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Initroco).HasColumnName("INITROCO");
+            // properties
+            builder.Property(t => t.TrocoIni)
+                .HasColumnName("troco_ini")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.TrocoIni).HasColumnName("TROCO_INI");
+            builder.Property(t => t.Initroco)
+                .HasColumnName("initroco")
+                .HasColumnType("boolean");
+
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "troco18";
+        }
+
+        public struct Columns
+        {
+            public const string TrocoIni = "troco_ini";
+            public const string Initroco = "initroco";
+            public const string Data = "data";
+        }
+        #endregion
     }
 }

@@ -1,47 +1,92 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class MovnfConfiguration : BaseEntityConfiguration<Movnf>
+    public partial class MovnfMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Movnf>
     {
-        public override void Configure(EntityTypeBuilder<Movnf> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Movnf> builder)
         {
-            entity.ToTable("MOVNF");
+            #region Generated Configure
+            // table
+            builder.ToTable("movnf", "public");
 
-            entity.Property(e => e.Cancelado).HasColumnName("CANCELADO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Cpf).HasColumnName("CPF");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Prqtde)
+                .HasColumnName("prqtde")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Descricao).HasColumnName("DESCRICAO");
+            builder.Property(t => t.VlUnit)
+                .HasColumnName("vl_unit")
+                .HasColumnType("numeric(12,4)");
 
-            entity.Property(e => e.Ecf).HasColumnName("ECF");
+            builder.Property(t => t.Ticket)
+                .HasColumnName("ticket")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Prqtde).HasColumnName("PRQTDE");
+            builder.Property(t => t.Ecf)
+                .HasColumnName("ecf")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.Ticket).HasColumnName("TICKET");
+            builder.Property(t => t.Descricao)
+                .HasColumnName("descricao")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.VlTot).HasColumnName("VL_TOT");
+            builder.Property(t => t.Cancelado)
+                .HasColumnName("cancelado")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.VlUnit).HasColumnName("VL_UNIT");
+            builder.Property(t => t.Cpf)
+                .HasColumnName("cpf")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
+
+            builder.Property(t => t.VlTot)
+                .HasColumnName("vl_tot")
+                .HasColumnType("numeric(12,2)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "movnf";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Prqtde = "prqtde";
+            public const string VlUnit = "vl_unit";
+            public const string Ticket = "ticket";
+            public const string Data = "data";
+            public const string Ecf = "ecf";
+            public const string Descricao = "descricao";
+            public const string Cancelado = "cancelado";
+            public const string Cpf = "cpf";
+            public const string VlTot = "vl_tot";
+        }
+        #endregion
     }
 }

@@ -1,59 +1,125 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class MovmesConfiguration : BaseEntityConfiguration<Movmes>
+    public partial class MovmesMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Movmes>
     {
-        public override void Configure(EntityTypeBuilder<Movmes> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Movmes> builder)
         {
-            entity.ToTable("MOVMES");
+            #region Generated Configure
+            // table
+            builder.ToTable("movmes", "public");
 
-            entity.Property(e => e.Bacodi).HasColumnName("BACODI");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Cancelado).HasColumnName("CANCELADO");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Codcli).HasColumnName("CODCLI");
+            builder.Property(t => t.Prqtde)
+                .HasColumnName("prqtde")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.VlUnit)
+                .HasColumnName("vl_unit")
+                .HasColumnType("numeric(12,4)");
 
-            entity.Property(e => e.Ecf).HasColumnName("ECF");
+            builder.Property(t => t.Vlliquid)
+                .HasColumnName("vlliquid")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Pedido).HasColumnName("PEDIDO");
+            builder.Property(t => t.TotDescon)
+                .HasColumnName("tot_descon")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            builder.Property(t => t.Ticket)
+                .HasColumnName("ticket")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Prqtde).HasColumnName("PRQTDE");
+            builder.Property(t => t.Bacodi)
+                .HasColumnName("bacodi")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Ticket).HasColumnName("TICKET");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Tipo).HasColumnName("TIPO");
+            builder.Property(t => t.Tipo)
+                .HasColumnName("tipo")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.TotComis).HasColumnName("TOT_COMIS");
+            builder.Property(t => t.Tpvd)
+                .HasColumnName("tpvd")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.TotDescon).HasColumnName("TOT_DESCON");
+            builder.Property(t => t.Ecf)
+                .HasColumnName("ecf")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.Tpvd).HasColumnName("TPVD");
+            builder.Property(t => t.Cancelado)
+                .HasColumnName("cancelado")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.VlTot).HasColumnName("VL_TOT");
+            builder.Property(t => t.VlTot)
+                .HasColumnName("vl_tot")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.VlUnit).HasColumnName("VL_UNIT");
+            builder.Property(t => t.TotComis)
+                .HasColumnName("tot_comis")
+                .HasColumnType("numeric(12,4)");
 
-            entity.Property(e => e.VlliqCored).HasColumnName("VLLIQCoreD");
+            builder.Property(t => t.Pedido)
+                .HasColumnName("pedido")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            builder.Property(t => t.Codcli)
+                .HasColumnName("codcli")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "movmes";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Prqtde = "prqtde";
+            public const string VlUnit = "vl_unit";
+            public const string Vlliquid = "vlliquid";
+            public const string TotDescon = "tot_descon";
+            public const string Ticket = "ticket";
+            public const string Bacodi = "bacodi";
+            public const string Data = "data";
+            public const string Tipo = "tipo";
+            public const string Tpvd = "tpvd";
+            public const string Ecf = "ecf";
+            public const string Cancelado = "cancelado";
+            public const string VlTot = "vl_tot";
+            public const string TotComis = "tot_comis";
+            public const string Pedido = "pedido";
+            public const string Codcli = "codcli";
+        }
+        #endregion
     }
 }

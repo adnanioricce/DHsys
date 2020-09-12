@@ -1,43 +1,74 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class CaixaConfiguration : BaseEntityConfiguration<Caixa>
+    public partial class CaixaMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Caixa>
     {
-        public override void Configure(EntityTypeBuilder<Caixa> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Caixa> builder)
         {
-            entity.ToTable("CAIXA");
+            #region Generated Configure
+            // table
+            builder.ToTable("caixa", "public");
 
-            entity.Property(e => e.CxAdm).HasColumnName("CX_ADM");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.CxAtend).HasColumnName("CX_ATEND");
+            // properties
+            builder.Property(t => t.CxAtend)
+                .HasColumnName("cx_atend")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.CxCart).HasColumnName("CX_CART");
+            builder.Property(t => t.CxData)
+                .HasColumnName("cx_data")
+                .HasColumnType("date");
 
-            entity.Property(e => e.CxData)
-                .HasColumnName("CX_DATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.CxValor)
+                .HasColumnName("cx_valor")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.CxRec)
-                .HasColumnName("CX_REC")
-                .HasColumnType("datetime");
+            builder.Property(t => t.CxRec)
+                .HasColumnName("cx_rec")
+                .HasColumnType("date");
 
-            entity.Property(e => e.CxTipo).HasColumnName("CX_TIPO");
+            builder.Property(t => t.CxAdm)
+                .HasColumnName("cx_adm")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.CxValor).HasColumnName("CX_VALOR");
+            builder.Property(t => t.CxCart)
+                .HasColumnName("cx_cart")
+                .HasColumnType("numeric(12,2)");
+
+            builder.Property(t => t.CxTipo)
+                .HasColumnName("cx_tipo")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "caixa";
+        }
+
+        public struct Columns
+        {
+            public const string CxAtend = "cx_atend";
+            public const string CxData = "cx_data";
+            public const string CxValor = "cx_valor";
+            public const string CxRec = "cx_rec";
+            public const string CxAdm = "cx_adm";
+            public const string CxCart = "cx_cart";
+            public const string CxTipo = "cx_tipo";
+        }
+        #endregion
     }
 }

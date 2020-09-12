@@ -1,31 +1,54 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class IbptConfiguration : BaseEntityConfiguration<Ibpt>
+    public partial class IbptMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Ibpt>
     {
-        public override void Configure(EntityTypeBuilder<Ibpt> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Ibpt> builder)
         {
-            entity.ToTable("IBPT");
+            #region Generated Configure
+            // table
+            builder.ToTable("ibpt", "public");
 
-            entity.Property(e => e.Codigo).HasColumnName("CODIGO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Imp1).HasColumnName("IMP1");
+            // properties
+            builder.Property(t => t.Codigo)
+                .HasColumnName("codigo")
+                .HasColumnType("character varying(9)")
+                .HasMaxLength(9);
 
-            entity.Property(e => e.Imp2).HasColumnName("IMP2");
+            builder.Property(t => t.Imp1)
+                .HasColumnName("imp1")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
+
+            builder.Property(t => t.Imp2)
+                .HasColumnName("imp2")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "ibpt";
+        }
+
+        public struct Columns
+        {
+            public const string Codigo = "codigo";
+            public const string Imp1 = "imp1";
+            public const string Imp2 = "imp2";
+        }
+        #endregion
     }
 }

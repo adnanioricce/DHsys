@@ -1,31 +1,46 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class UrvConfiguration : BaseEntityConfiguration<Urv>
+    public partial class UrvMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Urv>
     {
-        public override void Configure(EntityTypeBuilder<Urv> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Urv> builder)
         {
-            entity.ToTable("URV");
+            #region Generated Configure
+            // table
+            builder.ToTable("urv", "public");
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Valor).HasColumnName("VALOR");
+            // properties
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
+
+            builder.Property(t => t.Valor)
+                .HasColumnName("valor")
+                .HasColumnType("numeric(7,2)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "urv";
+        }
+
+        public struct Columns
+        {
+            public const string Data = "data";
+            public const string Valor = "valor";
+        }
+        #endregion
     }
 }

@@ -1,39 +1,73 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class TempConfiguration : BaseEntityConfiguration<Temp>
+    public partial class TempMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Temp>
     {
-        public override void Configure(EntityTypeBuilder<Temp> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Temp> builder)
         {
-            entity.ToTable("TEMP");
+            #region Generated Configure
+            // table
+            builder.ToTable("temp", "public");
 
-            entity.Property(e => e.Desconto).HasColumnName("DESCONTO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Descricao).HasColumnName("DESCRICAO");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            builder.Property(t => t.Descricao)
+                .HasColumnName("descricao")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Prcons).HasColumnName("PRCONS");
+            builder.Property(t => t.Prcons)
+                .HasColumnName("prcons")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Prconsd).HasColumnName("PRCONSD");
+            builder.Property(t => t.Desconto)
+                .HasColumnName("desconto")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Qtde).HasColumnName("QTDE");
+            builder.Property(t => t.Prconsd)
+                .HasColumnName("prconsd")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.VlTotal).HasColumnName("VL_TOTAL");
+            builder.Property(t => t.VlTotal)
+                .HasColumnName("vl_total")
+                .HasColumnType("numeric(12,2)");
+
+            builder.Property(t => t.Qtde)
+                .HasColumnName("qtde")
+                .HasColumnType("numeric(6,0)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "temp";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Descricao = "descricao";
+            public const string Prcons = "prcons";
+            public const string Desconto = "desconto";
+            public const string Prconsd = "prconsd";
+            public const string VlTotal = "vl_total";
+            public const string Qtde = "qtde";
+        }
+        #endregion
     }
 }

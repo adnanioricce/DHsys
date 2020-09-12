@@ -102,12 +102,7 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();        
-        #region Legacy field models
-        /// <summary>
-        /// Get or set a reference to the legacy model of the current object
-        /// </summary>
-        /// <value>the legacy model version of current object</value>
-        public virtual Produto Produto { get; set; }
+        #region Legacy field models        
         public int? ProdutoId { get; set; }        
         #endregion
         
@@ -118,8 +113,8 @@ namespace Core.Entities.Catalog
             this.EndCustomerPrice = price.EndCustomerDrugPrice;
             this.CostPrice = price.CostPrice;
             this.SavingPercentage = price.CalculatePercentageSaving();
-            this.Produto.Prfabr = Convert.ToDouble(this.CostPrice);
-            this.Produto.Prcons = Convert.ToDouble(this.EndCustomerPrice);            
+            //this.Produto.Prfabr = Convert.ToDouble(this.CostPrice);
+            //this.Produto.Prcons = Convert.ToDouble(this.EndCustomerPrice);
         }
         public virtual void UpdatePrice(decimal newEndCustomerPriceValue,decimal newCostPrice)
         {

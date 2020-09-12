@@ -1,29 +1,48 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class SecaoConfiguration : BaseEntityConfiguration<Secao>
+    public partial class SecaoMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Secao>
     {
-        public override void Configure(EntityTypeBuilder<Secao> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Secao> builder)
         {
-            entity.ToTable("SECAO");
+            #region Generated Configure
+            // table
+            builder.ToTable("secao", "public");
 
-            entity.Property(e => e.Secodi).HasColumnName("SECODI");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Senome).HasColumnName("SENOME");
+            // properties
+            builder.Property(t => t.Secodi)
+                .HasColumnName("secodi")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
+
+            builder.Property(t => t.Senome)
+                .HasColumnName("senome")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "secao";
+        }
+
+        public struct Columns
+        {
+            public const string Secodi = "secodi";
+            public const string Senome = "senome";
+        }
+        #endregion
     }
 }

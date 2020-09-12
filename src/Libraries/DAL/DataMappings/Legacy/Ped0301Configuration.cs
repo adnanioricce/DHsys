@@ -1,61 +1,131 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class Ped0301Configuration : BaseEntityConfiguration<Ped0301>
+    public partial class Ped0301Map
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Ped0301>
     {
-        public override void Configure(EntityTypeBuilder<Ped0301> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Ped0301> builder)
         {
-            entity.ToTable("PED0301");
+            #region Generated Configure
+            // table
+            builder.ToTable("ped0301", "public");
 
-            entity.Property(e => e.Codint).HasColumnName("CODINT");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Eloja1).HasColumnName("ELOJA1");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Eloja2).HasColumnName("ELOJA2");
+            builder.Property(t => t.Prbarra)
+                .HasColumnName("prbarra")
+                .HasColumnType("character varying(13)")
+                .HasMaxLength(13);
 
-            entity.Property(e => e.Eloja3).HasColumnName("ELOJA3");
+            builder.Property(t => t.Prdesc)
+                .HasColumnName("prdesc")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Eloja4).HasColumnName("ELOJA4");
+            builder.Property(t => t.Codint)
+                .HasColumnName("codint")
+                .HasColumnType("character varying(10)")
+                .HasMaxLength(10);
 
-            entity.Property(e => e.Forn).HasColumnName("FORN");
+            builder.Property(t => t.Mloja1)
+                .HasColumnName("mloja1")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Mloja1).HasColumnName("MLOJA1");
+            builder.Property(t => t.Eloja1)
+                .HasColumnName("eloja1")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Mloja2).HasColumnName("MLOJA2");
+            builder.Property(t => t.Nloja1)
+                .HasColumnName("nloja1")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Mloja3).HasColumnName("MLOJA3");
+            builder.Property(t => t.Mloja2)
+                .HasColumnName("mloja2")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Mloja4).HasColumnName("MLOJA4");
+            builder.Property(t => t.Eloja2)
+                .HasColumnName("eloja2")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Nloja1).HasColumnName("NLOJA1");
+            builder.Property(t => t.Nloja2)
+                .HasColumnName("nloja2")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Nloja2).HasColumnName("NLOJA2");
+            builder.Property(t => t.Mloja3)
+                .HasColumnName("mloja3")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Nloja3).HasColumnName("NLOJA3");
+            builder.Property(t => t.Eloja3)
+                .HasColumnName("eloja3")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Nloja4).HasColumnName("NLOJA4");
+            builder.Property(t => t.Nloja3)
+                .HasColumnName("nloja3")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Prbarra).HasColumnName("PRBARRA");
+            builder.Property(t => t.Mloja4)
+                .HasColumnName("mloja4")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            builder.Property(t => t.Eloja4)
+                .HasColumnName("eloja4")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Prdesc).HasColumnName("PRDESC");
+            builder.Property(t => t.Nloja4)
+                .HasColumnName("nloja4")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Valor).HasColumnName("VALOR");
+            builder.Property(t => t.Valor)
+                .HasColumnName("valor")
+                .HasColumnType("numeric(10,2)");
+
+            builder.Property(t => t.Forn)
+                .HasColumnName("forn")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "ped0301";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Prbarra = "prbarra";
+            public const string Prdesc = "prdesc";
+            public const string Codint = "codint";
+            public const string Mloja1 = "mloja1";
+            public const string Eloja1 = "eloja1";
+            public const string Nloja1 = "nloja1";
+            public const string Mloja2 = "mloja2";
+            public const string Eloja2 = "eloja2";
+            public const string Nloja2 = "nloja2";
+            public const string Mloja3 = "mloja3";
+            public const string Eloja3 = "eloja3";
+            public const string Nloja3 = "nloja3";
+            public const string Mloja4 = "mloja4";
+            public const string Eloja4 = "eloja4";
+            public const string Nloja4 = "nloja4";
+            public const string Valor = "valor";
+            public const string Forn = "forn";
+        }
+        #endregion
     }
 }

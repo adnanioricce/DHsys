@@ -1,71 +1,143 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class ConvenioConfiguration : BaseEntityConfiguration<Convenio>
+    public partial class ConvenioMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Convenio>
     {
-        public override void Configure(EntityTypeBuilder<Convenio> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Convenio> builder)
         {
-            entity.ToTable("CONVENIO");
+            #region Generated Configure
+            // table
+            builder.ToTable("convenio", "public");
 
-            entity.Property(e => e.Cvbalc).HasColumnName("CVBALC");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Cvcomissao).HasColumnName("CVCOMISSAO");
+            // properties
+            builder.Property(t => t.Fucdem)
+                .HasColumnName("fucdem")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Cvdata)
-                .HasColumnName("CVDATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Fucodi)
+                .HasColumnName("fucodi")
+                .HasColumnType("character varying(18)")
+                .HasMaxLength(18);
 
-            entity.Property(e => e.Cvdtrec)
-                .HasColumnName("CVDTREC")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Cvnota)
+                .HasColumnName("cvnota")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Cventrega).HasColumnName("CVENTREGA");
+            builder.Property(t => t.Cvbalc)
+                .HasColumnName("cvbalc")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Cvfilial).HasColumnName("CVFILIAL");
+            builder.Property(t => t.Cvdata)
+                .HasColumnName("cvdata")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Cvlibcom)
-                .HasColumnName("CVLIBCOM")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Cvmesdesc)
+                .HasColumnName("cvmesdesc")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Cvmesdesc)
-                .HasColumnName("CVMESDESC")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Cvvalourv)
+                .HasColumnName("cvvalourv")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Cvnota).HasColumnName("CVNOTA");
+            builder.Property(t => t.Cvobsv)
+                .HasColumnName("cvobsv")
+                .HasColumnType("character varying(10)")
+                .HasMaxLength(10);
 
-            entity.Property(e => e.Cvobsv).HasColumnName("CVOBSV");
+            builder.Property(t => t.Cvtick)
+                .HasColumnName("cvtick")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Cvpsuso).HasColumnName("CVPSUSO");
+            builder.Property(t => t.Cvreceita)
+                .HasColumnName("cvreceita")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Cvrec).HasColumnName("CVREC");
+            builder.Property(t => t.Cvrec)
+                .HasColumnName("cvrec")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Cvreceita).HasColumnName("CVRECEITA");
+            builder.Property(t => t.Cvdtrec)
+                .HasColumnName("cvdtrec")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Cvtick).HasColumnName("CVTICK");
+            builder.Property(t => t.Cvpsuso)
+                .HasColumnName("cvpsuso")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Cvtitular).HasColumnName("CVTITULAR");
+            builder.Property(t => t.Cventrega)
+                .HasColumnName("cventrega")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Cvvalocrz).HasColumnName("CVVALOCRZ");
+            builder.Property(t => t.Cvvalocrz)
+                .HasColumnName("cvvalocrz")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Cvvalourv).HasColumnName("CVVALOURV");
+            builder.Property(t => t.Cvcomissao)
+                .HasColumnName("cvcomissao")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Fucdem).HasColumnName("FUCDEM");
+            builder.Property(t => t.Cvlibcom)
+                .HasColumnName("cvlibcom")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Fucodi).HasColumnName("FUCODI");
+            builder.Property(t => t.Cvfilial)
+                .HasColumnName("cvfilial")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
+
+            builder.Property(t => t.Cvtitular)
+                .HasColumnName("cvtitular")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "convenio";
+        }
+
+        public struct Columns
+        {
+            public const string Fucdem = "fucdem";
+            public const string Fucodi = "fucodi";
+            public const string Cvnota = "cvnota";
+            public const string Cvbalc = "cvbalc";
+            public const string Cvdata = "cvdata";
+            public const string Cvmesdesc = "cvmesdesc";
+            public const string Cvvalourv = "cvvalourv";
+            public const string Cvobsv = "cvobsv";
+            public const string Cvtick = "cvtick";
+            public const string Cvreceita = "cvreceita";
+            public const string Cvrec = "cvrec";
+            public const string Cvdtrec = "cvdtrec";
+            public const string Cvpsuso = "cvpsuso";
+            public const string Cventrega = "cventrega";
+            public const string Cvvalocrz = "cvvalocrz";
+            public const string Cvcomissao = "cvcomissao";
+            public const string Cvlibcom = "cvlibcom";
+            public const string Cvfilial = "cvfilial";
+            public const string Cvtitular = "cvtitular";
+        }
+        #endregion
     }
 }

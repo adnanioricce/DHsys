@@ -109,7 +109,7 @@ namespace Application.Extensions
                 string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection");
                 if (remoteContextOptions == null)
                 {
-                    opt.UseSqlServer(connStr);
+                    opt.UseNpgsql(connStr);
                     return;
                 }
                 //TODO:

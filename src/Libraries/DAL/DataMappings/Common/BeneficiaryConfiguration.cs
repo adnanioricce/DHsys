@@ -9,7 +9,7 @@ namespace DAL.DataMappings.Common
         public override void Configure(EntityTypeBuilder<Beneficiary> builder)
         {
             base.Configure(builder);
-            builder.ToTable("Beneficiaries");
+            builder.ToTable("beneficiaries");
             builder.Property(p => p.Name);
             
         }

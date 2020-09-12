@@ -1,39 +1,78 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class AgendaConfiguration : BaseEntityConfiguration<Agenda>
+    public partial class AgendaMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Agenda>
     {
-        public override void Configure(EntityTypeBuilder<Agenda> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Agenda> builder)
         {
-            entity.ToTable("AGENDA");
+            #region Generated Configure
+            // table
+            builder.ToTable("agenda", "public");
 
-            entity.Property(e => e.Bairro).HasColumnName("BAIRRO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Cep).HasColumnName("CEP");
+            // properties
+            builder.Property(t => t.Codigo)
+                .HasColumnName("codigo")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
 
-            entity.Property(e => e.Cidade).HasColumnName("CIDADE");
+            builder.Property(t => t.Nome)
+                .HasColumnName("nome")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Codigo).HasColumnName("CODIGO");
+            builder.Property(t => t.Endereco)
+                .HasColumnName("endereco")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Endereco).HasColumnName("ENDERECO");
+            builder.Property(t => t.Cidade)
+                .HasColumnName("cidade")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Fone).HasColumnName("FONE");
+            builder.Property(t => t.Bairro)
+                .HasColumnName("bairro")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Nome).HasColumnName("NOME");
+            builder.Property(t => t.Cep)
+                .HasColumnName("cep")
+                .HasColumnType("character varying(9)")
+                .HasMaxLength(9);
+
+            builder.Property(t => t.Fone)
+                .HasColumnName("fone")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "agenda";
+        }
+
+        public struct Columns
+        {
+            public const string Codigo = "codigo";
+            public const string Nome = "nome";
+            public const string Endereco = "endereco";
+            public const string Cidade = "cidade";
+            public const string Bairro = "bairro";
+            public const string Cep = "cep";
+            public const string Fone = "fone";
+        }
+        #endregion
     }
 }
