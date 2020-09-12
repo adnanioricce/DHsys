@@ -3,8 +3,8 @@ using System;
 using DAL.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DAL.Migrations.Remote
 {
@@ -15,49 +15,53 @@ namespace DAL.Migrations.Remote
         {
 #pragma warning disable 612, 618
             modelBuilder
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("ProductVersion", "3.1.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             modelBuilder.Entity("Core.Entities.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("AddressState")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Addressnumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 38, DateTimeKind.Unspecified).AddTicks(9507), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("District")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("FirstAddressLine")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 38, DateTimeKind.Unspecified).AddTicks(9839), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("SecondAddressLine")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Zipcode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -68,56 +72,54 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("CounterIndication")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 422, DateTimeKind.Unspecified).AddTicks(8374), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 68, DateTimeKind.Unspecified).AddTicks(7749), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int?>("DrugId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("HowToUse")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("HowWorks")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Indication")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 422, DateTimeKind.Unspecified).AddTicks(8834), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 68, DateTimeKind.Unspecified).AddTicks(8154), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int?>("MinimalAgeOfUse")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ProfessionalBule")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Substances")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("TypeOfUse")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UserBule")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -130,85 +132,81 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("BarCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Commission")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("CostPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 422, DateTimeKind.Unspecified).AddTicks(2215), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 68, DateTimeKind.Unspecified).AddTicks(408), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("DiscountValue")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal?>("EndCustomerPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<decimal>("ICMS")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 422, DateTimeKind.Unspecified).AddTicks(2585), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 68, DateTimeKind.Unspecified).AddTicks(838), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("MainSupplierName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal>("MaxDiscountPercentage")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<int>("MinimumStock")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Ncm")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("ProdutoId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("QuantityInStock")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("ReorderLevel")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("ReorderQuantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("SavingPercentage")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Section")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ProdutoId");
 
                     b.ToTable("Products");
 
@@ -219,38 +217,36 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<decimal>("CostPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 429, DateTimeKind.Unspecified).AddTicks(3344), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 75, DateTimeKind.Unspecified).AddTicks(1678), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("EndCustomerDrugPrice")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 429, DateTimeKind.Unspecified).AddTicks(3726), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 75, DateTimeKind.Unspecified).AddTicks(2218), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTimeOffset?>("Pricestartdate")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -263,38 +259,36 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 429, DateTimeKind.Unspecified).AddTicks(9880), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 75, DateTimeKind.Unspecified).AddTicks(9155), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 430, DateTimeKind.Unspecified).AddTicks(219), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 75, DateTimeKind.Unspecified).AddTicks(9616), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("StartDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<int>("StockEntryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -307,32 +301,30 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 430, DateTimeKind.Unspecified).AddTicks(5746), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 76, DateTimeKind.Unspecified).AddTicks(6605), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 430, DateTimeKind.Unspecified).AddTicks(6113), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 76, DateTimeKind.Unspecified).AddTicks(7110), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("StockEntryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -347,32 +339,30 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 431, DateTimeKind.Unspecified).AddTicks(1707), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 77, DateTimeKind.Unspecified).AddTicks(9607), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 431, DateTimeKind.Unspecified).AddTicks(2055), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 78, DateTimeKind.Unspecified).AddTicks(570), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int>("SupplierId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -387,37 +377,38 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 421, DateTimeKind.Unspecified).AddTicks(4250), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 67, DateTimeKind.Unspecified).AddTicks(1000), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 421, DateTimeKind.Unspecified).AddTicks(4693), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 67, DateTimeKind.Unspecified).AddTicks(1459), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Beneficiary");
+                    b.ToTable("Beneficiaries");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Beneficiary");
                 });
@@ -426,7276 +417,11961 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("BeneficiaryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("BeneficiaryName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 37, DateTimeKind.Unspecified).AddTicks(7278), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal?>("Discount")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<DateTime?>("EndDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsPaid")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .ValueGeneratedOnUpdate()
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 37, DateTimeKind.Unspecified).AddTicks(7832), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("PersonType")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Billings");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BeneficiaryId = 0,
-                            BeneficiaryName = "empresa",
-                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            EndDate = new DateTime(2020, 6, 5, 20, 1, 54, 397, DateTimeKind.Utc).AddTicks(6733),
-                            IsDeleted = false,
-                            IsPaid = false,
-                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 397, DateTimeKind.Unspecified).AddTicks(5693), new TimeSpan(0, 0, 0, 0, 0)),
-                            PersonType = 0,
-                            Price = 12.99m
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BeneficiaryId = 0,
-                            BeneficiaryName = "empresa 2",
-                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
-                            EndDate = new DateTime(2020, 6, 5, 20, 1, 54, 397, DateTimeKind.Utc).AddTicks(8836),
-                            IsDeleted = false,
-                            IsPaid = false,
-                            LastUpdatedOn = new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 54, 397, DateTimeKind.Unspecified).AddTicks(8826), new TimeSpan(0, 0, 0, 0, 0)),
-                            PersonType = 0,
-                            Price = 22.99m
-                        });
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Agenda", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Bairro")
-                        .HasColumnName("BAIRRO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bairro")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Cep")
-                        .HasColumnName("CEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Cidade")
-                        .HasColumnName("CIDADE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cidade")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Endereco")
-                        .HasColumnName("ENDERECO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("endereco")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fone")
-                        .HasColumnName("FONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fone")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.ToTable("agenda","public");
+                });
 
-                    b.ToTable("AGENDA");
+            modelBuilder.Entity("Core.Entities.Legacy.Agenda2", b =>
+                {
+                    b.Property<string>("Bairro")
+                        .HasColumnName("bairro")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Cep")
+                        .HasColumnName("cep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
+
+                    b.Property<string>("Cidade")
+                        .HasColumnName("cidade")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Codigo")
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("Endereco")
+                        .HasColumnName("endereco")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Fone")
+                        .HasColumnName("fone")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Nome")
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
+
+                    b.ToTable("agenda (2)","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Balcon", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Bacodi")
-                        .HasColumnName("BACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bacodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
-                    b.Property<double?>("Bacomi")
-                        .HasColumnName("BACOMI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Bacomi")
+                        .HasColumnName("bacomi")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Badevol")
-                        .HasColumnName("BADEVOL")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Badevol")
+                        .HasColumnName("badevol")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Banome")
-                        .HasColumnName("BANOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("banome")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
-                    b.Property<double?>("ComisAce")
-                        .HasColumnName("COMIS_ACE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ComisAce")
+                        .HasColumnName("comis_ace")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("ComisBo")
-                        .HasColumnName("COMIS_BO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ComisBo")
+                        .HasColumnName("comis_bo")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("ComisEti")
-                        .HasColumnName("COMIS_ETI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ComisEti")
+                        .HasColumnName("comis_eti")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("ComisOut")
-                        .HasColumnName("COMIS_OUT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ComisOut")
+                        .HasColumnName("comis_out")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("ComisPer")
-                        .HasColumnName("COMIS_PER")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ComisPer")
+                        .HasColumnName("comis_per")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("ComisPerc")
-                        .HasColumnName("COMIS_PERC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ComisPerc")
+                        .HasColumnName("comis_perc")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("ComisVar")
-                        .HasColumnName("COMIS_VAR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("ComisVar")
+                        .HasColumnName("comis_var")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Cpf")
-                        .HasColumnName("CPF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cpf")
+                        .HasColumnType("character varying(11)")
+                        .HasMaxLength(11);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Senha")
-                        .HasColumnName("SENHA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senha")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("BALCON");
+                    b.ToTable("balcon","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Brindes", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
-                    b.Property<double?>("Pontos")
-                        .HasColumnName("PONTOS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Pontos")
+                        .HasColumnName("pontos")
+                        .HasColumnType("numeric(4,0)");
 
-                    b.Property<double?>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Qtde")
+                        .HasColumnName("qtde")
+                        .HasColumnType("numeric(4,0)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("BRINDES");
+                    b.ToTable("brindes","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Cadlab", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DtAlter")
-                        .HasColumnName("DT_ALTER")
-                        .HasColumnType("datetime");
+                        .HasColumnName("dt_alter")
+                        .HasColumnType("date");
 
                     b.Property<string>("Foapel")
-                        .HasColumnName("FOAPEL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("foapel")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Fobair")
-                        .HasColumnName("FOBAIR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fobair")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Focepe")
-                        .HasColumnName("FOCEPE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("focepe")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Focida")
-                        .HasColumnName("FOCIDA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("focida")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
 
                     b.Property<string>("Focont")
-                        .HasColumnName("FOCONT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("focont")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Foende")
-                        .HasColumnName("FOENDE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("foende")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Foesta")
-                        .HasColumnName("FOESTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("foesta")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Fofaxe")
-                        .HasColumnName("FOFAXE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fofaxe")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Foibge")
-                        .HasColumnName("FOIBGE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("foibge")
+                        .HasColumnType("character varying(7)")
+                        .HasMaxLength(7);
 
                     b.Property<string>("Fonome")
-                        .HasColumnName("FONOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fonome")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Fonume")
-                        .HasColumnName("FONUME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fonume")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Fotel2")
-                        .HasColumnName("FOTEL2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fotel2")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Fotele")
-                        .HasColumnName("FOTELE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fotele")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Labrev")
-                        .HasColumnName("LABREV")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("labrev")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
                     b.Property<string>("Lacgce")
-                        .HasColumnName("LACGCE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("lacgce")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Lacodi")
-                        .HasColumnName("LACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("lacodi")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Lacond")
-                        .HasColumnName("LACOND")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("lacond")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Laiest")
-                        .HasColumnName("LAIEST")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("laiest")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
-                    b.Property<double?>("Laperc")
-                        .HasColumnName("LAPERC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Laperc")
+                        .HasColumnName("laperc")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Latipo")
-                        .HasColumnName("LATIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("latipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Laulno")
-                        .HasColumnName("LAULNO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("laulno")
+                        .HasColumnType("character varying(7)")
+                        .HasMaxLength(7);
 
                     b.Property<string>("Laultc")
-                        .HasColumnName("LAULTC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("laultc")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Nomarq")
-                        .HasColumnName("NOMARQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nomarq")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.ToTable("cadlab","public");
+                });
 
-                    b.ToTable("CADLAB");
+            modelBuilder.Entity("Core.Entities.Legacy.Cadlabold", b =>
+                {
+                    b.Property<DateTime?>("DtAlter")
+                        .HasColumnName("dt_alter")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Foapel")
+                        .HasColumnName("foapel")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Focepe")
+                        .HasColumnName("focepe")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
+
+                    b.Property<string>("Focida")
+                        .HasColumnName("focida")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
+
+                    b.Property<string>("Focont")
+                        .HasColumnName("focont")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Foende")
+                        .HasColumnName("foende")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<string>("Foesta")
+                        .HasColumnName("foesta")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("Fofaxe")
+                        .HasColumnName("fofaxe")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Fonome")
+                        .HasColumnName("fonome")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Fotel2")
+                        .HasColumnName("fotel2")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Fotele")
+                        .HasColumnName("fotele")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Ibgeest")
+                        .HasColumnName("ibgeest")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("Ibgemun")
+                        .HasColumnName("ibgemun")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("Labrev")
+                        .HasColumnName("labrev")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
+
+                    b.Property<string>("Lacgce")
+                        .HasColumnName("lacgce")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Lacodi")
+                        .HasColumnName("lacodi")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("Lacond")
+                        .HasColumnName("lacond")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Laiest")
+                        .HasColumnName("laiest")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<decimal?>("Laperc")
+                        .HasColumnName("laperc")
+                        .HasColumnType("numeric(5,2)");
+
+                    b.Property<string>("Latipo")
+                        .HasColumnName("latipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Laulno")
+                        .HasColumnName("laulno")
+                        .HasColumnType("character varying(7)")
+                        .HasMaxLength(7);
+
+                    b.Property<string>("Laultc")
+                        .HasColumnName("laultc")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<string>("Nomarq")
+                        .HasColumnName("nomarq")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
+
+                    b.ToTable("cadlabold","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Cadprom", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Fonome")
-                        .HasColumnName("FONOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fonome")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Fotele")
-                        .HasColumnName("FOTELE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fotele")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("Lacodi")
-                        .HasColumnName("LACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("lacodi")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("Valid")
-                        .HasColumnName("VALID")
-                        .HasColumnType("datetime");
+                        .HasColumnName("valid")
+                        .HasColumnType("date");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CADPROM");
+                    b.ToTable("cadprom","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Caixa", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("CxAdm")
-                        .HasColumnName("CX_ADM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cx_adm")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("CxAtend")
-                        .HasColumnName("CX_ATEND")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cx_atend")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
-                    b.Property<double?>("CxCart")
-                        .HasColumnName("CX_CART")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("CxCart")
+                        .HasColumnName("cx_cart")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTime?>("CxData")
-                        .HasColumnName("CX_DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cx_data")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("CxRec")
-                        .HasColumnName("CX_REC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cx_rec")
+                        .HasColumnType("date");
 
                     b.Property<string>("CxTipo")
-                        .HasColumnName("CX_TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cx_tipo")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
-                    b.Property<double?>("CxValor")
-                        .HasColumnName("CX_VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("CxValor")
+                        .HasColumnName("cx_valor")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CAIXA");
+                    b.ToTable("caixa","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Cancdia", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codemp")
-                        .HasColumnName("CODEMP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codemp")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Codfun")
-                        .HasColumnName("CODFUN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codfun")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("Datac")
-                        .HasColumnName("DATAC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datac")
+                        .HasColumnType("date");
 
                     b.Property<string>("Filial")
-                        .HasColumnName("FILIAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filial")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CANCDIA");
+                    b.ToTable("cancdia","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Cartao", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Parcel")
-                        .HasColumnName("PARCEL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("parcel")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prazo")
-                        .HasColumnName("PRAZO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prazo")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
-                    b.Property<double?>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Qtde")
+                        .HasColumnName("qtde")
+                        .HasColumnType("numeric(1,0)");
 
-                    b.Property<double?>("Taxa")
-                        .HasColumnName("TAXA")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Taxa")
+                        .HasColumnName("taxa")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.ToTable("cartao","public");
+                });
 
-                    b.ToTable("CARTAO");
+            modelBuilder.Entity("Core.Entities.Legacy.Cdesp", b =>
+                {
+                    b.Property<string>("Banco")
+                        .HasColumnName("banco")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("Chpag")
+                        .HasColumnName("chpag")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
+
+                    b.Property<string>("Cont")
+                        .HasColumnName("cont")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<decimal?>("Desc")
+                        .HasColumnName("desc")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<string>("Doc")
+                        .HasColumnName("doc")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<DateTime?>("Dtdesc")
+                        .HasColumnName("dtdesc")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime?>("Dtpag")
+                        .HasColumnName("dtpag")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime?>("Dtvenc")
+                        .HasColumnName("dtvenc")
+                        .HasColumnType("date");
+
+                    b.Property<decimal?>("Jurdin")
+                        .HasColumnName("jurdin")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal?>("Jurper")
+                        .HasColumnName("jurper")
+                        .HasColumnType("numeric(5,2)");
+
+                    b.Property<decimal?>("Multa")
+                        .HasColumnName("multa")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(9,2)");
+
+                    b.Property<decimal?>("Vlpag")
+                        .HasColumnName("vlpag")
+                        .HasColumnType("numeric(9,2)");
+
+                    b.ToTable("cdesp","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Chdevol", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Agencia")
-                        .HasColumnName("AGENCIA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("agencia")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Banco")
-                        .HasColumnName("BANCO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("banco")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Cheque")
-                        .HasColumnName("CHEQUE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cheque")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
                     b.Property<string>("Cliente")
-                        .HasColumnName("CLIENTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cliente")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Conta")
-                        .HasColumnName("CONTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("conta")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("Datae")
-                        .HasColumnName("DATAE")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datae")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CHDEVOL");
+                    b.ToTable("chdevol","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Cheque", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Agencia")
-                        .HasColumnName("AGENCIA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("agencia")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Baixa")
-                        .HasColumnName("BAIXA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("baixa")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Banco")
-                        .HasColumnName("BANCO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("banco")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Cheque1")
-                        .HasColumnName("CHEQUE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cheque")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
                     b.Property<string>("Cliente")
-                        .HasColumnName("CLIENTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cliente")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Conta")
-                        .HasColumnName("CONTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("conta")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("Datae")
-                        .HasColumnName("DATAE")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datae")
+                        .HasColumnType("date");
 
                     b.Property<string>("Filial")
-                        .HasColumnName("FILIAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filial")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Obs")
-                        .HasColumnName("OBS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("obs")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Rg")
-                        .HasColumnName("RG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("rg")
+                        .HasColumnType("character varying(17)")
+                        .HasMaxLength(17);
 
                     b.Property<string>("Situacao")
-                        .HasColumnName("SITUACAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("situacao")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Telefone")
-                        .HasColumnName("TELEFONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("telefone")
+                        .HasColumnType("character varying(17)")
+                        .HasMaxLength(17);
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Cheque");
+                    b.ToTable("cheque","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.CliMed", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("CpfCrm")
-                        .HasColumnName("CPF_CRM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cpf_crm")
+                        .HasColumnType("character varying(14)")
+                        .HasMaxLength(14);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Endereco")
-                        .HasColumnName("ENDERECO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("endereco")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fone")
-                        .HasColumnName("FONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fone")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Sexo")
-                        .HasColumnName("SEXO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("sexo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CliMed");
+                    b.ToTable("cli_med","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Clicheq", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Bairro")
-                        .HasColumnName("BAIRRO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bairro")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Cep")
-                        .HasColumnName("CEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Cidade")
-                        .HasColumnName("CIDADE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cidade")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Cpf")
-                        .HasColumnName("CPF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cpf")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Datanasc")
-                        .HasColumnName("DATANASC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datanasc")
+                        .HasColumnType("date");
 
                     b.Property<string>("Endereco")
-                        .HasColumnName("ENDERECO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("endereco")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fone")
-                        .HasColumnName("FONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fone")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Rg")
-                        .HasColumnName("RG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("rg")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CLICHEQ");
+                    b.ToTable("clicheq","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Cliente", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Clbairro")
-                        .HasColumnName("CLBAIRRO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clbairro")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Clcep")
-                        .HasColumnName("CLCEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clcep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Clcida")
-                        .HasColumnName("CLCIDA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clcida")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Clcodi")
-                        .HasColumnName("CLCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clcodi")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<DateTime?>("Clcompra")
-                        .HasColumnName("CLCOMPRA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("clcompra")
+                        .HasColumnType("date");
 
                     b.Property<string>("Clcpf")
-                        .HasColumnName("CLCPF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clcpf")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
-                    b.Property<double?>("Clcred")
-                        .HasColumnName("CLCRED")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Clcred")
+                        .HasColumnName("clcred")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Cldebi")
-                        .HasColumnName("CLDEBI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cldebi")
+                        .HasColumnName("cldebi")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Cldesc")
-                        .HasColumnName("CLDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cldesc")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Cldesmed")
-                        .HasColumnName("CLDESMED")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cldesmed")
+                        .HasColumnName("cldesmed")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Cldesper")
-                        .HasColumnName("CLDESPER")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cldesper")
+                        .HasColumnName("cldesper")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Clende")
-                        .HasColumnName("CLENDE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clende")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Clestado")
-                        .HasColumnName("CLESTADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clestado")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
-                    b.Property<double?>("Cllime")
-                        .HasColumnName("CLLIME")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cllime")
+                        .HasColumnName("cllime")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTime?>("Clnasc")
-                        .HasColumnName("CLNASC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("clnasc")
+                        .HasColumnType("date");
 
                     b.Property<string>("Clnome")
-                        .HasColumnName("CLNOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clnome")
+                        .HasColumnType("character varying(35)")
+                        .HasMaxLength(35);
 
                     b.Property<string>("Clobs")
-                        .HasColumnName("CLOBS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clobs")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
-                    b.Property<double?>("Clpagto")
-                        .HasColumnName("CLPAGTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Clpagto")
+                        .HasColumnName("clpagto")
+                        .HasColumnType("numeric(2,0)");
 
                     b.Property<string>("Clrg")
-                        .HasColumnName("CLRG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clrg")
+                        .HasColumnType("character varying(19)")
+                        .HasMaxLength(19);
 
                     b.Property<string>("Cltele")
-                        .HasColumnName("CLTELE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cltele")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTime?>("Clupagto")
-                        .HasColumnName("CLUPAGTO")
-                        .HasColumnType("datetime");
+                        .HasColumnName("clupagto")
+                        .HasColumnType("date");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CLIENTE");
+                    b.ToTable("cliente","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Clipago", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Cliente")
-                        .HasColumnName("CLIENTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cliente")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Credito")
-                        .HasColumnName("CREDITO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Credito")
+                        .HasColumnName("credito")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CLIPAGO");
+                    b.ToTable("clipago","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Contas", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Cod")
-                        .HasColumnName("COD")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cod")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Hist")
-                        .HasColumnName("HIST")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("hist")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CONTAS");
+                    b.ToTable("contas","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Conv", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Cvbalc")
-                        .HasColumnName("CVBALC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvbalc")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
-                    b.Property<double?>("Cvcomissao")
-                        .HasColumnName("CVCOMISSAO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cvcomissao")
+                        .HasColumnName("cvcomissao")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTime?>("Cvdata")
-                        .HasColumnName("CVDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cvdata")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("Cvdtrec")
-                        .HasColumnName("CVDTREC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cvdtrec")
+                        .HasColumnType("date");
 
                     b.Property<string>("Cventrega")
-                        .HasColumnName("CVENTREGA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cventrega")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Cvfilial")
-                        .HasColumnName("CVFILIAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvfilial")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<DateTime?>("Cvlibcom")
-                        .HasColumnName("CVLIBCOM")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cvlibcom")
+                        .HasColumnType("date");
 
                     b.Property<string>("Cvnota")
-                        .HasColumnName("CVNOTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvnota")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Cvobsv")
-                        .HasColumnName("CVOBSV")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvobsv")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Cvpsuso")
-                        .HasColumnName("CVPSUSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvpsuso")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Cvreceita")
-                        .HasColumnName("CVRECEITA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvreceita")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Cvtick")
-                        .HasColumnName("CVTICK")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvtick")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Cvtitular")
-                        .HasColumnName("CVTITULAR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvtitular")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Cvvalocrz")
-                        .HasColumnName("CVVALOCRZ")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cvvalocrz")
+                        .HasColumnName("cvvalocrz")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Cvvalourv")
-                        .HasColumnName("CVVALOURV")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cvvalourv")
+                        .HasColumnName("cvvalourv")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Fucdem")
-                        .HasColumnName("FUCDEM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucdem")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Fucodi")
-                        .HasColumnName("FUCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucodi")
+                        .HasColumnType("character varying(18)")
+                        .HasMaxLength(18);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("CONV");
+                    b.ToTable("conv","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Convenio", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Cvbalc")
-                        .HasColumnName("CVBALC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvbalc")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
-                    b.Property<double?>("Cvcomissao")
-                        .HasColumnName("CVCOMISSAO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cvcomissao")
+                        .HasColumnName("cvcomissao")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTime?>("Cvdata")
-                        .HasColumnName("CVDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cvdata")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("Cvdtrec")
-                        .HasColumnName("CVDTREC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cvdtrec")
+                        .HasColumnType("date");
 
                     b.Property<string>("Cventrega")
-                        .HasColumnName("CVENTREGA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cventrega")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Cvfilial")
-                        .HasColumnName("CVFILIAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvfilial")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<DateTime?>("Cvlibcom")
-                        .HasColumnName("CVLIBCOM")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cvlibcom")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("Cvmesdesc")
-                        .HasColumnName("CVMESDESC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cvmesdesc")
+                        .HasColumnType("date");
 
                     b.Property<string>("Cvnota")
-                        .HasColumnName("CVNOTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvnota")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Cvobsv")
-                        .HasColumnName("CVOBSV")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvobsv")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Cvpsuso")
-                        .HasColumnName("CVPSUSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvpsuso")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Cvrec")
-                        .HasColumnName("CVREC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvrec")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Cvreceita")
-                        .HasColumnName("CVRECEITA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvreceita")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Cvtick")
-                        .HasColumnName("CVTICK")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvtick")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Cvtitular")
-                        .HasColumnName("CVTITULAR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cvtitular")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Cvvalocrz")
-                        .HasColumnName("CVVALOCRZ")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cvvalocrz")
+                        .HasColumnName("cvvalocrz")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Cvvalourv")
-                        .HasColumnName("CVVALOURV")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cvvalourv")
+                        .HasColumnName("cvvalourv")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Fucdem")
-                        .HasColumnName("FUCDEM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucdem")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Fucodi")
-                        .HasColumnName("FUCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucodi")
+                        .HasColumnType("character varying(18)")
+                        .HasMaxLength(18);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.ToTable("convenio","public");
+                });
 
-                    b.ToTable("CONVENIO");
+            modelBuilder.Entity("Core.Entities.Legacy.Cpagar", b =>
+                {
+                    b.Property<string>("Banco")
+                        .HasColumnName("banco")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("Chpag")
+                        .HasColumnName("chpag")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
+
+                    b.Property<string>("Cont")
+                        .HasColumnName("cont")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<decimal?>("Desc")
+                        .HasColumnName("desc")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<string>("Doc")
+                        .HasColumnName("doc")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<DateTime?>("Dtdesc")
+                        .HasColumnName("dtdesc")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime?>("Dtemiss")
+                        .HasColumnName("dtemiss")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime?>("Dtpag")
+                        .HasColumnName("dtpag")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime?>("Dtvenc")
+                        .HasColumnName("dtvenc")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Forn")
+                        .HasColumnName("forn")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<decimal?>("Jurdin")
+                        .HasColumnName("jurdin")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<decimal?>("Jurper")
+                        .HasColumnName("jurper")
+                        .HasColumnType("numeric(5,2)");
+
+                    b.Property<decimal?>("Multa")
+                        .HasColumnName("multa")
+                        .HasColumnType("numeric(10,2)");
+
+                    b.Property<string>("Titulo")
+                        .HasColumnName("titulo")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(9,2)");
+
+                    b.Property<decimal?>("Vlpag")
+                        .HasColumnName("vlpag")
+                        .HasColumnType("numeric(9,2)");
+
+                    b.ToTable("cpagar","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Debcli", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Bacodi")
-                        .HasColumnName("BACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bacodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Clbalc")
-                        .HasColumnName("CLBALC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clbalc")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Clcodi")
-                        .HasColumnName("CLCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clcodi")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<DateTime?>("Cldata")
-                        .HasColumnName("CLDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("cldata")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Cldesc")
-                        .HasColumnName("CLDESC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cldesc")
+                        .HasColumnName("cldesc")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Clobs")
-                        .HasColumnName("CLOBS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clobs")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Clpago")
-                        .HasColumnName("CLPAGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clpago")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Clqtde")
-                        .HasColumnName("CLQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Clqtde")
+                        .HasColumnName("clqtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Cltick")
-                        .HasColumnName("CLTICK")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cltick")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Comissao")
-                        .HasColumnName("COMISSAO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Comissao")
+                        .HasColumnName("comissao")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Descomp")
-                        .HasColumnName("DESCOMP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("descomp")
+                        .HasColumnType("character varying(100)")
+                        .HasMaxLength(100);
 
                     b.Property<DateTime?>("DtPagto")
-                        .HasColumnName("DT_PAGTO")
-                        .HasColumnType("datetime");
+                        .HasColumnName("dt_pagto")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VlPago")
-                        .HasColumnName("VL_PAGO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlPago")
+                        .HasColumnName("vl_pago")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("DEBCLI");
+                    b.ToTable("debcli","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Delivery", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double?>("Acumulado")
-                        .HasColumnName("ACUMULADO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Acumulado")
+                        .HasColumnName("acumulado")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Aposentado")
-                        .HasColumnName("APOSENTADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aposentado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Bairro")
-                        .HasColumnName("BAIRRO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bairro")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Balcon")
-                        .HasColumnName("BALCON")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("balcon")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Cep")
-                        .HasColumnName("CEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Cidade")
-                        .HasColumnName("CIDADE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cidade")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Clclassi")
-                        .HasColumnName("CLCLASSI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clclassi")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Clobs1")
-                        .HasColumnName("CLOBS1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clobs1")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Clobs2")
-                        .HasColumnName("CLOBS2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clobs2")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Cpf")
-                        .HasColumnName("CPF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cpf")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Datanasc")
-                        .HasColumnName("DATANASC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datanasc")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Descmed")
-                        .HasColumnName("DESCMED")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Descmed")
+                        .HasColumnName("descmed")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Descout")
-                        .HasColumnName("DESCOUT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Descout")
+                        .HasColumnName("descout")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<DateTime?>("Dtcad")
-                        .HasColumnName("DTCAD")
-                        .HasColumnType("datetime");
+                        .HasColumnName("dtcad")
+                        .HasColumnType("date");
 
                     b.Property<string>("Endereco")
-                        .HasColumnName("ENDERECO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("endereco")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fone")
-                        .HasColumnName("FONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fone")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Impresso")
-                        .HasColumnName("IMPRESSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impresso")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(45)")
+                        .HasMaxLength(45);
 
                     b.Property<string>("Rg")
-                        .HasColumnName("RG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("rg")
+                        .HasColumnType("character varying(19)")
+                        .HasMaxLength(19);
 
                     b.Property<DateTime?>("UltCompra")
-                        .HasColumnName("ULT_COMPRA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("ult_compra")
+                        .HasColumnType("date");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("DELIVERY");
+                    b.ToTable("delivery","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Despesas", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Caixa")
-                        .HasColumnName("CAIXA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("caixa")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<string>("Historico")
-                        .HasColumnName("HISTORICO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("historico")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("DESPESAS");
+                    b.ToTable("despesas","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Empresa", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codgolden")
-                        .HasColumnName("CODGOLDEN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codgolden")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("DesAce")
-                        .HasColumnName("DES_ACE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DesAce")
+                        .HasColumnName("des_ace")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("DesB")
-                        .HasColumnName("DES_B")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DesB")
+                        .HasColumnName("des_b")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("DesEtic")
-                        .HasColumnName("DES_ETIC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DesEtic")
+                        .HasColumnName("des_etic")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("DesFech")
-                        .HasColumnName("DES_FECH")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DesFech")
+                        .HasColumnName("des_fech")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("DesNota")
-                        .HasColumnName("DES_NOTA")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DesNota")
+                        .HasColumnName("des_nota")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("DesPerf")
-                        .HasColumnName("DES_PERF")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DesPerf")
+                        .HasColumnName("des_perf")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("DesRest")
-                        .HasColumnName("DES_REST")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DesRest")
+                        .HasColumnName("des_rest")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("DesTick")
-                        .HasColumnName("DES_TICK")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("des_tick")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("DesVar")
-                        .HasColumnName("DES_VAR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DesVar")
+                        .HasColumnName("des_var")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Descplac")
-                        .HasColumnName("DESCPLAC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("descplac")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Embair")
-                        .HasColumnName("EMBAIR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("embair")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
 
                     b.Property<string>("Embloq")
-                        .HasColumnName("EMBLOQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("embloq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Emcep")
-                        .HasColumnName("EMCEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emcep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Emcgce")
-                        .HasColumnName("EMCGCE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emcgce")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Emcida")
-                        .HasColumnName("EMCIDA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emcida")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
 
                     b.Property<string>("Emcodi")
-                        .HasColumnName("EMCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emcodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Emcont")
-                        .HasColumnName("EMCONT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emcont")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Emcontrato")
-                        .HasColumnName("EMCONTRATO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emcontrato")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
-                    b.Property<double?>("Emdebito")
-                        .HasColumnName("EMDEBITO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Emdebito")
+                        .HasColumnName("emdebito")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Emende")
-                        .HasColumnName("EMENDE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emende")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Emesta")
-                        .HasColumnName("EMESTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emesta")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Emetico")
-                        .HasColumnName("EMETICO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emetico")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Emfax")
-                        .HasColumnName("EMFAX")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emfax")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Emfech")
-                        .HasColumnName("EMFECH")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emfech")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Emfilial")
-                        .HasColumnName("EMFILIAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emfilial")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("EmgCorea")
-                        .HasColumnName("EMGCoreA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
+
+                    b.Property<string>("Emguia")
+                        .HasColumnName("emguia")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Eminsc")
-                        .HasColumnName("EMINSC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("eminsc")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
-                    b.Property<double?>("Emlimite")
-                        .HasColumnName("EMLIMITE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Emlimite")
+                        .HasColumnName("emlimite")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Emnume")
-                        .HasColumnName("EMNUME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emnume")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Emobs")
-                        .HasColumnName("EMOBS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emobs")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Emobs1")
-                        .HasColumnName("EMOBS1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emobs1")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Emperf")
-                        .HasColumnName("EMPERF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emperf")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Emprint")
-                        .HasColumnName("EMPRINT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emprint")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Emraso")
-                        .HasColumnName("EMRASO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emraso")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Emreceita")
-                        .HasColumnName("EMRECEITA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emreceita")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Emtele")
-                        .HasColumnName("EMTELE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("emtele")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Ibgeest")
-                        .HasColumnName("IBGEEST")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ibgeest")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Ibgemun")
-                        .HasColumnName("IBGEMUN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ibgemun")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Libperf")
-                        .HasColumnName("LIBPERF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("libperf")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("PercDesc")
-                        .HasColumnName("PERC_DESC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("PercDesc")
+                        .HasColumnName("perc_desc")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Vidaav")
-                        .HasColumnName("VIDAAV")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("vidaav")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Vidalk")
-                        .HasColumnName("VIDALK")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("vidalk")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Vidapc")
-                        .HasColumnName("VIDAPC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("vidapc")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.HasKey("Id");
-
-                    b.ToTable("EMPRESA");
+                    b.ToTable("empresa","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Encomen", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Endata")
-                        .HasColumnName("ENDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("endata")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Enqtde")
-                        .HasColumnName("ENQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Enqtde")
+                        .HasColumnName("enqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ENCOMEN");
+                    b.ToTable("encomen","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ent", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Descfin")
-                        .HasColumnName("DESCFIN")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Descfin")
+                        .HasColumnName("descfin")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Desconto")
-                        .HasColumnName("DESCONTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnName("desconto")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Descrep")
-                        .HasColumnName("DESCREP")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Descrep")
+                        .HasColumnName("descrep")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTime?>("Endata")
-                        .HasColumnName("ENDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("endata")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Enqtde")
-                        .HasColumnName("ENQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Enqtde")
+                        .HasColumnName("enqtde")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Envalo")
-                        .HasColumnName("ENVALO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Envalo")
+                        .HasColumnName("envalo")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Envalodes")
-                        .HasColumnName("ENVALODES")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Envalodes")
+                        .HasColumnName("envalodes")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Estant")
-                        .HasColumnName("ESTANT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Estant")
+                        .HasColumnName("estant")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Etiqueta")
-                        .HasColumnName("ETIQUETA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("etiqueta")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Fornec")
-                        .HasColumnName("FORNEC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fornec")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Impresso")
-                        .HasColumnName("IMPRESSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impresso")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Impretq")
-                        .HasColumnName("IMPRETQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impretq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Notafis")
-                        .HasColumnName("NOTAFIS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("notafis")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prfabr")
-                        .HasColumnName("PRFABR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prfabr")
+                        .HasColumnName("prfabr")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Soetiq")
-                        .HasColumnName("SOETIQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("soetiq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Usuario")
-                        .HasColumnName("USUARIO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("usuario")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ENT");
+                    b.ToTable("ent","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Entpro", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Descfin")
-                        .HasColumnName("DESCFIN")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Descfin")
+                        .HasColumnName("descfin")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Desconto")
-                        .HasColumnName("DESCONTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnName("desconto")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Descrep")
-                        .HasColumnName("DESCREP")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Descrep")
+                        .HasColumnName("descrep")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTime?>("Emissnf")
-                        .HasColumnName("EMISSNF")
-                        .HasColumnType("datetime");
+                        .HasColumnName("emissnf")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("Endata")
-                        .HasColumnName("ENDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("endata")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Enqtde")
-                        .HasColumnName("ENQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Enqtde")
+                        .HasColumnName("enqtde")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Envalo")
-                        .HasColumnName("ENVALO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Envalo")
+                        .HasColumnName("envalo")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Envalodes")
-                        .HasColumnName("ENVALODES")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Envalodes")
+                        .HasColumnName("envalodes")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Estant")
-                        .HasColumnName("ESTANT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Estant")
+                        .HasColumnName("estant")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Etiqueta")
-                        .HasColumnName("ETIQUETA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("etiqueta")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Fornec")
-                        .HasColumnName("FORNEC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fornec")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Impresso")
-                        .HasColumnName("IMPRESSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impresso")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Impretq")
-                        .HasColumnName("IMPRETQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impretq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Lote")
-                        .HasColumnName("LOTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("lote")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Notafis")
-                        .HasColumnName("NOTAFIS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("notafis")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prfabr")
-                        .HasColumnName("PRFABR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prfabr")
+                        .HasColumnName("prfabr")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Soetiq")
-                        .HasColumnName("SOETIQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("soetiq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Usuario")
-                        .HasColumnName("USUARIO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("usuario")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ENTPRO");
+                    b.ToTable("entpro","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Estq0045", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("EstMinimo")
-                        .HasColumnName("EST_MINIMO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("EstMinimo")
+                        .HasColumnName("est_minimo")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prbarra")
-                        .HasColumnName("PRBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Prcdse")
-                        .HasColumnName("PRCDSE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdse")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
-                    b.Property<double?>("Prestq")
-                        .HasColumnName("PRESTQ")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prestq")
+                        .HasColumnName("prestq")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Secao")
-                        .HasColumnName("SECAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("secao")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ESTQ0045");
+                    b.ToTable("estq0045","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Etiqperf", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Prconsf")
-                        .HasColumnName("PRCONSF")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prconsf")
+                        .HasColumnName("prconsf")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Prdesc1")
-                        .HasColumnName("PRDESC1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc1")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Prdesc2")
-                        .HasColumnName("PRDESC2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc2")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ETIQPERF");
+                    b.ToTable("etiqperf","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Etiqprom", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Prconsf")
-                        .HasColumnName("PRCONSF")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prconsf")
+                        .HasColumnName("prconsf")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Prdesc1")
-                        .HasColumnName("PRDESC1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc1")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Prdesc2")
-                        .HasColumnName("PRDESC2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc2")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ETIQPROM");
+                    b.ToTable("etiqprom","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Etiqueta", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Prdesc1")
-                        .HasColumnName("PRDESC1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc1")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Prdesc2")
-                        .HasColumnName("PRDESC2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc2")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ETIQUETA");
+                    b.ToTable("etiqueta","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Faltas", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Balcon")
-                        .HasColumnName("BALCON")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("balcon")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("FALTAS");
+                    b.ToTable("faltas","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Fechconv", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<string>("Fucdem")
-                        .HasColumnName("FUCDEM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucdem")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(12,0)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("FECHCONV");
+                    b.ToTable("fechconv","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Filial", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Aplica1")
-                        .HasColumnName("APLICA1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica1")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Aplica10")
-                        .HasColumnName("APLICA10")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica10")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Aplica2")
-                        .HasColumnName("APLICA2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica2")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Aplica3")
-                        .HasColumnName("APLICA3")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica3")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Aplica4")
-                        .HasColumnName("APLICA4")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica4")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Aplica5")
-                        .HasColumnName("APLICA5")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica5")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Aplica6")
-                        .HasColumnName("APLICA6")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica6")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Aplica7")
-                        .HasColumnName("APLICA7")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica7")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Aplica8")
-                        .HasColumnName("APLICA8")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica8")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Aplica9")
-                        .HasColumnName("APLICA9")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aplica9")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Desc1")
-                        .HasColumnName("DESC1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc1")
+                        .HasColumnName("desc1")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Desc10")
-                        .HasColumnName("DESC10")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc10")
+                        .HasColumnName("desc10")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Desc2")
-                        .HasColumnName("DESC2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc2")
+                        .HasColumnName("desc2")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Desc3")
-                        .HasColumnName("DESC3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc3")
+                        .HasColumnName("desc3")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Desc4")
-                        .HasColumnName("DESC4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc4")
+                        .HasColumnName("desc4")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Desc5")
-                        .HasColumnName("DESC5")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc5")
+                        .HasColumnName("desc5")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Desc6")
-                        .HasColumnName("DESC6")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc6")
+                        .HasColumnName("desc6")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Desc7")
-                        .HasColumnName("DESC7")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc7")
+                        .HasColumnName("desc7")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Desc8")
-                        .HasColumnName("DESC8")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc8")
+                        .HasColumnName("desc8")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Desc9")
-                        .HasColumnName("DESC9")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desc9")
+                        .HasColumnName("desc9")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Filcep")
-                        .HasColumnName("FILCEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filcep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Filcgce")
-                        .HasColumnName("FILCGCE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filcgce")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Filcida")
-                        .HasColumnName("FILCIDA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filcida")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
 
                     b.Property<string>("Filcodi")
-                        .HasColumnName("FILCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filcodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Filcont")
-                        .HasColumnName("FILCONT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filcont")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Filende")
-                        .HasColumnName("FILENDE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filende")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Filesta")
-                        .HasColumnName("FILESTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filesta")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Filfax")
-                        .HasColumnName("FILFAX")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filfax")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Filinsc")
-                        .HasColumnName("FILINSC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filinsc")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Filnome")
-                        .HasColumnName("FILNOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filnome")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Filtele")
-                        .HasColumnName("FILTELE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filtele")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Subsec1")
-                        .HasColumnName("SUBSEC1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec1")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Subsec10")
-                        .HasColumnName("SUBSEC10")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec10")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Subsec2")
-                        .HasColumnName("SUBSEC2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec2")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Subsec3")
-                        .HasColumnName("SUBSEC3")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec3")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Subsec4")
-                        .HasColumnName("SUBSEC4")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec4")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Subsec5")
-                        .HasColumnName("SUBSEC5")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec5")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Subsec6")
-                        .HasColumnName("SUBSEC6")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec6")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Subsec7")
-                        .HasColumnName("SUBSEC7")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec7")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Subsec8")
-                        .HasColumnName("SUBSEC8")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec8")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Subsec9")
-                        .HasColumnName("SUBSEC9")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsec9")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("FILIAL");
+                    b.ToTable("filial","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Funcio", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codgolden")
-                        .HasColumnName("CODGOLDEN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codgolden")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Datademi")
-                        .HasColumnName("DATADEMI")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datademi")
+                        .HasColumnType("date");
 
                     b.Property<string>("Demitido")
-                        .HasColumnName("DEMITIDO")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FCoredent")
-                        .HasColumnName("FCoreDENT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("demitido")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Fubai")
-                        .HasColumnName("FUBAI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fubai")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Fubloq")
-                        .HasColumnName("FUBLOQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fubloq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Fucdem")
-                        .HasColumnName("FUCDEM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucdem")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Fucep")
-                        .HasColumnName("FUCEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Fucid")
-                        .HasColumnName("FUCID")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucid")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Fucodi")
-                        .HasColumnName("FUCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucodi")
+                        .HasColumnType("character varying(18)")
+                        .HasMaxLength(18);
 
                     b.Property<DateTime?>("Fudata")
-                        .HasColumnName("FUDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("fudata")
+                        .HasColumnType("date");
 
                     b.Property<string>("Fudepto")
-                        .HasColumnName("FUDEPTO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fudepto")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Fuend")
-                        .HasColumnName("FUEND")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuend")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Fuest")
-                        .HasColumnName("FUEST")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuest")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Fufone")
-                        .HasColumnName("FUFONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fufone")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
-                    b.Property<double?>("Fulimite")
-                        .HasColumnName("FULIMITE")
-                        .HasColumnType("float");
+                    b.Property<string>("Fuident")
+                        .HasColumnName("fuident")
+                        .HasColumnType("character varying(18)")
+                        .HasMaxLength(18);
+
+                    b.Property<decimal?>("Fulimite")
+                        .HasColumnName("fulimite")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Funome")
-                        .HasColumnName("FUNOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("funome")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Fuobs1")
-                        .HasColumnName("FUOBS1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuobs1")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fuobs2")
-                        .HasColumnName("FUOBS2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuobs2")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fuobs3")
-                        .HasColumnName("FUOBS3")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuobs3")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fuplano")
-                        .HasColumnName("FUPLANO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuplano")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Fusit")
-                        .HasColumnName("FUSIT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fusit")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Impresso")
-                        .HasColumnName("IMPRESSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impresso")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Totdebcr")
-                        .HasColumnName("TOTDEBCR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Totdebcr")
+                        .HasColumnName("totdebcr")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Totdebsr")
-                        .HasColumnName("TOTDEBSR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Totdebsr")
+                        .HasColumnName("totdebsr")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("FUNCIO");
+                    b.ToTable("funcio","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Histor", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Desconto")
-                        .HasColumnName("DESCONTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnName("desconto")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Distrib")
-                        .HasColumnName("DISTRIB")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("distrib")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Notafis")
-                        .HasColumnName("NOTAFIS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("notafis")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Pedido")
-                        .HasColumnName("PEDIDO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("pedido")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<DateTime?>("Recebto")
-                        .HasColumnName("RECEBTO")
-                        .HasColumnType("datetime");
+                        .HasColumnName("recebto")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Total")
-                        .HasColumnName("TOTAL")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Total")
+                        .HasColumnName("total")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("Vencto")
-                        .HasColumnName("VENCTO")
-                        .HasColumnType("datetime");
+                        .HasColumnName("vencto")
+                        .HasColumnType("date");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("HISTOR");
+                    b.ToTable("histor","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ibpt", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Imp1")
-                        .HasColumnName("IMP1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("imp1")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Imp2")
-                        .HasColumnName("IMP2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("imp2")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("IBPT");
+                    b.ToTable("ibpt","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Invent", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Lote")
-                        .HasColumnName("LOTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("lote")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Prreg")
-                        .HasColumnName("PRREG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prreg")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
-                    b.Property<double?>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Qtde")
+                        .HasColumnName("qtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Tpmed")
-                        .HasColumnName("TPMED")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tpmed")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("INVENT");
+                    b.ToTable("invent","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Logsys", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nivel")
-                        .HasColumnName("NIVEL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nivel")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Opcao")
-                        .HasColumnName("OPCAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("opcao")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
 
                     b.Property<string>("Time")
-                        .HasColumnName("TIME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("time")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Usuario")
-                        .HasColumnName("USUARIO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("usuario")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
-                    b.HasKey("Id");
-
-                    b.ToTable("LOGSYS");
+                    b.ToTable("logsys","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Malclien", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double?>("Acumulado")
-                        .HasColumnName("ACUMULADO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Acumulado")
+                        .HasColumnName("acumulado")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Aposentado")
-                        .HasColumnName("APOSENTADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aposentado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Bairro")
-                        .HasColumnName("BAIRRO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bairro")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Balcon")
-                        .HasColumnName("BALCON")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("balcon")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Cep")
-                        .HasColumnName("CEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Cidade")
-                        .HasColumnName("CIDADE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cidade")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Clclassi")
-                        .HasColumnName("CLCLASSI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clclassi")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Clobs1")
-                        .HasColumnName("CLOBS1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clobs1")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Clobs2")
-                        .HasColumnName("CLOBS2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clobs2")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Cpf")
-                        .HasColumnName("CPF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cpf")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Datanasc")
-                        .HasColumnName("DATANASC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datanasc")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Descmed")
-                        .HasColumnName("DESCMED")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Descmed")
+                        .HasColumnName("descmed")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("Descout")
-                        .HasColumnName("DESCOUT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Descout")
+                        .HasColumnName("descout")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<DateTime?>("Dtcad")
-                        .HasColumnName("DTCAD")
-                        .HasColumnType("datetime");
+                        .HasColumnName("dtcad")
+                        .HasColumnType("date");
 
                     b.Property<string>("Endereco")
-                        .HasColumnName("ENDERECO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("endereco")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Filial")
-                        .HasColumnName("FILIAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filial")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Fone")
-                        .HasColumnName("FONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fone")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Impresso")
-                        .HasColumnName("IMPRESSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impresso")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(45)")
+                        .HasMaxLength(45);
 
                     b.Property<string>("Rg")
-                        .HasColumnName("RG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("rg")
+                        .HasColumnType("character varying(19)")
+                        .HasMaxLength(19);
 
                     b.Property<DateTime?>("UltCompra")
-                        .HasColumnName("ULT_COMPRA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("ult_compra")
+                        .HasColumnType("date");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("MALCLIEN");
+                    b.ToTable("malclien","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Merctran", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Comissao")
-                        .HasColumnName("COMISSAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("comissao")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Desconto")
-                        .HasColumnName("DESCONTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnName("desconto")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("DESCRICAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("descricao")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
-                    b.Property<double?>("Estoque")
-                        .HasColumnName("ESTOQUE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Estoque")
+                        .HasColumnName("estoque")
+                        .HasColumnType("numeric(4,0)");
 
                     b.Property<string>("Etiqueta")
-                        .HasColumnName("ETIQUETA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("etiqueta")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Prconsd")
-                        .HasColumnName("PRCONSD")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prconsd")
+                        .HasColumnName("prconsd")
+                        .HasColumnType("numeric(12,4)");
 
-                    b.Property<double?>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Qtde")
+                        .HasColumnName("qtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VlTotal")
-                        .HasColumnName("VL_TOTAL")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlTotal")
+                        .HasColumnName("vl_total")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("MERCTRAN");
+                    b.ToTable("merctran","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Mov", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Admcart")
-                        .HasColumnName("ADMCART")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("admcart")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Bacodi")
-                        .HasColumnName("BACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bacodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Caixa")
-                        .HasColumnName("CAIXA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("caixa")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Cancelado")
-                        .HasColumnName("CANCELADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cancelado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Cartaoc")
-                        .HasColumnName("CARTAOC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cartaoc")
+                        .HasColumnName("cartaoc")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Cheque")
-                        .HasColumnName("CHEQUE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cheque")
+                        .HasColumnName("cheque")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Chequepre")
-                        .HasColumnName("CHEQUEPRE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Chequepre")
+                        .HasColumnName("chequepre")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Codcli")
-                        .HasColumnName("CODCLI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codcli")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Cpf")
-                        .HasColumnName("CPF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cpf")
+                        .HasColumnType("character varying(14)")
+                        .HasMaxLength(14);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Dinheiro")
-                        .HasColumnName("DINHEIRO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Dinheiro")
+                        .HasColumnName("dinheiro")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Ecf")
-                        .HasColumnName("ECF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ecf")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Hora")
-                        .HasColumnName("HORA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("hora")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NFiscal")
-                        .HasColumnName("N_FISCAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("n_fiscal")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
-                    b.Property<double?>("Popular")
-                        .HasColumnName("POPULAR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Popular")
+                        .HasColumnName("popular")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("TotAnt")
-                        .HasColumnName("TOT_ANT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotAnt")
+                        .HasColumnName("tot_ant")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("TotVen")
-                        .HasColumnName("TOT_VEN")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotVen")
+                        .HasColumnName("tot_ven")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Tpvd")
-                        .HasColumnName("TPVD")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tpvd")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("MOV");
+                    b.ToTable("mov","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Movm", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Admcart")
-                        .HasColumnName("ADMCART")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("admcart")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Bacodi")
-                        .HasColumnName("BACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bacodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Caixa")
-                        .HasColumnName("CAIXA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("caixa")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Cancelado")
-                        .HasColumnName("CANCELADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cancelado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Cartaoc")
-                        .HasColumnName("CARTAOC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cartaoc")
+                        .HasColumnName("cartaoc")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Cheque")
-                        .HasColumnName("CHEQUE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Cheque")
+                        .HasColumnName("cheque")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Chequepre")
-                        .HasColumnName("CHEQUEPRE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Chequepre")
+                        .HasColumnName("chequepre")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Codcli")
-                        .HasColumnName("CODCLI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codcli")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Dinheiro")
-                        .HasColumnName("DINHEIRO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Dinheiro")
+                        .HasColumnName("dinheiro")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("Hora")
-                        .HasColumnName("HORA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("hora")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NFiscal")
-                        .HasColumnName("N_FISCAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("n_fiscal")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("TotAnt")
-                        .HasColumnName("TOT_ANT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotAnt")
+                        .HasColumnName("tot_ant")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("TotVen")
-                        .HasColumnName("TOT_VEN")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotVen")
+                        .HasColumnName("tot_ven")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Tpvd")
-                        .HasColumnName("TPVD")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tpvd")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("MOVM");
+                    b.ToTable("movm","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Movme", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Bacodi")
-                        .HasColumnName("BACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bacodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Cancelado")
-                        .HasColumnName("CANCELADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cancelado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Codcli")
-                        .HasColumnName("CODCLI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codcli")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Pedido")
-                        .HasColumnName("PEDIDO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("pedido")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prqtde")
-                        .HasColumnName("PRQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("TotComis")
-                        .HasColumnName("TOT_COMIS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotComis")
+                        .HasColumnName("tot_comis")
+                        .HasColumnType("numeric(12,4)");
 
-                    b.Property<double?>("TotDescon")
-                        .HasColumnName("TOT_DESCON")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotDescon")
+                        .HasColumnName("tot_descon")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Tpvd")
-                        .HasColumnName("TPVD")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tpvd")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VlTot")
-                        .HasColumnName("VL_TOT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlTot")
+                        .HasColumnName("vl_tot")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("VlUnit")
-                        .HasColumnName("VL_UNIT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlUnit")
+                        .HasColumnName("vl_unit")
+                        .HasColumnType("numeric(12,4)");
 
-                    b.Property<double?>("VlliqCored")
-                        .HasColumnName("VLLIQCoreD")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Vlliquid")
+                        .HasColumnName("vlliquid")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("MOVME");
+                    b.ToTable("movme","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Movmes", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Bacodi")
-                        .HasColumnName("BACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bacodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Cancelado")
-                        .HasColumnName("CANCELADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cancelado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Codcli")
-                        .HasColumnName("CODCLI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codcli")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<string>("Ecf")
-                        .HasColumnName("ECF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ecf")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Pedido")
-                        .HasColumnName("PEDIDO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("pedido")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prqtde")
-                        .HasColumnName("PRQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("TotComis")
-                        .HasColumnName("TOT_COMIS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotComis")
+                        .HasColumnName("tot_comis")
+                        .HasColumnType("numeric(12,4)");
 
-                    b.Property<double?>("TotDescon")
-                        .HasColumnName("TOT_DESCON")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotDescon")
+                        .HasColumnName("tot_descon")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Tpvd")
-                        .HasColumnName("TPVD")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tpvd")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VlTot")
-                        .HasColumnName("VL_TOT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlTot")
+                        .HasColumnName("vl_tot")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("VlUnit")
-                        .HasColumnName("VL_UNIT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlUnit")
+                        .HasColumnName("vl_unit")
+                        .HasColumnType("numeric(12,4)");
 
-                    b.Property<double?>("VlliqCored")
-                        .HasColumnName("VLLIQCoreD")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Vlliquid")
+                        .HasColumnName("vlliquid")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("MOVMES");
+                    b.ToTable("movmes","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Movnf", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Cancelado")
-                        .HasColumnName("CANCELADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cancelado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Cpf")
-                        .HasColumnName("CPF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cpf")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("DESCRICAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("descricao")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Ecf")
-                        .HasColumnName("ECF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ecf")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prqtde")
-                        .HasColumnName("PRQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VlTot")
-                        .HasColumnName("VL_TOT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlTot")
+                        .HasColumnName("vl_tot")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("VlUnit")
-                        .HasColumnName("VL_UNIT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlUnit")
+                        .HasColumnName("vl_unit")
+                        .HasColumnType("numeric(12,4)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("MOVNF");
+                    b.ToTable("movnf","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Movpop", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("BalcCpf")
-                        .HasColumnName("BALC_CPF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("balc_cpf")
+                        .HasColumnType("character varying(11)")
+                        .HasMaxLength(11);
 
                     b.Property<string>("Cancelado")
-                        .HasColumnName("CANCELADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cancelado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Compdia")
-                        .HasColumnName("COMPDIA")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Compdia")
+                        .HasColumnName("compdia")
+                        .HasColumnType("numeric(5,0)");
 
-                    b.Property<double?>("Compmes")
-                        .HasColumnName("COMPMES")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Compmes")
+                        .HasColumnName("compmes")
+                        .HasColumnType("numeric(5,0)");
 
                     b.Property<string>("Cpfcli")
-                        .HasColumnName("CPFCLI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cpfcli")
+                        .HasColumnType("character varying(11)")
+                        .HasMaxLength(11);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Crm")
-                        .HasColumnName("CRM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("crm")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("Datarec")
-                        .HasColumnName("DATAREC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datarec")
+                        .HasColumnType("date");
 
                     b.Property<string>("Ecf")
-                        .HasColumnName("ECF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ecf")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prqtde")
-                        .HasColumnName("PRQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Senha")
-                        .HasColumnName("SENHA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senha")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("TotDescon")
-                        .HasColumnName("TOT_DESCON")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotDescon")
+                        .HasColumnName("tot_descon")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VlTot")
-                        .HasColumnName("VL_TOT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlTot")
+                        .HasColumnName("vl_tot")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("VlUnit")
-                        .HasColumnName("VL_UNIT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlUnit")
+                        .HasColumnName("vl_unit")
+                        .HasColumnType("numeric(12,4)");
 
-                    b.Property<double?>("VlliqCored")
-                        .HasColumnName("VLLIQCoreD")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Vlliquid")
+                        .HasColumnName("vlliquid")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("MOVPOP");
+                    b.ToTable("movpop","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Natureza", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NATUREZA");
+                    b.ToTable("natureza","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Newcli", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Bairro")
-                        .HasColumnName("BAIRRO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bairro")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Cep")
-                        .HasColumnName("CEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Cidade")
-                        .HasColumnName("CIDADE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cidade")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Clclassi")
-                        .HasColumnName("CLCLASSI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("clclassi")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Datanasc")
-                        .HasColumnName("DATANASC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datanasc")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Desconto")
-                        .HasColumnName("DESCONTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnName("desconto")
+                        .HasColumnType("numeric(2,0)");
 
                     b.Property<string>("Endereco")
-                        .HasColumnName("ENDERECO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("endereco")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fone")
-                        .HasColumnName("FONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fone")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Impresso")
-                        .HasColumnName("IMPRESSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impresso")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Rg")
-                        .HasColumnName("RG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("rg")
+                        .HasColumnType("character varying(19)")
+                        .HasMaxLength(19);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<DateTime?>("UltCompra")
-                        .HasColumnName("ULT_COMPRA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("ult_compra")
+                        .HasColumnType("date");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.ToTable("newcli","public");
+                });
 
-                    b.ToTable("NEWCLI");
+            modelBuilder.Entity("Core.Entities.Legacy.Newconv", b =>
+                {
+                    b.Property<DateTime?>("Cvdata")
+                        .HasColumnName("cvdata")
+                        .HasColumnType("date");
+
+                    b.Property<DateTime?>("Cvdtrec")
+                        .HasColumnName("cvdtrec")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Cventrega")
+                        .HasColumnName("cventrega")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Cvfilial")
+                        .HasColumnName("cvfilial")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("Cvnota")
+                        .HasColumnName("cvnota")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<string>("Cvobsv")
+                        .HasColumnName("cvobsv")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("Cvpsuso")
+                        .HasColumnName("cvpsuso")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("Cvreceita")
+                        .HasColumnName("cvreceita")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Cvtick")
+                        .HasColumnName("cvtick")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<string>("Cvtitular")
+                        .HasColumnName("cvtitular")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<decimal?>("Cvvalocrz")
+                        .HasColumnName("cvvalocrz")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<decimal?>("Cvvalourv")
+                        .HasColumnName("cvvalourv")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<string>("Fucdem")
+                        .HasColumnName("fucdem")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("Fucodi")
+                        .HasColumnName("fucodi")
+                        .HasColumnType("character varying(18)")
+                        .HasMaxLength(18);
+
+                    b.ToTable("newconv","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Newfunc", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codgolden")
-                        .HasColumnName("CODGOLDEN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codgolden")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Datademi")
-                        .HasColumnName("DATADEMI")
-                        .HasColumnType("datetime");
+                        .HasColumnName("datademi")
+                        .HasColumnType("date");
 
                     b.Property<string>("Demitido")
-                        .HasColumnName("DEMITIDO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("demitido")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Fubai")
-                        .HasColumnName("FUBAI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fubai")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Fubloq")
-                        .HasColumnName("FUBLOQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fubloq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Fucdem")
-                        .HasColumnName("FUCDEM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucdem")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Fucep")
-                        .HasColumnName("FUCEP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Fucid")
-                        .HasColumnName("FUCID")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucid")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Fucodi")
-                        .HasColumnName("FUCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fucodi")
+                        .HasColumnType("character varying(18)")
+                        .HasMaxLength(18);
 
                     b.Property<DateTime?>("Fudata")
-                        .HasColumnName("FUDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("fudata")
+                        .HasColumnType("date");
 
                     b.Property<string>("Fudepto")
-                        .HasColumnName("FUDEPTO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fudepto")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Fuend")
-                        .HasColumnName("FUEND")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuend")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Fuest")
-                        .HasColumnName("FUEST")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuest")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Fufone")
-                        .HasColumnName("FUFONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fufone")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
-                    b.Property<double?>("Fulimite")
-                        .HasColumnName("FULIMITE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Fulimite")
+                        .HasColumnName("fulimite")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Funome")
-                        .HasColumnName("FUNOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("funome")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("Fuobs1")
-                        .HasColumnName("FUOBS1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuobs1")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fuobs2")
-                        .HasColumnName("FUOBS2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuobs2")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fuobs3")
-                        .HasColumnName("FUOBS3")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fuobs3")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Fusit")
-                        .HasColumnName("FUSIT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fusit")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Impresso")
-                        .HasColumnName("IMPRESSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impresso")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Totdebcr")
-                        .HasColumnName("TOTDEBCR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Totdebcr")
+                        .HasColumnName("totdebcr")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Totdebsr")
-                        .HasColumnName("TOTDEBSR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Totdebsr")
+                        .HasColumnName("totdebsr")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NEWFUNC");
+                    b.ToTable("newfunc","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Newprec", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Prcddt")
-                        .HasColumnName("PRCDDT")
-                        .HasColumnType("datetime");
+                        .HasColumnName("prcddt")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Prcdlucr")
-                        .HasColumnName("PRCDLUCR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcdlucr")
+                        .HasColumnName("prcdlucr")
+                        .HasColumnType("numeric(10,6)");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Prconscv")
-                        .HasColumnName("PRCONSCV")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prconscv")
+                        .HasColumnName("prconscv")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Prfabr")
-                        .HasColumnName("PRFABR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prfabr")
+                        .HasColumnName("prfabr")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NEWPREC");
+                    b.ToTable("newprec","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Newprod", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Coddcb")
-                        .HasColumnName("CODDCB")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("coddcb")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Codesta")
-                        .HasColumnName("CODESTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codesta")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Codfis")
-                        .HasColumnName("CODFIS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codfis")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
-                    b.Property<double?>("Comissao")
-                        .HasColumnName("COMISSAO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Comissao")
+                        .HasColumnName("comissao")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("DescMax")
-                        .HasColumnName("DESC_MAX")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DescMax")
+                        .HasColumnName("desc_max")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("EstMinimo")
-                        .HasColumnName("EST_MINIMO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("EstMinimo")
+                        .HasColumnName("est_minimo")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Etbarra")
-                        .HasColumnName("ETBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("etbarra")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Etgraf")
-                        .HasColumnName("ETGRAF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("etgraf")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prbarra")
-                        .HasColumnName("PRBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<DateTime?>("Prcddt")
-                        .HasColumnName("PRCDDT")
-                        .HasColumnType("datetime");
+                        .HasColumnName("prcddt")
+                        .HasColumnType("date");
 
                     b.Property<string>("Prcdimp")
-                        .HasColumnName("PRCDIMP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdimp")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Prcdimp2")
-                        .HasColumnName("PRCDIMP2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdimp2")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Prcdla")
-                        .HasColumnName("PRCDLA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdla")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
-                    b.Property<double?>("Prcdlucr")
-                        .HasColumnName("PRCDLUCR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcdlucr")
+                        .HasColumnName("prcdlucr")
+                        .HasColumnType("numeric(10,6)");
 
                     b.Property<string>("Prcdse")
-                        .HasColumnName("PRCDSE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdse")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Prclas")
-                        .HasColumnName("PRCLAS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prclas")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Prconscv")
-                        .HasColumnName("PRCONSCV")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prconscv")
+                        .HasColumnName("prconscv")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTime?>("Prdata")
-                        .HasColumnName("PRDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("prdata")
+                        .HasColumnType("date");
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Prdesconv")
-                        .HasColumnName("PRDESCONV")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesconv")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTime?>("Prdtul")
-                        .HasColumnName("PRDTUL")
-                        .HasColumnType("datetime");
+                        .HasColumnName("prdtul")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Premb")
-                        .HasColumnName("PREMB")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Premb")
+                        .HasColumnName("premb")
+                        .HasColumnType("numeric(4,0)");
 
-                    b.Property<double?>("Prentr")
-                        .HasColumnName("PRENTR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prentr")
+                        .HasColumnName("prentr")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Prestq")
-                        .HasColumnName("PRESTQ")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prestq")
+                        .HasColumnName("prestq")
+                        .HasColumnType("numeric(4,0)");
 
                     b.Property<string>("Pretiq")
-                        .HasColumnName("PRETIQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("pretiq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Prfabr")
-                        .HasColumnName("PRFABR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prfabr")
+                        .HasColumnName("prfabr")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Pricms")
-                        .HasColumnName("PRICMS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Pricms")
+                        .HasColumnName("pricms")
+                        .HasColumnType("numeric(2,0)");
 
                     b.Property<string>("Prloca")
-                        .HasColumnName("PRLOCA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prloca")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
-                    b.Property<double?>("Prmesant")
-                        .HasColumnName("PRMESANT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prmesant")
+                        .HasColumnName("prmesant")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Prneutro")
-                        .HasColumnName("PRNEUTRO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prneutro")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Prnola")
-                        .HasColumnName("PRNOLA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prnola")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Prnose")
-                        .HasColumnName("PRNOSE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prnose")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Prpis")
-                        .HasColumnName("PRPIS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prpis")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prpopular")
-                        .HasColumnName("PRPOPULAR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prpopular")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prporta")
-                        .HasColumnName("PRPORTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prporta")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prpos")
-                        .HasColumnName("PRPOS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prpos")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Prpret")
-                        .HasColumnName("PRPRET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prpret")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prreg")
-                        .HasColumnName("PRREG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prreg")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Prsal")
-                        .HasColumnName("PRSAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prsal")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Prsitu")
-                        .HasColumnName("PRSITU")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prsitu")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Prtestq")
-                        .HasColumnName("PRTESTQ")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prtestq")
+                        .HasColumnName("prtestq")
+                        .HasColumnType("numeric(4,0)");
 
-                    b.Property<double?>("Prulte")
-                        .HasColumnName("PRULTE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prulte")
+                        .HasColumnName("prulte")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Secao")
-                        .HasColumnName("SECAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("secao")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTime?>("UlVen")
-                        .HasColumnName("UL_VEN")
-                        .HasColumnType("datetime");
+                        .HasColumnName("ul_ven")
+                        .HasColumnType("date");
 
                     b.Property<string>("Ultfor")
-                        .HasColumnName("ULTFOR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ultfor")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTime?>("Ultped")
-                        .HasColumnName("ULTPED")
-                        .HasColumnType("datetime");
+                        .HasColumnName("ultped")
+                        .HasColumnType("date");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Vendant")
-                        .HasColumnName("VENDANT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Vendant")
+                        .HasColumnName("vendant")
+                        .HasColumnType("numeric(4,0)");
 
-                    b.Property<double?>("Vendatu")
-                        .HasColumnName("VENDATU")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Vendatu")
+                        .HasColumnName("vendatu")
+                        .HasColumnType("numeric(4,0)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NEWPROD");
+                    b.ToTable("newprod","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Newtab", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Mesano")
-                        .HasColumnName("MESANO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("mesano")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Newtab1")
-                        .HasColumnName("NEWTAB")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("newtab")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NEWTAB");
+                    b.ToTable("newtab","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Nfe", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Campo")
-                        .HasColumnName("CAMPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("campo")
+                        .HasColumnType("character varying(150)")
+                        .HasMaxLength(150);
 
                     b.Property<string>("Codigo")
-                        .HasColumnName("CODIGO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codigo")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("DESCRICAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("descricao")
+                        .HasColumnType("character varying(35)")
+                        .HasMaxLength(35);
 
                     b.Property<string>("Icms")
-                        .HasColumnName("ICMS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("icms")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Imp")
-                        .HasColumnName("IMP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("imp")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Ncm")
-                        .HasColumnName("NCM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ncm")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Prcdimp")
-                        .HasColumnName("PRCDIMP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdimp")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("qtde")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("valor")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Vltot")
-                        .HasColumnName("VLTOT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("vltot")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NFE");
+                    b.ToTable("nfe","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Nota", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<decimal?>("Base")
+                        .HasColumnName("base")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Base")
-                        .HasColumnName("BASE")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Basesub")
-                        .HasColumnName("BASESUB")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Basesub")
+                        .HasColumnName("basesub")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Cliente")
-                        .HasColumnName("CLIENTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cliente")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Icms")
-                        .HasColumnName("ICMS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Icms")
+                        .HasColumnName("icms")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Icmssub")
-                        .HasColumnName("ICMSSUB")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Icmssub")
+                        .HasColumnName("icmssub")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NFiscal")
-                        .HasColumnName("N_FISCAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("n_fiscal")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("NNatu")
-                        .HasColumnName("N_NATU")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("n_natu")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
 
                     b.Property<string>("Natureza")
-                        .HasColumnName("NATUREZA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("natureza")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
-                    b.Property<double?>("Nbase12")
-                        .HasColumnName("NBASE12")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nbase12")
+                        .HasColumnName("nbase12")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Nbase18")
-                        .HasColumnName("NBASE18")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nbase18")
+                        .HasColumnName("nbase18")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Nbase25")
-                        .HasColumnName("NBASE25")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nbase25")
+                        .HasColumnName("nbase25")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Nbase7")
-                        .HasColumnName("NBASE7")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nbase7")
+                        .HasColumnName("nbase7")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Ncancelada")
-                        .HasColumnName("NCANCELADA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ncancelada")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTime?>("Ndata")
-                        .HasColumnName("NDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("ndata")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Nicms12")
-                        .HasColumnName("NICMS12")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nicms12")
+                        .HasColumnName("nicms12")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Nicms18")
-                        .HasColumnName("NICMS18")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nicms18")
+                        .HasColumnName("nicms18")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Nicms25")
-                        .HasColumnName("NICMS25")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nicms25")
+                        .HasColumnName("nicms25")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Nicms7")
-                        .HasColumnName("NICMS7")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nicms7")
+                        .HasColumnName("nicms7")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Nvalor")
-                        .HasColumnName("NVALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nvalor")
+                        .HasColumnName("nvalor")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NOTA");
+                    b.ToTable("nota","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Notaf", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NumNota")
-                        .HasColumnName("NUM_NOTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("num_nota")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NOTAF");
+                    b.ToTable("notaf","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Nped", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Numped")
-                        .HasColumnName("NUMPED")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("numped")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NPED");
+                    b.ToTable("nped","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.NumTmp", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Numero")
-                        .HasColumnName("NUMERO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("numero")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NumTmp");
+                    b.ToTable("num_tmp","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Numped", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Desconto")
-                        .HasColumnName("DESCONTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnName("desconto")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Fornec")
-                        .HasColumnName("FORNEC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fornec")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Numero")
-                        .HasColumnName("NUMERO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("numero")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Przentrega")
-                        .HasColumnName("PRZENTREGA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("przentrega")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Przpagto")
-                        .HasColumnName("PRZPAGTO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("przpagto")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("NUMPED");
+                    b.ToTable("numped","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ped0204", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codint")
-                        .HasColumnName("CODINT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codint")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Eloja1")
-                        .HasColumnName("ELOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja1")
+                        .HasColumnName("eloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja2")
-                        .HasColumnName("ELOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja2")
+                        .HasColumnName("eloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja3")
-                        .HasColumnName("ELOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja3")
+                        .HasColumnName("eloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja4")
-                        .HasColumnName("ELOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja4")
+                        .HasColumnName("eloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Forn")
-                        .HasColumnName("FORN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("forn")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Mloja1")
-                        .HasColumnName("MLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja1")
+                        .HasColumnName("mloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja2")
-                        .HasColumnName("MLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja2")
+                        .HasColumnName("mloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja3")
-                        .HasColumnName("MLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja3")
+                        .HasColumnName("mloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja4")
-                        .HasColumnName("MLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja4")
+                        .HasColumnName("mloja4")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja1")
-                        .HasColumnName("NLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja1")
+                        .HasColumnName("nloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja2")
-                        .HasColumnName("NLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja2")
+                        .HasColumnName("nloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja3")
-                        .HasColumnName("NLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja3")
+                        .HasColumnName("nloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja4")
-                        .HasColumnName("NLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja4")
+                        .HasColumnName("nloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Prbarra")
-                        .HasColumnName("PRBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("PED0204");
+                    b.ToTable("ped0204","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ped0301", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codint")
-                        .HasColumnName("CODINT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codint")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Eloja1")
-                        .HasColumnName("ELOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja1")
+                        .HasColumnName("eloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja2")
-                        .HasColumnName("ELOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja2")
+                        .HasColumnName("eloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja3")
-                        .HasColumnName("ELOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja3")
+                        .HasColumnName("eloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja4")
-                        .HasColumnName("ELOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja4")
+                        .HasColumnName("eloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Forn")
-                        .HasColumnName("FORN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("forn")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Mloja1")
-                        .HasColumnName("MLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja1")
+                        .HasColumnName("mloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja2")
-                        .HasColumnName("MLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja2")
+                        .HasColumnName("mloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja3")
-                        .HasColumnName("MLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja3")
+                        .HasColumnName("mloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja4")
-                        .HasColumnName("MLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja4")
+                        .HasColumnName("mloja4")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja1")
-                        .HasColumnName("NLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja1")
+                        .HasColumnName("nloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja2")
-                        .HasColumnName("NLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja2")
+                        .HasColumnName("nloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja3")
-                        .HasColumnName("NLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja3")
+                        .HasColumnName("nloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja4")
-                        .HasColumnName("NLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja4")
+                        .HasColumnName("nloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Prbarra")
-                        .HasColumnName("PRBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("PED0301");
+                    b.ToTable("ped0301","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ped0406", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codint")
-                        .HasColumnName("CODINT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codint")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Eloja1")
-                        .HasColumnName("ELOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja1")
+                        .HasColumnName("eloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja2")
-                        .HasColumnName("ELOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja2")
+                        .HasColumnName("eloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja3")
-                        .HasColumnName("ELOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja3")
+                        .HasColumnName("eloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja4")
-                        .HasColumnName("ELOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja4")
+                        .HasColumnName("eloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Forn")
-                        .HasColumnName("FORN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("forn")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Mloja1")
-                        .HasColumnName("MLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja1")
+                        .HasColumnName("mloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja2")
-                        .HasColumnName("MLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja2")
+                        .HasColumnName("mloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja3")
-                        .HasColumnName("MLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja3")
+                        .HasColumnName("mloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja4")
-                        .HasColumnName("MLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja4")
+                        .HasColumnName("mloja4")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja1")
-                        .HasColumnName("NLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja1")
+                        .HasColumnName("nloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja2")
-                        .HasColumnName("NLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja2")
+                        .HasColumnName("nloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja3")
-                        .HasColumnName("NLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja3")
+                        .HasColumnName("nloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja4")
-                        .HasColumnName("NLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja4")
+                        .HasColumnName("nloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Prbarra")
-                        .HasColumnName("PRBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("PED0406");
+                    b.ToTable("ped0406","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ped1103", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codint")
-                        .HasColumnName("CODINT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codint")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Eloja1")
-                        .HasColumnName("ELOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja1")
+                        .HasColumnName("eloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja2")
-                        .HasColumnName("ELOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja2")
+                        .HasColumnName("eloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja3")
-                        .HasColumnName("ELOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja3")
+                        .HasColumnName("eloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja4")
-                        .HasColumnName("ELOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja4")
+                        .HasColumnName("eloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Forn")
-                        .HasColumnName("FORN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("forn")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Mloja1")
-                        .HasColumnName("MLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja1")
+                        .HasColumnName("mloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja2")
-                        .HasColumnName("MLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja2")
+                        .HasColumnName("mloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja3")
-                        .HasColumnName("MLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja3")
+                        .HasColumnName("mloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja4")
-                        .HasColumnName("MLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja4")
+                        .HasColumnName("mloja4")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja1")
-                        .HasColumnName("NLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja1")
+                        .HasColumnName("nloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja2")
-                        .HasColumnName("NLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja2")
+                        .HasColumnName("nloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja3")
-                        .HasColumnName("NLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja3")
+                        .HasColumnName("nloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja4")
-                        .HasColumnName("NLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja4")
+                        .HasColumnName("nloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Prbarra")
-                        .HasColumnName("PRBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("PED1103");
+                    b.ToTable("ped1103","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ped1406", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codint")
-                        .HasColumnName("CODINT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codint")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Eloja1")
-                        .HasColumnName("ELOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja1")
+                        .HasColumnName("eloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja2")
-                        .HasColumnName("ELOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja2")
+                        .HasColumnName("eloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja3")
-                        .HasColumnName("ELOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja3")
+                        .HasColumnName("eloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja4")
-                        .HasColumnName("ELOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja4")
+                        .HasColumnName("eloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Forn")
-                        .HasColumnName("FORN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("forn")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Mloja1")
-                        .HasColumnName("MLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja1")
+                        .HasColumnName("mloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja2")
-                        .HasColumnName("MLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja2")
+                        .HasColumnName("mloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja3")
-                        .HasColumnName("MLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja3")
+                        .HasColumnName("mloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja4")
-                        .HasColumnName("MLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja4")
+                        .HasColumnName("mloja4")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja1")
-                        .HasColumnName("NLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja1")
+                        .HasColumnName("nloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja2")
-                        .HasColumnName("NLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja2")
+                        .HasColumnName("nloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja3")
-                        .HasColumnName("NLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja3")
+                        .HasColumnName("nloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja4")
-                        .HasColumnName("NLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja4")
+                        .HasColumnName("nloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Prbarra")
-                        .HasColumnName("PRBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("PED1406");
+                    b.ToTable("ped1406","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ped1912", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Codint")
-                        .HasColumnName("CODINT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codint")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Eloja1")
-                        .HasColumnName("ELOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja1")
+                        .HasColumnName("eloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja2")
-                        .HasColumnName("ELOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja2")
+                        .HasColumnName("eloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja3")
-                        .HasColumnName("ELOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja3")
+                        .HasColumnName("eloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Eloja4")
-                        .HasColumnName("ELOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Eloja4")
+                        .HasColumnName("eloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Forn")
-                        .HasColumnName("FORN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("forn")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Mloja1")
-                        .HasColumnName("MLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja1")
+                        .HasColumnName("mloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja2")
-                        .HasColumnName("MLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja2")
+                        .HasColumnName("mloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja3")
-                        .HasColumnName("MLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja3")
+                        .HasColumnName("mloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Mloja4")
-                        .HasColumnName("MLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Mloja4")
+                        .HasColumnName("mloja4")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja1")
-                        .HasColumnName("NLOJA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja1")
+                        .HasColumnName("nloja1")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja2")
-                        .HasColumnName("NLOJA2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja2")
+                        .HasColumnName("nloja2")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja3")
-                        .HasColumnName("NLOJA3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja3")
+                        .HasColumnName("nloja3")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Nloja4")
-                        .HasColumnName("NLOJA4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Nloja4")
+                        .HasColumnName("nloja4")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Prbarra")
-                        .HasColumnName("PRBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("PED1912");
+                    b.ToTable("ped1912","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Pedidos", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcdla")
-                        .HasColumnName("PRCDLA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdla")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<DateTime?>("Prdata")
-                        .HasColumnName("PRDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("prdata")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Prfabr")
-                        .HasColumnName("PRFABR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prfabr")
+                        .HasColumnName("prfabr")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Prqtde")
-                        .HasColumnName("PRQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Status")
-                        .HasColumnName("STATUS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("status")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("PEDIDOS");
+                    b.ToTable("pedidos","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Prodextr", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<decimal?>("Concor1")
+                        .HasColumnName("concor1")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Concor1")
-                        .HasColumnName("CONCOR1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Concor2")
+                        .HasColumnName("concor2")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Concor2")
-                        .HasColumnName("CONCOR2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Concor3")
+                        .HasColumnName("concor3")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Concor3")
-                        .HasColumnName("CONCOR3")
-                        .HasColumnType("float");
-
-                    b.Property<double?>("Concor4")
-                        .HasColumnName("CONCOR4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Concor4")
+                        .HasColumnName("concor4")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.ToTable("prodextr","public");
+                });
 
-                    b.ToTable("PRODEXTR");
+            modelBuilder.Entity("Core.Entities.Legacy.Prodneg", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<DateTime?>("Prdata")
+                        .HasColumnName("prdata")
+                        .HasColumnType("date");
+
+                    b.Property<decimal?>("Prestq")
+                        .HasColumnName("prestq")
+                        .HasColumnType("numeric(4,0)");
+
+                    b.Property<string>("Prhora")
+                        .HasColumnName("prhora")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(4,0)");
+
+                    b.Property<string>("Prtipo")
+                        .HasColumnName("prtipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.ToTable("prodneg","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Produto", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Coddcb")
-                        .HasColumnName("CODDCB")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("coddcb")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Codesta")
-                        .HasColumnName("CODESTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codesta")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
                     b.Property<string>("Codfis")
-                        .HasColumnName("CODFIS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codfis")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
-                    b.Property<double?>("Comissao")
-                        .HasColumnName("COMISSAO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Comissao")
+                        .HasColumnName("comissao")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("DescMax")
-                        .HasColumnName("DESC_MAX")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("DescMax")
+                        .HasColumnName("desc_max")
+                        .HasColumnType("numeric(5,2)");
 
-                    b.Property<double?>("EstMinimo")
-                        .HasColumnName("EST_MINIMO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("EstMinimo")
+                        .HasColumnName("est_minimo")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Etbarra")
-                        .HasColumnName("ETBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("etbarra")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Etgraf")
-                        .HasColumnName("ETGRAF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("etgraf")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prbarra")
-                        .HasColumnName("PRBARRA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<DateTime?>("Prcddt")
-                        .HasColumnName("PRCDDT")
-                        .HasColumnType("datetime");
+                        .HasColumnName("prcddt")
+                        .HasColumnType("date");
 
                     b.Property<string>("Prcdimp")
-                        .HasColumnName("PRCDIMP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdimp")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Prcdimp2")
-                        .HasColumnName("PRCDIMP2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdimp2")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Prcdla")
-                        .HasColumnName("PRCDLA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdla")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
-                    b.Property<double?>("Prcdlucr")
-                        .HasColumnName("PRCDLUCR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcdlucr")
+                        .HasColumnName("prcdlucr")
+                        .HasColumnType("numeric(10,6)");
 
                     b.Property<string>("Prcdse")
-                        .HasColumnName("PRCDSE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcdse")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Prclas")
-                        .HasColumnName("PRCLAS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prclas")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Prconscv")
-                        .HasColumnName("PRCONSCV")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prconscv")
+                        .HasColumnName("prconscv")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<DateTime?>("Prdata")
-                        .HasColumnName("PRDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("prdata")
+                        .HasColumnType("date");
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Prdesconv")
-                        .HasColumnName("PRDESCONV")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesconv")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTime?>("Prdtul")
-                        .HasColumnName("PRDTUL")
-                        .HasColumnType("datetime");
+                        .HasColumnName("prdtul")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Premb")
-                        .HasColumnName("PREMB")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Premb")
+                        .HasColumnName("premb")
+                        .HasColumnType("numeric(4,0)");
 
-                    b.Property<double?>("Prentr")
-                        .HasColumnName("PRENTR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prentr")
+                        .HasColumnName("prentr")
+                        .HasColumnType("numeric(6,0)");
 
-                    b.Property<double?>("Prestq")
-                        .HasColumnName("PRESTQ")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prestq")
+                        .HasColumnName("prestq")
+                        .HasColumnType("numeric(4,0)");
 
                     b.Property<string>("Pretiq")
-                        .HasColumnName("PRETIQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("pretiq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Prfabr")
-                        .HasColumnName("PRFABR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prfabr")
+                        .HasColumnName("prfabr")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Prfinal")
-                        .HasColumnName("PRFINAL")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prfinal")
+                        .HasColumnName("prfinal")
+                        .HasColumnType("numeric(4,0)");
 
                     b.Property<string>("Prfixa")
-                        .HasColumnName("PRFIXA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prfixa")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Pricms")
-                        .HasColumnName("PRICMS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Pricms")
+                        .HasColumnName("pricms")
+                        .HasColumnType("numeric(2,0)");
 
-                    b.Property<double?>("Prinicial")
-                        .HasColumnName("PRINICIAL")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prinicial")
+                        .HasColumnName("prinicial")
+                        .HasColumnType("numeric(4,0)");
 
                     b.Property<string>("Prloca")
-                        .HasColumnName("PRLOCA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prloca")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Prlote")
-                        .HasColumnName("PRLOTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prlote")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
-                    b.Property<double?>("Prmesant")
-                        .HasColumnName("PRMESANT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prmesant")
+                        .HasColumnName("prmesant")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Prncms")
-                        .HasColumnName("PRNCMS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prncms")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Prneutro")
-                        .HasColumnName("PRNEUTRO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prneutro")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Prnola")
-                        .HasColumnName("PRNOLA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prnola")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Prnose")
-                        .HasColumnName("PRNOSE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prnose")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Prpis")
-                        .HasColumnName("PRPIS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prpis")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prpopular")
-                        .HasColumnName("PRPOPULAR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prpopular")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prporta")
-                        .HasColumnName("PRPORTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prporta")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prpos")
-                        .HasColumnName("PRPOS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prpos")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Prpret")
-                        .HasColumnName("PRPRET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prpret")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prprinci")
-                        .HasColumnName("PRPRINCI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prprinci")
+                        .HasColumnType("character varying(130)")
+                        .HasMaxLength(130);
 
-                    b.Property<double?>("Prpromo")
-                        .HasColumnName("PRPROMO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prpromo")
+                        .HasColumnName("prpromo")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("Prreg")
-                        .HasColumnName("PRREG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prreg")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Prsal")
-                        .HasColumnName("PRSAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prsal")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Prsitu")
-                        .HasColumnName("PRSITU")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prsitu")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Prtestq")
-                        .HasColumnName("PRTESTQ")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prtestq")
+                        .HasColumnName("prtestq")
+                        .HasColumnType("numeric(4,0)");
 
-                    b.Property<double?>("Prulte")
-                        .HasColumnName("PRULTE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prulte")
+                        .HasColumnName("prulte")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Prun")
-                        .HasColumnName("PRUN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prun")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTime?>("Prvalid")
-                        .HasColumnName("PRVALID")
-                        .HasColumnType("datetime");
+                        .HasColumnName("prvalid")
+                        .HasColumnType("date");
 
                     b.Property<string>("Secao")
-                        .HasColumnName("SECAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("secao")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTime?>("UlVen")
-                        .HasColumnName("UL_VEN")
-                        .HasColumnType("datetime");
+                        .HasColumnName("ul_ven")
+                        .HasColumnType("date");
 
                     b.Property<string>("Ultfor")
-                        .HasColumnName("ULTFOR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ultfor")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTime?>("Ultped")
-                        .HasColumnName("ULTPED")
-                        .HasColumnType("datetime");
+                        .HasColumnName("ultped")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Ultpreco")
-                        .HasColumnName("ULTPRECO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Ultpreco")
+                        .HasColumnName("ultpreco")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Vendant")
-                        .HasColumnName("VENDANT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Vendant")
+                        .HasColumnName("vendant")
+                        .HasColumnType("numeric(4,0)");
 
-                    b.Property<double?>("Vendatu")
-                        .HasColumnName("VENDATU")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Vendatu")
+                        .HasColumnName("vendatu")
+                        .HasColumnType("numeric(4,0)");
 
-                    b.Property<double?>("Vlcomis")
-                        .HasColumnName("VLCOMIS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Vlcomis")
+                        .HasColumnName("vlcomis")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
+                    b.ToTable("produto","public");
+                });
 
-                    b.ToTable("PRODUTO");
+            modelBuilder.Entity("Core.Entities.Legacy.Produtoold", b =>
+                {
+                    b.Property<string>("Coddcb")
+                        .HasColumnName("coddcb")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("Codesta")
+                        .HasColumnName("codesta")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
+
+                    b.Property<string>("Codfis")
+                        .HasColumnName("codfis")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<decimal?>("Comissao")
+                        .HasColumnName("comissao")
+                        .HasColumnType("numeric(5,2)");
+
+                    b.Property<decimal?>("DescMax")
+                        .HasColumnName("desc_max")
+                        .HasColumnType("numeric(5,2)");
+
+                    b.Property<decimal?>("EstMinimo")
+                        .HasColumnName("est_minimo")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.Property<string>("Etbarra")
+                        .HasColumnName("etbarra")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Etgraf")
+                        .HasColumnName("etgraf")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Prbarra")
+                        .HasColumnName("prbarra")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
+
+                    b.Property<DateTime?>("Prcddt")
+                        .HasColumnName("prcddt")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Prcdimp")
+                        .HasColumnName("prcdimp")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("Prcdimp2")
+                        .HasColumnName("prcdimp2")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("Prcdla")
+                        .HasColumnName("prcdla")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<decimal?>("Prcdlucr")
+                        .HasColumnName("prcdlucr")
+                        .HasColumnType("numeric(10,6)");
+
+                    b.Property<string>("Prcdse")
+                        .HasColumnName("prcdse")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("Prclas")
+                        .HasColumnName("prclas")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<decimal?>("Prconscv")
+                        .HasColumnName("prconscv")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<DateTime?>("Prdata")
+                        .HasColumnName("prdata")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Prdesc")
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Prdesconv")
+                        .HasColumnName("prdesconv")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<DateTime?>("Prdtul")
+                        .HasColumnName("prdtul")
+                        .HasColumnType("date");
+
+                    b.Property<decimal?>("Premb")
+                        .HasColumnName("premb")
+                        .HasColumnType("numeric(4,0)");
+
+                    b.Property<decimal?>("Prentr")
+                        .HasColumnName("prentr")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.Property<decimal?>("Prestq")
+                        .HasColumnName("prestq")
+                        .HasColumnType("numeric(4,0)");
+
+                    b.Property<string>("Pretiq")
+                        .HasColumnName("pretiq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<decimal?>("Prfabr")
+                        .HasColumnName("prfabr")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<string>("Prfixa")
+                        .HasColumnName("prfixa")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<decimal?>("Pricms")
+                        .HasColumnName("pricms")
+                        .HasColumnType("numeric(2,0)");
+
+                    b.Property<decimal?>("Prinicial")
+                        .HasColumnName("prinicial")
+                        .HasColumnType("numeric(4,0)");
+
+                    b.Property<string>("Prloca")
+                        .HasColumnName("prloca")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("Prlote")
+                        .HasColumnName("prlote")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<decimal?>("Prmesant")
+                        .HasColumnName("prmesant")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<string>("Prncms")
+                        .HasColumnName("prncms")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
+
+                    b.Property<string>("Prneutro")
+                        .HasColumnName("prneutro")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("Prnola")
+                        .HasColumnName("prnola")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Prnose")
+                        .HasColumnName("prnose")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Prpis")
+                        .HasColumnName("prpis")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Prpopular")
+                        .HasColumnName("prpopular")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Prporta")
+                        .HasColumnName("prporta")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<string>("Prpos")
+                        .HasColumnName("prpos")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
+
+                    b.Property<string>("Prpret")
+                        .HasColumnName("prpret")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Prprinci")
+                        .HasColumnName("prprinci")
+                        .HasColumnType("character varying(130)")
+                        .HasMaxLength(130);
+
+                    b.Property<decimal?>("Prpromo")
+                        .HasColumnName("prpromo")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<string>("Prreg")
+                        .HasColumnName("prreg")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
+
+                    b.Property<string>("Prsal")
+                        .HasColumnName("prsal")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("Prsitu")
+                        .HasColumnName("prsitu")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<decimal?>("Prtestq")
+                        .HasColumnName("prtestq")
+                        .HasColumnType("numeric(4,0)");
+
+                    b.Property<decimal?>("Prulte")
+                        .HasColumnName("prulte")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.Property<string>("Prun")
+                        .HasColumnName("prun")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<DateTime?>("Prvalid")
+                        .HasColumnName("prvalid")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Secao")
+                        .HasColumnName("secao")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<string>("Tipo")
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<DateTime?>("UlVen")
+                        .HasColumnName("ul_ven")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Ultfor")
+                        .HasColumnName("ultfor")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
+
+                    b.Property<DateTime?>("Ultped")
+                        .HasColumnName("ultped")
+                        .HasColumnType("date");
+
+                    b.Property<decimal?>("Ultpreco")
+                        .HasColumnName("ultpreco")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<decimal?>("Vendant")
+                        .HasColumnName("vendant")
+                        .HasColumnType("numeric(4,0)");
+
+                    b.Property<decimal?>("Vendatu")
+                        .HasColumnName("vendatu")
+                        .HasColumnType("numeric(4,0)");
+
+                    b.Property<decimal?>("Vlcomis")
+                        .HasColumnName("vlcomis")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.ToTable("produtoold","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Psico", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Barras")
-                        .HasColumnName("BARRAS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("barras")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Cid")
-                        .HasColumnName("CID")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cid")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Cnpj")
-                        .HasColumnName("CNPJ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cnpj")
+                        .HasColumnType("character varying(14)")
+                        .HasMaxLength(14);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Crm")
-                        .HasColumnName("CRM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("crm")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<DateTime?>("Emissao")
-                        .HasColumnName("EMISSAO")
-                        .HasColumnType("datetime");
+                        .HasColumnName("emissao")
+                        .HasColumnType("date");
 
                     b.Property<string>("Fone")
-                        .HasColumnName("FONE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fone")
+                        .HasColumnType("character varying(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("Fornec")
-                        .HasColumnName("FORNEC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("fornec")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Idade")
-                        .HasColumnName("IDADE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("idade")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Lote")
-                        .HasColumnName("LOTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("lote")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Motivo")
-                        .HasColumnName("MOTIVO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("motivo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTime?>("Nasc")
-                        .HasColumnName("NASC")
-                        .HasColumnType("datetime");
+                        .HasColumnName("nasc")
+                        .HasColumnType("date");
 
                     b.Property<string>("Nf")
-                        .HasColumnName("NF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nf")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Nomemed")
-                        .HasColumnName("NOMEMED")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nomemed")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Orgao")
-                        .HasColumnName("ORGAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("orgao")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Paciente")
-                        .HasColumnName("PACIENTE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("paciente")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("Porta")
-                        .HasColumnName("PORTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("porta")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Prdesc")
-                        .HasColumnName("PRDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Prolong")
-                        .HasColumnName("PROLONG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prolong")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prreg")
-                        .HasColumnName("PRREG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prreg")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
-                    b.Property<double?>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Qtde")
+                        .HasColumnName("qtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Receita")
-                        .HasColumnName("RECEITA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("receita")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Rg")
-                        .HasColumnName("RG")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("rg")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
                     b.Property<string>("Sexo")
-                        .HasColumnName("SEXO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("sexo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Tpcons")
-                        .HasColumnName("TPCONS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tpcons")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<string>("Tpidade")
-                        .HasColumnName("TPIDADE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tpidade")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Tpmed")
-                        .HasColumnName("TPMED")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tpmed")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Tpreceita")
-                        .HasColumnName("TPRECEITA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tpreceita")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Uf")
-                        .HasColumnName("UF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("uf")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Ufcons")
-                        .HasColumnName("UFCONS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ufcons")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Unidade")
-                        .HasColumnName("UNIDADE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("unidade")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Usomed")
-                        .HasColumnName("USOMED")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("usomed")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.HasKey("Id");
-
-                    b.ToTable("PSICO");
+                    b.ToTable("psico","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Rancliqt", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Bacodi")
-                        .HasColumnName("BACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bacodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Cancelado")
-                        .HasColumnName("CANCELADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cancelado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Codcli")
-                        .HasColumnName("CODCLI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codcli")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prqtde")
-                        .HasColumnName("PRQTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("TotComis")
-                        .HasColumnName("TOT_COMIS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotComis")
+                        .HasColumnName("tot_comis")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("TotDescon")
-                        .HasColumnName("TOT_DESCON")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotDescon")
+                        .HasColumnName("tot_descon")
+                        .HasColumnType("numeric(2,0)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VlTot")
-                        .HasColumnName("VL_TOT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlTot")
+                        .HasColumnName("vl_tot")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("VlUnit")
-                        .HasColumnName("VL_UNIT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlUnit")
+                        .HasColumnName("vl_unit")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("RANCLIQT");
+                    b.ToTable("rancliqt","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ranclivl", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Bacodi")
-                        .HasColumnName("BACODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("bacodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Caixa")
-                        .HasColumnName("CAIXA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("caixa")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Cancelado")
-                        .HasColumnName("CANCELADO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cancelado")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Codcli")
-                        .HasColumnName("CODCLI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("codcli")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<string>("Hora")
-                        .HasColumnName("HORA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("hora")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("NFiscal")
-                        .HasColumnName("N_FISCAL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("n_fiscal")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Tipo")
-                        .HasColumnName("TIPO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tipo")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("TotVen")
-                        .HasColumnName("TOT_VEN")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotVen")
+                        .HasColumnName("tot_ven")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("RANCLIVL");
+                    b.ToTable("ranclivl","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Reconst", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ArqCorevo")
-                        .HasColumnName("ARQCoreVO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<string>("Arquivo")
+                        .HasColumnName("arquivo")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Necessita")
-                        .HasColumnName("NECESSITA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("necessita")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Posicao")
-                        .HasColumnName("POSICAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("posicao")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("RECONST");
+                    b.ToTable("reconst","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Reducao", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Acresc")
-                        .HasColumnName("ACRESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acresc")
+                        .HasColumnType("character varying(14)")
+                        .HasMaxLength(14);
 
                     b.Property<string>("Acresfin")
-                        .HasColumnName("ACRESFIN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acresfin")
+                        .HasColumnType("character varying(14)")
+                        .HasMaxLength(14);
 
                     b.Property<string>("Aliquota")
-                        .HasColumnName("ALIQUOTA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("aliquota")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Cancela")
-                        .HasColumnName("CANCELA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cancela")
+                        .HasColumnType("character varying(14)")
+                        .HasMaxLength(14);
 
                     b.Property<string>("Cns")
-                        .HasColumnName("CNS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cns")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Cnsi")
-                        .HasColumnName("CNSI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("cnsi")
+                        .HasColumnType("character varying(36)")
+                        .HasMaxLength(36);
 
                     b.Property<string>("Coo")
-                        .HasColumnName("COO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("coo")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("data")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Desconto")
-                        .HasColumnName("DESCONTO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("desconto")
+                        .HasColumnType("character varying(14)")
+                        .HasMaxLength(14);
 
                     b.Property<string>("Gtda")
-                        .HasColumnName("GTDA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("gtda")
+                        .HasColumnType("character varying(18)")
+                        .HasMaxLength(18);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nsi")
-                        .HasColumnName("NSI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nsi")
+                        .HasColumnType("character varying(126)")
+                        .HasMaxLength(126);
 
                     b.Property<string>("Rzaut")
-                        .HasColumnName("RZAUT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("rzaut")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Sangria")
-                        .HasColumnName("SANGRIA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("sangria")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Supri")
-                        .HasColumnName("SUPRI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("supri")
+                        .HasColumnType("character varying(14)")
+                        .HasMaxLength(14);
 
                     b.Property<string>("Tributo")
-                        .HasColumnName("TRIBUTO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("tributo")
+                        .HasColumnType("character varying(64)")
+                        .HasMaxLength(64);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("REDUCAO");
+                    b.ToTable("reducao","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Relator", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nivel")
-                        .HasColumnName("NIVEL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nivel")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Relatorio")
-                        .HasColumnName("RELATORIO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("relatorio")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("relator");
+                    b.ToTable("relator","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.ResAno", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double?>("CliAtds")
-                        .HasColumnName("CLI_ATDS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("CliAtds")
+                        .HasColumnName("cli_atds")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Descrec")
-                        .HasColumnName("DESCREC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Descrec")
+                        .HasColumnName("descrec")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Diastrab")
-                        .HasColumnName("DIASTRAB")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Diastrab")
+                        .HasColumnName("diastrab")
+                        .HasColumnType("numeric(2,0)");
 
-                    b.Property<double?>("Entradas")
-                        .HasColumnName("ENTRADAS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Entradas")
+                        .HasColumnName("entradas")
+                        .HasColumnType("numeric(12,2)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("MesRef")
-                        .HasColumnName("MES_REF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("mes_ref")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
-                    b.Property<double?>("RecFiado")
-                        .HasColumnName("REC_FIADO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("RecFiado")
+                        .HasColumnName("rec_fiado")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("TotEstoq")
-                        .HasColumnName("TOT_ESTOQ")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TotEstoq")
+                        .HasColumnName("tot_estoq")
+                        .HasColumnType("numeric(15,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VdaConv")
-                        .HasColumnName("VDA_CONV")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VdaConv")
+                        .HasColumnName("vda_conv")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("VdaVista")
-                        .HasColumnName("VDA_VISTA")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VdaVista")
+                        .HasColumnName("vda_vista")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("VenFiado")
-                        .HasColumnName("VEN_FIADO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VenFiado")
+                        .HasColumnName("ven_fiado")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("VenMes")
-                        .HasColumnName("VEN_MES")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VenMes")
+                        .HasColumnName("ven_mes")
+                        .HasColumnType("numeric(15,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("ResAno");
+                    b.ToTable("res_ano","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Retirada", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Caixa")
-                        .HasColumnName("CAIXA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("caixa")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
                     b.Property<string>("Hora")
-                        .HasColumnName("HORA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("hora")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valorch")
-                        .HasColumnName("VALORCH")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valorch")
+                        .HasColumnName("valorch")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Valordh")
-                        .HasColumnName("VALORDH")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valordh")
+                        .HasColumnName("valordh")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("RETIRADA");
+                    b.ToTable("retirada","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Sal", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Salcod")
-                        .HasColumnName("SALCOD")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("salcod")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Salnome")
-                        .HasColumnName("SALNOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("salnome")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("SAL");
+                    b.ToTable("sal","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Secao", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Secodi")
-                        .HasColumnName("SECODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("secodi")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Senome")
-                        .HasColumnName("SENOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senome")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("SECAO");
+                    b.ToTable("secao","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Senha", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Sen")
-                        .HasColumnName("SEN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("sen")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Sencheq")
-                        .HasColumnName("SENCHEQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("sencheq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Sencit")
-                        .HasColumnName("SENCIT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("sencit")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senclich")
-                        .HasColumnName("SENCLICH")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senclich")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senclip")
-                        .HasColumnName("SENCLIP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senclip")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Sencont")
-                        .HasColumnName("SENCONT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("sencont")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTime?>("Sendate")
-                        .HasColumnName("SENDATE")
-                        .HasColumnType("datetime");
+                        .HasColumnName("sendate")
+                        .HasColumnType("date");
 
                     b.Property<string>("Sendefa")
-                        .HasColumnName("SENDEFA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("sendefa")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
-                    b.Property<double?>("Sendesc")
-                        .HasColumnName("SENDESC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Sendesc")
+                        .HasColumnName("sendesc")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Sendesc1")
-                        .HasColumnName("SENDESC1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Sendesc1")
+                        .HasColumnName("sendesc1")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Sendesc2")
-                        .HasColumnName("SENDESC2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Sendesc2")
+                        .HasColumnName("sendesc2")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Sendesc3")
-                        .HasColumnName("SENDESC3")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Sendesc3")
+                        .HasColumnName("sendesc3")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Sendesc4")
-                        .HasColumnName("SENDESC4")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Sendesc4")
+                        .HasColumnName("sendesc4")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Sendesc5")
-                        .HasColumnName("SENDESC5")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Sendesc5")
+                        .HasColumnName("sendesc5")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Sendesc6")
-                        .HasColumnName("SENDESC6")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Sendesc6")
+                        .HasColumnName("sendesc6")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Sendia")
-                        .HasColumnName("SENDIA")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Sendia")
+                        .HasColumnName("sendia")
+                        .HasColumnType("numeric(3,0)");
 
                     b.Property<string>("Senestq")
-                        .HasColumnName("SENESTQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senestq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senetq")
-                        .HasColumnName("SENETQ")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senetq")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senetqb")
-                        .HasColumnName("SENETQB")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senetqb")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senetqe")
-                        .HasColumnName("SENETQE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senetqe")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senetqp")
-                        .HasColumnName("SENETQP")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senetqp")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senfia")
-                        .HasColumnName("SENFIA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senfia")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Senfiacr")
-                        .HasColumnName("SENFIACR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Senfiacr")
+                        .HasColumnName("senfiacr")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Senfiatr")
-                        .HasColumnName("SENFIATR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Senfiatr")
+                        .HasColumnName("senfiatr")
+                        .HasColumnType("numeric(3,0)");
 
                     b.Property<string>("Senfis")
-                        .HasColumnName("SENFIS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senfis")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Senlin")
-                        .HasColumnName("SENLIN")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Senlin")
+                        .HasColumnName("senlin")
+                        .HasColumnType("numeric(3,0)");
 
                     b.Property<string>("Senman")
-                        .HasColumnName("SENMAN")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senman")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
-                    b.Property<double?>("Senmdprint")
-                        .HasColumnName("SENMDPRINT")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Senmdprint")
+                        .HasColumnName("senmdprint")
+                        .HasColumnType("numeric(2,0)");
 
-                    b.Property<double?>("Senmulta")
-                        .HasColumnName("SENMULTA")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Senmulta")
+                        .HasColumnName("senmulta")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Senniv")
-                        .HasColumnName("SENNIV")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senniv")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("Senpar")
-                        .HasColumnName("SENPAR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senpar")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<DateTime?>("Senpcli")
-                        .HasColumnName("SENPCLI")
-                        .HasColumnType("datetime");
+                        .HasColumnName("senpcli")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Senpme")
-                        .HasColumnName("SENPME")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Senpme")
+                        .HasColumnName("senpme")
+                        .HasColumnType("numeric(5,0)");
 
-                    b.Property<double?>("Senponto")
-                        .HasColumnName("SENPONTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Senponto")
+                        .HasColumnName("senponto")
+                        .HasColumnType("numeric(5,0)");
 
                     b.Property<string>("Senport")
-                        .HasColumnName("SENPORT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senport")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Senprint")
-                        .HasColumnName("SENPRINT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senprint")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senprot")
-                        .HasColumnName("SENPROT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senprot")
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
                     b.Property<string>("Senrec")
-                        .HasColumnName("SENREC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senrec")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senrel")
-                        .HasColumnName("SENREL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senrel")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senrepete")
-                        .HasColumnName("SENREPETE")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senrepete")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Senver")
-                        .HasColumnName("SENVER")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senver")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
 
-                    b.Property<double?>("Senvlpon")
-                        .HasColumnName("SENVLPON")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Senvlpon")
+                        .HasColumnName("senvlpon")
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("SENHA");
+                    b.ToTable("senha","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Servico", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Svcodi")
-                        .HasColumnName("SVCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("svcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Svcomb")
-                        .HasColumnName("SVCOMB")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Svcomb")
+                        .HasColumnName("svcomb")
+                        .HasColumnType("numeric(2,0)");
 
                     b.Property<string>("Svdesc")
-                        .HasColumnName("SVDESC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("svdesc")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Svpr01")
-                        .HasColumnName("SVPR01")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("svpr01")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Svpr02")
-                        .HasColumnName("SVPR02")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("svpr02")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Svpr03")
-                        .HasColumnName("SVPR03")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("svpr03")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Svpr04")
-                        .HasColumnName("SVPR04")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("svpr04")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("Svpr05")
-                        .HasColumnName("SVPR05")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("svpr05")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Svprec")
-                        .HasColumnName("SVPREC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Svprec")
+                        .HasColumnName("svprec")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Svven1")
-                        .HasColumnName("SVVEN1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Svven1")
+                        .HasColumnName("svven1")
+                        .HasColumnType("numeric(5,0)");
 
-                    b.Property<double?>("Svven2")
-                        .HasColumnName("SVVEN2")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Svven2")
+                        .HasColumnName("svven2")
+                        .HasColumnType("numeric(5,0)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("SERVICO");
+                    b.ToTable("servico","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Sistema", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Ticket")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Usuario")
-                        .HasColumnName("USUARIO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("usuario")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
-                    b.HasKey("Id");
-
-                    b.ToTable("SISTEMA");
+                    b.ToTable("sistema","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Slpharma", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Reconst")
-                        .HasColumnName("RECONST")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("reconst")
+                        .HasColumnType("character varying(50)")
+                        .HasMaxLength(50);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.ToTable("slpharma","public");
+                });
 
-                    b.ToTable("SLPHARMA");
+            modelBuilder.Entity("Core.Entities.Legacy.Spool", b =>
+                {
+                    b.Property<string>("Arquivo")
+                        .HasColumnName("arquivo")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
+
+                    b.Property<DateTime?>("Data")
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
+                    b.Property<string>("Descr")
+                        .HasColumnName("descr")
+                        .HasColumnType("character varying(40)")
+                        .HasMaxLength(40);
+
+                    b.Property<string>("Hora")
+                        .HasColumnName("hora")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("Nivel")
+                        .HasColumnName("nivel")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
+
+                    b.ToTable("spool","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Subsecao", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Secaopert")
-                        .HasColumnName("SECAOPERT")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("secaopert")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
-                    b.Property<double?>("Subimpost")
-                        .HasColumnName("SUBIMPOST")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Subimpost")
+                        .HasColumnName("subimpost")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Subncm")
-                        .HasColumnName("SUBNCM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subncm")
+                        .HasColumnType("character varying(8)")
+                        .HasMaxLength(8);
 
                     b.Property<string>("Subsecodi")
-                        .HasColumnName("SUBSECODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsecodi")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
-                    b.Property<double?>("Subselucr")
-                        .HasColumnName("SUBSELUCR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Subselucr")
+                        .HasColumnName("subselucr")
+                        .HasColumnType("numeric(8,6)");
 
                     b.Property<string>("Subsenome")
-                        .HasColumnName("SUBSENOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subsenome")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Subseprec")
-                        .HasColumnName("SUBSEPREC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("subseprec")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valrec")
-                        .HasColumnName("VALREC")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valrec")
+                        .HasColumnName("valrec")
+                        .HasColumnType("numeric(3,0)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("SUBSECAO");
+                    b.ToTable("subsecao","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Tabela", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Abc")
-                        .HasColumnName("ABC")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("abc")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
 
-                    b.Property<double?>("Barra")
-                        .HasColumnName("BARRA")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Barra")
+                        .HasColumnName("barra")
+                        .HasColumnType("numeric(13,0)");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Ctr")
-                        .HasColumnName("CTR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ctr")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Custom")
-                        .HasColumnName("CUSTOM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("custom")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
 
                     b.Property<string>("Des")
-                        .HasColumnName("DES")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("des")
+                        .HasColumnType("character varying(45)")
+                        .HasMaxLength(45);
 
                     b.Property<DateTime?>("Dtvig")
-                        .HasColumnName("DTVIG")
-                        .HasColumnType("datetime");
+                        .HasColumnName("dtvig")
+                        .HasColumnType("date");
 
-                    b.Property<double?>("Fra1")
-                        .HasColumnName("FRA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Fra1")
+                        .HasColumnName("fra1")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Ipi")
-                        .HasColumnName("IPI")
-                        .HasColumnType("float");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal?>("Ipi")
+                        .HasColumnName("ipi")
+                        .HasColumnType("numeric(6,2)");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("LabNom")
-                        .HasColumnName("LAB_NOM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("lab_nom")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("MedApr")
-                        .HasColumnName("MED_APR")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("med_apr")
+                        .HasColumnType("character varying(45)")
+                        .HasMaxLength(45);
 
                     b.Property<string>("MedDes")
-                        .HasColumnName("MED_DES")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("med_des")
+                        .HasColumnType("character varying(45)")
+                        .HasMaxLength(45);
 
                     b.Property<string>("MedPrinci")
-                        .HasColumnName("MED_PRINCI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("med_princi")
+                        .HasColumnType("character varying(130)")
+                        .HasMaxLength(130);
 
                     b.Property<string>("MedRegims")
-                        .HasColumnName("MED_REGIMS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("med_regims")
+                        .HasColumnType("character varying(13)")
+                        .HasMaxLength(13);
 
                     b.Property<string>("Negpos")
-                        .HasColumnName("NEGPOS")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("negpos")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Neutro")
-                        .HasColumnName("NEUTRO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("neutro")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Nom")
-                        .HasColumnName("NOM")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nom")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
-                    b.Property<double?>("Pco1")
-                        .HasColumnName("PCO1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Pco1")
+                        .HasColumnName("pco1")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Pla1")
-                        .HasColumnName("PLA1")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Pla1")
+                        .HasColumnName("pla1")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Uni")
-                        .HasColumnName("UNI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Uni")
+                        .HasColumnName("uni")
+                        .HasColumnType("numeric(3,0)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TABELA");
+                    b.ToTable("tabela","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Temp", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Desconto")
-                        .HasColumnName("DESCONTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnName("desconto")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("DESCRICAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("descricao")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Prconsd")
-                        .HasColumnName("PRCONSD")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prconsd")
+                        .HasColumnName("prconsd")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Qtde")
+                        .HasColumnName("qtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VlTotal")
-                        .HasColumnName("VL_TOTAL")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlTotal")
+                        .HasColumnName("vl_total")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TEMP");
+                    b.ToTable("temp","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Tempo", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("Desconto")
-                        .HasColumnName("DESCONTO")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Desconto")
+                        .HasColumnName("desconto")
+                        .HasColumnType("numeric(5,2)");
 
                     b.Property<string>("Descricao")
-                        .HasColumnName("DESCRICAO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("descricao")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
 
-                    b.Property<double?>("Estoque")
-                        .HasColumnName("ESTOQUE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Estoque")
+                        .HasColumnName("estoque")
+                        .HasColumnType("numeric(4,0)");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Pedido")
-                        .HasColumnName("PEDIDO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("pedido")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.Property<double?>("Prconsd")
-                        .HasColumnName("PRCONSD")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prconsd")
+                        .HasColumnName("prconsd")
+                        .HasColumnType("numeric(12,4)");
 
-                    b.Property<double?>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Qtde")
+                        .HasColumnName("qtde")
+                        .HasColumnType("numeric(6,0)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("VlTotal")
-                        .HasColumnName("VL_TOTAL")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("VlTotal")
+                        .HasColumnName("vl_total")
+                        .HasColumnType("numeric(12,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TEMPO");
+                    b.ToTable("tempo","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Ticket", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Ecf")
-                        .HasColumnName("ECF")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ecf")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Ticket1")
-                        .HasColumnName("TICKET")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("ticket")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TICKET");
+                    b.ToTable("ticket","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Transfer", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Balcon")
-                        .HasColumnName("BALCON")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("balcon")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Etiqueta")
-                        .HasColumnName("ETIQUETA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("etiqueta")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<string>("Filcodi")
-                        .HasColumnName("FILCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("filcodi")
+                        .HasColumnType("character varying(3)")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Hora")
-                        .HasColumnName("HORA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("hora")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Impresso")
-                        .HasColumnName("IMPRESSO")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("impresso")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Prcons")
-                        .HasColumnName("PRCONS")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Prcons")
+                        .HasColumnName("prcons")
+                        .HasColumnType("numeric(10,2)");
 
-                    b.Property<double?>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Qtde")
+                        .HasColumnName("qtde")
+                        .HasColumnType("numeric(4,0)");
 
                     b.Property<DateTime?>("Trdata")
-                        .HasColumnName("TRDATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("trdata")
+                        .HasColumnType("date");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TRANSFER");
+                    b.ToTable("transfer","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco1", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO1");
+                    b.ToTable("troco1","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco10", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO10");
+                    b.ToTable("troco10","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco11", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO11");
+                    b.ToTable("troco11","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco12", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO12");
+                    b.ToTable("troco12","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco13", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO13");
+                    b.ToTable("troco13","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco14", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO14");
+                    b.ToTable("troco14","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco15", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO15");
+                    b.ToTable("troco15","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco16", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO16");
+                    b.ToTable("troco16","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco17", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO17");
+                    b.ToTable("troco17","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco18", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO18");
+                    b.ToTable("troco18","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco19", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO19");
+                    b.ToTable("troco19","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco2", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO2");
+                    b.ToTable("troco2","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco20", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO20");
+                    b.ToTable("troco20","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco3", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO3");
+                    b.ToTable("troco3","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco4", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO4");
+                    b.ToTable("troco4","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco5", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO5");
+                    b.ToTable("troco5","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco6", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO6");
+                    b.ToTable("troco6","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco7", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO7");
+                    b.ToTable("troco7","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco8", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO8");
+                    b.ToTable("troco8","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Troco9", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
 
-                    b.Property<string>("Initroco")
-                        .HasColumnName("INITROCO")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("Initroco")
+                        .HasColumnName("initroco")
+                        .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<double?>("TrocoIni")
-                        .HasColumnName("TROCO_INI")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("TrocoIni")
+                        .HasColumnName("troco_ini")
+                        .HasColumnType("numeric(12,2)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("TROCO9");
+                    b.ToTable("troco9","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Urv", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.Property<double?>("Valor")
-                        .HasColumnName("VALOR")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Valor")
+                        .HasColumnName("valor")
+                        .HasColumnType("numeric(7,2)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("URV");
+                    b.ToTable("urv","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Usefarma", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<string>("Acesso1")
-                        .HasColumnName("ACESSO1")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso1")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Acesso10")
-                        .HasColumnName("ACESSO10")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso10")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Acesso2")
-                        .HasColumnName("ACESSO2")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso2")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Acesso3")
-                        .HasColumnName("ACESSO3")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso3")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Acesso4")
-                        .HasColumnName("ACESSO4")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso4")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Acesso5")
-                        .HasColumnName("ACESSO5")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso5")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Acesso6")
-                        .HasColumnName("ACESSO6")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso6")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Acesso7")
-                        .HasColumnName("ACESSO7")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso7")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Acesso8")
-                        .HasColumnName("ACESSO8")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso8")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<string>("Acesso9")
-                        .HasColumnName("ACESSO9")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("acesso9")
+                        .HasColumnType("character varying(250)")
+                        .HasMaxLength(250);
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Nivel")
-                        .HasColumnName("NIVEL")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nivel")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
 
                     b.Property<string>("Nome")
-                        .HasColumnName("NOME")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(15)")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Senha")
-                        .HasColumnName("SENHA")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("senha")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.ToTable("usefarma","public");
+                });
 
-                    b.ToTable("USEFARMA");
+            modelBuilder.Entity("Core.Entities.Legacy.User", b =>
+                {
+                    b.Property<string>("Apelido")
+                        .HasColumnName("apelido")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("Bairro")
+                        .HasColumnName("bairro")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
+
+                    b.Property<string>("Cep")
+                        .HasColumnName("cep")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
+
+                    b.Property<string>("Cgc")
+                        .HasColumnName("cgc")
+                        .HasColumnType("character varying(18)")
+                        .HasMaxLength(18);
+
+                    b.Property<string>("Cidade")
+                        .HasColumnName("cidade")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
+
+                    b.Property<string>("Comefia")
+                        .HasColumnName("comefia")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Coment1")
+                        .HasColumnName("coment1")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Coment2")
+                        .HasColumnName("coment2")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Coment3")
+                        .HasColumnName("coment3")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Coment4")
+                        .HasColumnName("coment4")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Cpf")
+                        .HasColumnName("cpf")
+                        .HasColumnType("character varying(11)")
+                        .HasMaxLength(11);
+
+                    b.Property<string>("Disk1")
+                        .HasColumnName("disk1")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Disk2")
+                        .HasColumnName("disk2")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Disk3")
+                        .HasColumnName("disk3")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Disk4")
+                        .HasColumnName("disk4")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Disk5")
+                        .HasColumnName("disk5")
+                        .HasColumnType("character varying(48)")
+                        .HasMaxLength(48);
+
+                    b.Property<string>("Empresa")
+                        .HasColumnName("empresa")
+                        .HasColumnType("character varying(4)")
+                        .HasMaxLength(4);
+
+                    b.Property<string>("Endereco")
+                        .HasColumnName("endereco")
+                        .HasColumnType("character varying(49)")
+                        .HasMaxLength(49);
+
+                    b.Property<string>("Fax")
+                        .HasColumnName("fax")
+                        .HasColumnType("character varying(9)")
+                        .HasMaxLength(9);
+
+                    b.Property<string>("Ibge")
+                        .HasColumnName("ibge")
+                        .HasColumnType("character varying(7)")
+                        .HasMaxLength(7);
+
+                    b.Property<decimal?>("Imposto")
+                        .HasColumnName("imposto")
+                        .HasColumnType("numeric(5,2)");
+
+                    b.Property<string>("Inscrest")
+                        .HasColumnName("inscrest")
+                        .HasColumnType("character varying(18)")
+                        .HasMaxLength(18);
+
+                    b.Property<string>("Licenca")
+                        .HasColumnName("licenca")
+                        .HasColumnType("character varying(25)")
+                        .HasMaxLength(25);
+
+                    b.Property<decimal?>("Lote")
+                        .HasColumnName("lote")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.Property<string>("ModNf")
+                        .HasColumnName("mod_nf")
+                        .HasColumnType("character varying(2)")
+                        .HasMaxLength(2);
+
+                    b.Property<decimal?>("Nfe")
+                        .HasColumnName("nfe")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.Property<string>("Nome")
+                        .HasColumnName("nome")
+                        .HasColumnType("character varying(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Numero")
+                        .HasColumnName("numero")
+                        .HasColumnType("character varying(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<decimal?>("Numseq")
+                        .HasColumnName("numseq")
+                        .HasColumnType("numeric(10,0)");
+
+                    b.Property<decimal?>("Pop")
+                        .HasColumnName("pop")
+                        .HasColumnType("numeric(12,0)");
+
+                    b.Property<string>("SerieNf")
+                        .HasColumnName("serie_nf")
+                        .HasColumnType("character varying(1)")
+                        .HasMaxLength(1);
+
+                    b.Property<string>("Telefone")
+                        .HasColumnName("telefone")
+                        .HasColumnType("character varying(10)")
+                        .HasMaxLength(10);
+
+                    b.ToTable("user","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Legacy.Usoint", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("Data")
-                        .HasColumnName("DATA")
-                        .HasColumnType("datetime");
+                        .HasColumnName("data")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Prcodi")
-                        .HasColumnName("PRCODI")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
 
-                    b.Property<double?>("Qtde")
-                        .HasColumnName("QTDE")
-                        .HasColumnType("float");
+                    b.Property<decimal?>("Qtde")
+                        .HasColumnName("qtde")
+                        .HasColumnType("numeric(4,0)");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.ToTable("usoint","public");
+                });
 
-                    b.ToTable("USOINT");
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0100", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0100","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0101", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0101","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0102", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0102","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0103", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0103","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0104", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0104","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0105", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0105","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0106", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0106","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0107", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0107","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0108", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0108","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0109", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0109","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0110", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0110","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0111", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0111","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0112", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0112","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0113", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0113","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0114", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0114","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0115", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0115","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0116", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0116","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0117", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0117","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0118", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0118","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0119", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0119","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0120", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0120","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0171", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0171","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0194", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0194","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0197", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0197","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0199", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0199","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0200", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0200","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0201", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0201","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0202", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0202","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0203", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0203","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0204", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0204","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0205", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0205","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0206", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0206","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0207", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0207","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0208", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0208","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0209", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0209","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0210", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0210","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0211", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0211","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0212", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0212","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0213", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0213","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0214", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0214","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0215", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0215","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0216", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0216","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0217", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0217","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0218", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0218","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0219", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0219","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0220", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0220","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0271", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0271","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0300", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0300","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0301", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0301","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0302", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0302","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0303", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0303","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0304", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0304","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0305", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0305","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0306", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0306","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0307", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0307","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0308", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0308","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0309", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0309","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0310", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0310","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0311", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0311","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0312", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0312","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0313", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0313","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0314", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0314","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0315", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0315","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0316", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0316","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0317", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0317","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0318", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0318","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0319", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0319","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0394", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0394","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0400", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0400","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0401", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0401","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0402", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0402","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0403", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0403","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0404", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0404","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0405", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0405","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0406", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0406","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0407", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0407","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0408", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0408","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0409", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0409","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0410", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0410","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0411", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0411","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0412", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0412","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0413", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0413","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0414", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0414","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0415", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0415","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0416", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0416","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0417", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0417","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0418", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0418","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0419", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0419","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0494", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0494","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0500", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0500","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0501", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0501","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0502", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0502","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0503", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0503","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0504", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0504","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0505", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0505","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0506", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0506","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0507", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0507","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0508", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0508","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0509", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0509","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0510", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0510","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0511", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0511","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0512", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0512","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0513", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0513","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0514", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0514","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0515", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0515","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0516", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0516","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0517", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0517","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0518", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0518","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0519", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0519","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0594", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0594","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0600", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0600","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0601", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0601","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0602", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0602","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0603", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0603","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0604", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0604","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0605", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0605","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0606", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0606","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0607", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0607","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0608", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0608","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0609", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0609","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0610", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0610","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0611", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0611","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0612", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0612","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0613", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0613","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0614", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0614","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0615", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0615","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0616", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0616","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0617", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0617","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0618", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0618","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0619", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0619","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0694", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0694","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0700", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0700","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0701", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0701","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0702", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0702","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0703", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0703","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0704", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0704","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0705", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0705","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0706", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0706","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0707", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0707","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0708", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0708","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0709", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0709","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0710", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0710","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0711", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0711","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0712", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0712","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0713", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0713","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0714", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0714","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0715", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0715","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0716", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0716","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0717", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0717","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0718", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0718","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0719", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0719","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0720", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0720","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0794", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0794","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0800", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0800","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0801", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0801","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0802", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0802","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0803", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0803","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0804", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0804","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0805", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0805","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0806", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0806","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0807", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0807","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0808", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0808","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0809", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0809","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0810", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0810","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0811", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0811","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0812", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0812","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0813", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0813","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0814", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0814","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0815", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0815","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0816", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0816","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0817", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0817","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0818", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0818","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0819", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0819","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0894", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0894","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0900", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0900","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0901", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0901","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0902", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0902","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0903", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0903","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0904", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0904","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0905", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0905","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0906", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0906","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0907", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0907","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0908", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0908","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0909", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0909","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0910", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0910","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0911", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0911","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0912", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0912","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0913", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0913","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0914", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0914","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0915", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0915","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0916", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0916","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0917", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0917","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0918", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0918","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0919", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0919","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend0994", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend0994","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1000", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1000","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1001", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1001","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1002", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1002","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1003", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1003","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1004", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1004","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1005", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1005","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1006", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1006","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1007", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1007","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1008", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1008","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1009", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1009","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1010", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1010","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1011", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1011","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1012", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1012","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1013", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1013","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1014", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1014","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1015", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1015","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1016", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1016","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1017", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1017","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1018", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1018","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1019", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1019","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1100", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1100","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1101", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1101","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1102", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1102","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1103", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1103","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1104", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1104","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1105", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1105","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1106", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1106","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1107", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1107","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1108", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1108","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1109", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1109","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1110", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1110","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1111", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1111","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1112", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1112","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1113", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1113","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1114", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1114","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1115", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1115","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1116", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1116","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1117", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1117","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1118", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1118","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1119", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1119","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1170", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1170","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1200", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1200","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1201", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1201","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1202", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1202","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1203", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1203","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1204", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1204","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1205", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1205","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1206", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1206","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1207", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1207","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1208", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1208","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1209", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1209","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1210", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1210","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1211", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1211","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1212", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1212","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1213", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1213","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1214", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1214","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1215", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1215","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1216", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1216","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1217", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1217","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1218", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1218","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1219", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1219","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1270", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1270","public");
+                });
+
+            modelBuilder.Entity("Core.Entities.Legacy.Vend1293", b =>
+                {
+                    b.Property<string>("Prcodi")
+                        .HasColumnName("prcodi")
+                        .HasColumnType("character varying(6)")
+                        .HasMaxLength(6);
+
+                    b.Property<decimal?>("Prqtde")
+                        .HasColumnName("prqtde")
+                        .HasColumnType("numeric(6,0)");
+
+                    b.ToTable("vend1293","public");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.StockEntry", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 860, DateTimeKind.Unspecified).AddTicks(6858), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 17, DateTimeKind.Unspecified).AddTicks(7238), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("DrugMaturityDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 860, DateTimeKind.Unspecified).AddTicks(7200), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 17, DateTimeKind.Unspecified).AddTicks(7771), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("LotCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTime?>("NfEmissionDate")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("NfNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("Quantity")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("SupplierId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<decimal?>("Totalcost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -7708,35 +12384,33 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int?>("AddressId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Cnpj")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 861, DateTimeKind.Unspecified).AddTicks(2249), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 18, DateTimeKind.Unspecified).AddTicks(5539), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 861, DateTimeKind.Unspecified).AddTicks(2822), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 18, DateTimeKind.Unspecified).AddTicks(6010), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("SupplierName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -7749,32 +12423,30 @@ namespace DAL.Migrations.Remote
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 582, DateTimeKind.Unspecified).AddTicks(460), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 40, 783, DateTimeKind.Unspecified).AddTicks(848), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bit")
-                        .HasDefaultValue(false);
+                        .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastSyncronization")
-                        .HasColumnType("datetimeoffset");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
-                        .HasColumnType("datetimeoffset")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 6, 5, 20, 1, 53, 582, DateTimeKind.Unspecified).AddTicks(3486), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone")
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 40, 785, DateTimeKind.Unspecified).AddTicks(5173), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("UniqueCode")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("UpdatedFrom")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -7786,55 +12458,55 @@ namespace DAL.Migrations.Remote
                     b.HasBaseType("Core.Entities.Catalog.Product");
 
                     b.Property<double?>("AbsoluteDosageInMg")
-                        .HasColumnType("float");
+                        .HasColumnType("double precision");
 
                     b.Property<string>("ActivePrinciple")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("BaseDrugId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Classification")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("CommercialName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("DigitalBuleLink")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Dosage")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<decimal?>("DrugCost")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("numeric");
 
                     b.Property<string>("DrugName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("IsPriceFixed")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("LotNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int?>("ManufacturerId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<string>("ManufacturerName")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<string>("PrCdse")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<bool>("PrescriptionNeeded")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<int?>("StockEntryId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<int?>("SupplierId")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.HasIndex("StockEntryId");
 
@@ -7845,11 +12517,9 @@ namespace DAL.Migrations.Remote
                 {
                     b.HasBaseType("Core.Entities.Financial.Beneficiary");
 
-                    b.Property<int?>("AddressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Cpf")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("character varying(12)")
+                        .HasMaxLength(12);
 
                     b.HasIndex("AddressId");
 
@@ -7860,14 +12530,11 @@ namespace DAL.Migrations.Remote
                 {
                     b.HasBaseType("Core.Entities.Financial.Beneficiary");
 
-                    b.Property<int?>("AddressId")
-                        .HasColumnName("Manufacturer_AddressId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Cnpj")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("AddressId")
+                        .HasName("IX_Beneficiaries_AddressId1");
 
                     b.HasDiscriminator().HasValue("Manufacturer");
                 });
@@ -7877,13 +12544,6 @@ namespace DAL.Migrations.Remote
                     b.HasOne("Core.Entities.Catalog.Drug", "Drug")
                         .WithMany("Druginformation")
                         .HasForeignKey("DrugId");
-                });
-
-            modelBuilder.Entity("Core.Entities.Catalog.Product", b =>
-                {
-                    b.HasOne("Core.Entities.Legacy.Produto", "Produto")
-                        .WithMany()
-                        .HasForeignKey("ProdutoId");
                 });
 
             modelBuilder.Entity("Core.Entities.Catalog.ProductPrice", b =>
@@ -7959,14 +12619,19 @@ namespace DAL.Migrations.Remote
                 {
                     b.HasOne("Core.Entities.Address", "Address")
                         .WithMany("Clients")
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.Manufacturer", b =>
                 {
                     b.HasOne("Core.Entities.Address", "Address")
                         .WithMany("Manufacturer")
-                        .HasForeignKey("AddressId");
+                        .HasForeignKey("AddressId")
+                        .HasConstraintName("FK_Beneficiaries_Addresses_AddressId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

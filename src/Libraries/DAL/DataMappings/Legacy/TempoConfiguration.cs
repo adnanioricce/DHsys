@@ -1,43 +1,84 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class TempoConfiguration : BaseEntityConfiguration<Tempo>
+    public partial class TempoMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Tempo>
     {
-        public override void Configure(EntityTypeBuilder<Tempo> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Tempo> builder)
         {
-            entity.ToTable("TEMPO");
+            #region Generated Configure
+            // table
+            builder.ToTable("tempo", "public");
 
-            entity.Property(e => e.Desconto).HasColumnName("DESCONTO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Descricao).HasColumnName("DESCRICAO");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Estoque).HasColumnName("ESTOQUE");
+            builder.Property(t => t.Descricao)
+                .HasColumnName("descricao")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Pedido).HasColumnName("PEDIDO");
+            builder.Property(t => t.Qtde)
+                .HasColumnName("qtde")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            builder.Property(t => t.Prcons)
+                .HasColumnName("prcons")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Prcons).HasColumnName("PRCONS");
+            builder.Property(t => t.Desconto)
+                .HasColumnName("desconto")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Prconsd).HasColumnName("PRCONSD");
+            builder.Property(t => t.Estoque)
+                .HasColumnName("estoque")
+                .HasColumnType("numeric(4,0)");
 
-            entity.Property(e => e.Qtde).HasColumnName("QTDE");
+            builder.Property(t => t.Pedido)
+                .HasColumnName("pedido")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.VlTotal).HasColumnName("VL_TOTAL");
+            builder.Property(t => t.Prconsd)
+                .HasColumnName("prconsd")
+                .HasColumnType("numeric(12,4)");
+
+            builder.Property(t => t.VlTotal)
+                .HasColumnName("vl_total")
+                .HasColumnType("numeric(12,2)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "tempo";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Descricao = "descricao";
+            public const string Qtde = "qtde";
+            public const string Prcons = "prcons";
+            public const string Desconto = "desconto";
+            public const string Estoque = "estoque";
+            public const string Pedido = "pedido";
+            public const string Prconsd = "prconsd";
+            public const string VlTotal = "vl_total";
+        }
+        #endregion
     }
 }

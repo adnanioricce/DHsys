@@ -1,51 +1,114 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class UsefarmaConfiguration : BaseEntityConfiguration<Usefarma>
+    public partial class UsefarmaMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Usefarma>
     {
-        public override void Configure(EntityTypeBuilder<Usefarma> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Usefarma> builder)
         {
-            entity.ToTable("USEFARMA");
+            #region Generated Configure
+            // table
+            builder.ToTable("usefarma", "public");
 
-            entity.Property(e => e.Acesso1).HasColumnName("ACESSO1");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Acesso10).HasColumnName("ACESSO10");
+            // properties
+            builder.Property(t => t.Nome)
+                .HasColumnName("nome")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Acesso2).HasColumnName("ACESSO2");
+            builder.Property(t => t.Senha)
+                .HasColumnName("senha")
+                .HasColumnType("character varying(10)")
+                .HasMaxLength(10);
 
-            entity.Property(e => e.Acesso3).HasColumnName("ACESSO3");
+            builder.Property(t => t.Nivel)
+                .HasColumnName("nivel")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Acesso4).HasColumnName("ACESSO4");
+            builder.Property(t => t.Acesso1)
+                .HasColumnName("acesso1")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
 
-            entity.Property(e => e.Acesso5).HasColumnName("ACESSO5");
+            builder.Property(t => t.Acesso2)
+                .HasColumnName("acesso2")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
 
-            entity.Property(e => e.Acesso6).HasColumnName("ACESSO6");
+            builder.Property(t => t.Acesso3)
+                .HasColumnName("acesso3")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
 
-            entity.Property(e => e.Acesso7).HasColumnName("ACESSO7");
+            builder.Property(t => t.Acesso4)
+                .HasColumnName("acesso4")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
 
-            entity.Property(e => e.Acesso8).HasColumnName("ACESSO8");
+            builder.Property(t => t.Acesso5)
+                .HasColumnName("acesso5")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
 
-            entity.Property(e => e.Acesso9).HasColumnName("ACESSO9");
+            builder.Property(t => t.Acesso6)
+                .HasColumnName("acesso6")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
 
-            entity.Property(e => e.Nivel).HasColumnName("NIVEL");
+            builder.Property(t => t.Acesso7)
+                .HasColumnName("acesso7")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
 
-            entity.Property(e => e.Nome).HasColumnName("NOME");
+            builder.Property(t => t.Acesso8)
+                .HasColumnName("acesso8")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
 
-            entity.Property(e => e.Senha).HasColumnName("SENHA");
+            builder.Property(t => t.Acesso9)
+                .HasColumnName("acesso9")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
+
+            builder.Property(t => t.Acesso10)
+                .HasColumnName("acesso10")
+                .HasColumnType("character varying(250)")
+                .HasMaxLength(250);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "usefarma";
+        }
+
+        public struct Columns
+        {
+            public const string Nome = "nome";
+            public const string Senha = "senha";
+            public const string Nivel = "nivel";
+            public const string Acesso1 = "acesso1";
+            public const string Acesso2 = "acesso2";
+            public const string Acesso3 = "acesso3";
+            public const string Acesso4 = "acesso4";
+            public const string Acesso5 = "acesso5";
+            public const string Acesso6 = "acesso6";
+            public const string Acesso7 = "acesso7";
+            public const string Acesso8 = "acesso8";
+            public const string Acesso9 = "acesso9";
+            public const string Acesso10 = "acesso10";
+        }
+        #endregion
     }
 }

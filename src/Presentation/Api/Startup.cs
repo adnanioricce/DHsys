@@ -56,7 +56,7 @@ namespace Api
                     settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 });            
-            services.AddDataStore(Configuration,opt => opt.UseSqlServer(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")));
+            services.AddDataStore(Configuration,opt => opt.UseNpgsql(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")));
             services.AddTransient<DbContextResolver>(provider => key => {
                 string option = key.ToLower();
                 var contexts = provider.GetServices<BaseContext>();
@@ -75,7 +75,7 @@ namespace Api
                     //a legacy shared database from which source changes in real world environment
                     "source" => new OleDbConnection(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LegacyConnection")),
                     //a remote database to keep some changes
-                    "remote" => new SqlConnection(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")),
+                    "remote" => new NpgsqlConnection(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };
             });

@@ -1,113 +1,289 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class EmpresaConfiguration : BaseEntityConfiguration<Empresa>
+    public partial class EmpresaMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Empresa>
     {
-        public override void Configure(EntityTypeBuilder<Empresa> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Empresa> builder)
         {
-            entity.ToTable("EMPRESA");
+            #region Generated Configure
+            // table
+            builder.ToTable("empresa", "public");
 
-            entity.Property(e => e.Codgolden).HasColumnName("CODGOLDEN");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.DesAce).HasColumnName("DES_ACE");
+            // properties
+            builder.Property(t => t.Emcodi)
+                .HasColumnName("emcodi")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.DesB).HasColumnName("DES_B");
+            builder.Property(t => t.Emraso)
+                .HasColumnName("emraso")
+                .HasColumnType("character varying(40)")
+                .HasMaxLength(40);
 
-            entity.Property(e => e.DesEtic).HasColumnName("DES_ETIC");
+            builder.Property(t => t.Emende)
+                .HasColumnName("emende")
+                .HasColumnType("character varying(40)")
+                .HasMaxLength(40);
 
-            entity.Property(e => e.DesFech).HasColumnName("DES_FECH");
+            builder.Property(t => t.Emnume)
+                .HasColumnName("emnume")
+                .HasColumnType("character varying(10)")
+                .HasMaxLength(10);
 
-            entity.Property(e => e.DesNota).HasColumnName("DES_NOTA");
+            builder.Property(t => t.Emcida)
+                .HasColumnName("emcida")
+                .HasColumnType("character varying(25)")
+                .HasMaxLength(25);
 
-            entity.Property(e => e.DesPerf).HasColumnName("DES_PERF");
+            builder.Property(t => t.Embair)
+                .HasColumnName("embair")
+                .HasColumnType("character varying(25)")
+                .HasMaxLength(25);
 
-            entity.Property(e => e.DesRest).HasColumnName("DES_REST");
+            builder.Property(t => t.Emesta)
+                .HasColumnName("emesta")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.DesTick).HasColumnName("DES_TICK");
+            builder.Property(t => t.Emcont)
+                .HasColumnName("emcont")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.DesVar).HasColumnName("DES_VAR");
+            builder.Property(t => t.Emtele)
+                .HasColumnName("emtele")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Descplac).HasColumnName("DESCPLAC");
+            builder.Property(t => t.Emcgce)
+                .HasColumnName("emcgce")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Embair).HasColumnName("EMBAIR");
+            builder.Property(t => t.Eminsc)
+                .HasColumnName("eminsc")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Embloq).HasColumnName("EMBLOQ");
+            builder.Property(t => t.Emfax)
+                .HasColumnName("emfax")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Emcep).HasColumnName("EMCEP");
+            builder.Property(t => t.Emcep)
+                .HasColumnName("emcep")
+                .HasColumnType("character varying(9)")
+                .HasMaxLength(9);
 
-            entity.Property(e => e.Emcgce).HasColumnName("EMCGCE");
+            builder.Property(t => t.Emfilial)
+                .HasColumnName("emfilial")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
 
-            entity.Property(e => e.Emcida).HasColumnName("EMCIDA");
+            builder.Property(t => t.Emlimite)
+                .HasColumnName("emlimite")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Emcodi).HasColumnName("EMCODI");
+            builder.Property(t => t.DesTick)
+                .HasColumnName("des_tick")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Emcont).HasColumnName("EMCONT");
+            builder.Property(t => t.PercDesc)
+                .HasColumnName("perc_desc")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Emcontrato).HasColumnName("EMCONTRATO");
+            builder.Property(t => t.DesNota)
+                .HasColumnName("des_nota")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Emdebito).HasColumnName("EMDEBITO");
+            builder.Property(t => t.DesFech)
+                .HasColumnName("des_fech")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Emende).HasColumnName("EMENDE");
+            builder.Property(t => t.Emperf)
+                .HasColumnName("emperf")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Emesta).HasColumnName("EMESTA");
+            builder.Property(t => t.Emprint)
+                .HasColumnName("emprint")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Emetico).HasColumnName("EMETICO");
+            builder.Property(t => t.DesPerf)
+                .HasColumnName("des_perf")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Emfax).HasColumnName("EMFAX");
+            builder.Property(t => t.DesRest)
+                .HasColumnName("des_rest")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Emfech).HasColumnName("EMFECH");
+            builder.Property(t => t.DesEtic)
+                .HasColumnName("des_etic")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Emfilial).HasColumnName("EMFILIAL");
+            builder.Property(t => t.DesB)
+                .HasColumnName("des_b")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.EmgCorea).HasColumnName("EMGCoreA");
+            builder.Property(t => t.DesVar)
+                .HasColumnName("des_var")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Eminsc).HasColumnName("EMINSC");
+            builder.Property(t => t.DesAce)
+                .HasColumnName("des_ace")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Emlimite).HasColumnName("EMLIMITE");
+            builder.Property(t => t.Descplac)
+                .HasColumnName("descplac")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Emnume).HasColumnName("EMNUME");
+            builder.Property(t => t.Libperf)
+                .HasColumnName("libperf")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Emobs).HasColumnName("EMOBS");
+            builder.Property(t => t.Emcontrato)
+                .HasColumnName("emcontrato")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Emobs1).HasColumnName("EMOBS1");
+            builder.Property(t => t.Codgolden)
+                .HasColumnName("codgolden")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Emperf).HasColumnName("EMPERF");
+            builder.Property(t => t.Emdebito)
+                .HasColumnName("emdebito")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Emprint).HasColumnName("EMPRINT");
+            builder.Property(t => t.Emfech)
+                .HasColumnName("emfech")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Emraso).HasColumnName("EMRASO");
+            builder.Property(t => t.Emguia)
+                .HasColumnName("emguia")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Emreceita).HasColumnName("EMRECEITA");
+            builder.Property(t => t.Emetico)
+                .HasColumnName("emetico")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Emtele).HasColumnName("EMTELE");
+            builder.Property(t => t.Emobs)
+                .HasColumnName("emobs")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Ibgeest).HasColumnName("IBGEEST");
+            builder.Property(t => t.Emobs1)
+                .HasColumnName("emobs1")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Ibgemun).HasColumnName("IBGEMUN");
+            builder.Property(t => t.Embloq)
+                .HasColumnName("embloq")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Libperf).HasColumnName("LIBPERF");
+            builder.Property(t => t.Vidalk)
+                .HasColumnName("vidalk")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.PercDesc).HasColumnName("PERC_DESC");
+            builder.Property(t => t.Vidaav)
+                .HasColumnName("vidaav")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Vidaav).HasColumnName("VIDAAV");
+            builder.Property(t => t.Vidapc)
+                .HasColumnName("vidapc")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Vidalk).HasColumnName("VIDALK");
+            builder.Property(t => t.Ibgeest)
+                .HasColumnName("ibgeest")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Vidapc).HasColumnName("VIDAPC");
+            builder.Property(t => t.Ibgemun)
+                .HasColumnName("ibgemun")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
+
+            builder.Property(t => t.Emreceita)
+                .HasColumnName("emreceita")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "empresa";
+        }
+
+        public struct Columns
+        {
+            public const string Emcodi = "emcodi";
+            public const string Emraso = "emraso";
+            public const string Emende = "emende";
+            public const string Emnume = "emnume";
+            public const string Emcida = "emcida";
+            public const string Embair = "embair";
+            public const string Emesta = "emesta";
+            public const string Emcont = "emcont";
+            public const string Emtele = "emtele";
+            public const string Emcgce = "emcgce";
+            public const string Eminsc = "eminsc";
+            public const string Emfax = "emfax";
+            public const string Emcep = "emcep";
+            public const string Emfilial = "emfilial";
+            public const string Emlimite = "emlimite";
+            public const string DesTick = "des_tick";
+            public const string PercDesc = "perc_desc";
+            public const string DesNota = "des_nota";
+            public const string DesFech = "des_fech";
+            public const string Emperf = "emperf";
+            public const string Emprint = "emprint";
+            public const string DesPerf = "des_perf";
+            public const string DesRest = "des_rest";
+            public const string DesEtic = "des_etic";
+            public const string Desb = "des_b";
+            public const string DesVar = "des_var";
+            public const string DesAce = "des_ace";
+            public const string Descplac = "descplac";
+            public const string Libperf = "libperf";
+            public const string Emcontrato = "emcontrato";
+            public const string Codgolden = "codgolden";
+            public const string Emdebito = "emdebito";
+            public const string Emfech = "emfech";
+            public const string Emguia = "emguia";
+            public const string Emetico = "emetico";
+            public const string Emobs = "emobs";
+            public const string Emobs1 = "emobs1";
+            public const string Embloq = "embloq";
+            public const string Vidalk = "vidalk";
+            public const string Vidaav = "vidaav";
+            public const string Vidapc = "vidapc";
+            public const string Ibgeest = "ibgeest";
+            public const string Ibgemun = "ibgemun";
+            public const string Emreceita = "emreceita";
+        }
+        #endregion
     }
 }

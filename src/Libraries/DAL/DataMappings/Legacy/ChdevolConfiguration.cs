@@ -1,45 +1,81 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class ChdevolConfiguration : BaseEntityConfiguration<Chdevol>
+    public partial class ChdevolMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Chdevol>
     {
-        public override void Configure(EntityTypeBuilder<Chdevol> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Chdevol> builder)
         {
-            entity.ToTable("CHDEVOL");
+            #region Generated Configure
+            // table
+            builder.ToTable("chdevol", "public");
 
-            entity.Property(e => e.Agencia).HasColumnName("AGENCIA");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Banco).HasColumnName("BANCO");
+            // properties
+            builder.Property(t => t.Cheque)
+                .HasColumnName("cheque")
+                .HasColumnType("character varying(12)")
+                .HasMaxLength(12);
 
-            entity.Property(e => e.Cheque).HasColumnName("CHEQUE");
+            builder.Property(t => t.Agencia)
+                .HasColumnName("agencia")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Cliente).HasColumnName("CLIENTE");
+            builder.Property(t => t.Banco)
+                .HasColumnName("banco")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Conta).HasColumnName("CONTA");
+            builder.Property(t => t.Conta)
+                .HasColumnName("conta")
+                .HasColumnType("character varying(12)")
+                .HasMaxLength(12);
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Valor)
+                .HasColumnName("valor")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Datae)
-                .HasColumnName("DATAE")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Datae)
+                .HasColumnName("datae")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Valor).HasColumnName("VALOR");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
+
+            builder.Property(t => t.Cliente)
+                .HasColumnName("cliente")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "chdevol";
+        }
+
+        public struct Columns
+        {
+            public const string Cheque = "cheque";
+            public const string Agencia = "agencia";
+            public const string Banco = "banco";
+            public const string Conta = "conta";
+            public const string Valor = "valor";
+            public const string Datae = "datae";
+            public const string Data = "data";
+            public const string Cliente = "cliente";
+        }
+        #endregion
     }
 }

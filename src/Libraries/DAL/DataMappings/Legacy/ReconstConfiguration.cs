@@ -1,35 +1,59 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class ReconstConfiguration : BaseEntityConfiguration<Reconst>
+    public partial class ReconstMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Reconst>
     {
-        public override void Configure(EntityTypeBuilder<Reconst> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Reconst> builder)
         {
-            entity.ToTable("RECONST");
+            #region Generated Configure
+            // table
+            builder.ToTable("reconst", "public");
 
-            entity.Property(e => e.ArqCorevo).HasColumnName("ARQCoreVO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            // properties
+            builder.Property(t => t.Arquivo)
+                .HasColumnName("arquivo")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Necessita).HasColumnName("NECESSITA");
+            builder.Property(t => t.Posicao)
+                .HasColumnName("posicao")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Posicao).HasColumnName("POSICAO");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
+
+            builder.Property(t => t.Necessita)
+                .HasColumnName("necessita")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "reconst";
+        }
+
+        public struct Columns
+        {
+            public const string Arquivo = "arquivo";
+            public const string Posicao = "posicao";
+            public const string Data = "data";
+            public const string Necessita = "necessita";
+        }
+        #endregion
     }
 }

@@ -1,37 +1,63 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class RetiradaConfiguration : BaseEntityConfiguration<Retirada>
+    public partial class RetiradaMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Retirada>
     {
-        public override void Configure(EntityTypeBuilder<Retirada> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Retirada> builder)
         {
-            entity.ToTable("RETIRADA");
+            #region Generated Configure
+            // table
+            builder.ToTable("retirada", "public");
 
-            entity.Property(e => e.Caixa).HasColumnName("CAIXA");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            // properties
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Hora).HasColumnName("HORA");
+            builder.Property(t => t.Valordh)
+                .HasColumnName("valordh")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Valorch).HasColumnName("VALORCH");
+            builder.Property(t => t.Valorch)
+                .HasColumnName("valorch")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Valordh).HasColumnName("VALORDH");
+            builder.Property(t => t.Hora)
+                .HasColumnName("hora")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
+
+            builder.Property(t => t.Caixa)
+                .HasColumnName("caixa")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "retirada";
+        }
+
+        public struct Columns
+        {
+            public const string Data = "data";
+            public const string Valordh = "valordh";
+            public const string Valorch = "valorch";
+            public const string Hora = "hora";
+            public const string Caixa = "caixa";
+        }
+        #endregion
     }
 }

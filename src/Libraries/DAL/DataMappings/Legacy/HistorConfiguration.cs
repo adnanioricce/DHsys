@@ -1,43 +1,74 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class HistorConfiguration : BaseEntityConfiguration<Histor>
+    public partial class HistorMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Histor>
     {
-        public override void Configure(EntityTypeBuilder<Histor> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Histor> builder)
         {
-            entity.ToTable("HISTOR");
+            #region Generated Configure
+            // table
+            builder.ToTable("histor", "public");
 
-            entity.Property(e => e.Desconto).HasColumnName("DESCONTO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Distrib).HasColumnName("DISTRIB");
+            // properties
+            builder.Property(t => t.Distrib)
+                .HasColumnName("distrib")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Notafis).HasColumnName("NOTAFIS");
+            builder.Property(t => t.Notafis)
+                .HasColumnName("notafis")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Pedido).HasColumnName("PEDIDO");
+            builder.Property(t => t.Vencto)
+                .HasColumnName("vencto")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Recebto)
-                .HasColumnName("RECEBTO")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Recebto)
+                .HasColumnName("recebto")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Total).HasColumnName("TOTAL");
+            builder.Property(t => t.Pedido)
+                .HasColumnName("pedido")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.Vencto)
-                .HasColumnName("VENCTO")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Total)
+                .HasColumnName("total")
+                .HasColumnType("numeric(12,2)");
+
+            builder.Property(t => t.Desconto)
+                .HasColumnName("desconto")
+                .HasColumnType("numeric(12,2)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "histor";
+        }
+
+        public struct Columns
+        {
+            public const string Distrib = "distrib";
+            public const string Notafis = "notafis";
+            public const string Vencto = "vencto";
+            public const string Recebto = "recebto";
+            public const string Pedido = "pedido";
+            public const string Total = "total";
+            public const string Desconto = "desconto";
+        }
+        #endregion
     }
 }

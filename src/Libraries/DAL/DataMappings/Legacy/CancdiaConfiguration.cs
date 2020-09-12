@@ -1,41 +1,70 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class CancdiaConfiguration : BaseEntityConfiguration<Cancdia>
+    public partial class CancdiaMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Cancdia>
     {
-        public override void Configure(EntityTypeBuilder<Cancdia> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Cancdia> builder)
         {
-            entity.ToTable("CANCDIA");
+            #region Generated Configure
+            // table
+            builder.ToTable("cancdia", "public");
 
-            entity.Property(e => e.Codemp).HasColumnName("CODEMP");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Codfun).HasColumnName("CODFUN");
+            // properties
+            builder.Property(t => t.Filial)
+                .HasColumnName("filial")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Ticket)
+                .HasColumnName("ticket")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Datac)
-                .HasColumnName("DATAC")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Codemp)
+                .HasColumnName("codemp")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Filial).HasColumnName("FILIAL");
+            builder.Property(t => t.Codfun)
+                .HasColumnName("codfun")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Ticket).HasColumnName("TICKET");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
+
+            builder.Property(t => t.Datac)
+                .HasColumnName("datac")
+                .HasColumnType("date");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "cancdia";
+        }
+
+        public struct Columns
+        {
+            public const string Filial = "filial";
+            public const string Ticket = "ticket";
+            public const string Codemp = "codemp";
+            public const string Codfun = "codfun";
+            public const string Data = "data";
+            public const string Datac = "datac";
+        }
+        #endregion
     }
 }

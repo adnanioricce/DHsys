@@ -1,29 +1,48 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class NewtabConfiguration : BaseEntityConfiguration<Newtab>
+    public partial class NewtabMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Newtab>
     {
-        public override void Configure(EntityTypeBuilder<Newtab> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Newtab> builder)
         {
-            entity.ToTable("NEWTAB");
+            #region Generated Configure
+            // table
+            builder.ToTable("newtab", "public");
 
-            entity.Property(e => e.Mesano).HasColumnName("MESANO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Newtab1).HasColumnName("NEWTAB");
+            // properties
+            builder.Property(t => t.Newtab1)
+                .HasColumnName("newtab")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            builder.Property(t => t.Mesano)
+                .HasColumnName("mesano")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "newtab";
+        }
+
+        public struct Columns
+        {
+            public const string NewtabMember = "newtab";
+            public const string Mesano = "mesano";
+        }
+        #endregion
     }
 }

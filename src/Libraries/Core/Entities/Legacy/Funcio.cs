@@ -17,12 +17,13 @@ namespace Core.Entities.Legacy
         public string Fufone { get; set; }
         public string Fusit { get; set; }
         public string Fuplano { get; set; }
-        public string FCoredent { get; set; }
+        public string Fuident { get; set; }
         public string Fudepto { get; set; }
         public double? Totdebcr { get; set; }
         public double? Totdebsr { get; set; }
         public string Demitido { get; set; }
         public DateTime? Datademi { get; set; }
+        
         public string Impresso { get; set; }
         public double? Fulimite { get; set; }
         public string Fuobs1 { get; set; }

@@ -53,11 +53,9 @@ namespace Services.Tests.Catalog
             //When
             service.CreateDrugs(produtos);
             //Then
-            var createdDrugs = service.GetDrugs(0, 3);
-            var insertedProdutos = createdDrugs.Select(d => d.Produto);
+            var createdDrugs = service.GetDrugs(0, 3);            
             var count = createdDrugs.Count();
-            Assert.Equal(2, count);
-            Assert.Equal(produtos,insertedProdutos);
+            Assert.Equal(2, count);            
         }
         [Fact]
         public void CreateDrug_ReceivesDrugEntityWithoutManufacturer_ShouldReturnErrorInvalidEntityEntry()

@@ -1,45 +1,96 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class NfeConfiguration : BaseEntityConfiguration<Nfe>
+    public partial class NfeMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Nfe>
     {
-        public override void Configure(EntityTypeBuilder<Nfe> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Nfe> builder)
         {
-            entity.ToTable("NFE");
+            #region Generated Configure
+            // table
+            builder.ToTable("nfe", "public");
 
-            entity.Property(e => e.Campo).HasColumnName("CAMPO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Codigo).HasColumnName("CODIGO");
+            // properties
+            builder.Property(t => t.Campo)
+                .HasColumnName("campo")
+                .HasColumnType("character varying(150)")
+                .HasMaxLength(150);
 
-            entity.Property(e => e.Descricao).HasColumnName("DESCRICAO");
+            builder.Property(t => t.Codigo)
+                .HasColumnName("codigo")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Icms).HasColumnName("ICMS");
+            builder.Property(t => t.Descricao)
+                .HasColumnName("descricao")
+                .HasColumnType("character varying(35)")
+                .HasMaxLength(35);
 
-            entity.Property(e => e.Imp).HasColumnName("IMP");
+            builder.Property(t => t.Qtde)
+                .HasColumnName("qtde")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Ncm).HasColumnName("NCM");
+            builder.Property(t => t.Valor)
+                .HasColumnName("valor")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.Prcdimp).HasColumnName("PRCDIMP");
+            builder.Property(t => t.Vltot)
+                .HasColumnName("vltot")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.Qtde).HasColumnName("QTDE");
+            builder.Property(t => t.Ncm)
+                .HasColumnName("ncm")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.Valor).HasColumnName("VALOR");
+            builder.Property(t => t.Imp)
+                .HasColumnName("imp")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.Vltot).HasColumnName("VLTOT");
+            builder.Property(t => t.Icms)
+                .HasColumnName("icms")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
+
+            builder.Property(t => t.Prcdimp)
+                .HasColumnName("prcdimp")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "nfe";
+        }
+
+        public struct Columns
+        {
+            public const string Campo = "campo";
+            public const string Codigo = "codigo";
+            public const string Descricao = "descricao";
+            public const string Qtde = "qtde";
+            public const string Valor = "valor";
+            public const string Vltot = "vltot";
+            public const string Ncm = "ncm";
+            public const string Imp = "imp";
+            public const string Icms = "icms";
+            public const string Prcdimp = "prcdimp";
+        }
+        #endregion
     }
 }

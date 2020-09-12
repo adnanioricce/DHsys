@@ -49,9 +49,8 @@ namespace Api.Tests
                 opt.EnableSensitiveDataLogging();
                 opt.EnableDetailedErrors();                
             });
-            services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
-             {
-                 opt.UseSqlServer(configuration.GetValue<string>("AppSettings:ConnectionStrings:RemoteConnection"));
+            services.AddDbContextPool<BaseContext, RemoteContext>(opt => {
+                 opt.UseNpgsql(configuration.GetValue<string>("AppSettings:ConnectionStrings:RemoteConnection"));
                  opt.EnableSensitiveDataLogging();
                  opt.EnableDetailedErrors();
              });
@@ -79,7 +78,7 @@ namespace Api.Tests
                     //our local database
                     "local" => new SQLiteConnection(sqliteConnStr),                    
                     //a remote database to keep some changes
-                    "remote" => new SqlConnection(configuration.GetConnectionString("RemoteConnection")),
+                    "remote" => new NpgsqlConnection(configuration.GetConnectionString("RemoteConnection")),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };
             });

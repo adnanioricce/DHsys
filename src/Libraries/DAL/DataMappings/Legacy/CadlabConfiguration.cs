@@ -1,75 +1,178 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class CadlabConfiguration : BaseEntityConfiguration<Cadlab>
+    public partial class CadlabMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Cadlab>
     {
-        public override void Configure(EntityTypeBuilder<Cadlab> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Cadlab> builder)
         {
-            entity.ToTable("CADLAB");
+            #region Generated Configure
+            // table
+            builder.ToTable("cadlab", "public");
 
-            entity.Property(e => e.DtAlter)
-                .HasColumnName("DT_ALTER")
-                .HasColumnType("datetime");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Foapel).HasColumnName("FOAPEL");
+            // properties
+            builder.Property(t => t.Lacodi)
+                .HasColumnName("lacodi")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Fobair).HasColumnName("FOBAIR");
+            builder.Property(t => t.Fonome)
+                .HasColumnName("fonome")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Focepe).HasColumnName("FOCEPE");
+            builder.Property(t => t.Foapel)
+                .HasColumnName("foapel")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Focida).HasColumnName("FOCIDA");
+            builder.Property(t => t.Focont)
+                .HasColumnName("focont")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Focont).HasColumnName("FOCONT");
+            builder.Property(t => t.Fotele)
+                .HasColumnName("fotele")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Foende).HasColumnName("FOENDE");
+            builder.Property(t => t.Fotel2)
+                .HasColumnName("fotel2")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Foesta).HasColumnName("FOESTA");
+            builder.Property(t => t.Fofaxe)
+                .HasColumnName("fofaxe")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Fofaxe).HasColumnName("FOFAXE");
+            builder.Property(t => t.Foende)
+                .HasColumnName("foende")
+                .HasColumnType("character varying(40)")
+                .HasMaxLength(40);
 
-            entity.Property(e => e.Foibge).HasColumnName("FOIBGE");
+            builder.Property(t => t.Fonume)
+                .HasColumnName("fonume")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
 
-            entity.Property(e => e.Fonome).HasColumnName("FONOME");
+            builder.Property(t => t.Focepe)
+                .HasColumnName("focepe")
+                .HasColumnType("character varying(9)")
+                .HasMaxLength(9);
 
-            entity.Property(e => e.Fonume).HasColumnName("FONUME");
+            builder.Property(t => t.Focida)
+                .HasColumnName("focida")
+                .HasColumnType("character varying(25)")
+                .HasMaxLength(25);
 
-            entity.Property(e => e.Fotel2).HasColumnName("FOTEL2");
+            builder.Property(t => t.Fobair)
+                .HasColumnName("fobair")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Fotele).HasColumnName("FOTELE");
+            builder.Property(t => t.Foibge)
+                .HasColumnName("foibge")
+                .HasColumnType("character varying(7)")
+                .HasMaxLength(7);
 
-            entity.Property(e => e.Labrev).HasColumnName("LABREV");
+            builder.Property(t => t.Foesta)
+                .HasColumnName("foesta")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Lacgce).HasColumnName("LACGCE");
+            builder.Property(t => t.Laiest)
+                .HasColumnName("laiest")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Lacodi).HasColumnName("LACODI");
+            builder.Property(t => t.Lacgce)
+                .HasColumnName("lacgce")
+                .HasColumnType("character varying(20)")
+                .HasMaxLength(20);
 
-            entity.Property(e => e.Lacond).HasColumnName("LACOND");
+            builder.Property(t => t.Labrev)
+                .HasColumnName("labrev")
+                .HasColumnType("character varying(12)")
+                .HasMaxLength(12);
 
-            entity.Property(e => e.Laiest).HasColumnName("LAIEST");
+            builder.Property(t => t.Laultc)
+                .HasColumnName("laultc")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Laperc).HasColumnName("LAPERC");
+            builder.Property(t => t.Lacond)
+                .HasColumnName("lacond")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Latipo).HasColumnName("LATIPO");
+            builder.Property(t => t.Laperc)
+                .HasColumnName("laperc")
+                .HasColumnType("numeric(5,2)");
 
-            entity.Property(e => e.Laulno).HasColumnName("LAULNO");
+            builder.Property(t => t.Laulno)
+                .HasColumnName("laulno")
+                .HasColumnType("character varying(7)")
+                .HasMaxLength(7);
 
-            entity.Property(e => e.Laultc).HasColumnName("LAULTC");
+            builder.Property(t => t.Latipo)
+                .HasColumnName("latipo")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Nomarq).HasColumnName("NOMARQ");
+            builder.Property(t => t.Nomarq)
+                .HasColumnName("nomarq")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
+
+            builder.Property(t => t.DtAlter)
+                .HasColumnName("dt_alter")
+                .HasColumnType("date");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "cadlab";
+        }
+
+        public struct Columns
+        {
+            public const string Lacodi = "lacodi";
+            public const string Fonome = "fonome";
+            public const string Foapel = "foapel";
+            public const string Focont = "focont";
+            public const string Fotele = "fotele";
+            public const string Fotel2 = "fotel2";
+            public const string Fofaxe = "fofaxe";
+            public const string Foende = "foende";
+            public const string Fonume = "fonume";
+            public const string Focepe = "focepe";
+            public const string Focida = "focida";
+            public const string Fobair = "fobair";
+            public const string Foibge = "foibge";
+            public const string Foesta = "foesta";
+            public const string Laiest = "laiest";
+            public const string Lacgce = "lacgce";
+            public const string Labrev = "labrev";
+            public const string Laultc = "laultc";
+            public const string Lacond = "lacond";
+            public const string Laperc = "laperc";
+            public const string Laulno = "laulno";
+            public const string Latipo = "latipo";
+            public const string Nomarq = "nomarq";
+            public const string DtAlter = "dt_alter";
+        }
+        #endregion
     }
 }

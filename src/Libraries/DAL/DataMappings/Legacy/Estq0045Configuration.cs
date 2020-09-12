@@ -1,39 +1,76 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class Estq0045Configuration : BaseEntityConfiguration<Estq0045>
+    public partial class Estq0045Map
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Estq0045>
     {
-        public override void Configure(EntityTypeBuilder<Estq0045> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Estq0045> builder)
         {
-            entity.ToTable("ESTQ0045");
+            #region Generated Configure
+            // table
+            builder.ToTable("estq0045", "public");
 
-            entity.Property(e => e.EstMinimo).HasColumnName("EST_MINIMO");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Prbarra).HasColumnName("PRBARRA");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Prcdse).HasColumnName("PRCDSE");
+            builder.Property(t => t.Prbarra)
+                .HasColumnName("prbarra")
+                .HasColumnType("character varying(13)")
+                .HasMaxLength(13);
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            builder.Property(t => t.Prdesc)
+                .HasColumnName("prdesc")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Prdesc).HasColumnName("PRDESC");
+            builder.Property(t => t.Prestq)
+                .HasColumnName("prestq")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Prestq).HasColumnName("PRESTQ");
+            builder.Property(t => t.EstMinimo)
+                .HasColumnName("est_minimo")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Secao).HasColumnName("SECAO");
+            builder.Property(t => t.Secao)
+                .HasColumnName("secao")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
+
+            builder.Property(t => t.Prcdse)
+                .HasColumnName("prcdse")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "estq0045";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Prbarra = "prbarra";
+            public const string Prdesc = "prdesc";
+            public const string Prestq = "prestq";
+            public const string EstMinimo = "est_minimo";
+            public const string Secao = "secao";
+            public const string Prcdse = "prcdse";
+        }
+        #endregion
     }
 }

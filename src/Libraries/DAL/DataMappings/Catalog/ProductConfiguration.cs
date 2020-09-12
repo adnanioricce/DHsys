@@ -8,10 +8,10 @@ namespace DAL.DataMappings.Catalog
     {
         public override void Configure(EntityTypeBuilder<Product> mapper)
         {
-            mapper.ToTable("Products");
+            mapper.ToTable("products");
             mapper.HasMany(r => r.ProductSuppliers)
             .WithOne(ps => ps.Product)
-            .OnDelete(DeleteBehavior.Restrict);
+            .OnDelete(DeleteBehavior.Restrict);                          
         }
     }
 }

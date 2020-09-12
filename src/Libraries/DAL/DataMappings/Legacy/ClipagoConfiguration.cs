@@ -1,35 +1,57 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class ClipagoConfiguration : BaseEntityConfiguration<Clipago>
+    public partial class ClipagoMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Clipago>
     {
-        public override void Configure(EntityTypeBuilder<Clipago> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Clipago> builder)
         {
-            entity.ToTable("CLIPAGO");
+            #region Generated Configure
+            // table
+            builder.ToTable("clipago", "public");
 
-            entity.Property(e => e.Cliente).HasColumnName("CLIENTE");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Credito).HasColumnName("CREDITO");
+            // properties
+            builder.Property(t => t.Cliente)
+                .HasColumnName("cliente")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Valor).HasColumnName("VALOR");
+            builder.Property(t => t.Valor)
+                .HasColumnName("valor")
+                .HasColumnType("numeric(10,2)");
+
+            builder.Property(t => t.Credito)
+                .HasColumnName("credito")
+                .HasColumnType("numeric(10,2)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "clipago";
+        }
+
+        public struct Columns
+        {
+            public const string Cliente = "cliente";
+            public const string Data = "data";
+            public const string Valor = "valor";
+            public const string Credito = "credito";
+        }
+        #endregion
     }
 }

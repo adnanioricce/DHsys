@@ -1,27 +1,42 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class NotafConfiguration : BaseEntityConfiguration<Notaf>
+    public partial class NotafMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Notaf>
     {
-        public override void Configure(EntityTypeBuilder<Notaf> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Notaf> builder)
         {
-            entity.ToTable("NOTAF");
+            #region Generated Configure
+            // table
+            builder.ToTable("notaf", "public");
 
-            entity.Property(e => e.NumNota).HasColumnName("NUM_NOTA");
+            // key
+            builder.HasNoKey();
+
+            // properties
+            builder.Property(t => t.NumNota)
+                .HasColumnName("num_nota")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "notaf";
+        }
+
+        public struct Columns
+        {
+            public const string NumNota = "num_nota";
+        }
+        #endregion
     }
 }

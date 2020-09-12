@@ -1,35 +1,66 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class CliMedConfiguration : BaseEntityConfiguration<CliMed>
+    public partial class CliMedMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.CliMed>
     {
-        public override void Configure(EntityTypeBuilder<CliMed> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.CliMed> builder)
         {
-            //    entity.ToTable("CLI_MED");
+            #region Generated Configure
+            // table
+            builder.ToTable("cli_med", "public");
 
-            entity.Property(e => e.CpfCrm).HasColumnName("CPF_CRM");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Endereco).HasColumnName("ENDERECO");
+            // properties
+            builder.Property(t => t.CpfCrm)
+                .HasColumnName("cpf_crm")
+                .HasColumnType("character varying(14)")
+                .HasMaxLength(14);
 
-            entity.Property(e => e.Fone).HasColumnName("FONE");
+            builder.Property(t => t.Nome)
+                .HasColumnName("nome")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Nome).HasColumnName("NOME");
+            builder.Property(t => t.Endereco)
+                .HasColumnName("endereco")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
 
-            entity.Property(e => e.Sexo).HasColumnName("SEXO");
+            builder.Property(t => t.Sexo)
+                .HasColumnName("sexo")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            builder.Property(t => t.Fone)
+                .HasColumnName("fone")
+                .HasColumnType("character varying(25)")
+                .HasMaxLength(25);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "cli_med";
+        }
+
+        public struct Columns
+        {
+            public const string CpfCrm = "cpf_crm";
+            public const string Nome = "nome";
+            public const string Endereco = "endereco";
+            public const string Sexo = "sexo";
+            public const string Fone = "fone";
+        }
+        #endregion
     }
 }

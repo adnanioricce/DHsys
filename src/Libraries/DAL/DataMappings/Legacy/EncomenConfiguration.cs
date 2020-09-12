@@ -1,33 +1,52 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class EncomenConfiguration : BaseEntityConfiguration<Encomen>
+    public partial class EncomenMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Encomen>
     {
-        public override void Configure(EntityTypeBuilder<Encomen> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Encomen> builder)
         {
-            entity.ToTable("ENCOMEN");
+            #region Generated Configure
+            // table
+            builder.ToTable("encomen", "public");
 
-            entity.Property(e => e.Endata)
-                .HasColumnName("ENDATA")
-                .HasColumnType("datetime");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Enqtde).HasColumnName("ENQTDE");
+            // properties
+            builder.Property(t => t.Enqtde)
+                .HasColumnName("enqtde")
+                .HasColumnType("numeric(6,0)");
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            builder.Property(t => t.Endata)
+                .HasColumnName("endata")
+                .HasColumnType("date");
+
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "encomen";
+        }
+
+        public struct Columns
+        {
+            public const string Enqtde = "enqtde";
+            public const string Endata = "endata";
+            public const string Prcodi = "prcodi";
+        }
+        #endregion
     }
 }

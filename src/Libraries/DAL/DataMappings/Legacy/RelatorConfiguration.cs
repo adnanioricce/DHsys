@@ -1,29 +1,48 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class RelatorConfiguration : BaseEntityConfiguration<Relator>
+    public partial class RelatorMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Relator>
     {
-        public override void Configure(EntityTypeBuilder<Relator> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Relator> builder)
         {
-            entity.ToTable("relator");
+            #region Generated Configure
+            // table
+            builder.ToTable("relator", "public");
 
-            entity.Property(e => e.Nivel).HasColumnName("NIVEL");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Relatorio).HasColumnName("RELATORIO");
+            // properties
+            builder.Property(t => t.Relatorio)
+                .HasColumnName("relatorio")
+                .HasColumnType("character varying(40)")
+                .HasMaxLength(40);
+
+            builder.Property(t => t.Nivel)
+                .HasColumnName("nivel")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "relator";
+        }
+
+        public struct Columns
+        {
+            public const string Relatorio = "relatorio";
+            public const string Nivel = "nivel";
+        }
+        #endregion
     }
 }

@@ -1,37 +1,71 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class InventConfiguration : BaseEntityConfiguration<Invent>
+    public partial class InventMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Invent>
     {
-        public override void Configure(EntityTypeBuilder<Invent> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Invent> builder)
         {
-            entity.ToTable("INVENT");
+            #region Generated Configure
+            // table
+            builder.ToTable("invent", "public");
 
-            entity.Property(e => e.Lote).HasColumnName("LOTE");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Prdesc).HasColumnName("PRDESC");
+            builder.Property(t => t.Prreg)
+                .HasColumnName("prreg")
+                .HasColumnType("character varying(13)")
+                .HasMaxLength(13);
 
-            entity.Property(e => e.Prreg).HasColumnName("PRREG");
+            builder.Property(t => t.Prdesc)
+                .HasColumnName("prdesc")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Qtde).HasColumnName("QTDE");
+            builder.Property(t => t.Lote)
+                .HasColumnName("lote")
+                .HasColumnType("character varying(10)")
+                .HasMaxLength(10);
 
-            entity.Property(e => e.Tpmed).HasColumnName("TPMED");
+            builder.Property(t => t.Qtde)
+                .HasColumnName("qtde")
+                .HasColumnType("numeric(6,0)");
+
+            builder.Property(t => t.Tpmed)
+                .HasColumnName("tpmed")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "invent";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Prreg = "prreg";
+            public const string Prdesc = "prdesc";
+            public const string Lote = "lote";
+            public const string Qtde = "qtde";
+            public const string Tpmed = "tpmed";
+        }
+        #endregion
     }
 }

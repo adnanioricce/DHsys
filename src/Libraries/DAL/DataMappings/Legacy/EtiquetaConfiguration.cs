@@ -1,33 +1,59 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class EtiquetaConfiguration : BaseEntityConfiguration<Etiqueta>
+    public partial class EtiquetaMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Etiqueta>
     {
-        public override void Configure(EntityTypeBuilder<Etiqueta> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Etiqueta> builder)
         {
-            entity.ToTable("ETIQUETA");
+            #region Generated Configure
+            // table
+            builder.ToTable("etiqueta", "public");
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Prcons).HasColumnName("PRCONS");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Prdesc1).HasColumnName("PRDESC1");
+            builder.Property(t => t.Prdesc1)
+                .HasColumnName("prdesc1")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Prdesc2).HasColumnName("PRDESC2");
+            builder.Property(t => t.Prdesc2)
+                .HasColumnName("prdesc2")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
+
+            builder.Property(t => t.Prcons)
+                .HasColumnName("prcons")
+                .HasColumnType("numeric(10,2)");
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "etiqueta";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Prdesc1 = "prdesc1";
+            public const string Prdesc2 = "prdesc2";
+            public const string Prcons = "prcons";
+        }
+        #endregion
     }
 }

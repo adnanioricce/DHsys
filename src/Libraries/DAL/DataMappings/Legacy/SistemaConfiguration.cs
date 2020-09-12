@@ -1,29 +1,48 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class SistemaConfiguration : BaseEntityConfiguration<Sistema>
+    public partial class SistemaMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Sistema>
     {
-        public override void Configure(EntityTypeBuilder<Sistema> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Sistema> builder)
         {
-            entity.ToTable("SISTEMA");
+            #region Generated Configure
+            // table
+            builder.ToTable("sistema", "public");
 
-            entity.Property(e => e.Ticket).HasColumnName("TICKET");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Usuario).HasColumnName("USUARIO");
+            // properties
+            builder.Property(t => t.Usuario)
+                .HasColumnName("usuario")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
+
+            builder.Property(t => t.Ticket)
+                .HasColumnName("ticket")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "sistema";
+        }
+
+        public struct Columns
+        {
+            public const string Usuario = "usuario";
+            public const string Ticket = "ticket";
+        }
+        #endregion
     }
 }

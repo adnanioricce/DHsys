@@ -1,29 +1,48 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class SalConfiguration : BaseEntityConfiguration<Sal>
+    public partial class SalMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Sal>
     {
-        public override void Configure(EntityTypeBuilder<Sal> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Sal> builder)
         {
-            entity.ToTable("SAL");
+            #region Generated Configure
+            // table
+            builder.ToTable("sal", "public");
 
-            entity.Property(e => e.Salcod).HasColumnName("SALCOD");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Salnome).HasColumnName("SALNOME");
+            // properties
+            builder.Property(t => t.Salcod)
+                .HasColumnName("salcod")
+                .HasColumnType("character varying(4)")
+                .HasMaxLength(4);
+
+            builder.Property(t => t.Salnome)
+                .HasColumnName("salnome")
+                .HasColumnType("character varying(50)")
+                .HasMaxLength(50);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "sal";
+        }
+
+        public struct Columns
+        {
+            public const string Salcod = "salcod";
+            public const string Salnome = "salnome";
+        }
+        #endregion
     }
 }

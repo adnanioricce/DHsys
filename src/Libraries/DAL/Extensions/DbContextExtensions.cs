@@ -99,12 +99,24 @@ namespace DAL.Extensions
         /// <param name="dbName">the name of the database to backup. Default is database name finded in the connection string. </param>
         /// <param name="backupFileName">name of the backup file(.bak)</param>
         public static void CreateDatabaseBackup(this RemoteContext context,string backupFileName = "",string dbName = "")
-        {
-            var connection = context.Database.GetDbConnection();
-            var _dbname = string.IsNullOrEmpty(dbName) ? connection.Database : dbName;
-            var _backupFileName = string.IsNullOrEmpty(backupFileName) ? _dbname : backupFileName;
-            string backupScript = $@"BACKUP DATABASE {_dbname} to DISK=N'{_backupFileName}.bak' WITH FORMAT, INIT, STATS=10;";
-            context.Database.ExecuteSqlRaw(backupScript);
+        {            
+            var _dbname = string.IsNullOrEmpty(dbName) ? context.GetDatabaseName() : dbName;
+            if (context.Database.IsSqlServer())
+            {
+                var _backupFileName = string.IsNullOrEmpty(backupFileName) ? _dbname : backupFileName;
+                string backupScript = $@"BACKUP DATABASE {_dbname} to DISK=N'{_backupFileName}.bak' WITH FORMAT, INIT, STATS=10;";
+                context.Database.ExecuteSqlRaw(backupScript);
+            }
+            else
+            {                
+                var result = context.Database.ExecuteSqlRaw(@$"SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('{_dbname}_copy');");
+                if (result == -1)
+                {
+                    return;
+                }
+                context.Database.ExecuteSqlRaw($@"CREATE DATABASE {_dbname}_copy WITH TEMPLATE {_dbname};");                
+            }
+
         }
         /// <summary>
         /// Restore the database to the last backup. OBS: This is MSSQL specific
@@ -114,12 +126,23 @@ namespace DAL.Extensions
         /// <param name="backupFileName">the name of the backup filename </param>
         public static void RestoreDatabase(this RemoteContext context, string backupFileName,string dbName = "")
         {
-            var _dbname = string.IsNullOrEmpty(dbName) ? context.Database.GetDbConnection().Database : dbName;            
-            context.Database.ExecuteSqlRaw($@"  USE master;
+            var _dbname = string.IsNullOrEmpty(dbName) ? context.Database.GetDbConnection().Database : dbName;
+            if (context.Database.IsSqlServer())
+            {
+                context.Database.ExecuteSqlRaw($@"  USE master;
                                                 ALTER DATABASE {_dbname}
                                                 SET SINGLE_USER                                                
                                                 WITH ROLLBACK IMMEDIATE
                                                 RESTORE DATABASE {_dbname} FROM DISK = '{backupFileName}.bak' WITH REPLACE");
+            }
+            if (context.Database.IsNpgsql())
+            {
+                context.Database.ExecuteSqlRaw(@$"\c postgres;
+                                                 DROP DATABASE {_dbname};
+                                                 CREATE DATABASE { _dbname} TEMPLATE {_dbname}_copy;
+                                                 \c {_dbname};
+                                                 DROP DATABASE {_dbname}_copy; ");
+            }
         }
         /// <summary>
         /// Returns the name of the Database

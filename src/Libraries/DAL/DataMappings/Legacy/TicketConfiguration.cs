@@ -1,29 +1,48 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class TicketConfiguration : BaseEntityConfiguration<Ticket>
+    public partial class TicketMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Ticket>
     {
-        public override void Configure(EntityTypeBuilder<Ticket> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Ticket> builder)
         {
-            entity.ToTable("TICKET");
+            #region Generated Configure
+            // table
+            builder.ToTable("ticket", "public");
 
-            entity.Property(e => e.Ecf).HasColumnName("ECF");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Ticket1).HasColumnName("TICKET");
+            // properties
+            builder.Property(t => t.Ticket1)
+                .HasColumnName("ticket")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
+
+            builder.Property(t => t.Ecf)
+                .HasColumnName("ecf")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "ticket";
+        }
+
+        public struct Columns
+        {
+            public const string TicketMember = "ticket";
+            public const string Ecf = "ecf";
+        }
+        #endregion
     }
 }

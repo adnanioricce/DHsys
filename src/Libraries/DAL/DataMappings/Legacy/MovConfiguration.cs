@@ -1,69 +1,154 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class MovConfiguration : BaseEntityConfiguration<Mov>
+    public partial class MovMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Mov>
     {
-        public override void Configure(EntityTypeBuilder<Mov> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Mov> builder)
         {
-            entity.ToTable("MOV");
+            #region Generated Configure
+            // table
+            builder.ToTable("mov", "public");
 
-            entity.Property(e => e.Admcart).HasColumnName("ADMCART");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Bacodi).HasColumnName("BACODI");
+            // properties
+            builder.Property(t => t.NFiscal)
+                .HasColumnName("n_fiscal")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Caixa).HasColumnName("CAIXA");
+            builder.Property(t => t.Ticket)
+                .HasColumnName("ticket")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Cancelado).HasColumnName("CANCELADO");
+            builder.Property(t => t.TotVen)
+                .HasColumnName("tot_ven")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Cartaoc).HasColumnName("CARTAOC");
+            builder.Property(t => t.TotAnt)
+                .HasColumnName("tot_ant")
+                .HasColumnType("numeric(12,2)");
 
-            entity.Property(e => e.Cheque).HasColumnName("CHEQUE");
+            builder.Property(t => t.Tipo)
+                .HasColumnName("tipo")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Chequepre).HasColumnName("CHEQUEPRE");
+            builder.Property(t => t.Tpvd)
+                .HasColumnName("tpvd")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Codcli).HasColumnName("CODCLI");
+            builder.Property(t => t.Ecf)
+                .HasColumnName("ecf")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
 
-            entity.Property(e => e.Cpf).HasColumnName("CPF");
+            builder.Property(t => t.Cpf)
+                .HasColumnName("cpf")
+                .HasColumnType("character varying(14)")
+                .HasMaxLength(14);
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            builder.Property(t => t.Nome)
+                .HasColumnName("nome")
+                .HasColumnType("character varying(30)")
+                .HasMaxLength(30);
 
-            entity.Property(e => e.Dinheiro).HasColumnName("DINHEIRO");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
 
-            entity.Property(e => e.Ecf).HasColumnName("ECF");
+            builder.Property(t => t.Bacodi)
+                .HasColumnName("bacodi")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
 
-            entity.Property(e => e.Hora).HasColumnName("HORA");
+            builder.Property(t => t.Cancelado)
+                .HasColumnName("cancelado")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.NFiscal).HasColumnName("N_FISCAL");
+            builder.Property(t => t.Caixa)
+                .HasColumnName("caixa")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Nome).HasColumnName("NOME");
+            builder.Property(t => t.Hora)
+                .HasColumnName("hora")
+                .HasColumnType("character varying(5)")
+                .HasMaxLength(5);
 
-            entity.Property(e => e.Popular).HasColumnName("POPULAR");
+            builder.Property(t => t.Dinheiro)
+                .HasColumnName("dinheiro")
+                .HasColumnType("numeric(10,2)");
 
-            entity.Property(e => e.Ticket).HasColumnName("TICKET");
+            builder.Property(t => t.Cheque)
+                .HasColumnName("cheque")
+                .HasColumnType("numeric(10,2)");
 
-            entity.Property(e => e.Tipo).HasColumnName("TIPO");
+            builder.Property(t => t.Chequepre)
+                .HasColumnName("chequepre")
+                .HasColumnType("numeric(10,2)");
 
-            entity.Property(e => e.TotAnt).HasColumnName("TOT_ANT");
+            builder.Property(t => t.Cartaoc)
+                .HasColumnName("cartaoc")
+                .HasColumnType("numeric(10,2)");
 
-            entity.Property(e => e.TotVen).HasColumnName("TOT_VEN");
+            builder.Property(t => t.Popular)
+                .HasColumnName("popular")
+                .HasColumnType("numeric(10,2)");
 
-            entity.Property(e => e.Tpvd).HasColumnName("TPVD");
+            builder.Property(t => t.Admcart)
+                .HasColumnName("admcart")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
+
+            builder.Property(t => t.Codcli)
+                .HasColumnName("codcli")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "mov";
+        }
+
+        public struct Columns
+        {
+            public const string nFiscal = "n_fiscal";
+            public const string Ticket = "ticket";
+            public const string TotVen = "tot_ven";
+            public const string TotAnt = "tot_ant";
+            public const string Tipo = "tipo";
+            public const string Tpvd = "tpvd";
+            public const string Ecf = "ecf";
+            public const string Cpf = "cpf";
+            public const string Nome = "nome";
+            public const string Data = "data";
+            public const string Bacodi = "bacodi";
+            public const string Cancelado = "cancelado";
+            public const string Caixa = "caixa";
+            public const string Hora = "hora";
+            public const string Dinheiro = "dinheiro";
+            public const string Cheque = "cheque";
+            public const string Chequepre = "chequepre";
+            public const string Cartaoc = "cartaoc";
+            public const string Popular = "popular";
+            public const string Admcart = "admcart";
+            public const string Codcli = "codcli";
+        }
+        #endregion
     }
 }

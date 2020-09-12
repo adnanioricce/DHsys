@@ -41,12 +41,7 @@ namespace Application.Services
         }
 
         public virtual void CreateDrugs(IEnumerable<Drug> drugs)
-        {                        
-            foreach (var drug in drugs) {
-                if(drug.Produto is null) {
-                    drug.Produto = _produtoMapper.MapToLegacyModel(drug);
-                }
-            }
+        {                                    
             _drugRepository.AddRange(drugs);
             _drugRepository.SaveChanges();
         }

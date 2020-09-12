@@ -1,55 +1,126 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class ReducaoConfiguration : BaseEntityConfiguration<Reducao>
+    public partial class ReducaoMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Reducao>
     {
-        public override void Configure(EntityTypeBuilder<Reducao> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Reducao> builder)
         {
-            entity.ToTable("REDUCAO");
+            #region Generated Configure
+            // table
+            builder.ToTable("reducao", "public");
 
-            entity.Property(e => e.Acresc).HasColumnName("ACRESC");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Acresfin).HasColumnName("ACRESFIN");
+            // properties
+            builder.Property(t => t.Rzaut)
+                .HasColumnName("rzaut")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Aliquota).HasColumnName("ALIQUOTA");
+            builder.Property(t => t.Gtda)
+                .HasColumnName("gtda")
+                .HasColumnType("character varying(18)")
+                .HasMaxLength(18);
 
-            entity.Property(e => e.Cancela).HasColumnName("CANCELA");
+            builder.Property(t => t.Cancela)
+                .HasColumnName("cancela")
+                .HasColumnType("character varying(14)")
+                .HasMaxLength(14);
 
-            entity.Property(e => e.Cns).HasColumnName("CNS");
+            builder.Property(t => t.Desconto)
+                .HasColumnName("desconto")
+                .HasColumnType("character varying(14)")
+                .HasMaxLength(14);
 
-            entity.Property(e => e.Cnsi).HasColumnName("CNSI");
+            builder.Property(t => t.Tributo)
+                .HasColumnName("tributo")
+                .HasColumnType("character varying(64)")
+                .HasMaxLength(64);
 
-            entity.Property(e => e.Coo).HasColumnName("COO");
+            builder.Property(t => t.Supri)
+                .HasColumnName("supri")
+                .HasColumnType("character varying(14)")
+                .HasMaxLength(14);
 
-            entity.Property(e => e.Data).HasColumnName("DATA");
+            builder.Property(t => t.Nsi)
+                .HasColumnName("nsi")
+                .HasColumnType("character varying(126)")
+                .HasMaxLength(126);
 
-            entity.Property(e => e.Desconto).HasColumnName("DESCONTO");
+            builder.Property(t => t.Cnsi)
+                .HasColumnName("cnsi")
+                .HasColumnType("character varying(36)")
+                .HasMaxLength(36);
 
-            entity.Property(e => e.Gtda).HasColumnName("GTDA");
+            builder.Property(t => t.Coo)
+                .HasColumnName("coo")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Nsi).HasColumnName("NSI");
+            builder.Property(t => t.Cns)
+                .HasColumnName("cns")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Rzaut).HasColumnName("RZAUT");
+            builder.Property(t => t.Aliquota)
+                .HasColumnName("aliquota")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Sangria).HasColumnName("SANGRIA");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Supri).HasColumnName("SUPRI");
+            builder.Property(t => t.Acresc)
+                .HasColumnName("acresc")
+                .HasColumnType("character varying(14)")
+                .HasMaxLength(14);
 
-            entity.Property(e => e.Tributo).HasColumnName("TRIBUTO");
+            builder.Property(t => t.Acresfin)
+                .HasColumnName("acresfin")
+                .HasColumnType("character varying(14)")
+                .HasMaxLength(14);
+
+            builder.Property(t => t.Sangria)
+                .HasColumnName("sangria")
+                .HasColumnType("character varying(10)")
+                .HasMaxLength(10);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "reducao";
+        }
+
+        public struct Columns
+        {
+            public const string Rzaut = "rzaut";
+            public const string Gtda = "gtda";
+            public const string Cancela = "cancela";
+            public const string Desconto = "desconto";
+            public const string Tributo = "tributo";
+            public const string Supri = "supri";
+            public const string Nsi = "nsi";
+            public const string Cnsi = "cnsi";
+            public const string Coo = "coo";
+            public const string Cns = "cns";
+            public const string Aliquota = "aliquota";
+            public const string Data = "data";
+            public const string Acresc = "acresc";
+            public const string Acresfin = "acresfin";
+            public const string Sangria = "sangria";
+        }
+        #endregion
     }
 }

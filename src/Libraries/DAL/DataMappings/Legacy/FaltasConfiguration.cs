@@ -1,33 +1,53 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class FaltasConfiguration : BaseEntityConfiguration<Faltas>
+    public partial class FaltasMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Faltas>
     {
-        public override void Configure(EntityTypeBuilder<Faltas> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Faltas> builder)
         {
-            entity.ToTable("FALTAS");
+            #region Generated Configure
+            // table
+            builder.ToTable("faltas", "public");
 
-            entity.Property(e => e.Balcon).HasColumnName("BALCON");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Data)
-                .HasColumnName("DATA")
-                .HasColumnType("datetime");
+            // properties
+            builder.Property(t => t.Prcodi)
+                .HasColumnName("prcodi")
+                .HasColumnType("character varying(6)")
+                .HasMaxLength(6);
 
-            entity.Property(e => e.Prcodi).HasColumnName("PRCODI");
+            builder.Property(t => t.Data)
+                .HasColumnName("data")
+                .HasColumnType("date");
+
+            builder.Property(t => t.Balcon)
+                .HasColumnName("balcon")
+                .HasColumnType("character varying(3)")
+                .HasMaxLength(3);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "faltas";
+        }
+
+        public struct Columns
+        {
+            public const string Prcodi = "prcodi";
+            public const string Data = "data";
+            public const string Balcon = "balcon";
+        }
+        #endregion
     }
 }

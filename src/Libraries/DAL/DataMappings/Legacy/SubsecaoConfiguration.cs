@@ -1,41 +1,81 @@
-using Core.Entities;
-using Core.Entities.Legacy;
-using Core.Entities.Sync;
-using DAL.Extensions;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using DAL.DbContexts;
+using Microsoft.EntityFrameworkCore;
 
-namespace DAL.DataMappings.Legacy
+namespace DAL.Mappings.Legacy
 {
-    public class SubsecaoConfiguration : BaseEntityConfiguration<Subsecao>
+    public partial class SubsecaoMap
+        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Subsecao>
     {
-        public override void Configure(EntityTypeBuilder<Subsecao> entity)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Subsecao> builder)
         {
-            entity.ToTable("SUBSECAO");
+            #region Generated Configure
+            // table
+            builder.ToTable("subsecao", "public");
 
-            entity.Property(e => e.Secaopert).HasColumnName("SECAOPERT");
+            // key
+            builder.HasNoKey();
 
-            entity.Property(e => e.Subimpost).HasColumnName("SUBIMPOST");
+            // properties
+            builder.Property(t => t.Subsecodi)
+                .HasColumnName("subsecodi")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Subncm).HasColumnName("SUBNCM");
+            builder.Property(t => t.Subsenome)
+                .HasColumnName("subsenome")
+                .HasColumnType("character varying(15)")
+                .HasMaxLength(15);
 
-            entity.Property(e => e.Subsecodi).HasColumnName("SUBSECODI");
+            builder.Property(t => t.Subseprec)
+                .HasColumnName("subseprec")
+                .HasColumnType("character varying(1)")
+                .HasMaxLength(1);
 
-            entity.Property(e => e.Subselucr).HasColumnName("SUBSELUCR");
+            builder.Property(t => t.Secaopert)
+                .HasColumnName("secaopert")
+                .HasColumnType("character varying(2)")
+                .HasMaxLength(2);
 
-            entity.Property(e => e.Subsenome).HasColumnName("SUBSENOME");
+            builder.Property(t => t.Subselucr)
+                .HasColumnName("subselucr")
+                .HasColumnType("numeric(8,6)");
 
-            entity.Property(e => e.Subseprec).HasColumnName("SUBSEPREC");
+            builder.Property(t => t.Valrec)
+                .HasColumnName("valrec")
+                .HasColumnType("numeric(3,0)");
 
-            entity.Property(e => e.Valrec).HasColumnName("VALREC");
+            builder.Property(t => t.Subimpost)
+                .HasColumnName("subimpost")
+                .HasColumnType("numeric(5,2)");
+
+            builder.Property(t => t.Subncm)
+                .HasColumnName("subncm")
+                .HasColumnType("character varying(8)")
+                .HasMaxLength(8);
+
+            // relationships
+            #endregion
         }
+
+        #region Generated Constants
+        public struct Table
+        {
+            public const string Schema = "public";
+            public const string Name = "subsecao";
+        }
+
+        public struct Columns
+        {
+            public const string Subsecodi = "subsecodi";
+            public const string Subsenome = "subsenome";
+            public const string Subseprec = "subseprec";
+            public const string Secaopert = "secaopert";
+            public const string Subselucr = "subselucr";
+            public const string Valrec = "valrec";
+            public const string Subimpost = "subimpost";
+            public const string Subncm = "subncm";
+        }
+        #endregion
     }
 }
