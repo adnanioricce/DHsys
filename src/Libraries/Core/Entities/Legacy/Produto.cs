@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Core.Entities.Legacy
 {
-    public  class Produto : BaseEntity
+    public  class Produto
     {        
         /// <summary>
         /// Get or set the Unique Code identification field for the current Produto object

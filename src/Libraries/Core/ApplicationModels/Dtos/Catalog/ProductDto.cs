@@ -79,7 +79,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public ProdutoDto Produto { get; set; }
 
-        public int? ProdutoId { get; set; }
+        public string ProdutoId { get; set; }
 
         public static ProductDto FromModel(Product model)
         {

@@ -103,7 +103,7 @@ namespace Core.Entities.Catalog
         /// <value></value>
         public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();        
         #region Legacy field models        
-        public int? ProdutoId { get; set; }        
+        public string ProdutoId { get; set; }        
         #endregion
         
         #region Methods

@@ -188,7 +188,7 @@ namespace DAL.Migrations.Remote
                         .HasColumnType("text");
 
                     b.Property<int?>("ProdutoId")
-                        .HasColumnType("integer");
+                        .HasColumnType("varchar");
 
                     b.Property<int?>("QuantityInStock")
                         .HasColumnType("integer");

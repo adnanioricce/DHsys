@@ -136,7 +136,7 @@ namespace Api.Tests
                 QuantityInStock = 2,
                 UniqueCode = "123456",
                 //Produto = GetBaseProduto()
-                ProdutoId = 1
+                ProdutoId = "1"
             };
 
             // Act

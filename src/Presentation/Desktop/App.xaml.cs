@@ -81,7 +81,7 @@ namespace Desktop
             services.AddViews();
             services.AddViewModels();
             services.AddDataStore(configuration,opt => opt.UseSqlite(configuration.GetValue<string>($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}:{nameof(ConnectionStrings)}:LocalConnection")));
-            services.AddTransient(typeof(ILegacyRepository<>),typeof(DbfRepository<>));
+            services.AddTransient(typeof(ILegacyRepository<>),typeof(ProdutoRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddScoped<CustomNavigationService>(ConfigureNavigationService);
             services.AddSingleton<IFileSystemService, IOService>();

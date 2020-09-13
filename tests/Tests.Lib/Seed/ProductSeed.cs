@@ -23,14 +23,11 @@ namespace Tests.Lib.Seed
                 Prfabr = 14.99d,
                 Prcons = 32.99d,                    
                 Prbarra = product.BarCode,
-                Prcodi = product.UniqueCode,
-                UniqueCode = product.UniqueCode,
+                Prcodi = product.UniqueCode,                
                 Prestq = product.QuantityInStock,
                 Prdesc = product.Description,
-                Prncms = product.Ncm,
-                Id = product.Id  
-            };
-            product.ProdutoId = produto.Id;
+                Prncms = product.Ncm,                
+            };            
             return product;
         }
     }

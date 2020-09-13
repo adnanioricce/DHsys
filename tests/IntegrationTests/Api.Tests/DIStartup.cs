@@ -4,7 +4,6 @@ using Application.Services;
 using Core.Entities.Catalog;
 using Core.Entities.Legacy;
 using Core.Interfaces;
-using Core.Mappers;
 using DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -66,8 +65,7 @@ namespace Api.Tests
                     _ => (BaseContext)services.FirstOrDefault(d => (d is LocalContext))
                 };
             });                                
-            services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
-            services.AddTransient<ILegacyDataMapper<Drug,Produto>, ProdutoMapper>();
+            services.AddTransient(typeof(IRepository<>),typeof(Repository<>));            
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IDrugService, DrugService>();
             services.AddTransient<IBillingService, BillingService>();                        

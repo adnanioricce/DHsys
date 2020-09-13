@@ -58,24 +58,6 @@ namespace Api.Controllers.Api
                 Message = "",
                 Success = true
             });
-        }
-        // POST: api/Drugs/create_from_produtos
-        [HttpPost("create_from_produtos")]
-        public ActionResult<BaseResourceResponse<IEnumerable<Drug>>> CreateDrugsFromCollectionOfProduto([FromBody]CreateDrugFromProdutoRequest request)
-        {            
-            if (!request.CreatedProdutos.Any()) return new BadRequestObjectResult("there is no data to save"); 
-            //What I should do here?
-            _drugService.CreateDrugs(request.CreatedProdutos);
-
-            return Ok(new BaseResourceResponse<IEnumerable<Drug>>(errorMessage:"",resultObject:null));
-        }
-        // POST: api/Drugs/create_from_produto
-        [HttpPost("create_from_produto")]
-        public ActionResult<BaseResourceResponse> CreateDrugFromProduto([FromBody]Produto produto)
-        {
-            _drugService.CreateDrug(produto);
-            return Ok(new BaseResourceResponse(errorMessage: "", success: true));            
-        }
-        
+        }        
     }
 }
