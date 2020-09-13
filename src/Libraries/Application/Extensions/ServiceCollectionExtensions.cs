@@ -1,12 +1,10 @@
 ﻿using Application.Mapping.Domain;
 using Application.Services;
-using Application.Services.Catalog;
 using AutoMapper;
 using Core.Entities.Catalog;
 using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Interfaces.Catalog;
-using Core.Mappers;
 using DAL;
 using DAL.DbContexts;
 using Infrastructure.Interfaces;
@@ -80,10 +78,8 @@ namespace Application.Extensions
             services.AddSingleton(typeof(IUpdater),updater);
         }           
         public static void AddApplicationServices(this IServiceCollection services)
-        {
-            services.AddTransient<IDrugProdutoMediator, DrugProdutoMediator>();
-            services.AddTransient<IDrugService, DrugService>();
-            services.AddTransient<IProdutoService, ProdutoService>();
+        {            
+            services.AddTransient<IDrugService, DrugService>();            
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IBillingService, BillingService>();            
         }
@@ -132,11 +128,7 @@ namespace Application.Extensions
             services.ConfigureWritable<ConnectionStrings>();
             services.ConfigureWritable<DatabaseSettings>();
             services.ConfigureWritable<AppSettings>();
-        }
-        public static void AddCustomMappers(this IServiceCollection services)
-        {
-            services.AddTransient<ILegacyDataMapper<Drug, Produto>, ProdutoMapper>();
-        }
+        }        
         public static void TryCreateDatabase(this IServiceProvider provider, BaseContext context)
         {            
             context.Database.Migrate();            

@@ -17,11 +17,8 @@ namespace Core.Interfaces
         IEnumerable<Drug> GetDrugsByNcm(IEnumerable<string> ncms);
         IEnumerable<Drug> SearchDrugsByName(string name);
         Task<Drug> SearchDrugsByNameAsync(string name);
-        void CreateDrug(Drug product);
-        void CreateDrug(Produto produto);
-        void CreateDrugs(IEnumerable<Produto> produtos);
-        void CreateDrugs(IEnumerable<Drug> drugs);
-        Task<int> CreateDrugsAsync(IEnumerable<Produto> produtos);
+        void CreateDrug(Drug product);        
+        void CreateDrugs(IEnumerable<Drug> drugs);        
         void UpdateDrugPrice(int drugId,ProductPrice newDrugPrice);
         void UpdateDrug(int drugId,Drug drug);
     }

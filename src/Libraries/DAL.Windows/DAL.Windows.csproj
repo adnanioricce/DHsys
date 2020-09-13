@@ -5,10 +5,20 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.0.35" />
-    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.4" />
-    <PackageReference Include="System.Data.OleDb" Version="4.7.0" />
+    <PackageReference Include="Dapper.Contrib" Version="2.0.35" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="3.1.4" />    
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj" />    
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Advantage.Data.Provider">
+      <HintPath>C:\Program Files (x86)\Advantage 11.10\ado.net\Redistribute\Advantage.Data.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.Advantage.v11">
+      <HintPath>C:\Program Files (x86)\Advantage 11.10\ado.net\4.6\EntityFramework.Advantage.v11.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

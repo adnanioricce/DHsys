@@ -137,11 +137,22 @@ namespace DAL.Extensions
             }
             if (context.Database.IsNpgsql())
             {
-                context.Database.ExecuteSqlRaw(@$"\c postgres;
-                                                 DROP DATABASE {_dbname};
-                                                 CREATE DATABASE { _dbname} TEMPLATE {_dbname}_copy;
-                                                 \c {_dbname};
-                                                 DROP DATABASE {_dbname}_copy; ");
+                var connection = context.Database.GetDbConnection();
+                
+                connection.Open();
+                connection.ChangeDatabase("postgres");
+                var command = connection.CreateCommand();                
+                command.CommandText = @$"SELECT pg_terminate_backend(pg_stat_activity.pid)
+                                        FROM pg_stat_activity
+                                        WHERE pg_stat_activity.datname = '{_dbname}'
+                                          AND pid <> pg_backend_pid();
+                                        DROP DATABASE {_dbname};
+                                        CREATE DATABASE { _dbname} TEMPLATE {_dbname}_copy;                                                 
+                                        DROP DATABASE {_dbname}_copy; ";
+                command.ExecuteNonQuery();
+                connection.ChangeDatabase(_dbname);
+                connection.Close();
+                
             }
         }
         /// <summary>

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[Controller]")]
     [ApiController]
     public class DefaultApiController<TEntity,TEntityResponse> : ControllerBase where TEntity : BaseEntity where TEntityResponse : class
     {
