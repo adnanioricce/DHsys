@@ -13,14 +13,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: build libraries
-        using: docker
+        uses: docker
         run: docker build . --file Dockerfile.ci.libraries
   build-api:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2      
-        run: docker-compose up -d
+        uses: actions/checkout@v2
+      - name: Run Integration Tests         
+        run: docker run --name dhsysdb-dev -p "2424:5432" -e POSTGRES_PASSWORD=postgres -d postgres && docker build ./tests/IntegrationTests/Api.Tests/
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
