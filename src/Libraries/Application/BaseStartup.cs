@@ -30,7 +30,7 @@ namespace Application
             services.AddApplicationUpdater();
             services.AddApplicationServices();            
             services.ConfigureApplicationOptions(Configuration);
-                      
+            services.AddAutoMapperConfiguration();
         }
 
     }

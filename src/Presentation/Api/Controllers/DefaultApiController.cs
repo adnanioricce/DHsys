@@ -12,12 +12,10 @@ namespace Api.Controllers
     [Route("api/[Controller]")]
     [ApiController]
     public class DefaultApiController<TEntity,TEntityResponse> : ControllerBase where TEntity : BaseEntity where TEntityResponse : class
-    {
-        protected readonly IMediator _mediator;
+    {        
         protected readonly IRepository<TEntity> _repository;
-        public DefaultApiController(IMediator mediator, IRepository<TEntity> repository)
-        {
-            _mediator = mediator;
+        public DefaultApiController(IRepository<TEntity> repository)
+        {            
             _repository = repository;
         }
         [HttpPost("create")]

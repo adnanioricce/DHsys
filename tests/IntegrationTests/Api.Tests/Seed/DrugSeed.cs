@@ -29,6 +29,34 @@ namespace Api.Tests.Seed
                             }
                         }
                     },                    
+                },                
+            };
+        }
+        public static IEnumerable<Drug> GetDrugForTransactions()
+        {
+            return new List<Drug>
+            {
+                new Drug
+                {
+                    DrugName = "Lixiana 10mg 2cp",
+                    BarCode = "0987654321012",
+                    //TODO: Remove duplicated property
+                    DrugCost = 4.67m,
+                    EndCustomerPrice = 12.99m,
+                    QuantityInStock = 4,
+                    ICMS = 18,
+                    MinimumStock = 1,                    
+                    Ncm = "30003234124",
+                    ProductSuppliers = new List<ProductSupplier>{
+                        new ProductSupplier{
+                            Supplier = new Supplier{
+                                SupplierName = "MainSupplier"
+                            },
+                            Product = new Product{
+
+                            }
+                        }
+                    }
                 }
             };
         }

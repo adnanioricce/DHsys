@@ -6,7 +6,7 @@ using Core.Entities.Financial;
 namespace Core.ApplicationModels.Dtos.Financial
 {
     public class TransactionDto
-    {
+    {        
         public decimal TransactionTotal { get; set; }
 
         public PaymentMethods PaymentMethod { get; set; }

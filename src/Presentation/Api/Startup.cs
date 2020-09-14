@@ -40,7 +40,7 @@ namespace Api
             services.AddMvc()
                 .AddNewtonsoftJson(settings => {
                     settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+                    settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;                    
                 });            
             services.AddDataStore(Configuration,opt => opt.UseNpgsql(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")));
             services.AddTransient<DbContextResolver>(provider => key => {

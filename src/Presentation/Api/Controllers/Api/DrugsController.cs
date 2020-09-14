@@ -32,30 +32,44 @@ namespace Api.Controllers.Api
         {
             var drugs = _drugService.SearchDrugsByName(query.Name).ToList();
             if(drugs.Count == 0)
-            {                
-                return BadRequest($"there is no drug with the pattern {query.Name} on it's name");                
+            {
+                return StatusCode(404,new BaseResourceResponse<IList<DrugDto>>
+                {
+                    Message = $"there is no drug with the pattern {query.Name} on it's name"                    
+                });
             }
-            return Ok(new BaseResourceResponse<IList<DrugDto>>("drugs created with success",drugs.Select(d => _mapper.Map<Drug, DrugDto>(d)).ToList()));            
+            var drugDtos = _mapper.Map<List<Drug>, IList<DrugDto>>(drugs);
+            var resultValue = new BaseResourceResponse<IList<DrugDto>>("drugs created with success", drugDtos);
+            return Ok(resultValue);
         }
         // GET: api/Drugs/search/{barcode}
-        [HttpGet("search")]
-        public ActionResult<BaseResourceResponse<Drug>> GetDrugByBarCode([FromRoute]string barcode)
+        [HttpGet("search/{barcode}")]
+        public ActionResult<BaseResourceResponse<DrugDto>> GetDrugByBarCode([FromRoute]string barcode)
         {
             var drug = _drugService.SearchDrugByBarCode(barcode);
-            if(drug is null)
+            if (drug is null)
             {
-                return BadRequest($"There is no drug with name {barcode}");
+                return StatusCode(404, new BaseResourceResponse<DrugDto>
+                {
+                    Message = $"There is no drug with barcode {barcode}",
+                    ResultObject = null
+                });
             }
-            return Ok(new BaseResourceResponse<Drug>("", drug));            
+            return Ok(new BaseResourceResponse<DrugDto>("",_mapper.Map<Drug,DrugDto>(drug)));            
         }
         // POST: api/Drugs/create
         [HttpPost("create")]
-        public ActionResult<BaseResourceResponse> CreateDrug(Drug drug)
+        public ActionResult<BaseResourceResponse> CreateDrug(DrugDto drugDto)
         {
+            var drug = _mapper.Map<DrugDto, Drug>(drugDto);
             _drugService.CreateDrug(drug);
-            return Ok(new BaseResourceResponse
+            return Ok(new BaseResourceResponse<object>
             {
-                Message = "",
+                Message = "entity created with success",
+                ResultObject = new
+                {
+                    CreatedIds = drug.Id,
+                },
                 Success = true
             });
         }        
