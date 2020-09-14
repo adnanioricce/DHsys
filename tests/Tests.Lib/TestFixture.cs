@@ -54,7 +54,14 @@ namespace Tests.Lib
         public void Dispose()
         {
             var context = GetRemoteContext();
-            context.RestoreDatabase(context.GetDatabaseName());
+            //try
+            //{
+            //    context.RestoreDatabase(context.GetDatabaseName());
+            //}
+            //catch (Exception)
+            //{
+            //    //TODO:
+            //}
             Client.Dispose();
             Server.Dispose();
         }
@@ -105,7 +112,14 @@ namespace Tests.Lib
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             ServiceProvider = Server.Services;
             var context = GetRemoteContext();
-            context.CreateDatabaseBackup();
+            //try
+            //{
+            //    context.CreateDatabaseBackup();
+            //}
+            //catch (Exception)
+            //{
+            //    //TODO:
+            //}
         }
         public RemoteContext GetRemoteContext()
         {

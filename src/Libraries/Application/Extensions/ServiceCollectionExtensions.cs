@@ -19,6 +19,8 @@ using System;
 using System.IO;
 using MediatR;
 using System.Linq;
+using Core.Interfaces.Financial;
+using Application.Services.Financial;
 
 namespace Application.Extensions
 {
@@ -81,7 +83,8 @@ namespace Application.Extensions
         {            
             services.AddTransient<IDrugService, DrugService>();            
             services.AddTransient<IStockService, StockService>();
-            services.AddTransient<IBillingService, BillingService>();            
+            services.AddTransient<IBillingService, BillingService>();
+            services.AddTransient<ITransactionService, TransactionService>();
         }
         public static void AddDataStore(this IServiceCollection services,
             IConfiguration configuration,
@@ -110,7 +113,7 @@ namespace Application.Extensions
                 }
                 //TODO:
             });
-            services.AddScoped<BaseContext,LocalContext>();
+            services.AddScoped<BaseContext, LocalContext>();
             services.AddScoped<BaseContext, RemoteContext>();            
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }

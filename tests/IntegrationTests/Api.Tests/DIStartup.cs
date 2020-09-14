@@ -43,18 +43,19 @@ namespace Api.Tests
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            services.AddDbContextPool<BaseContext, LocalContext>(opt => {
-                opt.UseSqlite(sqliteConnStr);
-                opt.EnableSensitiveDataLogging();
-                opt.EnableDetailedErrors();                
-            });
-            services.AddDbContextPool<BaseContext, RemoteContext>(opt => {
-                 opt.UseNpgsql(configuration.GetValue<string>("AppSettings:ConnectionStrings:RemoteConnection"));
-                 opt.EnableSensitiveDataLogging();
-                 opt.EnableDetailedErrors();
-             });
-            services.AddScoped<BaseContext, LocalContext>();
-            services.AddScoped<BaseContext, RemoteContext>();
+            //services.AddDbContextPool<BaseContext, LocalContext>(opt => {
+            //    opt.UseSqlite(sqliteConnStr);
+            //    opt.EnableSensitiveDataLogging();
+            //    opt.EnableDetailedErrors();                
+            //});
+            //services.AddDbContextPool<BaseContext, RemoteContext>(opt => {
+            //     opt.UseNpgsql(configuration.GetConnectionString("RemoteConnection"));
+            //     opt.EnableSensitiveDataLogging();
+            //     opt.EnableDetailedErrors();
+            // });
+            //services.AddScoped<BaseContext, LocalContext>();
+            //services.AddScoped<BaseContext, RemoteContext>();
+            services.AddDataStore(configuration, opt => opt.UseNpgsql(configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")));
             services.AddTransient<DbContextResolver>(provider => key => {
                 string option = key.ToLower();
                 var services = provider.GetServices(typeof(BaseContext));
