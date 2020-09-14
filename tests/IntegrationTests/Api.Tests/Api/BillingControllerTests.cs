@@ -24,8 +24,7 @@ namespace Api.Tests
             // Arrange
             var client = _fixture.Client;
             var baseUrl = "api/Billing/{0}";                        
-            var billing = new Billing
-            {
+            var billing = new Billing {
                 BeneficiaryName = "FAKE Beneficiary",
                 CreatedAt = DateTimeOffset.UtcNow,
                 Discount = 0,
@@ -33,11 +32,11 @@ namespace Api.Tests
                 UniqueCode = Guid.NewGuid().ToString(),
                 Price = 12.99m,
                 EndDate = DateTime.Today.AddDays(TimeSpan.FromDays(3).TotalDays),
-                IsPaid = false                
-            };            
+                IsPaid = false
+            };
             var context = _fixture.GetRemoteContext();
             context.Add(billing);
-            context.SaveChanges();
+            var changes = context.SaveChanges();
             string requestUrl = string.Format(baseUrl, billing?.Id);
             // Act
             var result = await client.GetAsync(requestUrl);

@@ -1,5 +1,4 @@
-﻿using Application.Services.Catalog;
-using Core.Entities;
+﻿using Core.Entities;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
 using Core.Entities.Legacy;

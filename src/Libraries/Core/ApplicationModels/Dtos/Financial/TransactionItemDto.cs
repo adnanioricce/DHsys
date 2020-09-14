@@ -34,7 +34,7 @@ namespace Core.ApplicationModels.Dtos.Financial
             return new TransactionItem()
             {
                 DrugUniqueCode = DrugUniqueCode, 
-                Drug = Drug.ToModel(), 
+                Drug = Drug?.ToModel(), 
                 Quantity = Quantity, 
                 CustomerValue = CustomerValue, 
                 CostPrice = CostPrice, 

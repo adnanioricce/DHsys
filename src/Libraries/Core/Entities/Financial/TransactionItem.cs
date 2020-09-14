@@ -8,6 +8,7 @@ namespace Core.Entities.Financial
         public virtual Drug Drug { get; set; }
         public int Quantity { get; set; }
         public decimal CustomerValue { get; set; }
-        public decimal CostPrice { get; set; }        
+        public decimal CostPrice { get; set; }
+        public int TransactionId { get; set; }
     }
 }

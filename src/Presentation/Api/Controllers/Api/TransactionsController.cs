@@ -9,13 +9,14 @@ using Core.Models;
 using Core.Models.ApplicationResources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace Api.Controllers.Api
 {
-    [Route("api/[controller]")]
+    [Route("api/[Controller]")]
     [ApiController]
     public class TransactionsController : ControllerBase
     {
@@ -37,49 +38,23 @@ namespace Api.Controllers.Api
         public async Task<ActionResult<BaseResourceResponse<TransactionDto>>> CreateTransaction([FromBody]TransactionDto transactionDto)
         {
             if (transactionDto is null) return BadRequest("invalid request, body was null");
-            var result = await _transactionService.CreateTransactionAsync(_mapper.Map<TransactionDto, Transaction>(transactionDto));
-            return Ok(new BaseResourceResponse<TransactionDto>{
-                 Message = "entity created with success", 
-                Success = true,
-                ResultObject = _mapper.Map<TransactionDto>(_mapper.Map<Transaction, TransactionDto>(result.Value))
-            });
-        }        
-        [HttpPost("legacy_create")]
-        public async Task<ActionResult<BaseResourceResponse<IList<TransactionDto>>>> CreateTransactions([FromBody]IList<(string Prcodi,int qtde)> legacyTransactions)
-        {
-            var transactions = await _drugRepository.Query()
-                                       .Where(p => legacyTransactions.Any(t => t.Prcodi == p.UniqueCode))
-                                       .Select(p => new Transaction
-                                       {
-                                           Items = new[] {
-                                               new TransactionItem
-                                                   {
-                                                       Drug = p,
-                                                       DrugUniqueCode = p.UniqueCode,
-                                                       Quantity = legacyTransactions.Where(t => t.Prcodi == p.UniqueCode)
-                                                                                    .Select(p => p.qtde)
-                                                                                    .Sum(),
-                                                       CustomerValue =  legacyTransactions.Where(t => t.Prcodi == p.UniqueCode)
-                                                                                          .Select(p => p.qtde)
-                                                                                          .Sum() * p.EndCustomerPrice.Value,
-                                                       CostPrice = p.CostPrice,
-                                                   }
-                                               }
-                                       })
-                                       .ToListAsync();                                       
-                                       
-            transactions.ForEach(transaction =>
+            var transaction = transactionDto.ToModel();
+            try
             {
-                transaction.TransactionTotal = transaction.CalculateTransactionTotal();
-            });
-            _transactionRepository.AddRange(transactions);
-            var result = await _transactionRepository.SaveChangesAsync();
-            if(result == -1)
-            {
-                return StatusCode(500,new BaseResourceResponse("the system can't save all the transactions"));
+                var result = await _transactionService.CreateTransactionAsync(transaction);
+                return Ok(new BaseResourceResponse<TransactionDto>
+                {
+                    Message = "entity created with success",
+                    Success = true,
+                    //TODO: Return dto of the created transaction
+                    ResultObject = null
+                });
             }
-            //? is this necessary?
-            return Ok(new BaseResourceResponse<IList<TransactionDto>>("transactions save all transactions with success",null));
-        }
+            catch(Exception ex)
+            {
+                throw;
+            }
+            
+        }                
     }
 }

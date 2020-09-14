@@ -79,7 +79,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public ProdutoDto Produto { get; set; }
 
-        public int? ProdutoId { get; set; }
+        public string ProdutoId { get; set; }
 
         public static ProductDto FromModel(Product model)
         {
@@ -105,7 +105,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
                 ProductPrices = model.ProductPrices.Select(p => ProductPriceDto.FromModel(p)).ToList(), 
                 Stockentries = model.Stockentries.Select(p => ProductStockEntryDto.FromModel(p)).ToList(), 
                 ShelfLifes = model.ShelfLifes.Select(p => ProductShelfLifeDto.FromModel(p)).ToList(), 
-                Produto = ProdutoDto.FromModel(model.Produto), 
+                //Produto = ProdutoDto.FromModel(model.Produto), 
                 ProdutoId = model.ProdutoId, 
             }; 
         }
@@ -134,7 +134,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
                 ProductPrices = ProductPrices.Select(p => p.ToModel()).ToList(), 
                 Stockentries = Stockentries.Select(p => p.ToModel()).ToList(), 
                 ShelfLifes = ShelfLifes.Select(p => p.ToModel()).ToList(), 
-                Produto = Produto.ToModel(), 
+                //Produto = Produto.ToModel(), 
                 ProdutoId = ProdutoId, 
             }; 
         }

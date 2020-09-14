@@ -1,0 +1,1 @@
+fake run ./deployDesktop.fsx

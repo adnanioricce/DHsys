@@ -1,4 +1,6 @@
-﻿using AspNetCore.Http.Extensions;
+﻿using Api.Tests.Seed;
+using AspNetCore.Http.Extensions;
+using Core.ApplicationModels.Dtos.Financial;
 using Core.Entities.Catalog;
 using Core.Models.ApplicationResources;
 using System.Collections.Generic;
@@ -13,25 +15,42 @@ namespace Api.Tests
     public class TransactionsControllerTests : IClassFixture<TestFixture<Startup>>
     {
         private readonly HttpClient _client;
+        private readonly TestFixture<Startup> _fixture;
         public TransactionsControllerTests(TestFixture<Startup> fixture)
         {
             _client = fixture.Client;
+            _fixture = fixture;
         }
         [Fact]
         public async Task Given_POST_legacy_creates_CreateLegacys_When_requests_prcodi_and_quantity_Then_expects_200_status_code()
-        {            
+        {
             // Given
-            var baseUrl = "api/Drugs/search/list?name={0}";
-            string name = "Dipirona";
-            string requestUrl = string.Format(baseUrl, name);
+            var baseUrl = "api/Transactions/create";
+            var drug = DrugSeed.GetDrugForTransactions().FirstOrDefault();
+            var context = _fixture.GetRemoteContext();
+            context.Add(drug);
+            context.SaveChanges();
+            var transaction = new TransactionDto
+            {
+                HasDealWithStore = false,
+                PaymentMethod = Core.Entities.Financial.PaymentMethods.InHands,                
+                Items = new TransactionItemDto[]
+                {
+                    new TransactionItemDto
+                    {
+                        DrugUniqueCode = drug.UniqueCode,
+                        CostPrice = drug.CostPrice,
+                        CustomerValue = drug.EndCustomerPrice.Value,
+                        Quantity = 1,
+                    }
+                }
+            };
             // When
             //var result = _client.get
-            var result = await _client.GetAsync(requestUrl);
-            var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IEnumerable<Drug>>>();
-            // Then
-            var count = valueResult.ResultObject.Count();
-            Assert.True(valueResult.Success);
-            Assert.True(valueResult.ResultObject.Count() > 0);
+            var result = await _client.PostAsJsonAsync(baseUrl,transaction);
+            var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<TransactionDto>>();
+            // Then            
+            Assert.True(valueResult.Success);            
         }
     }
 }

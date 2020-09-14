@@ -11,52 +11,25 @@ namespace Application.Services
 {
     public class DrugService : IDrugService
     {
-        private readonly IRepository<Drug> _drugRepository;
-        private readonly ILegacyDataMapper<Drug,Produto> _produtoMapper;
-        public DrugService(IRepository<Drug> drugRepository,
-         ILegacyDataMapper<Drug, Produto> produtoMapper)
+        private readonly IRepository<Drug> _drugRepository;        
+        public DrugService(IRepository<Drug> drugRepository)
         {
-            _drugRepository = drugRepository;
-            _produtoMapper = produtoMapper;
+            _drugRepository = drugRepository;            
         }
         public virtual void CreateDrug(Drug drug)
         {
             //TODO:write Drug validation
             _drugRepository.Add(drug);
             _drugRepository.SaveChanges();
-        }
-
-        public virtual void CreateDrug(Produto produto)
-        {
-            var drug = _produtoMapper.MapToDomainModel(produto);
-            _drugRepository.Add(drug);
-            _drugRepository.SaveChanges();
-        }
-
-        public virtual void CreateDrugs(IEnumerable<Produto> produtos)
-        {
-            var drugs = produtos.Select(_produtoMapper.MapToDomainModel);
-            _drugRepository.AddRange(drugs);
-            _drugRepository.SaveChanges();
-        }
+        }        
+       
 
         public virtual void CreateDrugs(IEnumerable<Drug> drugs)
-        {                        
-            foreach (var drug in drugs) {
-                if(drug.Produto is null) {
-                    drug.Produto = _produtoMapper.MapToLegacyModel(drug);
-                }
-            }
+        {                                    
             _drugRepository.AddRange(drugs);
             _drugRepository.SaveChanges();
         }
-
-        public Task<int> CreateDrugsAsync(IEnumerable<Produto> produtos)
-        {
-            var drugs = produtos.Select(p => _produtoMapper.MapToDomainModel(p));
-            _drugRepository.AddRange(drugs);
-            return _drugRepository.SaveChangesAsync();
-        }
+        
 
         public virtual Drug GetDrugByUniqueCode(string uniqueCode)
         {
@@ -113,11 +86,11 @@ namespace Application.Services
                 || EF.Functions.Like(d.Description.ToLower(), "%" + name.ToLower() + "%"));
         }
 
-        public virtual async Task<Drug> SearchDrugsByNameAsync(string name)
+        public virtual async Task<IEnumerable<Drug>> SearchDrugsByNameAsync(string name)
         {
             return await _drugRepository.Query()
                 .Where(d => EF.Functions.Like(d.DrugName.ToLower(), "%" + name.ToLower() + "%"))
-                .FirstOrDefaultAsync();
+                .ToListAsync();
         }
 
         public virtual void UpdateDrug(int drugId, Drug drug)

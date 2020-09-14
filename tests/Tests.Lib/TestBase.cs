@@ -15,18 +15,18 @@ namespace Tests.Lib
             var dbContext = scope.ServiceProvider.GetRequiredService<RemoteContext>();
             var connection = dbContext.Database.GetDbConnection();
             _dbname = connection.Database;
-            string backupScript = $@"BACKUP DATABASE {_dbname} to DISK=N'{_dbname}.bak' WITH FORMAT, INIT, STATS=10;";
+            string backupScript = $@"CREATE DATABASE {_dbname}_copy WITH TEMPLATE {_dbname};";
             dbContext.Database.ExecuteSqlRaw(backupScript);
             _dbContext = dbContext;            
         }
         public virtual void Dispose()
         {
             //restore previous state when run backup query
-            _dbContext.Database.ExecuteSqlRaw($@"USE master;
-                                                ALTER DATABASE {_dbname}
-                                                SET SINGLE_USER                                                
-                                                WITH ROLLBACK IMMEDIATE
-                                                RESTORE DATABASE {_dbname} FROM DISK = '{_dbname}.bak' WITH REPLACE");
+            _dbContext.Database.ExecuteSqlRaw(@$"\c postgres;
+                                                 DROP DATABASE {_dbname};
+                                                 CREATE DATABASE { _dbname} TEMPLATE {_dbname}_copy;
+                                                 \c {_dbname};
+                                                 DROP DATABASE {_dbname}_copy; ");            
         }
     }
 }

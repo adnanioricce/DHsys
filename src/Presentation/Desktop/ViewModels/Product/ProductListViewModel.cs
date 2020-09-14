@@ -7,18 +7,20 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using Desktop.Models;
 using System.IO;
+using DAL.Windows.Repositories;
+using System.Threading;
 
 namespace Desktop.ViewModels.Product
 {
     public class ProductListViewModel : ViewModelBase
-    {
-        private Task _legacyWorkerThread;
-        private readonly ILegacyRepository<Produto> _produtoRepository;
-        private readonly IDrugService _drugService;
-        private ObservableCollection<ProductCardModel> produtoCollection = new ObservableCollection<ProductCardModel>();        
-        public ObservableCollection<ProductCardModel> ProdutoCollection { get { return produtoCollection; } set 
-            {   if (produtoCollection == value) return;
-                Set(ref produtoCollection, value);
+    {        
+        private readonly IDrugService _drugService;        
+        private ObservableCollection<ProductCardModel> drugCollection = new ObservableCollection<ProductCardModel>();        
+        public ObservableCollection<ProductCardModel> DrugCollection { get { return drugCollection; } 
+            set 
+            {   
+                if (drugCollection == value) return;
+                Set(ref drugCollection, value);
             } 
         }      
         private string _searchPattern = "";
@@ -26,19 +28,18 @@ namespace Desktop.ViewModels.Product
             {
                 if (this._searchPattern == value) return;
                 Set(ref _searchPattern, value.ToUpper());
-                ExecuteGetProductsBySearchPattern(_searchPattern);
+                ThreadPool.QueueUserWorkItem(async (parameter) => await ExecuteGetProductsBySearchPattern((string)parameter), _searchPattern);
             } }
-        public RelayCommand<string> GetProductByCodeCommand { get; set; }
-        public RelayCommand<string> GetProductByBarcodeCommand { get; set; }        
-        public RelayCommand<string> GetProductsBySearchPatternCommand { get; set; }
+        public RelayCommand<string> GetDrugByCodeCommand { get; set; }
+        public RelayCommand<string> GetDrugByBarcodeCommand { get; set; }        
+        public RelayCommand<string> GetDrugBySearchPatternCommand { get; set; }
         
-        public ProductListViewModel(ILegacyRepository<Produto> produtoRepository,IDrugService drugService)
-        {
-            _produtoRepository = produtoRepository;
-            GetProductByCodeCommand = new RelayCommand<string>(ExecuteGetProductByCode);
-            GetProductsBySearchPatternCommand = new RelayCommand<string>(ExecuteGetProductsBySearchPattern);
-            GetProductByBarcodeCommand = new RelayCommand<string>(ExecuteGetProductByBarcode);
-            ProdutoCollection.Add(new ProductCardModel
+        public ProductListViewModel(IDrugService drugService)
+        {            
+            GetDrugByCodeCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductByCode(parameter));
+            GetDrugBySearchPatternCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductsBySearchPattern(parameter));
+            GetDrugByBarcodeCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductByBarcode(parameter));
+            DrugCollection.Add(new ProductCardModel
             {
                 Barcode = "1234567788123213",
                 Code = "123456",
@@ -50,59 +51,50 @@ namespace Desktop.ViewModels.Product
             });
             _drugService = drugService;
         }               
-        public void ExecuteGetProductByCode(string parameter)
+        public async Task ExecuteGetProductByCode(string parameter)
         {
-            var produto = _produtoRepository.GetById((string)parameter);
+            var drug = await _drugService.GetDrugByUniqueCodeAsync(parameter);
             var productModel = new ProductCardModel
             {
-                Code = produto.Prcodi,
-                Barcode = produto.Prbarra,
-                Description = produto.Prdesc,
-                EndCustomerPrice = decimal.TryParse(produto.Prfinal.ToString(), out var price) ? price : 0.00m,
-                Name = produto.Prdesc,
+                Code = drug.UniqueCode,
+                Barcode = drug.BarCode,
+                Description = drug.Description,
+                EndCustomerPrice = drug.EndCustomerPrice.HasValue ? drug.EndCustomerPrice.Value : 0.00m,
+                Name = drug.DrugName,
                 FrontImage = "../../Resources/placeholder.png",
-                StockQuantity = int.TryParse(produto.Prestq.ToString(), out var result) ? result : 0
+                StockQuantity = drug.QuantityInStock.HasValue ? drug.QuantityInStock.Value : 0,
+                CostPrice = drug.CostPrice,                
             };
-            if (!ProdutoCollection.Contains(productModel))
+            if (!DrugCollection.Contains(productModel))
             {
-                ProdutoCollection.Add(productModel);
+                DrugCollection.Add(productModel);
             }
         }        
-        public void ExecuteGetProductsBySearchPattern(string pattern)
+        public async Task ExecuteGetProductsBySearchPattern(string pattern)
         {
-            //TODO:Insecure code, throws exception when just user type 
-            if (!_legacyWorkerThread.IsCompleted) return;
-            var task = new Task(() =>
-            {
-                var produtos = _produtoRepository.MultipleFromRawSqlQuery($@"SELECT * FROM PRODUTO.DBF 
-                WHERE prdesc LIKE '%{pattern}%' 
-                OR prbarra LIKE '%{pattern}%'
-                OR prprinci LIKE '%{pattern}%'
-                OR prcodi LIKE '%{pattern}%'");
-                foreach (var produto in produtos)
+            //TODO:Insecure code, throws exception when just user type            
+            var drugs = await _drugService.SearchDrugsByNameAsync(pattern);
+
+            foreach (var drug in drugs)
+            {                
+                DrugCollection.Add(new ProductCardModel
                 {
-                    System.Windows.Application.Current.Dispatcher.Invoke(() =>
-                    ProdutoCollection.Add(new ProductCardModel
-                    {
-                        Code = produto.Prcodi,
-                        Barcode = produto.Prbarra,
-                        Description = produto.Prdesc,
-                        CostPrice = decimal.TryParse(produto.Prfabr.ToString(), out var costPrice) ? costPrice : 0.00m,
-                        EndCustomerPrice = decimal.TryParse(produto.Prfinal.ToString(), out var price) ? price : 0.00m,
-                        Name = produto.Prdesc,
-                        FrontImage = "../../Resources/placeholder.png",
-                        StockQuantity = int.TryParse(produto.Prestq.ToString(), out var result) ? result : 0
-                    }));
-                }
-            });
-            _legacyWorkerThread = task;
-            task.Start();            
+                    Code = drug.BarCode,
+                    Barcode = drug.BarCode,
+                    Description = drug.Description,
+                    CostPrice = drug.CostPrice,
+                    EndCustomerPrice = drug.EndCustomerPrice.HasValue ? drug.EndCustomerPrice.Value : 0.00m,
+                    Name = drug.DrugName,
+                    FrontImage = "../../Resources/placeholder.png",
+                    StockQuantity = drug.QuantityInStock.HasValue ? drug.QuantityInStock.Value : 0
+                });
+            }                          
         }      
-        public void ExecuteGetProductByBarcode(string barcode)
+        public async Task ExecuteGetProductByBarcode(string barcode)
         {
-            var drug = _drugService.SearchDrugByBarCode(barcode);
-            ProdutoCollection.Clear();
-            ProdutoCollection.Add(new ProductCardModel
+            var drug = await _drugService.SearchDrugByBarCodeAsync(barcode);
+            DrugCollection.Clear();
+            DrugCollection.Add(new ProductCardModel
             {
                 Code = drug.UniqueCode,
                 Barcode = drug.BarCode,

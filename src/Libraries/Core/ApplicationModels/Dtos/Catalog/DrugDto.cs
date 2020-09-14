@@ -75,7 +75,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
         }
 
         public Drug ToModel()
-        {
+        {            
             return new Drug()
             {
                 BaseDrugId = BaseDrugId, 
@@ -94,7 +94,29 @@ namespace Core.ApplicationModels.Dtos.Catalog
                 PrescriptionNeeded = PrescriptionNeeded, 
                 IsPriceFixed = IsPriceFixed, 
                 DigitalBuleLink = DigitalBuleLink, 
-                Druginformation = Druginformation.Select(d => d.ToModel()).ToList(), 
+                Druginformation = Druginformation.Select(d => d.ToModel()).ToList(),
+                Ncm = Ncm,
+                QuantityInStock = QuantityInStock,
+                ReorderLevel = ReorderLevel,
+                ReorderQuantity = ReorderQuantity,
+                EndCustomerPrice = EndCustomerPrice,
+                CostPrice = CostPrice,
+                SavingPercentage = SavingPercentage,
+                BarCode = BarCode,
+                Description = Description,
+                Section = Section,
+                MaxDiscountPercentage = MaxDiscountPercentage,
+                DiscountValue = DiscountValue,
+                Commission = Commission,
+                ICMS = ICMS,
+                MinimumStock = MinimumStock,
+                MainSupplierName = MainSupplierName,
+                ProductSuppliers = ProductSuppliers.Select(p => p.ToModel()).ToList(),
+                ProductPrices = ProductPrices.Select(p => p.ToModel()).ToList(),
+                Stockentries = Stockentries.Select(p => p.ToModel()).ToList(),
+                ShelfLifes = ShelfLifes.Select(p => p.ToModel()).ToList(),
+                //Produto = Produto.ToModel(), 
+                ProdutoId = ProdutoId,
             }; 
         }
     }

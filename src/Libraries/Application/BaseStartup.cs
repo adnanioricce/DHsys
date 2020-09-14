@@ -22,15 +22,15 @@ namespace Application
         public virtual void ConfigureServices(IServiceCollection services)
         {
             var assembly = Assembly.GetExecutingAssembly();
-            string assemblyContent = assembly.FullName;
+            string assemblyFullname = assembly.FullName;
             string assemblyName = assembly.GetName().Name;
-            File.WriteAllText(assemblyName, assemblyContent);            
+            File.WriteAllText(assemblyName, assemblyFullname);            
             services.ConfigureAppDataFolder();
+            //TODO:Remove AddApplicationUpdater call, The Api project don't need it
             services.AddApplicationUpdater();
-            services.AddApplicationServices();
-            services.AddCustomMappers();
+            services.AddApplicationServices();            
             services.ConfigureApplicationOptions(Configuration);
-                      
+            services.AddAutoMapperConfiguration();
         }
 
     }
