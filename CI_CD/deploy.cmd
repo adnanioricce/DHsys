@@ -1,1 +1,1 @@
-fake run ./deploy.fsx
+fake run ./deployDesktop.fsx

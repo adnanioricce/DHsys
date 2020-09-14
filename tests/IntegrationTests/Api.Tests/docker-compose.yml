@@ -1,0 +1,17 @@
+version: "3.8"
+services:
+  dhsysdb-dev:
+    image: postgres
+    ports:
+      - "2424:5432"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+  api:
+    build: .
+    links:
+      - "dhsysdb-dev:dhsysdb-dev"
+    depends_on:
+      - dhsysdb-dev
+    
+  

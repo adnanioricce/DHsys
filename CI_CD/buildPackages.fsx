@@ -20,8 +20,8 @@ let sourceDir = "./src/"
 //Change
 Target.initEnvironment ()
 
-Target.create "CleanApp" (fun _ ->
-  Trace.log "--- Cleaning App ---"
+Target.create "CleanSolution" (fun _ ->
+  Trace.log "--- Cleaning Solution ---"
   !! "../src/**/bin"
   ++ "../src/**/obj"
   |> Shell.cleanDirs 
@@ -36,38 +36,32 @@ Target.create "CleanBuild" (fun _ ->
   !! "../build/**/"
   |> Shell.cleanDirs
 ) 
-Target.create "BuildApps" (fun _ -> 
-  Trace.log "--- Building Applications ---"
-  !! "../src/**/Api.csproj"
-  |> Seq.iter (DotNet.build id)
+Target.create "BuildLibraries" (fun _ ->  
+  Trace.log "--- Building Libraries  ---"
+  !! "../src/Libraries/**/*.*proj"  
+  -- "../src/**/*Windows*.*proj"
+  |> Seq.iter (DotNet.build id)  
 )
 Target.create "BuildTest" (fun _ ->
   Trace.log "--- Starting Tests building ---"
-  !! "../src/tests/UnitTests/*.csproj"
-  -- "../src/tests/**/*Desktop*.csproj"  
+  !! "../src/tests/UnitTests/**/*.csproj"
+  -- "../src/tests/UnitTests/Desktop.Tests/Desktop.Tests.csproj"  
   |> Seq.iter (DotNet.build id)
 )
 Target.create "RunUnitTests" (fun _ ->
   Trace.log "--- Executing Unit Tests ---"
   !! "../tests/UnitTests/**/*.csproj"
+  -- "../tests/UnitTests/Desktop.Tests/Desktop.Tests.csproj"
   |> Seq.iter (DotNet.test id)
 )
-Target.create "PublishApi" (fun _ ->
-  Trace.log "--- Publishing Api ---"
-  !! "../src/**/Api.csproj"  
-  |> Seq.iter (DotNet.publish id)
-)
-
 Target.create "All" ignore
 
 "CleanApp"
   ==> "CleanTest"
   ==> "CleanBuild"
   ==> "BuildLibraries"
-  ==> "BuildApps"
   ==> "BuildTest"
   ==> "RunUnitTests"  
-  ==> "PublishApi"  
   ==> "All"  
 
 Target.runOrDefault "All"
