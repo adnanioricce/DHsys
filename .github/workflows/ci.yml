@@ -12,8 +12,7 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: build libraries
-        uses: docker
+      - name: build libraries        
         run: docker build . --file Dockerfile.ci.libraries
   build-api:
     runs-on: ubuntu-latest
