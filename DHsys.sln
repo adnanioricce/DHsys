@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0B5AC572
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationTests", "IntegrationTests", "{77030376-4F09-45AF-9610-1392B4D3531D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.IntegrationTests", "tests\IntegrationTests\Api.IntegrationTests\Api.IntegrationTests.csproj", "{E9E461FE-0363-4F69-8EF3-DB922BB01CDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Windows.Tests", "tests\IntegrationTests\Api.IntegrationTests\Api.Windows.Tests.csproj", "{E9E461FE-0363-4F69-8EF3-DB922BB01CDF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Tests", "tests\IntegrationTests\Api.Tests\Api.Tests.csproj", "{72BC4112-CE60-4F82-A640-EB342F7EDB45}"
 EndProject
@@ -57,9 +57,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.Windows", "src\Librarie
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure.Windows", "src\Libraries\Infrastructure.Windows\Infrastructure.Windows.csproj", "{AA8A33B7-F8CB-4AB4-A2E3-96D97E60896A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Windows", "src\Presentation\Api.Windows\Api.Windows.csproj", "{CA709BA8-E2DF-4AAB-B7C4-B5A696C9341A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api.Windows", "src\Presentation\Api.Windows\Api.Windows.csproj", "{CA709BA8-E2DF-4AAB-B7C4-B5A696C9341A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests.Lib.Windows", "tests\Tests.Lib.Windows\Tests.Lib.Windows.csproj", "{0CD9DDAF-E6C7-436F-9DA9-CC3ACA4E4A35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests.Lib.Windows", "tests\Tests.Lib.Windows\Tests.Lib.Windows.csproj", "{0CD9DDAF-E6C7-436F-9DA9-CC3ACA4E4A35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

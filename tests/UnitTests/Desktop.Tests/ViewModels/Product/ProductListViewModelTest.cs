@@ -3,6 +3,10 @@ using Tests.Lib.Data;
 using Xunit;
 using Core.Entities.Legacy;
 using Desktop.ViewModels.Product;
+using Core.Entities.Catalog;
+using Moq;
+using Core.Interfaces;
+using System.Threading.Tasks;
 
 namespace Desktop.Tests.ViewModels
 {
@@ -13,38 +17,42 @@ namespace Desktop.Tests.ViewModels
         {
             //Given
             string code = "123456789012";
-            var entry = new Produto{
-                Prcodi = code,
+            var entry = new Drug
+            {
+                UniqueCode = code,
             };
-            var repository = new FakeLegacyProdutoRepository();
-            repository.Add(entry);
+            //var repository = new FakeLegacyProdutoRepository();
+            //repository.Add(entry);
+            var mockDrugService = new Mock<IDrugService>();
+            mockDrugService.Setup(m => m.GetDrugByUniqueCodeAsync(It.IsAny<string>()))
+                           .ReturnsAsync(entry);
             //When
-            var viewModel = new ProductListViewModel(repository,null);
-            viewModel.ExecuteGetProductByCode(entry.Prcodi);
+            var viewModel = new ProductListViewModel(mockDrugService.Object);
+            viewModel.ExecuteGetProductByCode(code);
             //Then                              
-            Assert.NotNull(viewModel.ProdutoCollection.FirstOrDefault());
+            Assert.NotNull(viewModel.DrugCollection.FirstOrDefault());
         }
         [Theory]
         [InlineData("ibu")]
         [InlineData("1234")]
         [InlineData("lixi")]
-        public void ExecuteGetProductsBySearchPattern_ReceivesSearchPattern_ShouldReturnAllProductsOnDataSourceThatMatchesGivenPattern(string searchPattern)
+        public async Task ExecuteGetProductsBySearchPattern_ReceivesSearchPattern_ShouldReturnAllProductsOnDataSourceThatMatchesGivenPattern(string searchPattern)
         {
-            //Given            
-            var repository = new FakeLegacyProdutoRepository();
-            repository.Add(new Produto
-            {
-                Prcodi = searchPattern,
-                Prbarra = searchPattern,
-                Prdesc = searchPattern,
-                Prprinci = searchPattern,                
-            });
-            var viewModel = new ProductListViewModel(repository,null);
+            //Given
+            var drug = new Drug {
+                UniqueCode = searchPattern,
+                BarCode = searchPattern,
+                DrugName = searchPattern,
+                ActivePrinciple = searchPattern,
+            };
+            var mockDrugService = new Mock<IDrugService>();
+            mockDrugService.Setup(m => m.SearchDrugsByNameAsync(It.IsAny<string>()))
+                           .ReturnsAsync(new[] { drug });
+            var viewModel = new ProductListViewModel(mockDrugService.Object);
             //When
-            viewModel.ExecuteGetProductsBySearchPattern(searchPattern);
+            await viewModel.ExecuteGetProductsBySearchPattern(searchPattern);
             //Then
-            Assert.NotNull(viewModel.ProdutoCollection.FirstOrDefault());
+            Assert.NotNull(viewModel.DrugCollection.FirstOrDefault());
         }
-          
     }
 }

@@ -93,24 +93,25 @@ namespace Application.Extensions
         {            
             services.AddDbContextPool<BaseContext, LocalContext>(opt =>
             {                
-                opt.UseLazyLoadingProxies();
-                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection");
-                if (localContextOptions == null)
-                {
-                    opt.UseSqlite(connStr);
-                    return;
-                }
+                //opt.UseLazyLoadingProxies();
+                //string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection");
+                //if (localContextOptions == null)
+                //{
+                //    opt.UseSqlite(connStr);
+                //    return;
+                //}
                 localContextOptions(opt);
             });
             services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
-            {                
-                opt.UseLazyLoadingProxies();
-                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection");
-                if (remoteContextOptions == null)
-                {
-                    opt.UseNpgsql(connStr);
-                    return;
-                }
+            {
+                //opt.UseLazyLoadingProxies();
+                //string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection");
+                //if (remoteContextOptions == null)
+                //{
+                //    opt.UseNpgsql(connStr);
+                //    return;
+                //}
+                remoteContextOptions(opt);
                 //TODO:
             });
             services.AddScoped<BaseContext, LocalContext>();

@@ -86,11 +86,11 @@ namespace Application.Services
                 || EF.Functions.Like(d.Description.ToLower(), "%" + name.ToLower() + "%"));
         }
 
-        public virtual async Task<Drug> SearchDrugsByNameAsync(string name)
+        public virtual async Task<IEnumerable<Drug>> SearchDrugsByNameAsync(string name)
         {
             return await _drugRepository.Query()
                 .Where(d => EF.Functions.Like(d.DrugName.ToLower(), "%" + name.ToLower() + "%"))
-                .FirstOrDefaultAsync();
+                .ToListAsync();
         }
 
         public virtual void UpdateDrug(int drugId, Drug drug)

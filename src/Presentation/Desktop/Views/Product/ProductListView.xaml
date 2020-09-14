@@ -4,8 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:local="clr-namespace:Desktop.Views.Product"
-      xmlns:vms="clr-namespace:Desktop.ViewModels.Product"
+      xmlns:local="clr-namespace:Desktop.Views.Product"      
       xmlns:models="clr-namespace:Desktop.Models"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       mc:Ignorable="d" 
@@ -15,9 +14,6 @@
         <DataTemplate x:Key="ProductCard" DataType="{x:Type models:ProductCardModel}">
             <local:ProductCardControlView/>
         </DataTemplate>
-        <!--<DataTemplate DataType="{x:Type vms:ProductListViewModel}">
-            <local:CreateProductView/>
-        </DataTemplate>-->
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -32,19 +28,13 @@
             <TextBox Text="{Binding SearchPattern,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" Background="White" FontSize="20" md:HintAssist.Hint="Termo a procurar">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyEventArgs">
-                        <i:InvokeCommandAction Command="{Binding GetProductByCodeCommand}" />
+                        <i:InvokeCommandAction Command="{Binding GetDrugByCodeCommand}" />
                     </i:EventTrigger>
                 </i:Interaction.Triggers>
-                <!--<i:-->
-                <!--<i:Int.Triggers>
-                    <i:EventTrigger EventName="PreviewKeyDown">
-                        <i:InvokeCommandAction Command="{Binding Path=TestMeCommand}" />
-                    </i:EventTrigger>
-                </i:Int.Triggers>-->
             </TextBox>
             <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="parameters" FontSize="9"/>
         </Grid>
-        <DataGrid Grid.Row="1" ItemsSource="{Binding ProdutoCollection,Mode=TwoWay}">
+        <DataGrid Grid.Row="1" ItemsSource="{Binding DrugCollection,Mode=TwoWay}">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Imagem">
                     <DataGridTemplateColumn.CellTemplate>

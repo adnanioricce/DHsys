@@ -8,7 +8,6 @@ using Desktop.ViewModels.Update;
 using Desktop.Views.Conta;
 using Desktop.Views.Product;
 using Infrastructure.Settings;
-using Infrastructure.Windows.Settings;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Desktop.Extensions
@@ -36,8 +35,7 @@ namespace Desktop.Extensions
         }
         public static void ConfigureWritableOptionsModel(this IServiceCollection services)
         {
-            services.ConfigureWritable<AutoUpdateSettings>();            
-            services.ConfigureWritable<LegacyDatabaseSettings>();
+            services.ConfigureWritable<AutoUpdateSettings>();                        
             services.ConfigureWritable<ConnectionStrings>();
             services.ConfigureWritable<DatabaseSettings>();
             services.ConfigureWritable<AppSettings>();
