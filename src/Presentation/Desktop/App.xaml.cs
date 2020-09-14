@@ -18,8 +18,8 @@ using System.Linq;
 using DAL.DbContexts;
 using DAL.Extensions;
 using Infrastructure.Interfaces;
-using Infrastructure.Windows.Settings;
 using DAL.Windows;
+using DAL.Windows.Repositories;
 
 namespace Desktop
 {
@@ -70,14 +70,13 @@ namespace Desktop
             string assemblyName = assembly.GetName().Name;
             File.WriteAllText(assemblyName, assemblyContent);
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));
-            services.Configure<LegacyDatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}:{nameof(LegacyDatabaseSettings)}"));
+            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));            
             services.Configure<AutoUpdateSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(AutoUpdateSettings)}"));
             services.ConfigureWritableOptionsModel();
             services.ConfigureAppDataFolder();            
             services.AddApplicationUpdater();            
             services.AddApplicationServices();            
-            services.AddCustomMappers();
+            services.AddAutoMapperConfiguration();
             services.AddViews();
             services.AddViewModels();
             services.AddDataStore(configuration,opt => opt.UseSqlite(configuration.GetValue<string>($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}:{nameof(ConnectionStrings)}:LocalConnection")));

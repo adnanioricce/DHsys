@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
@@ -40,17 +41,10 @@ namespace Api.IntegrationTests
                 .AddJsonFile("./appsettings.json")
                 .Build();                                
             //services            
-            services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));            
-            services.AddDbContextPool<BaseContext,LocalContext>((opt) => {
-                opt.UseLazyLoadingProxies();
-                opt.UseSqlite(sqliteConnString);
-            }).AddEntityFrameworkProxies();
-            services.AddDbContextPool<BaseContext, RemoteContext>((opt) => {
-                opt.UseLazyLoadingProxies();
-                opt.UseSqlServer(configuration.GetConnectionString("SqlServerConnection"));
-            }).AddEntityFrameworkProxies();            
-            services.AddScoped<BaseContext, LocalContext>();
-            services.AddScoped<BaseContext, RemoteContext>();
+            services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
+            services.AddDataStore(configuration,
+                lOpt => lOpt.UseSqlite(configuration.GetConnectionString("SqliteConnection")),
+                rOpt => rOpt.UseNpgsql(configuration.GetConnectionString("NpgsqlConnection")));
             services.AddTransient<DbContextResolver>(provider => key => {
                 string option = key.ToLower();
                 var services = provider.GetServices(typeof(BaseContext));                
@@ -63,8 +57,7 @@ namespace Api.IntegrationTests
             });
             services.ConfigureAppDataFolder();
             services.AddApplicationUpdater();
-            services.AddApplicationServices();
-            services.AddCustomMappers();
+            services.AddApplicationServices();            
             services.AddAutoMapperConfiguration();
             services.ConfigureWritable<AutoUpdateSettings>();
             services.AddTransient(typeof(IAppLogger<>),typeof(LoggerAdapter<>));
@@ -75,9 +68,9 @@ namespace Api.IntegrationTests
                     "local" => new SQLiteConnection(sqliteConnString),
                     //a legacy shared database from which source changes in real world environment
                     //TODO: Move legacy tests and operations in its own test project
-                    //"source" => new OleDbConnection(settings.ToString()),
+                    //"source" => new OleDbConnection(settings.ToString()),                    
                     //a remote database to keep some changes
-                    "remote" => new SqlConnection(configuration.GetConnectionString("SqlServerConnection")),
+                    "remote" => new NpgsqlConnection(configuration.GetConnectionString("NpgsqlConnection")),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };                
             });            

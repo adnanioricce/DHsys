@@ -59,7 +59,7 @@ namespace Services.Tests.Catalog
             newDrug.Ncm = oldDrug.Ncm;                                                      
             newDrug.DrugCost += 0.01m;
             var service = new StockService(new FakeRepository<StockEntry>(),
-            new DrugService(new FakeRepository<Drug>(new Drug[]{oldDrug}),null));
+            new DrugService(new FakeRepository<Drug>(new Drug[]{oldDrug})));
             //When
             var result = service.GetItemsWithPriceChanged(new List<Drug>{
                 newDrug
