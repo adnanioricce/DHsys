@@ -6,7 +6,6 @@ namespace Infrastructure.Settings
 {
     public class DatabaseSettings
     {
-        public ConnectionStrings ConnectionStrings { get; set; }
-        public LegacyDatabaseSettings LegacyDatabaseSettings { get; set; }
+        public ConnectionStrings ConnectionStrings { get; set; }        
     }
 }

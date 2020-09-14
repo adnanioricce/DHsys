@@ -5,6 +5,7 @@
     <UserSecretsId>1e5b4299-e01a-4a96-b3a9-8262242aa0c3</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
+    <PublishDir>..\..\..\build\$(MSBuildProjectName)</PublishDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -43,6 +44,8 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1json__JsonSchema="https://json-schema.org/draft/2019-09/schema" /></VisualStudio></ProjectExtensions>
 
 
 </Project>

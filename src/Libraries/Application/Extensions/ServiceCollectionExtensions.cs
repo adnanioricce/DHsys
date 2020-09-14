@@ -1,13 +1,10 @@
 ﻿using Application.Mapping.Domain;
 using Application.Services;
-using Application.Services.Catalog;
-using Application.Services.Sync;
 using AutoMapper;
 using Core.Entities.Catalog;
 using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Interfaces.Catalog;
-using Core.Mappers;
 using DAL;
 using DAL.DbContexts;
 using Infrastructure.Interfaces;
@@ -22,6 +19,8 @@ using System;
 using System.IO;
 using MediatR;
 using System.Linq;
+using Core.Interfaces.Financial;
+using Application.Services.Financial;
 
 namespace Application.Extensions
 {
@@ -81,14 +80,11 @@ namespace Application.Extensions
             services.AddSingleton(typeof(IUpdater),updater);
         }           
         public static void AddApplicationServices(this IServiceCollection services)
-        {
-            services.AddTransient<IDrugProdutoMediator, DrugProdutoMediator>();
-            services.AddTransient<IDrugService, DrugService>();
-            services.AddTransient<IProdutoService, ProdutoService>();
+        {            
+            services.AddTransient<IDrugService, DrugService>();            
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IBillingService, BillingService>();
-            services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
-            services.AddTransient<ISyncQueryBuilder, SyncQueryBuilder>();
+            services.AddTransient<ITransactionService, TransactionService>();
         }
         public static void AddDataStore(this IServiceCollection services,
             IConfiguration configuration,
@@ -97,53 +93,46 @@ namespace Application.Extensions
         {            
             services.AddDbContextPool<BaseContext, LocalContext>(opt =>
             {                
-                opt.UseLazyLoadingProxies();
-                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection");
-                if (localContextOptions == null)
-                {
-                    opt.UseSqlite(connStr);
-                    return;
-                }
+                //opt.UseLazyLoadingProxies();
+                //string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection");
+                //if (localContextOptions == null)
+                //{
+                //    opt.UseSqlite(connStr);
+                //    return;
+                //}
                 localContextOptions(opt);
             });
             services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
-            {                
-                opt.UseLazyLoadingProxies();
-                string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection");
-                if (remoteContextOptions == null)
-                {
-                    opt.UseSqlServer(connStr);
-                    return;
-                }
+            {
+                //opt.UseLazyLoadingProxies();
+                //string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection");
+                //if (remoteContextOptions == null)
+                //{
+                //    opt.UseNpgsql(connStr);
+                //    return;
+                //}
+                remoteContextOptions(opt);
                 //TODO:
             });
-            services.AddScoped<BaseContext,LocalContext>();
+            services.AddScoped<BaseContext, LocalContext>();
             services.AddScoped<BaseContext, RemoteContext>();            
-            services.AddScoped(typeof(LegacyContext<>));
-            services.AddTransient(typeof(ILegacyRepository<>), typeof(DbfRepository<>));
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
         public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
         {
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));
-            services.Configure<LegacyDatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}:{nameof(LegacyDatabaseSettings)}"));
+            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));            
             services.Configure<AutoUpdateSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(AutoUpdateSettings)}"));
             services.Configure<ConnectionStrings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(ConnectionStrings)}"));
             services.ConfigureApplicationWritableOptions();
         }
         public static void ConfigureApplicationWritableOptions(this IServiceCollection services)
         {
-            services.ConfigureWritable<AutoUpdateSettings>();
-            services.ConfigureWritable<LegacyDatabaseSettings>();
+            services.ConfigureWritable<AutoUpdateSettings>();            
             services.ConfigureWritable<ConnectionStrings>();
             services.ConfigureWritable<DatabaseSettings>();
             services.ConfigureWritable<AppSettings>();
-        }
-        public static void AddCustomMappers(this IServiceCollection services)
-        {
-            services.AddTransient<ILegacyDataMapper<Drug, Produto>, ProdutoMapper>();
-        }
+        }        
         public static void TryCreateDatabase(this IServiceProvider provider, BaseContext context)
         {            
             context.Database.Migrate();            

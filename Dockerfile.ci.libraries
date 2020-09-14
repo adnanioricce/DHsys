@@ -1,0 +1,6 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:latest
+WORKDIR /src
+RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
+ENV PATH="${PATH}:/root/.dotnet/tools"
+COPY . .
+RUN fake run ./CI_CD/buildPackages.fsx

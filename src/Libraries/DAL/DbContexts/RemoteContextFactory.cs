@@ -10,9 +10,8 @@ namespace DAL.DbContexts
     {
         public RemoteContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<RemoteContext>();
-            optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=dhsys-db;Trusted_Connection=True;MultipleActiveResultSets=true");
-            //optionsBuilder.UseNpgsql("User ID=postgres;Password=asdf1234;Host=localhost;Port=5432;Database=migration-placeholder-db;Pooling=true;");            
+            var optionsBuilder = new DbContextOptionsBuilder<RemoteContext>();            
+            optionsBuilder.UseNpgsql("User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_dev;Pooling=true;");            
             return new RemoteContext(optionsBuilder.Options);
         }
     }

@@ -12,6 +12,7 @@ namespace DAL.DataMappings.Catalog
             mapper.HasMany(r => r.ProductSuppliers)
             .WithOne(ps => ps.Product)
             .OnDelete(DeleteBehavior.Restrict);
+            base.Configure(mapper);
         }
     }
 }

@@ -29,11 +29,9 @@ namespace Api.IntegrationTests.Services.Sync
             var localContext = CreateContext();
             var service = new DbSyncronizer(null,null, GetFakeLogger<DbSyncronizer>());
             // When 
-            _remoteContext.Add(new Address
-            {
+            _remoteContext.Add(new Address {
                 Id = 1,
-                UniqueCode = Guid.NewGuid().ToString(),
-                
+                UniqueCode = Guid.NewGuid().ToString(),                
             });
             var result = await service.SyncLocalDbWithRemoteDbAsync(localContext,_remoteContext);
             var localEntities = localContext.Model.GetEntityTypes();
@@ -45,9 +43,7 @@ namespace Api.IntegrationTests.Services.Sync
         }        
         private LocalContext CreateContext()
         {
-            var context = new LocalContext(CreateOptions(new SqliteConnection($"DataSource={Guid.NewGuid().ToString()}.db")));
-            //context.ApplyUpgrades();
-            var models = context.Model.GetEntityTypes().Select(e => e.GetTableName());
+            var context = new LocalContext(CreateOptions(new SqliteConnection($"DataSource={Guid.NewGuid().ToString()}.db")));            
             return context;
         }
 

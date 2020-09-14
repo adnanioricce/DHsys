@@ -9,6 +9,7 @@
     <PublishTrimmed>true</PublishTrimmed>
     <UseWPF>true</UseWPF>
     <Version>1.0.0</Version>
+    <PublishDir>..\..\..\build\$(MSBuildProjectName)\bin</PublishDir>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,6 +36,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Application\Application.csproj" />
     <ProjectReference Include="..\..\Libraries\Core\Core.csproj" />
+    <ProjectReference Include="..\..\Libraries\DAL.Windows\DAL.Windows.csproj" />
     <ProjectReference Include="..\..\Libraries\DAL\DAL.csproj" />
   </ItemGroup>
 

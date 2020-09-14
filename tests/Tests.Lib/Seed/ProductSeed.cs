@@ -19,17 +19,15 @@ namespace Tests.Lib.Seed
                 BarCode = Guid.NewGuid().ToString(),
                 UniqueCode = "40028922",                
             };
-            product.Produto = new Core.Entities.Legacy.Produto{
+            var produto = new Core.Entities.Legacy.Produto{
                 Prfabr = 14.99d,
                 Prcons = 32.99d,                    
                 Prbarra = product.BarCode,
-                Prcodi = product.UniqueCode,
-                UniqueCode = product.UniqueCode,
+                Prcodi = product.UniqueCode,                
                 Prestq = product.QuantityInStock,
                 Prdesc = product.Description,
-                Prncms = product.Ncm,
-                Id = product.Id  
-            };
+                Prncms = product.Ncm,                
+            };            
             return product;
         }
     }

@@ -7,7 +7,7 @@ namespace DAL.DataMappings.Common
     {
         public override void Configure(EntityTypeBuilder<Address> builder)
         {
-            builder.ToTable("Addresses");
+            builder.ToTable("addresses");
             base.Configure(builder);
         }
     }
