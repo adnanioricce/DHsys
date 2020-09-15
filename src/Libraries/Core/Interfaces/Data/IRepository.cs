@@ -15,7 +15,8 @@ namespace Core.Interfaces
         void Update(T entity);
         void Delete(T entity);
         IQueryable<T> Query();
-        IQueryable<T> Query(string query);        
+        IQueryable<T> Query(string query);
+        IQueryable<T> MultipleFromRawSql(string sql, params object[] parameters);
         int SaveChanges();        
     }
 }

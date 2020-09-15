@@ -117,6 +117,9 @@ namespace Tests.Lib.Data
             return Task<int>.FromResult(0);
         }
 
-        
+        public IQueryable<T> MultipleFromRawSql(string sql, params object[] parameters)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

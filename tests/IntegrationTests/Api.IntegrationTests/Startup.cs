@@ -42,9 +42,7 @@ namespace Api.IntegrationTests
                 .Build();                                
             //services            
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.AddDataStore(configuration,
-                lOpt => lOpt.UseSqlite(configuration.GetConnectionString("SqliteConnection")),
-                rOpt => rOpt.UseNpgsql(configuration.GetConnectionString("NpgsqlConnection")));
+            services.AddDataStore(configuration, rOpt => rOpt.UseNpgsql(configuration.GetConnectionString("NpgsqlConnection")));
             services.AddTransient<DbContextResolver>(provider => key => {
                 string option = key.ToLower();
                 var services = provider.GetServices(typeof(BaseContext));                

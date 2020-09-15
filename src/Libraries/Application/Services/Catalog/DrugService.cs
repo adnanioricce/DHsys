@@ -87,16 +87,14 @@ namespace Application.Services
         }
 
         public virtual async Task<IEnumerable<Drug>> SearchDrugsByNameAsync(string name)
-        {
+        {       
             return await _drugRepository.Query()
-                .Where(d => EF.Functions.Like(d.DrugName.ToLower(), "%" + name.ToLower() + "%"))
-                .ToListAsync();
+                                .Where(d => d.DrugName.Contains(name))                                
+                                .ToListAsync();
         }
 
         public virtual void UpdateDrug(int drugId, Drug drug)
-        {
-            //var _drug = _drugRepository.GetBy(drugId);
-            //_drug.
+        {            
             throw new NotImplementedException();
         }
 

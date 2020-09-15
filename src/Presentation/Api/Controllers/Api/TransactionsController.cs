@@ -9,6 +9,7 @@ using Core.Models;
 using Core.Models.ApplicationResources;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,7 +53,8 @@ namespace Api.Controllers.Api
             }
             catch(Exception ex)
             {
-                throw;
+                Log.Error("Exception throwed when trying to create transaction. Exception:{@ex} \n Transaction Dto:{@transactionDto}", ex, transactionDto);
+                return StatusCode(500, BaseResourceResponse<TransactionDto>.GetDefaultFailureResponseWithObject(transactionDto,"couldn't create transaction entity for given object"));
             }
             
         }                
