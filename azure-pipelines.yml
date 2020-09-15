@@ -32,20 +32,13 @@ steps:
   displayName: Login to Docker Hub
   inputs:
     command: login
-    containerRegistry: adnanioricce
-- task: Docker@2
-  displayName: Build Api
-  inputs:
-    command: buildAndPush
-    Dockerfile: Dockerfile.ci.api
-    repository: adnanioricce/DHsys
-    tags:
-      release-$(Build.BuildId)
+    containerRegistry: adnanioricce/dhsys
 - task: Docker@2
   displayName: Build Desktop
   inputs:
     command: build
     Dockerfile: Dockerfile.ci.desktop
+#TODO: execute F# fake build script for api, docker image build is alreadly triggered on Docker hub
 - task: AzureKeyVault@1
   inputs:
     azureSubscription: 'Pago pelo Uso (896897bf-53c5-46eb-9f45-5c90d6f67fab)'
