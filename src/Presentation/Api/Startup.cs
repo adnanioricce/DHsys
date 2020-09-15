@@ -42,27 +42,7 @@ namespace Api
                     settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;                    
                 });            
-            services.AddDataStore(Configuration,opt => opt.UseNpgsql(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")));
-            services.AddTransient<DbContextResolver>(provider => key => {
-                string option = key.ToLower();
-                var contexts = provider.GetServices<BaseContext>();
-                return option switch
-                {
-                    "remote" => contexts.FirstOrDefault(c => c is RemoteContext),
-                    "local" => contexts.FirstOrDefault(c => c is LocalContext),
-                    _ => contexts.FirstOrDefault(c => c is LocalContext)
-                };
-            });
-            services.AddTransient<ConnectionResolver>(db => key => {
-                return key switch
-                {
-                    //our local database
-                    "local" => new SqliteConnection(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection")),                                        
-                    //a remote database to keep some changes
-                    "remote" => new NpgsqlConnection(Configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")),
-                    _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
-                };
-            });            
+            services.AddDataStore(Configuration, null);            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

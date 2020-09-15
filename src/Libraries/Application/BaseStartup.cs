@@ -20,13 +20,9 @@ namespace Application
             Configuration = configuration;
         }       
         public virtual void ConfigureServices(IServiceCollection services)
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            string assemblyFullname = assembly.FullName;
-            string assemblyName = assembly.GetName().Name;
-            File.WriteAllText(assemblyName, assemblyFullname);            
+        {            
             services.ConfigureAppDataFolder();
-            //TODO:Remove AddApplicationUpdater call, The Api project don't need it
+            //TODO:Remove AddApplicationUpdater call, just the desktop project needs it
             services.AddApplicationUpdater();
             services.AddApplicationServices();            
             services.ConfigureApplicationOptions(Configuration);

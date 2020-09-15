@@ -111,20 +111,12 @@ namespace Tests.Lib
             Client.DefaultRequestHeaders.Accept.Clear();
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             ServiceProvider = Server.Services;
-            var context = GetRemoteContext();
-            //try
-            //{
-            //    context.CreateDatabaseBackup();
-            //}
-            //catch (Exception)
-            //{
-            //    //TODO:
-            //}
+            var context = GetRemoteContext();            
         }
-        public RemoteContext GetRemoteContext()
+        public BaseContext GetRemoteContext()
         {
-            var contextResolver = ServiceProvider.GetService<DbContextResolver>();
-            return (RemoteContext)contextResolver("remote");
+            var context = ServiceProvider.GetService<BaseContext>();
+            return context;
         }
 
     }

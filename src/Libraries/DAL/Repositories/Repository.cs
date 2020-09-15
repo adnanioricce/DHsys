@@ -16,10 +16,9 @@ namespace DAL
     {
         protected virtual BaseContext Context { get; }
         protected virtual DbSet<T> DbSet { get; }
-        public Repository(DbContextResolver contextResolver) 
-        {
-            string assemblyName = Assembly.GetExecutingAssembly().GetName().Name;
-            Context = assemblyName.Contains("Api") ? contextResolver("remote") : contextResolver("local");
+        public Repository(BaseContext context) 
+        {            
+            Context = context;
             DbSet = Context.Set<T>();
         }        
         public virtual void Add(T entry)
@@ -52,7 +51,10 @@ namespace DAL
         {
             return DbSet;
         }
-
+        public virtual IQueryable<T> MultipleFromRawSql(string sql,params object[] parameters)
+        {
+            return Context.Set<T>().FromSqlRaw<T>(sql,parameters);
+        }
         public virtual void Update(T entity)
         {
             try

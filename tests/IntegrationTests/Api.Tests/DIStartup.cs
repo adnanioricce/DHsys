@@ -42,27 +42,14 @@ namespace Api.Tests
             string sqliteConnStr = $"DataSource={Guid.NewGuid().ToString()}.db";
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
-                .Build();
-            //services.AddDbContextPool<BaseContext, LocalContext>(opt => {
-            //    opt.UseSqlite(sqliteConnStr);
-            //    opt.EnableSensitiveDataLogging();
-            //    opt.EnableDetailedErrors();                
-            //});
-            //services.AddDbContextPool<BaseContext, RemoteContext>(opt => {
-            //     opt.UseNpgsql(configuration.GetConnectionString("RemoteConnection"));
-            //     opt.EnableSensitiveDataLogging();
-            //     opt.EnableDetailedErrors();
-            // });
-            //services.AddScoped<BaseContext, LocalContext>();
-            //services.AddScoped<BaseContext, RemoteContext>();
-            services.AddDataStore(configuration, opt => opt.UseNpgsql(configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection")));
+                .Build();            
+            services.AddDataStore(configuration);
             services.AddTransient<DbContextResolver>(provider => key => {
                 string option = key.ToLower();
                 var services = provider.GetServices(typeof(BaseContext));
                 return option switch
                 {
-                    "remote" => (BaseContext)services.FirstOrDefault(d => (d is RemoteContext)),
-                    "local" => (BaseContext)services.FirstOrDefault(d => (d is LocalContext)),
+                    
                     _ => (BaseContext)services.FirstOrDefault(d => (d is LocalContext))
                 };
             });                                

@@ -29,11 +29,6 @@ steps:
     buildImages: true
     workDir: ./tests/IntegrationTests/Api.Tests/
 - task: Docker@2
-  displayName: Login to Docker Hub
-  inputs:
-    command: login
-    containerRegistry: adnanioricce/dhsys
-- task: Docker@2
   displayName: Build Desktop
   inputs:
     command: build

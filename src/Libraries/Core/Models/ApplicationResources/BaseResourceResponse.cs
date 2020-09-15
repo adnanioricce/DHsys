@@ -27,6 +27,10 @@
         {
             return new BaseResourceResponse<T>(BaseResourceResponse.DefaultFailureResponse, resultObject);
         }
+        public static BaseResourceResponse<T> GetDefaultFailureResponseWithObject<T>(T resultObject,string message)
+        {
+            return new BaseResourceResponse<T>(message, resultObject, false);            
+        }
         public static BaseResourceResponse<T> GetDefaultSuccessResponseWithObject<T>(T resultObject)
         {
             return new BaseResourceResponse<T>(BaseResourceResponse.DefaultSuccessResponse, resultObject);

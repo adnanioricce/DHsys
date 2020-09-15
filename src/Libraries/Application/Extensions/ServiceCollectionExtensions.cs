@@ -21,6 +21,7 @@ using MediatR;
 using System.Linq;
 using Core.Interfaces.Financial;
 using Application.Services.Financial;
+using Infrastructure.Logging;
 
 namespace Application.Extensions
 {
@@ -86,36 +87,27 @@ namespace Application.Extensions
             services.AddTransient<IBillingService, BillingService>();
             services.AddTransient<ITransactionService, TransactionService>();
         }
+        public static IServiceCollection AddSerilogServices(this IServiceCollection services)
+        {
+            services.AddSingleton(ConfigureLoggingExtension.ConfigureDefaultSerilogLogger());
+            return services;
+        }
         public static void AddDataStore(this IServiceCollection services,
             IConfiguration configuration,
-            Action<DbContextOptionsBuilder> localContextOptions = null,
-            Action<DbContextOptionsBuilder> remoteContextOptions = null)
+            Action<DbContextOptionsBuilder> localContextOptions = null)
         {            
             services.AddDbContextPool<BaseContext, LocalContext>(opt =>
-            {                
-                //opt.UseLazyLoadingProxies();
-                //string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:LocalConnection");
-                //if (localContextOptions == null)
-                //{
-                //    opt.UseSqlite(connStr);
-                //    return;
-                //}
-                localContextOptions(opt);
-            });
-            services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
             {
-                //opt.UseLazyLoadingProxies();
-                //string connStr = configuration.GetValue<string>("AppSettings:DatabaseSettings:ConnectionStrings:RemoteConnection");
-                //if (remoteContextOptions == null)
-                //{
-                //    opt.UseNpgsql(connStr);
-                //    return;
-                //}
-                remoteContextOptions(opt);
-                //TODO:
-            });
-            services.AddScoped<BaseContext, LocalContext>();
-            services.AddScoped<BaseContext, RemoteContext>();            
+                opt.UseLazyLoadingProxies();                
+                if (localContextOptions == null)
+                {
+                    string connStr = configuration.GetValue<string>("AppSettings:ConnectionStrings:DefaultConnection");
+                    opt.UseNpgsql(connStr);
+                    return;
+                }
+                localContextOptions(opt);
+            });           
+            services.AddScoped<BaseContext, LocalContext>();                   
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
         public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
