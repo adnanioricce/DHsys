@@ -5,5 +5,5 @@ RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"
 ENV github_token="${GITHUB_TOKEN}"
 COPY . .
-RUN fake run ./CI_CD/buildDesktop.fsx
-RUN fake run ./CI_CD/deployDesktop.fsx 
+RUN fake run ./buildDesktop.fsx
+RUN fake run ./deployDesktop.fsx 
