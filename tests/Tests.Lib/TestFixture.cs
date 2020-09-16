@@ -24,12 +24,15 @@ namespace Tests.Lib
             var projectName = startupAssembly.GetName().Name;
 
             var applicationBasePath = AppContext.BaseDirectory;
-
+            var isDocker = Environment.GetEnvironmentVariable("IS_DOCKER_CONTAINER");
+            if(!string.IsNullOrEmpty(isDocker)){
+                Console.WriteLine(applicationBasePath);
+                return applicationBasePath;
+            }
             var directoryInfo = new DirectoryInfo(applicationBasePath);            
             do
             {
-                directoryInfo = directoryInfo.Parent;
-
+                directoryInfo = directoryInfo.Parent;                
                 var projectDirectoryInfo = new DirectoryInfo(Path.Combine(directoryInfo.FullName, projectRelativePath));
                 var isProjectDirectoryPath = Directory.Exists((projectDirectoryInfo.FullName + "\\src\\Presentation\\Api\\"));
                 if (isProjectDirectoryPath) return projectDirectoryInfo.FullName + "\\src\\Presentation\\Api\\";
@@ -53,15 +56,7 @@ namespace Tests.Lib
 
         public void Dispose()
         {
-            var context = GetRemoteContext();
-            //try
-            //{
-            //    context.RestoreDatabase(context.GetDatabaseName());
-            //}
-            //catch (Exception)
-            //{
-            //    //TODO:
-            //}
+            var context = GetRemoteContext();           
             Client.Dispose();
             Server.Dispose();
         }
