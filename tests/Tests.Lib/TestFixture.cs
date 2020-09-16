@@ -25,8 +25,7 @@ namespace Tests.Lib
 
             var applicationBasePath = AppContext.BaseDirectory;
             var isDocker = Environment.GetEnvironmentVariable("IS_DOCKER_CONTAINER");
-            if(!string.IsNullOrEmpty(isDocker)){
-                Console.WriteLine(applicationBasePath);
+            if(!string.IsNullOrEmpty(isDocker)){                
                 return applicationBasePath;
             }
             var directoryInfo = new DirectoryInfo(applicationBasePath);            

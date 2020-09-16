@@ -9,6 +9,7 @@ namespace Core.ApplicationModels.Dtos.Stock
 {
     public class StockEntryDto
     {
+        public int Id { get; set; }
         public int? SupplierId { get; set; }
 
         public int? Quantity { get; set; }

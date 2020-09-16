@@ -6,6 +6,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
 {
     public class ProductStockEntryDto
     {
+        public int Id { get; set; }
         public int ProductId { get; set; }
 
         public ProductDto Product { get; set; }

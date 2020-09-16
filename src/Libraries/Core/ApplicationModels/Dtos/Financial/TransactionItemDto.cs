@@ -7,6 +7,7 @@ namespace Core.ApplicationModels.Dtos.Financial
 {
     public class TransactionItemDto
     {
+        public int Id { get; set; }
         public string DrugUniqueCode { get; set; }
 
         public DrugDto Drug { get; set; }

@@ -15,7 +15,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
         {
 
         }
-
+        public int Id { get; set; }
         public int? BaseDrugId { get; set; }
 
         public int? SupplierId { get; set; }
