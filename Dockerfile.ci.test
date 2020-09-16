@@ -1,3 +1,5 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:latest
+FROM mcr.microsoft.com/dotnet/core/sdk:latest AS build-env
 COPY . .
-RUN dotnet test tests/IntegrationTests/Api.Tests/
+RUN dotnet restore tests/IntegrationTests/Api.Tests/
+ENV IS_DOCKER_CONTAINER true
+ENTRYPOINT ["dotnet","test","./tests/IntegrationTests/Api.Tests/"]
