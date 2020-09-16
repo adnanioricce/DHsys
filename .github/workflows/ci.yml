@@ -20,7 +20,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       - name: Run Integration Tests         
-        run: docker run --name dhsysdb-dev -p "2424:5432" -e POSTGRES_PASSWORD=postgres -d postgres && docker build . -f Dockerfile.ci.test -t apitest && docker run --network=host dhsys-test-api
+        run: docker run --name dhsysdb-dev -p "2424:5432" -e POSTGRES_PASSWORD=postgres -d postgres && docker build . -f Dockerfile.ci.test -t apitest && docker run --network=host apitest:latest
   build-desktop:
       runs-on: windows-latest
       steps:
