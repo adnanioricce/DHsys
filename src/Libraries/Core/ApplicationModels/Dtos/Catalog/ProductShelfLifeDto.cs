@@ -5,6 +5,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
 {
     public class ProductShelfLifeDto
     {
+        public int Id { get; set; }
         public int ProductId { get; set; }
 
         public int StockEntryId { get; set; }

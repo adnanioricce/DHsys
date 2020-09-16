@@ -6,6 +6,7 @@ namespace Core.ApplicationModels.Dtos.Financial
 {
     public class ManufacturerDto
     {
+        public int Id { get; set; }
         public string Cnpj { get; set; }
 
         public static ManufacturerDto FromModel(Manufacturer model)

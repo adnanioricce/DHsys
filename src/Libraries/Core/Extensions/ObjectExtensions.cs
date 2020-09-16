@@ -15,6 +15,6 @@ namespace Core.Extensions
                     || value is float
                     || value is double
                     || value is decimal;
-        }
+        }       
     }
 }

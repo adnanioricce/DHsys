@@ -8,6 +8,7 @@ namespace Core.ApplicationModels.Dtos.Stock
 {
     public class SupplierDto
     {
+        public int Id { get; set; }
         public int? AddressId { get; set; }
 
         public string SupplierName { get; set; }

@@ -6,6 +6,7 @@ namespace Core.ApplicationModels.Dtos.Financial
 {
     public class ClientDto
     {
+        public int Id { get; set; }
         public string Cpf { get; set; }
 
         public static ClientDto FromModel(Client model)

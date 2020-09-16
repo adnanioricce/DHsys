@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.ApplicationModels.Dtos.Legacy;
 using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
@@ -33,10 +32,10 @@ namespace Core.ApplicationModels.Dtos.Catalog
             ProductSuppliers = dto.ProductSuppliers;
             ProductPrices = dto.ProductPrices;
             Stockentries = dto.Stockentries;
-            ShelfLifes = dto.ShelfLifes;
-            Produto = dto.Produto;
+            ShelfLifes = dto.ShelfLifes;            
             ProdutoId = dto.ProdutoId;
         }
+        public int Id { get; set; }
         public string Ncm { get; set; }
 
         public int? QuantityInStock { get; set; }
@@ -75,9 +74,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public ICollection<ProductStockEntryDto> Stockentries { get; set; } = new List<ProductStockEntryDto>();
 
-        public ICollection<ProductShelfLifeDto> ShelfLifes { get; set; } = new List<ProductShelfLifeDto>();
-
-        public ProdutoDto Produto { get; set; }
+        public ICollection<ProductShelfLifeDto> ShelfLifes { get; set; } = new List<ProductShelfLifeDto>();        
 
         public string ProdutoId { get; set; }
 

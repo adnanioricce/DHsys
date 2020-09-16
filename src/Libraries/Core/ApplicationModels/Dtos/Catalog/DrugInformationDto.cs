@@ -6,6 +6,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
 {
     public class DrugInformationDto
     {
+        public int Id { get; set; }
         public int? DrugId { get; set; }
 
         public string Indication { get; set; }

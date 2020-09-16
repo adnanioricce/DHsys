@@ -9,6 +9,7 @@ namespace Core.ApplicationModels.Dtos
 {
     public class AddressDto
     {
+        public int Id { get; set; }
         public string FirstAddressLine { get; set; }
 
         public string SecondAddressLine { get; set; }

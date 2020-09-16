@@ -16,12 +16,10 @@ namespace Tests.Lib
         protected override IHostBuilder CreateHostBuilder()
         {
             var builder = Host.CreateDefaultBuilder()
-                              .ConfigureWebHostDefaults(x =>
-                              {
+                              .ConfigureWebHostDefaults(x => {
                                   x.UseStartup<TStartup>()
                                    .UseTestServer()
-                                   .UseUrls("localhost:5000");
-                                  //x.ConfigureServices(services => services.AddSingleton<IAuthorizationHandler, AllowAnonymous>());
+                                   .UseUrls("localhost:5000");                                  
                               });
             return builder;
         }
