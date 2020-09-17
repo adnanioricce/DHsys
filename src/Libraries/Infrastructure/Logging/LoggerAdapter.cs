@@ -1,11 +1,17 @@
 ﻿using Infrastructure.Interfaces;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
 namespace Infrastructure.Logging
 {
+    public static class AppLogger 
+    {
+        public static Serilog.ILogger Log = Serilog.Log.Logger;        
+    }
+
     public class LoggerAdapter<T> : IAppLogger<T> where T : class
     {
-        private readonly ILogger<T> logger;
+        private readonly Microsoft.Extensions.Logging.ILogger<T> logger;
         public LoggerAdapter()
         {
 

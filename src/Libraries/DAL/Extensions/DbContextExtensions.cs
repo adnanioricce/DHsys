@@ -1,5 +1,6 @@
 ﻿using Core.Interfaces;
 using DAL.DbContexts;
+using Infrastructure.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
@@ -22,27 +23,11 @@ namespace DAL.Extensions
     public delegate IRepository<T> RepositoryResolver<T>(BaseContext context);
     public delegate BaseContext DbContextResolver(string key);
     public static class DbContextExtensions
-    {        
-        public static object ToContext(this BaseContext context,Type contextType)
-        {
-            if(contextType.Name == "LocalContext")
-            {
-                return context.ToContext<LocalContext>();
-            }
-            if(contextType.Name == "RemoteContext")
-            {
-                return context.ToContext<RemoteContext>();
-            }
-            throw new ArgumentException("the context can't be casted to the given TContext parameter. Either the context type don't exists or the context is not of the specified type");
-        }
-        public static TContext ToContext<TContext>(this BaseContext context) where TContext : BaseContext
-        {
-            if(!((context as TContext) is null))
-            {
-                return (TContext)context;
-            }
-            throw new ArgumentException("the context can't be casted to the given TContext parameter. Either the context type don't exists or the context is not of the specified type");
-        }        
+    {
+        /// <summary>
+        /// Execute migrations not applied to the current <see cref="BaseContext"/> instance
+        /// </summary>
+        /// <param name="context">the <see cref="BaseContext"/> instance to apply the database migrations</param>
         public static void ApplyUpgrades(this BaseContext context)
         {
             if(context is RemoteContext)
@@ -64,18 +49,21 @@ namespace DAL.Extensions
                         context.Database.ExecuteSqlRaw(migration);
                     }catch(Exception ex)
                     {
-                        //TODO:Log exception
-
+                        AppLogger.Log.Error("Exception throwed when trying to apply migration to Database Context. Exception Throwed:{@ex} \n Given Context: {@context} \n Migration:{@migration} \n", ex, context, migration);                        
                     }
                 });
             }
         }
+        /// <summary>
+        /// Returns list of Sql script strings of each migration not applied in current <see cref="BaseContext"/>
+        /// </summary>
+        /// <param name="context">The <see cref="BaseContext"/> to get pending migrations </param>
+        /// <returns>a list Sql Scripts of each migration not applied in context</returns>
         public static IEnumerable<string> GetPendingMigrationScripts(this BaseContext context)
         {
             if (context is RemoteContext)
             {
-                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");
-                //if(context is null)
+                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");                
             }
             if (context is LocalContext)
             {

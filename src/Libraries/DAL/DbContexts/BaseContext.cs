@@ -47,29 +47,32 @@ namespace DAL.DbContexts
         public virtual Task<int> SyncContextWithRemoteAsync(RemoteContext remoteContext)
         {
             var unsyncedEntries = GetUnsyncedEntitiesEntries();
-            throw new NotImplementedException();
-        }
-        public virtual IEnumerable<object> GetUnsyncedEntitiesEntries()
+            remoteContext.AddRange(unsyncedEntries);
+            return remoteContext.SaveChangesAsync();
+        }        
+        public virtual async IAsyncEnumerable<List<BaseEntity>> GetUnsyncedEntitiesEntries()
         {            
             Type classRef = typeof(BaseContext);
             MethodInfo mi = classRef.GetMethod("GetUnsyncedEntities", BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (var entityType in this.Model.GetEntityTypes())
             {                
                 MethodInfo miConstructed = mi.MakeGenericMethod(entityType.ClrType);
-                var entities = miConstructed.Invoke(this, new object[] { DateTimeOffset.UtcNow }) as IEnumerable<object>;
+                dynamic task = miConstructed.Invoke(this,null) as List<BaseEntity>;
+                await task;
+                var entities = task.GetAwaiter().GetResult(); 
                 if (entities is null) 
                     throw new Exception($"can't retrieve collection of unsynced {entityType.Name} entities, cast to IEnumerable<object> fails");
-                yield return entities;
+                yield return (List<BaseEntity>)entities;
             }
         }
-        public virtual IEnumerable<object> GetUnsyncedAddedEntities<T>() where T : BaseEntity
+        public virtual Task<List<T>> GetUnsyncedAddedEntities<T>() where T : BaseEntity
         {
-            var lastSync = this.Set<Syncronization>().Where(s => s.Id == this.Set<Syncronization>().Count())
-                                                   .FirstOrDefault();
+            var lastSync = this.Set<Syncronization>().Last();                        
             var lastSyncDate = lastSync.LastUpdatedOn;
             return this.Set<T>()
                 .AsQueryable()
-                .Where(e => e.CreatedAt > lastSyncDate || e.LastUpdatedOn > lastSyncDate);
+                .Where(e => e.CreatedAt > lastSyncDate || e.LastUpdatedOn > lastSyncDate)
+                .ToListAsync();
         }
         #endregion
     }

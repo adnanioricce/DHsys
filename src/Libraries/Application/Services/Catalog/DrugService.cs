@@ -53,8 +53,8 @@ namespace Application.Services
         public virtual async Task<IEnumerable<Drug>> GetDrugsAsync(int start, int end)
         {
             return await _drugRepository.Query()
-                .Take(start - end)
-                .ToListAsync();
+                                        .Take(start - end)
+                                        .ToListAsync();
         }
 
         public virtual IEnumerable<Drug> GetDrugsByNcm(IEnumerable<string> ncms)
@@ -89,13 +89,18 @@ namespace Application.Services
         public virtual async Task<IEnumerable<Drug>> SearchDrugsByNameAsync(string name)
         {       
             return await _drugRepository.Query()
-                                .Where(d => d.DrugName.Contains(name))                                
-                                .ToListAsync();
+                                        .Where(d => d.DrugName.Contains(name))                                
+                                        .ToListAsync();
         }
 
         public virtual void UpdateDrug(int drugId, Drug drug)
-        {            
-            throw new NotImplementedException();
+        {
+            var _drug = _drugRepository.GetBy(drugId);
+            if(_drug is null)
+            {
+                return;
+            }
+            _drugRepository.Update(drug);
         }
 
         public virtual void UpdateDrugPrice(int drugId, ProductPrice newDrugPrice)

@@ -20,14 +20,13 @@ namespace Application
             Configuration = configuration;
         }       
         public virtual void ConfigureServices(IServiceCollection services)
-        {            
+        {
             services.ConfigureAppDataFolder();
             //TODO:Remove AddApplicationUpdater call, just the desktop project needs it
             services.AddApplicationUpdater();
-            services.AddApplicationServices();            
+            services.AddApplicationServices();
             services.ConfigureApplicationOptions(Configuration);
             services.AddAutoMapperConfiguration();
         }
-
     }
 }

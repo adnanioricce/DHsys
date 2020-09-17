@@ -23,8 +23,9 @@ namespace Api.Tests
         {
             // Arrange
             var client = _fixture.Client;
-            var baseUrl = "api/Billing/{0}";                        
+            var baseUrl = "api/Billing/{0}?api-version=1.0";                        
             var billing = new Billing {
+                BeneficiaryId = 1,
                 BeneficiaryName = "FAKE Beneficiary",
                 CreatedAt = DateTimeOffset.UtcNow,
                 Discount = 0,
@@ -32,7 +33,8 @@ namespace Api.Tests
                 UniqueCode = Guid.NewGuid().ToString(),
                 Price = 12.99m,
                 EndDate = DateTime.Today.AddDays(TimeSpan.FromDays(3).TotalDays),
-                IsPaid = false
+                IsPaid = false,
+                
             };
             var context = _fixture.GetRemoteContext();
             context.Add(billing);
@@ -50,7 +52,7 @@ namespace Api.Tests
         {
             // Arrange
             var client = _fixture.Client;
-            var baseUrl = "api/Billing/create";
+            var baseUrl = "api/Billing/create?api-version=1.0";
             var billing = new Billing
             {
                 BeneficiaryName = "FAKE Beneficiary",
@@ -72,7 +74,7 @@ namespace Api.Tests
         {
             // Arrange
             var client = _fixture.Client;
-            var baseUrl = "api/Billing/{0}";
+            var baseUrl = "api/Billing/{0}?api-version=1.0";
             var billing = new Billing
             {
                 BeneficiaryName = "FAKE Beneficiary",
@@ -99,7 +101,7 @@ namespace Api.Tests
         {
             // Arrange
             var client = _fixture.Client;
-            var baseUrl = "api/Billing/{0}";
+            var baseUrl = "api/Billing/{0}?api-version=1.0";
             var billing = new Billing
             {
                 BeneficiaryName = "FAKE Beneficiary",

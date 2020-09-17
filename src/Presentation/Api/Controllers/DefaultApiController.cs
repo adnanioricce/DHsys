@@ -40,8 +40,8 @@ namespace Api.Controllers
         public async Task<IQueryable<TEntityDto>> Query()
         {
             var entities = await _repository.Query()
-                                    .Select(e => _mapper.Map<TEntity, TEntityDto>(e))
-                                    .ToListAsync();
+                                            .Select(e => _mapper.Map<TEntity, TEntityDto>(e))
+                                            .ToListAsync();
             return entities.AsQueryable();
         }
         [HttpPost("validate-create")]
