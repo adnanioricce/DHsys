@@ -25,7 +25,7 @@ namespace Api.Tests
         public async Task Given_POST_legacy_creates_CreateLegacys_When_requests_prcodi_and_quantity_Then_expects_200_status_code()
         {
             // Given
-            var baseUrl = "api/Transactions/create";
+            var baseUrl = "api/Transactions/create?api-version=1.0";
             var drug = DrugSeed.GetDrugForTransactions().FirstOrDefault();
             var context = _fixture.GetRemoteContext();
             context.Add(drug);

@@ -28,6 +28,12 @@ namespace Application.Extensions
     public static class ServiceCollectionExtensions
     {
         //? I think is valid to remember that you still have to configure the option model before calling this
+        /// <summary>
+        /// Configures a Writable version of a registered <see cref="IOptions{TOptions}"/>
+        /// </summary>
+        /// <typeparam name="T">The type of the Options Model</typeparam>
+        /// <param name="services">the <see cref="IServiceCollection"/> in which <see cref="IWritableOptions{T}"/> should be registered </param>
+        /// <param name="file">the settings file in which the Options value exists</param>
         public static void ConfigureWritable<T>(this IServiceCollection services,                        
             string file = "appsettings.json") where T : class, new()
         {            
@@ -37,11 +43,16 @@ namespace Application.Extensions
                 var options = provider.GetService<IOptionsMonitor<T>>();
                 return new OptionWriter<T>(environment, options, file);
             });
-        }        
-        public static void ConfigureAppDataFolder(this IServiceCollection services,string myFolder = "DHsys")
+        }
+        /// <summary>
+        /// Creates a folder in the default AppData folder(Windows) to store configuration and data files
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="folderName">The folder name in which to store the configuration and data files</param>
+        public static void ConfigureAppDataFolder(this IServiceCollection services,string folderName = "DHsys")
         {
             //TODO:Use isolation storage instead
-            string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),myFolder);
+            string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),folderName);
             if (!Directory.Exists(folder))
             {
                 try{
@@ -71,6 +82,11 @@ namespace Application.Extensions
                 Directory.CreateDirectory(updateFilesFolder);
             }
         }
+        /// <summary>
+        /// Add singleton of a <see cref="IUpdater"/> implementation to handle Application Updates.
+        /// OBS: Desktop specific.
+        /// </summary>
+        /// <param name="services"></param>
         public static void AddApplicationUpdater(this IServiceCollection services)
         {
             var provider = services.BuildServiceProvider();
@@ -79,7 +95,11 @@ namespace Application.Extensions
             var writer = provider.GetService <IWritableOptions<AutoUpdateSettings>>();
             var updater = new Updater(logger,writer,settings);
             services.AddSingleton(typeof(IUpdater),updater);
-        }           
+        }
+        /// <summary>
+        /// Add custom defined Application services to the <see cref="IServiceCollection"/> instance
+        /// </summary>
+        /// <param name="services">the <see cref="IServiceCollection"/> instance to add the application services</param>
         public static void AddApplicationServices(this IServiceCollection services)
         {            
             services.AddTransient<IDrugService, DrugService>();            
@@ -87,11 +107,12 @@ namespace Application.Extensions
             services.AddTransient<IBillingService, BillingService>();
             services.AddTransient<ITransactionService, TransactionService>();
         }
-        public static IServiceCollection AddSerilogServices(this IServiceCollection services)
-        {
-            services.AddSingleton(ConfigureLoggingExtension.ConfigureDefaultSerilogLogger());
-            return services;
-        }
+        /// <summary>
+        /// Add default data services and Database context.
+        /// </summary>
+        /// <param name="services"></param>
+        /// <param name="configuration"></param>
+        /// <param name="localContextOptions"></param>
         public static void AddDataStore(this IServiceCollection services,
             IConfiguration configuration,
             Action<DbContextOptionsBuilder> localContextOptions = null)

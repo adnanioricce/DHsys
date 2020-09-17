@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application;
 using Infrastructure.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -15,7 +16,7 @@ namespace Api
     {
         public static int Main(string[] args)
         {
-            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();
+            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();            
             try
             {
                 CreateHostBuilder(args).Build().Run();
