@@ -19,9 +19,7 @@ using System.Threading.Tasks;
 namespace Api.Controllers
 {
     [Route("api/[Controller]")]
-    [ApiController]
-    //[ApiVersion("1.0")]
-    //[ODataRoutePrefix("[Controller]")]
+    [ApiController]    
     public class DefaultApiController<TEntity,TEntityDto> : ODataController where TEntity : BaseEntity where TEntityDto : class
     {        
         protected readonly IRepository<TEntity> _repository;
@@ -34,14 +32,13 @@ namespace Api.Controllers
             _validator = validator;
         }
         
-        [EnableQuery]        
+        [EnableQuery]
         [Produces("application/json")]
         [HttpGet]
         public async Task<IQueryable<TEntityDto>> Query()
         {
-            var entities = await _repository.Query()
-                                            .Select(e => _mapper.Map<TEntity, TEntityDto>(e))
-                                            .ToListAsync();
+            var entities = _mapper.Map<List<TEntity>, List<TEntityDto>>(await _repository.Query()
+                                                                                         .ToListAsync());
             return entities.AsQueryable();
         }
         [HttpPost("validate-create")]

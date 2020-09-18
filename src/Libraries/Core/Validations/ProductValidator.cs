@@ -6,9 +6,9 @@ using System.Text;
 
 namespace Core.Validations
 {
-    public class ProductValidation : BaseValidator<Product>
+    public class ProductValidator : BaseValidator<Product>
     {        
-        public ProductValidation()
+        public ProductValidator()
         {
             RuleFor(p => p.QuantityInStock)
                 .GreaterThanOrEqualTo(0)

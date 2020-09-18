@@ -3,37 +3,32 @@ using Core.ApplicationModels.Dtos.Financial;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
 using Core.Interfaces;
-using Core.Interfaces.Catalog;
 using Core.Interfaces.Financial;
-using Core.Models;
 using Core.Models.ApplicationResources;
+using Core.Validations;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Api.Controllers.Api
 {
     [Route("api/[Controller]")]
     [ApiController]
-    public class TransactionsController : ControllerBase
+    public class TransactionsController : DefaultApiController<Transaction,TransactionDto>
     {
-        private readonly ITransactionService _transactionService;
-        private readonly IRepository<Transaction> _transactionRepository;
-        private readonly IRepository<Drug> _drugRepository;
-        private readonly IMapper _mapper;
+        protected readonly ITransactionService _transactionService;
+        protected readonly IRepository<Transaction> _transactionRepository;
+        protected readonly IRepository<Drug> _drugRepository;        
         public TransactionsController(ITransactionService transactionService,
             IRepository<Transaction> transactionRepository,
             IRepository<Drug> drugRepository,
-            IMapper mapper)
+            IMapper mapper,
+            BaseValidator<Transaction> drugValidator) : base(transactionRepository,mapper,drugValidator)
         {
             _transactionRepository = transactionRepository;
             _transactionService = transactionService;
-            _drugRepository = drugRepository;
-            _mapper = mapper;
+            _drugRepository = drugRepository;            
         }
         [HttpPost("create")]
         public async Task<ActionResult<BaseResourceResponse<TransactionDto>>> CreateTransaction([FromBody]TransactionDto transactionDto)

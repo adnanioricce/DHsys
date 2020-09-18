@@ -20,6 +20,8 @@ using DAL.Extensions;
 using Infrastructure.Interfaces;
 using DAL.Windows;
 using DAL.Windows.Repositories;
+using Infrastructure.Logging;
+using Core.Validations;
 
 namespace Desktop
 {
@@ -33,19 +35,16 @@ namespace Desktop
         public IConfiguration Configuration { get; private set; }
         public App()
         {
-            host = Host.CreateDefaultBuilder()
+            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();
+            host = Host.CreateDefaultBuilder()                
                 .ConfigureAppConfiguration((context,builder) =>
-                {
+                {                    
                     builder.AddJsonFile("appsettings.json", optional: true);
                 })
                 .ConfigureServices((context, services) =>
-                {
+                {                    
                     ConfigureServices(context.Configuration, services);
-                })
-                .ConfigureLogging(logging =>
-                {
-                    //TODO:Add loggings
-                })
+                })                
                 .Build();
         }
         protected override async void OnStartup(StartupEventArgs e)
@@ -94,6 +93,14 @@ namespace Desktop
                     _ => (BaseContext)services.FirstOrDefault(d => (d is LocalContext))
                 };
             });
+            var validators = Assembly.GetAssembly(typeof(Core.Core))
+                                     .GetTypes()
+                                     .Where(t => t.IsClass && t.BaseType.Name.StartsWith("BaseValidator"))
+                                     .ToList();
+            foreach (var validator in validators)
+            {
+                services.AddTransient(validator.BaseType, validator);
+            }
             ServiceProvider = services.BuildServiceProvider();
             var dbResolver = ServiceProvider.GetRequiredService<DbContextResolver>();
             var dbcontext = dbResolver("local");

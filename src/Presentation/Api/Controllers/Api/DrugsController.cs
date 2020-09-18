@@ -10,22 +10,19 @@ using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
 using Core.Models.ApplicationResources.Requests;
+using Core.Validations;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
 namespace Api.Controllers.Api
-{
-    [Route("api/[controller]")]
-    [ApiController]
-    public class DrugsController : ControllerBase
+{    
+    public class DrugsController : DefaultApiController<Drug,DrugDto>
     {
-        private readonly IDrugService _drugService;
-        private readonly IMapper _mapper;        
-        public DrugsController(IDrugService drugService,IMapper mapper)
+        private readonly IDrugService _drugService;        
+        public DrugsController(IRepository<Drug> drugRepository,IMapper mapper,BaseValidator<Drug> drugValidator, IDrugService drugService) : base(drugRepository,mapper,drugValidator)
         {
             _drugService = drugService;
-            _mapper = mapper;
         }
         // GET: api/Drugs/search/{name}
         [HttpGet("search/list")]
