@@ -5,7 +5,7 @@ using Core.Entities.Catalog;
 namespace Core.Entities.Stock
 {
     public class StockEntry : BaseEntity
-    {                
+    {
         public int? SupplierId { get; set; }
         public int? Quantity { get; set; }        
         public DateTime? DrugMaturityDate { get; set; }

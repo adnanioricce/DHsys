@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Api.Controllers
 {
     [ApiController]
-    [Route("api/v1/[Controller]")]
+    [Route("api/[Controller]")]
     public class UpdatesController : ControllerBase
     {
         private readonly string _appUpdateFolder = "~/appUpdates/";

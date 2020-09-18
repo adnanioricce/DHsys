@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAL.DataMappings.Orders
 {
-    public class TransactionMap : BaseEntityConfiguration<Transaction>
+    public class TransactionConfiguration : BaseEntityConfiguration<Transaction>
     {
         public override void Configure(EntityTypeBuilder<Transaction> builder)
         {            
