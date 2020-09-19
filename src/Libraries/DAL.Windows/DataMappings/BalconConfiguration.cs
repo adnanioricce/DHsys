@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class BalconMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Balcon>
+        : IEntityTypeConfiguration<Legacy.Entities.Balcon>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Balcon> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Balcon> builder)
         {
             #region Generated Configure
             // table

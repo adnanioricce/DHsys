@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class UsefarmaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Usefarma>
+        : IEntityTypeConfiguration<Legacy.Entities.Usefarma>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Usefarma> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Usefarma> builder)
         {
             #region Generated Configure
             // table

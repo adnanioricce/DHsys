@@ -16,6 +16,7 @@
     <ProjectReference Include="..\Application\Application.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DAL.Windows\DAL.Windows.csproj" />    
-    <ProjectReference Include="..\Infrastructure.Windows\Infrastructure.Windows.csproj" />
+    <ProjectReference Include="..\Infrastructure.Windows\Infrastructure.Windows.csproj" />    
+    <ProjectReference Include="..\Legacy\Legacy.csproj" />
   </ItemGroup>
 </Project>

@@ -1,6 +1,4 @@
-using System;
-using System.Collections.Generic;
-using Core.Entities.Legacy;
+using Legacy.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

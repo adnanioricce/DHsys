@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class NewcliMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Newcli>
+        : IEntityTypeConfiguration<Legacy.Entities.Newcli>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Newcli> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Newcli> builder)
         {
             #region Generated Configure
             // table

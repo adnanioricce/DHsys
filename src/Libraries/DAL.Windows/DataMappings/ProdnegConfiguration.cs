@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ProdnegMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Prodneg>
+        : IEntityTypeConfiguration<Legacy.Entities.Prodneg>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Prodneg> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Prodneg> builder)
         {
             #region Generated Configure
             // table

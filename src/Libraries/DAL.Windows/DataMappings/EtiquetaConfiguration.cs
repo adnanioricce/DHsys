@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class EtiquetaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Etiqueta>
+        : IEntityTypeConfiguration<Legacy.Entities.Etiqueta>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Etiqueta> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Etiqueta> builder)
         {
             #region Generated Configure
             // table

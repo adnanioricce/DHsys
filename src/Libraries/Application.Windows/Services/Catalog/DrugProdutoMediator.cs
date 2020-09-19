@@ -1,8 +1,9 @@
 using Core.Entities.Catalog;
-using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Interfaces.Catalog;
 using DAL.Windows.Mappers;
+using Legacy.Entities;
+using Legacy.Interfaces.Catalog;
 
 namespace Application.Windows.Services.Catalog
 {

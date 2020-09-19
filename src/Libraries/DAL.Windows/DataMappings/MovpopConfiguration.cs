@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class MovpopMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Movpop>
+        : IEntityTypeConfiguration<Legacy.Entities.Movpop>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Movpop> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Movpop> builder)
         {
             #region Generated Configure
             // table

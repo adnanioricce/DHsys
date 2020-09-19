@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ReducaoMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Reducao>
+        : IEntityTypeConfiguration<Legacy.Entities.Reducao>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Reducao> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Reducao> builder)
         {
             #region Generated Configure
             // table

@@ -3,6 +3,7 @@ using Core.Interfaces.Catalog;
 using DAL.Windows;
 using DAL.Windows.Mappers;
 using DAL.Windows.Repositories;
+using Legacy.Interfaces.Catalog;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;

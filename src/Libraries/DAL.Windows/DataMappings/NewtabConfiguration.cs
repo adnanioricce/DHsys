@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class NewtabMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Newtab>
+        : IEntityTypeConfiguration<Legacy.Entities.Newtab>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Newtab> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Newtab> builder)
         {
             #region Generated Configure
             // table

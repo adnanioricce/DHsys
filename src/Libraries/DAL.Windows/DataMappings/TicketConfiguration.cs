@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class TicketMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Ticket>
+        : IEntityTypeConfiguration<Legacy.Entities.Ticket>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Ticket> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Ticket> builder)
         {
             #region Generated Configure
             // table

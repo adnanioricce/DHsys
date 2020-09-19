@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class UsointMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Usoint>
+        : IEntityTypeConfiguration<Legacy.Entities.Usoint>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Usoint> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Usoint> builder)
         {
             #region Generated Configure
             // table

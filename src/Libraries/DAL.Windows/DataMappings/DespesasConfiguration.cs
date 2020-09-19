@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class DespesasMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Despesas>
+        : IEntityTypeConfiguration<Legacy.Entities.Despesas>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Despesas> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Despesas> builder)
         {
             #region Generated Configure
             // table

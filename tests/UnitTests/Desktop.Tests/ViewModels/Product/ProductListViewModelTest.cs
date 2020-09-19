@@ -1,7 +1,6 @@
 using System.Linq;
 using Tests.Lib.Data;
 using Xunit;
-using Core.Entities.Legacy;
 using Desktop.ViewModels.Product;
 using Core.Entities.Catalog;
 using Moq;

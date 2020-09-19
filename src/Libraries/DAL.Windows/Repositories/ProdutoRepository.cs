@@ -1,5 +1,5 @@
-using Core.Entities.Legacy;
 using DAL.Windows.Repositories;
+using Legacy.Entities;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace DAL.Windows
 {
     //TODO:Remove the type parameter
-    public class ProdutoRepository<T> : ILegacyRepository<T> where T : Produto 
+    public class ProdutoRepository<T> : ILegacyRepository<T> where T : Produto
     {
         private readonly LegacyContext _context;
         

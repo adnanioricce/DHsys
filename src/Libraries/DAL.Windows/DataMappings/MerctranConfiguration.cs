@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class MerctranMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Merctran>
+        : IEntityTypeConfiguration<Legacy.Entities.Merctran>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Merctran> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Merctran> builder)
         {
             #region Generated Configure
             // table

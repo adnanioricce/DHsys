@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class CadlaboldMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Cadlabold>
+        : IEntityTypeConfiguration<Legacy.Entities.Cadlabold>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Cadlabold> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Cadlabold> builder)
         {
             #region Generated Configure
             // table

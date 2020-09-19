@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class TempMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Temp>
+        : IEntityTypeConfiguration<Legacy.Entities.Temp>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Temp> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Temp> builder)
         {
             #region Generated Configure
             // table

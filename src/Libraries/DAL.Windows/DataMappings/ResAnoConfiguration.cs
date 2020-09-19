@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ResAnoMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.ResAno>
+        : IEntityTypeConfiguration<Legacy.Entities.ResAno>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.ResAno> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.ResAno> builder)
         {
             #region Generated Configure
             // table

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class CancdiaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Cancdia>
+        : IEntityTypeConfiguration<Legacy.Entities.Cancdia>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Cancdia> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Cancdia> builder)
         {
             #region Generated Configure
             // table

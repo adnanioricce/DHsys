@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ServicoMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Servico>
+        : IEntityTypeConfiguration<Legacy.Entities.Servico>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Servico> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Servico> builder)
         {
             #region Generated Configure
             // table

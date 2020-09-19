@@ -1,7 +1,4 @@
-using Core.Entities.Legacy;
-using Core.Entities.Stock;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace Core.Entities.Catalog

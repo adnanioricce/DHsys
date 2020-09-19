@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class SpoolMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Spool>
+        : IEntityTypeConfiguration<Legacy.Entities.Spool>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Spool> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Spool> builder)
         {
             #region Generated Configure
             // table

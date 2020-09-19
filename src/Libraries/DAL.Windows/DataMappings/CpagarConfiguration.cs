@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DAL.Windows.DataMappings
 {
     public partial class CpagarMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Cpagar>
+        : IEntityTypeConfiguration<Legacy.Entities.Cpagar>
     {
-        public void Configure(EntityTypeBuilder<global::Core.Entities.Legacy.Cpagar> builder)
+        public void Configure(EntityTypeBuilder<Legacy.Entities.Cpagar> builder)
         {
             #region Generated Configure
             // table

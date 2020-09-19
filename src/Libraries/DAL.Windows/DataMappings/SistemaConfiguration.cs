@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class SistemaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Sistema>
+        : IEntityTypeConfiguration<Legacy.Entities.Sistema>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Sistema> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Sistema> builder)
         {
             #region Generated Configure
             // table

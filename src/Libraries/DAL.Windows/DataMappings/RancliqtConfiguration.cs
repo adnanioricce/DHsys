@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class RancliqtMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Rancliqt>
+        : IEntityTypeConfiguration<Legacy.Entities.Rancliqt>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Rancliqt> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Rancliqt> builder)
         {
             #region Generated Configure
             // table

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class SubsecaoMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Subsecao>
+        : IEntityTypeConfiguration<Legacy.Entities.Subsecao>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Subsecao> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Subsecao> builder)
         {
             #region Generated Configure
             // table

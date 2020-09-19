@@ -18,16 +18,7 @@ namespace Tests.Lib.Seed
                 EndCustomerPrice = 32.99m,   
                 BarCode = Guid.NewGuid().ToString(),
                 UniqueCode = "40028922",                
-            };
-            var produto = new Core.Entities.Legacy.Produto{
-                Prfabr = 14.99d,
-                Prcons = 32.99d,                    
-                Prbarra = product.BarCode,
-                Prcodi = product.UniqueCode,                
-                Prestq = product.QuantityInStock,
-                Prdesc = product.Description,
-                Prncms = product.Ncm,                
-            };            
+            };                     
             return product;
         }
     }

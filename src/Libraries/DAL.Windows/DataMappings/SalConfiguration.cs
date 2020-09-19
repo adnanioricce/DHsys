@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class SalMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Sal>
+        : IEntityTypeConfiguration<Legacy.Entities.Sal>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Sal> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Sal> builder)
         {
             #region Generated Configure
             // table

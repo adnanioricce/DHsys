@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class BrindesMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Brindes>
+        : IEntityTypeConfiguration<Legacy.Entities.Brindes>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Brindes> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Brindes> builder)
         {
             #region Generated Configure
             // table

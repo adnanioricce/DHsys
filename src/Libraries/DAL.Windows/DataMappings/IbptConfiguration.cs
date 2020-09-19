@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class IbptMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Ibpt>
+        : IEntityTypeConfiguration<Legacy.Entities.Ibpt>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Ibpt> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Ibpt> builder)
         {
             #region Generated Configure
             // table

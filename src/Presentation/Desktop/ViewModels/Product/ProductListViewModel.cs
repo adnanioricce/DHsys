@@ -1,13 +1,9 @@
-﻿using Core.Entities.Legacy;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
-using System.Windows.Threading;
 using Desktop.Models;
-using System.IO;
-using DAL.Windows.Repositories;
 using System.Threading;
 
 namespace Desktop.ViewModels.Product

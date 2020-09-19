@@ -1,5 +1,4 @@
 ﻿using Core.Entities.Catalog;
-using Core.Entities.Legacy;
 using Core.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,15 +20,23 @@ namespace Application.Services
             //TODO:write Drug validation
             _drugRepository.Add(drug);
             _drugRepository.SaveChanges();
-        }        
-       
+        }
+
+        public Task CreateDrugAsync(Drug drug)
+        {
+            throw new NotImplementedException();
+        }
 
         public virtual void CreateDrugs(IEnumerable<Drug> drugs)
         {                                    
             _drugRepository.AddRange(drugs);
             _drugRepository.SaveChanges();
         }
-        
+
+        public Task CreateDrugsAsync(IEnumerable<Drug> drugs)
+        {
+            throw new NotImplementedException();
+        }
 
         public virtual Drug GetDrugByUniqueCode(string uniqueCode)
         {

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ConvMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Conv>
+        : IEntityTypeConfiguration<Legacy.Entities.Conv>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Conv> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Conv> builder)
         {
             #region Generated Configure
             // table

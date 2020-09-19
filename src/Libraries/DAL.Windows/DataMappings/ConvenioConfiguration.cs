@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ConvenioMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Convenio>
+        : IEntityTypeConfiguration<Legacy.Entities.Convenio>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Convenio> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Convenio> builder)
         {
             #region Generated Configure
             // table

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class HistorMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Histor>
+        : IEntityTypeConfiguration<Legacy.Entities.Histor>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Histor> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Histor> builder)
         {
             #region Generated Configure
             // table

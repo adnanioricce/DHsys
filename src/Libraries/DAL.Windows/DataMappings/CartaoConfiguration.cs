@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class CartaoMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Cartao>
+        : IEntityTypeConfiguration<Legacy.Entities.Cartao>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Cartao> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Cartao> builder)
         {
             #region Generated Configure
             // table

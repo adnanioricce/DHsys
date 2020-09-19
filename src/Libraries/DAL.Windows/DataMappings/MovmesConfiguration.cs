@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class MovmesMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Movmes>
+        : IEntityTypeConfiguration<Legacy.Entities.Movmes>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Movmes> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Movmes> builder)
         {
             #region Generated Configure
             // table

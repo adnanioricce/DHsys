@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ClipagoMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Clipago>
+        : IEntityTypeConfiguration<Legacy.Entities.Clipago>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Clipago> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Clipago> builder)
         {
             #region Generated Configure
             // table
