@@ -1,4 +1,7 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:latest
+ENV ASPNETCORE_URLS=http://+:5000;https://+:50001
+EXPOSE 5000
+EXPOSE 5001
 WORKDIR /src
 RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"

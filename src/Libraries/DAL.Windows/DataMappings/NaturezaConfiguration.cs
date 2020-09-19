@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class NaturezaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Natureza>
+        : IEntityTypeConfiguration<Legacy.Entities.Natureza>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Natureza> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Natureza> builder)
         {
             #region Generated Configure
             // table

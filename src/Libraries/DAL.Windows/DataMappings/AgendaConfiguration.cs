@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class AgendaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Agenda>
+        : IEntityTypeConfiguration<Legacy.Entities.Agenda>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Agenda> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Agenda> builder)
         {
             #region Generated Configure
             // table

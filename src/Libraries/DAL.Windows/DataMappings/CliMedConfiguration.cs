@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class CliMedMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.CliMed>
+        : IEntityTypeConfiguration<Legacy.Entities.CliMed>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.CliMed> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.CliMed> builder)
         {
             #region Generated Configure
             // table

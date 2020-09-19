@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class LogsysMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Logsys>
+        : IEntityTypeConfiguration<Legacy.Entities.Logsys>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Logsys> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Logsys> builder)
         {
             #region Generated Configure
             // table

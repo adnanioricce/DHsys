@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class TransferMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Transfer>
+        : IEntityTypeConfiguration<Legacy.Entities.Transfer>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Transfer> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Transfer> builder)
         {
             #region Generated Configure
             // table

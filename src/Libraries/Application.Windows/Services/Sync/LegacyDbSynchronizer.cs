@@ -1,5 +1,4 @@
-﻿using Core.Entities.Legacy;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 using Core.Models.Dbf;
 using Core.Models.ApplicationResources.Requests;
 using Newtonsoft.Json.Linq;
@@ -18,6 +17,7 @@ using Core.Extensions;
 using Infrastructure.Windows.Extensions;
 using Microsoft.Data.Sqlite;
 using Infrastructure.Windows.Models;
+using Legacy.Entities;
 
 namespace Application.Windows.Services.Sync
 {

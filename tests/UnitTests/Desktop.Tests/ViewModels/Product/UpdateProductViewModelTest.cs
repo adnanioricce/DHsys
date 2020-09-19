@@ -1,12 +1,11 @@
-﻿using Core.Entities;
+﻿using Application.Services;
+using Core.Entities;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
-using Core.Entities.Legacy;
 using Core.Interfaces;
-using Core.Interfaces.Catalog;
 using Desktop.ViewModels.Product;
+using Legacy.Interfaces.Catalog;
 using Moq;
-using Tests.Lib.Data;
 using Tests.Lib.Seed;
 using Xunit;
 
@@ -19,20 +18,19 @@ namespace Desktop.Tests.ViewModels.ProductViewModelsTests
         {
             // Given
             var productModel = DrugSeed.BaseCreateDrugEntity();            
-            var viewModel = new UpdateProductViewModel(GetFakeDrugProdutoMediator());
+            var viewModel = new UpdateProductViewModel(GetFakeDrugService());
             // When
             viewModel.UpdateProductCommand.Execute(productModel);
             // Then
             Assert.Equal(4,productModel.QuantityInStock);
         }        
 
-        private IDrugProdutoMediator GetFakeDrugProdutoMediator()
+        private IDrugService GetFakeDrugService()
         {
-            var fakeDrugProdutoMediator = new Mock<IDrugProdutoMediator>();
-            fakeDrugProdutoMediator.Setup(m => m.UpdateDrugFrom(It.IsAny<Drug>()))
+            var fakeDrugProdutoMediator = new Mock<IDrugService>();
+            fakeDrugProdutoMediator.Setup(m => m.UpdateDrug(It.IsAny<int>(),It.IsAny<Drug>()))
                 .Callback((Drug drug) => drug.QuantityInStock = 4);
-            return fakeDrugProdutoMediator.Object;
-            //var drugProdutoMediator = new DrugProdutoMediator()
+            return fakeDrugProdutoMediator.Object;            
         }
         private IBillingService GetFakeBillingService(Billing billing)
         {

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class FilialMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Filial>
+        : IEntityTypeConfiguration<Legacy.Entities.Filial>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Filial> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Filial> builder)
         {
             #region Generated Configure
             // table

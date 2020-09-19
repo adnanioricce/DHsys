@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class SenhaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Senha>
+        : IEntityTypeConfiguration<Legacy.Entities.Senha>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Senha> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Senha> builder)
         {
             #region Generated Configure
             // table

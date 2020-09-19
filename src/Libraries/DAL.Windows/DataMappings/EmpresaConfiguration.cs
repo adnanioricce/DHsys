@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class EmpresaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Empresa>
+        : IEntityTypeConfiguration<Legacy.Entities.Empresa>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Empresa> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Empresa> builder)
         {
             #region Generated Configure
             // table

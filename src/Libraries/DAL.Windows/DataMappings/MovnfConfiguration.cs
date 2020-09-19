@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class MovnfMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Movnf>
+        : IEntityTypeConfiguration<Legacy.Entities.Movnf>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Movnf> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Movnf> builder)
         {
             #region Generated Configure
             // table

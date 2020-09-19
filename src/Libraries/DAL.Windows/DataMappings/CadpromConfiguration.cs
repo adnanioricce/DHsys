@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class CadpromMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Cadprom>
+        : IEntityTypeConfiguration<Legacy.Entities.Cadprom>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Cadprom> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Cadprom> builder)
         {
             #region Generated Configure
             // table

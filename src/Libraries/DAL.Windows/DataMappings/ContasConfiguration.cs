@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ContasMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Contas>
+        : IEntityTypeConfiguration<Legacy.Entities.Contas>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Contas> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Contas> builder)
         {
             #region Generated Configure
             // table

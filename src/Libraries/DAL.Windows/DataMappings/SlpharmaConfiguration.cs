@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class SlpharmaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Slpharma>
+        : IEntityTypeConfiguration<Legacy.Entities.Slpharma>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Slpharma> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Slpharma> builder)
         {
             #region Generated Configure
             // table

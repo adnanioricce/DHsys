@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ClicheqMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Clicheq>
+        : IEntityTypeConfiguration<Legacy.Entities.Clicheq>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Clicheq> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Clicheq> builder)
         {
             #region Generated Configure
             // table

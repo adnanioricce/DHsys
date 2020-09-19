@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ClienteMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Cliente>
+        : IEntityTypeConfiguration<Legacy.Entities.Cliente>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Cliente> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Cliente> builder)
         {
             #region Generated Configure
             // table

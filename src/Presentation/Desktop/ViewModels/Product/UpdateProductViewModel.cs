@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Catalog;
+using Core.Interfaces;
 using Core.Interfaces.Catalog;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
@@ -7,14 +8,12 @@ namespace Desktop.ViewModels.Product
 {
     public class UpdateProductViewModel : ViewModelBase
     {
-        private readonly IDrugProdutoMediator _drugProdutoMediator;
+        private readonly IDrugService _drugService;
         public RelayCommand<Drug> UpdateProductCommand { get; set; }
-        public UpdateProductViewModel(IDrugProdutoMediator drugProdutoMediator)
+        public UpdateProductViewModel(IDrugService drugService)
         {
-            _drugProdutoMediator = drugProdutoMediator;
-            UpdateProductCommand = new RelayCommand<Drug>(_drugProdutoMediator.UpdateDrugFrom);
+            _drugService = drugService;
+            UpdateProductCommand = new RelayCommand<Drug>((drug) => _drugService.UpdateDrug(drug.Id,drug));
         }
-        
-
     }
 }

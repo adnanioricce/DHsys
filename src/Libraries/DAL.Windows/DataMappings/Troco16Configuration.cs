@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class Troco16Map
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Troco16>
+        : IEntityTypeConfiguration<Legacy.Entities.Troco16>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Troco16> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Troco16> builder)
         {
             #region Generated Configure
             // table

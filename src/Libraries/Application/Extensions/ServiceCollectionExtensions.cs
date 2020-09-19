@@ -1,10 +1,7 @@
 ﻿using Application.Mapping.Domain;
 using Application.Services;
 using AutoMapper;
-using Core.Entities.Catalog;
-using Core.Entities.Legacy;
 using Core.Interfaces;
-using Core.Interfaces.Catalog;
 using DAL;
 using DAL.DbContexts;
 using Infrastructure.Interfaces;
@@ -22,6 +19,7 @@ using System.Linq;
 using Core.Interfaces.Financial;
 using Application.Services.Financial;
 using Infrastructure.Logging;
+using System.Reflection;
 
 namespace Application.Extensions
 {
@@ -152,10 +150,20 @@ namespace Application.Extensions
         }
         public static void AddAutoMapperConfiguration(this IServiceCollection services) 
         {
+            var coreTypes = Assembly.GetAssembly(typeof(Core.Core))
+                                   .GetTypes();
+            var entities = coreTypes.Where(t => t.Namespace.StartsWith("Core.Entities"));
+            var dtos = coreTypes.Where(t => t.Namespace.StartsWith("Core.ApplicationModels.Dtos"));
+            
             var mapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new CatalogProfile());
-                cfg.AddProfile(new FinancialProfile());
+                cfg.AddProfile(new CoreProfile());
+                //cfg.AddProfile(new CatalogProfile());
+                //cfg.AddProfile(new FinancialProfile());
+                //foreach (var dto in dtos)
+                //{
+                    
+                //}
             });
             var mapper = mapperConfig.CreateMapper();            
             services.AddSingleton(mapper);

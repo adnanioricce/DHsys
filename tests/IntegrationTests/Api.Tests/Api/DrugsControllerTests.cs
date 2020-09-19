@@ -2,7 +2,6 @@ using System.IO;
 using Api.Controllers.Api;
 using AspNetCore.Http.Extensions;
 using Core.Entities.Catalog;
-using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
 using Core.Models.ApplicationResources.Requests;
@@ -28,25 +27,18 @@ namespace Api.Tests
         {            
             _fixture = fixture;
             _client = _fixture.Client;
-        }
-
-        //public DrugsControllerTests(TestFixture<Startup> fixture)
-        //{
-        //    _client = fixture.Client;            
-        //}
+        }        
         [Fact]
         public async Task GET_GetDrugsByName_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var baseUrl = "api/Drugs/search/list?name={0}&api-version=1.0";                        
-            
+            var baseUrl = "api/Drugs/search/list?name={0}&api-version=1.0";                                    
             var drug = DrugSeed.GetDataForHttpGetMethods().FirstOrDefault();
             var context = _fixture.GetRemoteContext();
             context.Add(drug);
             context.SaveChanges();
             string requestUrl = string.Format(baseUrl, drug.DrugName);
-            // Act
-            //var result = _client.get
+            // Act            
             var result = await _client.GetAsync(requestUrl);
             result.EnsureSuccessStatusCode();
             var response = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IList<DrugDto>>>();            
@@ -59,8 +51,7 @@ namespace Api.Tests
         public async Task GET_GetDrugByBarCode_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            string baseUrl = "api/Drugs/search/{0}?api-version=1.0";                        
-            
+            string baseUrl = "api/Drugs/search/{0}?api-version=1.0";                                    
             var drug = DrugSeed.GetDataForHttpGetMethods().FirstOrDefault();
             var context = _fixture.GetRemoteContext();
             context.Add(drug);
@@ -105,26 +96,6 @@ namespace Api.Tests
 
             // Assert            
             Assert.True(valueResult.Success);            
-        }
-        private Produto GetBaseProduto()
-        {
-            return new Produto
-            {
-                Prcodi = "123456",
-                Prbarra = "1234567890123",
-                Prdesc = "Dipirona GTS 5mg",
-                Pricms = 18,
-                EstMinimo = 1,
-                Prestq = 3,
-                Premb = 1,
-                Prncms = "3000333333",
-                Prfabr = 4.24,
-                Prcons = 12.50,
-                DescMax = 20,
-                Prprinci = "some principle",
-                Secao = "",
-                Ultfor = "Fornecedor"
-            }; 
-        }
+        }        
     }
 }

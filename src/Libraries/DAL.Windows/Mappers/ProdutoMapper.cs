@@ -4,9 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Core.Entities.Catalog;
-using Core.Entities.Legacy;
-using Core.Interfaces;
 using DAL.Windows.Repositories;
+using Legacy.Entities;
 //TODO: Move this to DAL project
 namespace DAL.Windows.Mappers
 {

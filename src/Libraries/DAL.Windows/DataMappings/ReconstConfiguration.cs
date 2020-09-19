@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ReconstMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Reconst>
+        : IEntityTypeConfiguration<Legacy.Entities.Reconst>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Reconst> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Reconst> builder)
         {
             #region Generated Configure
             // table

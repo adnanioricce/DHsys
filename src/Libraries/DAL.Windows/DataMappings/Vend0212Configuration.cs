@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class Vend0212Map
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Vend0212>
+        : IEntityTypeConfiguration<Legacy.Entities.Vend0212>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Vend0212> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Vend0212> builder)
         {
             #region Generated Configure
             // table

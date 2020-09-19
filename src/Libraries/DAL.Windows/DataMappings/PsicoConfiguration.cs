@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class PsicoMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Psico>
+        : IEntityTypeConfiguration<Legacy.Entities.Psico>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Psico> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Psico> builder)
         {
             #region Generated Configure
             // table

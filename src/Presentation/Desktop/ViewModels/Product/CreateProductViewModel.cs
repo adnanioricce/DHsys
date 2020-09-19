@@ -1,15 +1,11 @@
 ﻿using Core.Entities.Catalog;
 using Core.Entities.Stock;
 using Core.Interfaces;
-using Core.Interfaces.Catalog;
-using Core.Validations;
 using Desktop.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Desktop.ViewModels.Product
 {

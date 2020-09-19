@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class FaltasMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Faltas>
+        : IEntityTypeConfiguration<Legacy.Entities.Faltas>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Faltas> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Faltas> builder)
         {
             #region Generated Configure
             // table

@@ -1,13 +1,10 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
 using FluentValidation;
-using MediatR;
+using FluentValidation.Results;
 using Microsoft.AspNet.OData;
-using Microsoft.AspNet.OData.Query;
-using Microsoft.AspNet.OData.Routing;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -34,7 +31,7 @@ namespace Api.Controllers
         
         [EnableQuery]
         [Produces("application/json")]
-        [HttpGet]
+        [HttpGet("query")]
         public async Task<IQueryable<TEntityDto>> Query()
         {
             var entities = _mapper.Map<List<TEntity>, List<TEntityDto>>(await _repository.Query()
@@ -42,6 +39,7 @@ namespace Api.Controllers
             return entities.AsQueryable();
         }
         [HttpPost("validate-create")]
+        [ProducesDefaultResponseType(typeof(ValidationResult))]
         public async Task<IActionResult> Validate(TEntityDto dto)
         {
             var entity = _mapper.Map<TEntityDto, TEntity>(dto);
@@ -54,10 +52,12 @@ namespace Api.Controllers
 
         }
         [HttpPost("create")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(BaseResourceResponse<int>), 200)]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 500)]
-        public virtual async Task<ActionResult<BaseResourceResponse>> CreateAsync(TEntity entity)
+        public virtual async Task<ActionResult<BaseResourceResponse>> CreateAsync(TEntityDto entityDto)
         {
+            var entity = _mapper.Map<TEntityDto, TEntity>(entityDto);
             try
             {
                 _repository.Add(entity);
@@ -126,7 +126,7 @@ namespace Api.Controllers
             catch (Exception ex)
             {
                 Log.Error("Exception throwed at {className} of entity {entityName} when trying to delete entity. Exception:{@exception} \n entity object:{@entity}", this.GetType().Name, nameof(TEntity), ex, entity);
-                return StatusCode(500, BaseResourceResponse.GetDefaultFailureResponseWithObject<TEntity>(entity,string.Format("Sorry, a problem occured when trying to delete the entity with id {0}", id)));
+                return StatusCode(500, BaseResourceResponse.GetDefaultFailureResponseWithObject<TEntityDto>(_mapper.Map<TEntity,TEntityDto>(entity),string.Format("Sorry, a problem occured when trying to delete the entity with id {0}", id)));
             }            
         }        
     }    

@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class InventMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Invent>
+        : IEntityTypeConfiguration<Legacy.Entities.Invent>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Invent> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Invent> builder)
         {
             #region Generated Configure
             // table

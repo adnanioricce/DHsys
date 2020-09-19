@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class NewfuncMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Newfunc>
+        : IEntityTypeConfiguration<Legacy.Entities.Newfunc>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Newfunc> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Newfunc> builder)
         {
             #region Generated Configure
             // table

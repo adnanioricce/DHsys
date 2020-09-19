@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Core.Entities.Catalog;
-using Core.Entities.Legacy;
 
 namespace Core.Interfaces
 {

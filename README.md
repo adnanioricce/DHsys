@@ -1,5 +1,5 @@
 # DHsys, Uma prova de conceito que ficou grande demais
-DHsys é um sistema ERP, de código aberto, desenvolvido como um POF enquanto procurava meios para automatizar certos processos de uma farmácia com um sistema legado de 20 anos. 
+DHsys DHsys é um "projeto playground", que visava ser um sistema POS em .net core, a ideia era fazer um pequeno protótipo de um versão mais moderna de um software POS legado em clipper que eu encontrei em uma farmácia. O projeto tem uma API em ASP.NET Core e um client Desktop em WPF.
 # Como rodar o projeto 
 Há dois projetos que podem ser executados:
 O Projeto Web API em src/Presentation/Api e o projeto WPF Desktop em

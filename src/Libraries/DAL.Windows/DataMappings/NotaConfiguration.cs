@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class NotaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Nota>
+        : IEntityTypeConfiguration<Legacy.Entities.Nota>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Nota> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Nota> builder)
         {
             #region Generated Configure
             // table

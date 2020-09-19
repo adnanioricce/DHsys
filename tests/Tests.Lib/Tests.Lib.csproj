@@ -10,6 +10,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Libraries\Core\Core.csproj" />
     <ProjectReference Include="..\..\src\Libraries\DAL\DAL.csproj" />
+    <ProjectReference Include="..\..\src\Libraries\Legacy\Legacy.csproj" />    
   </ItemGroup>
 
   <PropertyGroup>

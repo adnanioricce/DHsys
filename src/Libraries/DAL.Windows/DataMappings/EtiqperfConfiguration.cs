@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class EtiqperfMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Etiqperf>
+        : IEntityTypeConfiguration<Legacy.Entities.Etiqperf>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Etiqperf> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Etiqperf> builder)
         {
             #region Generated Configure
             // table

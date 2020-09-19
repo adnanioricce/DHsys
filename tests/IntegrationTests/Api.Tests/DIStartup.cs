@@ -2,7 +2,6 @@
 using Api.Tests.Seed;
 using Application.Services;
 using Core.Entities.Catalog;
-using Core.Entities.Legacy;
 using Core.Interfaces;
 using DAL;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +26,7 @@ using DAL.Extensions;
 using DAL.DbContexts;
 using Microsoft.Data.SqlClient;
 using Application.Extensions;
+using Api.Controllers.Api;
 
 [assembly: TestFramework("Api.Tests.DIStartup", "Api.Tests")]
 namespace Api.Tests
@@ -67,8 +67,7 @@ namespace Api.Tests
                     "remote" => new NpgsqlConnection(configuration.GetConnectionString("RemoteConnection")),
                     _ => throw new KeyNotFoundException("there is no IDbConnection registered that match the given key"),
                 };
-            });
-
+            });                        
         }
         protected override IHostBuilder CreateHostBuilder(System.Reflection.AssemblyName assemblyName){
             return base.CreateHostBuilder(assemblyName)

@@ -31,7 +31,7 @@ namespace Api.Controllers.Api
             _drugRepository = drugRepository;            
         }
         [HttpPost("create")]
-        public async Task<ActionResult<BaseResourceResponse<TransactionDto>>> CreateTransaction([FromBody]TransactionDto transactionDto)
+        public override async Task<ActionResult<BaseResourceResponse>> CreateAsync([FromBody]TransactionDto transactionDto)
         {
             if (transactionDto is null) return BadRequest("invalid request, body was null");
             var transaction = transactionDto.ToModel();

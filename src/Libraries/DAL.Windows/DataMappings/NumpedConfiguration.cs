@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class NumpedMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Numped>
+        : IEntityTypeConfiguration<Legacy.Entities.Numped>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Numped> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Numped> builder)
         {
             #region Generated Configure
             // table

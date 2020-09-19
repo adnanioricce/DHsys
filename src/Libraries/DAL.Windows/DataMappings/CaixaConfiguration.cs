@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class CaixaMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Caixa>
+        : IEntityTypeConfiguration<Legacy.Entities.Caixa>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Caixa> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Caixa> builder)
         {
             #region Generated Configure
             // table

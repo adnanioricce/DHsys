@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class ChdevolMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Chdevol>
+        : IEntityTypeConfiguration<Legacy.Entities.Chdevol>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.Chdevol> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.Chdevol> builder)
         {
             #region Generated Configure
             // table

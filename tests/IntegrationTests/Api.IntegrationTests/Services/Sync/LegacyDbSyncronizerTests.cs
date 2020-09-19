@@ -1,7 +1,6 @@
 ﻿using System.Text;
 using System.Reflection;
 using Application.Services;
-using Core.Entities.Legacy;
 using Core.Interfaces;
 using Core.Models.Dbf;
 using Core.Models.ApplicationResources.Requests;
@@ -17,6 +16,7 @@ using System.Linq;
 using Xunit;
 using Application;
 using Microsoft.EntityFrameworkCore;
+using Legacy.Entities;
 
 namespace Api.IntegrationTests.Services.Sync
 {

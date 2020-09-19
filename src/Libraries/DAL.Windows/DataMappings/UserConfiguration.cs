@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 namespace DAL.Windows.DataMappings
 {
     public partial class UserMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.User>
+        : IEntityTypeConfiguration<Legacy.Entities.User>
     {
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<global::Core.Entities.Legacy.User> builder)
+        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Legacy.Entities.User> builder)
         {
             #region Generated Configure
             // table

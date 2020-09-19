@@ -6,9 +6,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DAL.Windows.DataMappings
 {
     public partial class CdespMap
-        : IEntityTypeConfiguration<global::Core.Entities.Legacy.Cdesp>
+        : IEntityTypeConfiguration<Legacy.Entities.Cdesp>
     {
-        public void Configure(EntityTypeBuilder<global::Core.Entities.Legacy.Cdesp> builder)
+        public void Configure(EntityTypeBuilder<Legacy.Entities.Cdesp> builder)
         {
             #region Generated Configure
             // table
