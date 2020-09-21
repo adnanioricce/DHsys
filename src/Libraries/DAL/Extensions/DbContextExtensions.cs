@@ -4,6 +4,7 @@ using Infrastructure.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -37,16 +38,43 @@ namespace DAL.Extensions
             if(context is LocalContext)
             {
                 context = context as LocalContext ?? throw new InvalidCastException($"can't cast context {context} to LocalContext");
+            }            
+            var connection = context.Database.GetDbConnection();
+            string connStr = connection.ConnectionString;
+            string dbParameterSubstring = connStr.Substring(connStr.IndexOf("Database="));
+            dbParameterSubstring = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";") + 1);
+            int start = dbParameterSubstring.IndexOf("=") + 1;
+            int end = dbParameterSubstring.IndexOf(";");
+            string databaseName = dbParameterSubstring.Substring(start ,end - start);
+            string dbParameterAndValue = dbParameterSubstring.Substring(0,dbParameterSubstring.IndexOf(";"));            
+            connection.ConnectionString = connection.ConnectionString.Replace(dbParameterAndValue, "Database=postgres;");
+            connection.Open();
+            var command = connection.CreateCommand();
+            command.CommandText = $"CREATE DATABASE {databaseName};";
+            try
+            {
+                var result = command.ExecuteNonQuery();
+                if (result >= 0)
+                {
+                    AppLogger.Log.Information("Database created");
+                }
+            }catch(Exception ex)
+            {
+                AppLogger.Log.Error("Database is already created, or connection string is wrong. Given exception:{@ex}",ex);
             }
+            AppLogger.Log.Information("Applying Migrations");
+            connection.ChangeDatabase(databaseName);
+            connection.Close();                        
             var migrator = context.Database.GetService<IMigrator>();
             var pendingMigrations = context.GetPendingMigrationScripts().Select(s => s.Replace("\r\nGO", " "))
-                                                                        .ToList();
+                                                                        .ToList();           
             if (pendingMigrations.Any())
             {                
                 pendingMigrations.ForEach(migration => {
                     try
                     {
                         context.Database.ExecuteSqlRaw(migration);
+                        AppLogger.Log.Information("Migrations Applied");
                     }catch(Exception ex)
                     {
                         AppLogger.Log.Error("Exception throwed when trying to apply migration to Database Context. Exception Throwed:{@ex} \n Given Context: {@context} \n Migration:{@migration} \n", ex, context, migration);                        

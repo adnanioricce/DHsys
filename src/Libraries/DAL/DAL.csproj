@@ -10,14 +10,6 @@
     <None Remove="Sql\**" />
   </ItemGroup>
 
-  <ItemGroup>
-    <None Remove="Scripts\0001_initialCreate.sql" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Scripts\0001_initialCreate.sql" />
-  </ItemGroup>
-
   <ItemGroup>    
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />    
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
@@ -34,7 +26,6 @@
   </ItemGroup>  
   <ItemGroup>
     <Folder Include="Migrations\Remote\" />
-    <Folder Include="Scripts\Remote\" />
   </ItemGroup>
 
 </Project>

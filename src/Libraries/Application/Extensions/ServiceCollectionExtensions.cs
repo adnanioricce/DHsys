@@ -109,25 +109,52 @@ namespace Application.Extensions
         /// Add default data services and Database context.
         /// </summary>
         /// <param name="services"></param>
-        /// <param name="configuration"></param>
-        /// <param name="localContextOptions"></param>
+        /// <param name="configuration">the <see cref="IConfiguration"/> instance with the Connection String data</param>
+        /// <param name="applicationName">The name of the calling application </param>
+        /// <param name="localContextOptions">a custom action to configure custom options</param>
         public static void AddDataStore(this IServiceCollection services,
             IConfiguration configuration,
+            string applicationName,
             Action<DbContextOptionsBuilder> localContextOptions = null)
-        {            
-            services.AddDbContextPool<BaseContext, LocalContext>(opt =>
+        {
+            if (applicationName == "Api")
             {
-                opt.UseLazyLoadingProxies();                
-                if (localContextOptions == null)
+                services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
                 {
-                    string connStr = configuration.GetValue<string>("AppSettings:ConnectionStrings:DefaultConnection");
-                    opt.UseNpgsql(connStr);
-                    return;
-                }
-                localContextOptions(opt);
-            });           
-            services.AddScoped<BaseContext, LocalContext>();                   
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+                    opt.UseLazyLoadingProxies();
+                    if (localContextOptions == null)
+                    {
+                        string connStr = configuration.GetValue<string>("AppSettings:ConnectionStrings:DefaultConnection");
+                        opt.UseNpgsql(connStr);
+                        return;
+                    }
+                    else
+                    {
+                        localContextOptions(opt);
+                    }
+                });
+                services.AddScoped<BaseContext, RemoteContext>();
+                services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            }
+            if (applicationName == "Desktop")
+            {
+                services.AddDbContextPool<BaseContext, LocalContext>(opt =>
+                {
+                    opt.UseLazyLoadingProxies();
+                    if (localContextOptions == null)
+                    {
+                        string connStr = configuration.GetValue<string>("AppSettings:ConnectionStrings:DefaultConnection");
+                        opt.UseSqlite(connStr);
+                        return;
+                    }
+                    else
+                    {
+                        localContextOptions(opt);
+                    }
+                });
+                services.AddScoped<BaseContext, LocalContext>();
+                services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            }
         }
         public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
         {
@@ -145,25 +172,14 @@ namespace Application.Extensions
             services.ConfigureWritable<AppSettings>();
         }        
         public static void TryCreateDatabase(this IServiceProvider provider, BaseContext context)
-        {            
-            context.Database.Migrate();            
+        {
+            context.Database.Migrate();
         }
         public static void AddAutoMapperConfiguration(this IServiceCollection services) 
-        {
-            var coreTypes = Assembly.GetAssembly(typeof(Core.Core))
-                                   .GetTypes();
-            var entities = coreTypes.Where(t => t.Namespace.StartsWith("Core.Entities"));
-            var dtos = coreTypes.Where(t => t.Namespace.StartsWith("Core.ApplicationModels.Dtos"));
-            
+        {                        
             var mapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new CoreProfile());
-                //cfg.AddProfile(new CatalogProfile());
-                //cfg.AddProfile(new FinancialProfile());
-                //foreach (var dto in dtos)
-                //{
-                    
-                //}
+                cfg.AddProfile(new CoreProfile());                
             });
             var mapper = mapperConfig.CreateMapper();            
             services.AddSingleton(mapper);
