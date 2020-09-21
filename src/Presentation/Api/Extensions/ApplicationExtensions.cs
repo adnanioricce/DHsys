@@ -1,19 +1,14 @@
-﻿using Application.Extensions;
-using DAL;
-using DAL.DbContexts;
+﻿using DAL.DbContexts;
 using DAL.Extensions;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Api.Extensions
 {
@@ -62,18 +57,26 @@ namespace Api.Extensions
         public static IEnumerable<Type> GetEntitiesDtos()
         {
             return Assembly.GetAssembly(typeof(Core.Core))
-                                    .GetTypes()
-                                    .Where(t => t.IsClass && t.Name.EndsWith("Dto"));
+                           .GetTypes()
+                           .Where(t => t.IsClass && t.Name.EndsWith("Dto"));
         }
         /// <summary>
         /// try to build database and apply pending migrations for <see cref="LocalContext"/> of the caller Application
         /// </summary>
         /// <param name="application"></param>        
-        public static void BuildDatabase(this IApplicationBuilder application)
-        {                        
-            using var scope = application.ApplicationServices.CreateScope();            
-            var context = scope.ServiceProvider.GetServices<BaseContext>().FirstOrDefault(c => c is LocalContext);
-            context.ApplyUpgrades();
+        public static void BuildDatabase(this IApplicationBuilder application,string applicationCallerTypeName)
+        {                                    
+            using var scope = application.ApplicationServices.CreateScope();
+            if (applicationCallerTypeName == "Api")
+            {
+                var context = scope.ServiceProvider.GetServices<BaseContext>().FirstOrDefault(c => c is RemoteContext);
+                context.ApplyUpgrades();
+            }
+            if (applicationCallerTypeName == "Desktop")
+            {
+                var context = scope.ServiceProvider.GetServices<BaseContext>().FirstOrDefault(c => c is LocalContext);
+                context.ApplyUpgrades();
+            }
         }
     }
 }

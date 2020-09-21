@@ -41,7 +41,7 @@ namespace Api
                     settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;                    
                 });            
-            services.AddDataStore(Configuration, null);
+            services.AddDataStore(Configuration,Assembly.GetExecutingAssembly().GetName().Name,null);
             services.AddApiVersioning(options => options.ReportApiVersions = true);
             services.AddOdataSupport();
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -67,7 +67,7 @@ namespace Api
             app.ConfigureOdata();
             if (env.IsDevelopment())
             {
-                app.BuildDatabase();
+                app.BuildDatabase(Assembly.GetExecutingAssembly().GetName().Name);
             }
             app.UseSwagger();
             app.UseSwaggerUI(c =>
