@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Desktop.Models.Financial
+namespace Desktop.Models.POS
 {
     public class TransactionModel
     {

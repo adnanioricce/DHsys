@@ -7,7 +7,7 @@ namespace Core.Interfaces
 {
     public interface IRepository<T> : IAsyncRepository<T>
     {
-        IEnumerable<T> GetAll();
+        IEnumerable<T> GetAll();        
         T GetBy(int id);
         T GetBy(string id);
         void Add(T entry);

@@ -9,6 +9,7 @@ namespace Core.Interfaces.Data
         Task<T> GetByAsync(int id);
         Task<T> GetByAsync(string uniqueCode);
         Task<IEnumerable<T>> GetAllAsync();
+        IAsyncEnumerable<T> GetAsyncEnumerable();
         Task<int> SaveChangesAsync();
     }
 }

@@ -56,7 +56,7 @@ namespace Desktop.ViewModels.Product
                 Barcode = drug.BarCode,
                 Description = drug.Description,
                 EndCustomerPrice = drug.EndCustomerPrice.HasValue ? drug.EndCustomerPrice.Value : 0.00m,
-                Name = drug.DrugName,
+                Name = drug.Name,
                 FrontImage = "../../Resources/placeholder.png",
                 StockQuantity = drug.QuantityInStock.HasValue ? drug.QuantityInStock.Value : 0,
                 CostPrice = drug.CostPrice,                
@@ -80,7 +80,7 @@ namespace Desktop.ViewModels.Product
                     Description = drug.Description,
                     CostPrice = drug.CostPrice,
                     EndCustomerPrice = drug.EndCustomerPrice.HasValue ? drug.EndCustomerPrice.Value : 0.00m,
-                    Name = drug.DrugName,
+                    Name = drug.Name,
                     FrontImage = "../../Resources/placeholder.png",
                     StockQuantity = drug.QuantityInStock.HasValue ? drug.QuantityInStock.Value : 0
                 });
@@ -97,7 +97,7 @@ namespace Desktop.ViewModels.Product
                 Description = drug.Description,
                 CostPrice = drug.CostPrice,
                 EndCustomerPrice = drug.EndCustomerPrice.HasValue ? drug.EndCustomerPrice.Value : 0,
-                Name = drug.DrugName,
+                Name = drug.Name,
                 FrontImage = "../../Resources/placeholder.png",
                 StockQuantity = drug.QuantityInStock.HasValue ? drug.QuantityInStock.Value : 0
             });

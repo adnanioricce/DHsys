@@ -20,11 +20,7 @@ namespace Core.Entities.Catalog
         public string PrCdse { get; set; }
         public int? ManufacturerId { get; set; }
         public string ManufacturerName { get; set; }
-        /// <summary>
-        /// Get or set the DrugName. the business has it's own way to name drugs
-        /// </summary>
-        /// <value></value>
-        public string DrugName { get; set; }        
+                
         /// <summary>
         /// Get or set the fixed name fixed by some real life entity
         /// </summary>
@@ -76,14 +72,7 @@ namespace Core.Entities.Catalog
         /// Get or set a link to the bule of the drug 
         /// </summary>
         /// <value></value>
-        public string DigitalBuleLink { get; set; }        
-        
-
-        /// <summary>
-        /// Get or set the reference collection of Drug informations
-        /// </summary>
-        /// <value></value>
-        public virtual ICollection<DrugInformation> Druginformation { get; set; }        
+        public string DigitalBuleLink { get; set; }                  
         
     }
 }

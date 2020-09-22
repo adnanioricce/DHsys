@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Core.Entities.Financial;
 using Core.Interfaces.Financial;
-using Desktop.Models.Financial;
+using Desktop.Models.POS;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System;
@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Desktop.ViewModels.Transactions
+namespace Desktop.ViewModels.POS
 {
     public class TransactionListViewModel : ViewModelBase
     {
