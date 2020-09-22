@@ -3,7 +3,7 @@ using Desktop.ViewModels.Product;
 using Desktop.ViewModels.Billings;
 using Desktop.ViewModels.Update;
 using Desktop.ViewModels.Settings;
-using Desktop.ViewModels.Transactions;
+using Desktop.ViewModels.POS;
 
 namespace Desktop.ViewModels
 {

@@ -88,17 +88,24 @@ namespace Core.Entities.Catalog
         public int MinimumStock { get; set; } = 1;
         public string MainSupplierName { get; set; }
         /// <summary>
+        /// Get or set the Name.
+        /// </summary>
+        /// <value></value>
+        public string Name { get; set; }
+        /// <summary>
         /// Get or set the Many-To-Many reference to the Supplier Entity
         /// </summary>
         /// <value></value>
         public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; } = new List<ProductSupplier>();
         public virtual ICollection<ProductPrice> ProductPrices { get; set; } = new List<ProductPrice>();
         public virtual ICollection<ProductStockEntry> Stockentries { get; set; } = new List<ProductStockEntry>();
+        public virtual ICollection<ProductMedia> ProductMedias { get; set; } = new List<ProductMedia>();
         /// <summary>
         /// get or set collection of Shelf life 
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();        
+        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();
+        public virtual ProductMedia ThumbnailImage { get; set; }
         #region Legacy field models        
         public string ProdutoId { get; set; }        
         #endregion

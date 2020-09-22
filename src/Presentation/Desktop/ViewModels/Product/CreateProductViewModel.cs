@@ -25,8 +25,7 @@ namespace Desktop.ViewModels.Product
         public RelayCommand<Drug> CreateDrugCommand { get; set; }
         public CreateProductViewModel(IDrugService drugService, IRepository<Manufacturer> manufactuerRepository)
         {
-            _drugService = drugService;
-            //_validator = validator;
+            _drugService = drugService;            
             CreateDrugCommand = new RelayCommand<Drug>(_drugService.CreateDrug,CanExecuteCreateDrug);
             var manufacturers = manufactuerRepository.Query()
                 .Select(m => new ManufacturerModel { Id = m.Id, ManufacturerName = m.Name});
@@ -36,9 +35,7 @@ namespace Desktop.ViewModels.Product
             }
         }        
         public bool CanExecuteCreateDrug(Drug drug)
-        {
-            //var validationResult = _validator.Validate(drug);
-            //return validationResult.IsValid;
+        {            
             return true;
         }
     }

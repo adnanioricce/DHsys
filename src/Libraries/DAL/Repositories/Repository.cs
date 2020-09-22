@@ -51,6 +51,10 @@ namespace DAL
         {
             return DbSet;
         }
+        public virtual IAsyncEnumerable<T> GetAsyncEnumerable()
+        {            
+            return DbSet.AsAsyncEnumerable();            
+        }
         public virtual IQueryable<T> MultipleFromRawSql(string sql,params object[] parameters)
         {
             return Context.Set<T>().FromSqlRaw<T>(sql,parameters);
