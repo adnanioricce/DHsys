@@ -1,11 +1,8 @@
 ﻿using Xunit;
 using Desktop.ViewModels.POS;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using Moq;
 using Core.Interfaces.Financial;
-using DAL;
 using Core.Entities.Catalog;
 using Tests.Lib.Data;
 using Tests.Lib.Seed;
@@ -52,10 +49,10 @@ namespace Desktop.ViewModels.Tests
         public void Given_AddProductToOrder_When_condition_Should_expet()
         {
             // Given
-            var drug = DrugSeed.BaseCreateDrugEntity();
-            //var fakeRepository = new FakeRepository<Drug>(new[] { drug });
+            var drug = DrugSeed.BaseCreateDrugEntity();            
             var viewModel = new OrderViewModel(null, null);
             // When
+            
             viewModel.Products.Add(new DrugItemModel
             {
                 Id = drug.Id,
@@ -63,7 +60,7 @@ namespace Desktop.ViewModels.Tests
                 Barcode = drug.BarCode,
                 Name = drug.Name,
                 EndCustomerPrice = drug.EndCustomerPrice.Value,
-                ImageSource = !(drug.ThumbnailImage is null) ? new Uri(drug.ThumbnailImage.Media.SourceUrl) : new Uri("")
+                ImageSource = !(drug.GetThumbnailImage() is null) ? new Uri(drug.GetThumbnailImage().Media.SourceUrl) : new Uri("")
             });            
             viewModel.AddProductToOrder(drug.Id,1);
             var receiptItem = viewModel.ReceiptItems.Where(p => p.ProductId == drug.Id).FirstOrDefault();
@@ -71,7 +68,7 @@ namespace Desktop.ViewModels.Tests
             Assert.Equal(drug.Id ,receiptItem.ProductId);
         }
         [Fact(DisplayName = "Test if function save Receipt as a Transaction Entity on database")]
-        public async Task Given_CreatePosOrder_When_condition_should_expect()
+        public void Given_CreatePosOrder_When_condition_should_expect()
         {
             // Given
             var drug = DrugSeed.BaseCreateDrugEntity();            
@@ -89,7 +86,7 @@ namespace Desktop.ViewModels.Tests
                 Name = drug.Name,
                 EndCustomerPrice = drug.EndCustomerPrice.Value,
                 CostPrice = drug.CostPrice,
-                ImageSource = !(drug.ThumbnailImage is null) ? new Uri(drug.ThumbnailImage.Media.SourceUrl) : new Uri(""),
+                ImageSource = !(drug.GetThumbnailImage() is null) ? new Uri(drug.GetThumbnailImage().Media.SourceUrl) : new Uri(""),
                 Classification = drug.Classification
             });
             viewModel.AddProductToOrder(drug.Id,1);

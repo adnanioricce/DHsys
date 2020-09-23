@@ -9,8 +9,8 @@ namespace DAL.DataMappings.Catalog
     public class ProductPriceConfiguration : BaseEntityConfiguration<ProductPrice>
     {
         public override void Configure(EntityTypeBuilder<ProductPrice> builder)
-        {
-            base.Configure(builder);
+        {            
+            base.Configure(builder);                            
         }
     }
 }

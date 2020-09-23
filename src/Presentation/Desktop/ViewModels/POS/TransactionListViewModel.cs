@@ -31,9 +31,10 @@ namespace Desktop.ViewModels.POS
         }
         public async Task Load()
         {
-            BackTransactions = await _transacionService.GetTodayTransactionsAsync();
-            foreach(var transaction in BackTransactions)
+            var transactions = _transacionService.GetTodayTransactionsAsync();
+            await foreach(var transaction in transactions)
             {
+                BackTransactions.Append(transaction);
                 FrontTransactions.Add(_mapper.Map<Transaction,TransactionModel>(transaction));
             }
         }

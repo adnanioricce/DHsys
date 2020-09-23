@@ -11,7 +11,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Desktop.Views.Transactions
+namespace Desktop.Views.POS
 {
     /// <summary>
     /// Interação lógica para TransactionsListView.xam

@@ -1,13 +1,8 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using System;
-using System.Diagnostics;
-using System.Threading.Tasks;
-using Desktop.Services;
 using Infrastructure.Interfaces;
 using Microsoft.Extensions.Options;
 using Infrastructure.Settings;
-using NetSparkleUpdater.Interfaces;
 
 namespace Desktop.ViewModels
 {

@@ -18,7 +18,14 @@ namespace Desktop.ViewModels.POS
         protected readonly ITransactionService _transactionService;
         protected readonly IDrugService _drugService;
         protected readonly IRepository<Drug> _repository;
-        protected readonly IList<DrugItemModel> _backProducts = new List<DrugItemModel>();        
+        protected readonly IList<DrugItemModel> _backProducts = new List<DrugItemModel>();
+        public string TransactionTotalString 
+        { 
+            get 
+            { 
+                return $"Total: ${ReceiptItems.Sum(item => item.Quantity * item.CustomerValue)}"; 
+            } 
+        }
         public ObservableCollection<DrugItemModel> Products { get; set; } = new ObservableCollection<DrugItemModel>();        
         public ObservableCollection<TransactionItemModel> ReceiptItems { get; set; } = new ObservableCollection<TransactionItemModel>();
         public RelayCommand LoadDrugsCommand { get; set; }
@@ -38,8 +45,7 @@ namespace Desktop.ViewModels.POS
             {                
                 foreach(var item in _backProducts)
                 {
-                    if (item.Name.Contains(searchPattern) || item.Barcode.Contains(searchPattern) || item.UniqueCode.Contains(searchPattern) || item.Classification.Contains(searchPattern))
-                    {
+                    if (item.Name.Contains(searchPattern) || item.Barcode.Contains(searchPattern) || item.UniqueCode.Contains(searchPattern) || item.Classification.Contains(searchPattern)) {
                         Products.Add(item);
                     }
                 }                               
@@ -49,6 +55,7 @@ namespace Desktop.ViewModels.POS
         {            
             await foreach (var drug in _repository.GetAsyncEnumerable())
             {
+                var thumbnail = drug.GetThumbnailImage();
                 var drugItem = new DrugItemModel
                 {
                     Id = drug.Id,
@@ -57,13 +64,12 @@ namespace Desktop.ViewModels.POS
                     Name = drug.Name,
                     EndCustomerPrice = drug.EndCustomerPrice.Value,
                     CostPrice = drug.CostPrice,
-                    ImageSource = !(drug.ThumbnailImage is null) ? new Uri(drug.ThumbnailImage.Media.SourceUrl) : new Uri(""),
+                    ImageSource = !(thumbnail is null) ? new Uri(thumbnail.Media.SourceUrl) : new Uri(""),
                     Classification = drug.Classification
                 };
                 _backProducts.Add(drugItem);
                 Products.Add(drugItem);
-            }
-            //Array.Copy(_backProducts.ToArray(), Products.ToArray(), _backProducts.Count);   
+            }            
         }
 
         public void AddProductToOrder(int id,int quantity)

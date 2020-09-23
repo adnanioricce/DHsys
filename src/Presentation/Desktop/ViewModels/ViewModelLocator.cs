@@ -17,5 +17,6 @@ namespace Desktop.ViewModels
         public ApplicationUpdateViewModel ApplicationUpdateViewModel => App.ServiceProvider.GetRequiredService<ApplicationUpdateViewModel>();
         public SettingsViewModel SettingsViewModel => App.ServiceProvider.GetRequiredService<SettingsViewModel>();
         public TransactionListViewModel TransactionListViewModel => App.ServiceProvider.GetRequiredService<TransactionListViewModel>();
+        public OrderViewModel OrderViewModel => App.ServiceProvider.GetRequiredService<OrderViewModel>(); 
     }
 }
