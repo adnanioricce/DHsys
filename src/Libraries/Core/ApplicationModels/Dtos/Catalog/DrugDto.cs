@@ -26,7 +26,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public string ManufacturerName { get; set; }
 
-        public string DrugName { get; set; }
+        public string Name { get; set; }
 
         public string CommercialName { get; set; }
 
@@ -47,8 +47,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public bool IsPriceFixed { get; set; }
 
         public string DigitalBuleLink { get; set; }
-
-        public ICollection<DrugInformationDto> Druginformation { get; set; } = new List<DrugInformationDto>();
+        
 
         public static DrugDto FromModel(Drug model)
         {
@@ -59,7 +58,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
                 PrCdse = model.PrCdse, 
                 ManufacturerId = model.ManufacturerId, 
                 ManufacturerName = model.ManufacturerName, 
-                DrugName = model.DrugName, 
+                Name = model.Name, 
                 CommercialName = model.CommercialName, 
                 Classification = model.Classification, 
                 DrugCost = model.DrugCost, 
@@ -69,8 +68,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
                 LotNumber = model.LotNumber, 
                 PrescriptionNeeded = model.PrescriptionNeeded, 
                 IsPriceFixed = model.IsPriceFixed, 
-                DigitalBuleLink = model.DigitalBuleLink, 
-                Druginformation = model.Druginformation.Select(d => DrugInformationDto.FromModel(d)).ToList(), 
+                DigitalBuleLink = model.DigitalBuleLink,                 
             }; 
         }
 
@@ -83,7 +81,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
                 PrCdse = PrCdse, 
                 ManufacturerId = ManufacturerId, 
                 ManufacturerName = ManufacturerName, 
-                DrugName = DrugName, 
+                Name = Name, 
                 CommercialName = CommercialName, 
                 Classification = Classification, 
                 DrugCost = DrugCost, 
@@ -93,8 +91,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
                 LotNumber = LotNumber, 
                 PrescriptionNeeded = PrescriptionNeeded, 
                 IsPriceFixed = IsPriceFixed, 
-                DigitalBuleLink = DigitalBuleLink, 
-                Druginformation = Druginformation.Select(d => d.ToModel()).ToList(),
+                DigitalBuleLink = DigitalBuleLink,                 
                 Ncm = Ncm,
                 QuantityInStock = QuantityInStock,
                 ReorderLevel = ReorderLevel,

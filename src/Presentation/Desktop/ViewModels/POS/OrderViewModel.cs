@@ -29,7 +29,7 @@ namespace Desktop.ViewModels.POS
             _transactionService = transactionService;            
             _repository = repository;
             LoadDrugsCommand = new RelayCommand(async () => await LoadProducts());
-            SearchDrugsCommand = new RelayCommand<string>(async (pattern) => await SearchDrugs(pattern));
+            SearchDrugsCommand = new RelayCommand<string>(async (pattern) => await SearchDrugs(pattern));            
         }
         public async Task SearchDrugs(string searchPattern)
         {
@@ -49,17 +49,50 @@ namespace Desktop.ViewModels.POS
         {            
             await foreach (var drug in _repository.GetAsyncEnumerable())
             {
-                _backProducts.Add(new DrugItemModel
+                var drugItem = new DrugItemModel
                 {
                     Id = drug.Id,
                     UniqueCode = drug.UniqueCode,
                     Barcode = drug.BarCode,
                     Name = drug.Name,
                     EndCustomerPrice = drug.EndCustomerPrice.Value,
-                    ImageSource = !(drug.ThumbnailImage is null) ? new Uri(drug.ThumbnailImage.Media.SourceUrl) : new Uri("")
-                });
+                    CostPrice = drug.CostPrice,
+                    ImageSource = !(drug.ThumbnailImage is null) ? new Uri(drug.ThumbnailImage.Media.SourceUrl) : new Uri(""),
+                    Classification = drug.Classification
+                };
+                _backProducts.Add(drugItem);
+                Products.Add(drugItem);
             }
-            
+            //Array.Copy(_backProducts.ToArray(), Products.ToArray(), _backProducts.Count);   
+        }
+
+        public void AddProductToOrder(int id,int quantity)
+        {
+            var product = Products.Where(p => p.Id == id).FirstOrDefault();
+            ReceiptItems.Add(new TransactionItemModel{
+                CustomerValue = product.EndCustomerPrice,
+                ProductId = product.Id,
+                Quantity = quantity,
+                Drug = product
+            });
+        }
+
+        public async Task CreatePosOrder()
+        {
+            var transactionItems = ReceiptItems.Select(item => new TransactionItem
+            {
+                DrugUniqueCode = item.Drug.UniqueCode,
+                Quantity = item.Quantity,
+                CostPrice = item.Drug.CostPrice,
+                CustomerValue = item.Drug.EndCustomerPrice,
+            });
+            var transaction = new Transaction
+            {
+                HasDealWithStore = false,
+            };
+            transaction.AddItems(transactionItems.ToArray());
+            await _transactionService.CreateTransactionAsync(transaction);
+            ReceiptItems.Clear();
         }
     }
 }

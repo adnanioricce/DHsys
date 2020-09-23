@@ -8,6 +8,7 @@ namespace Desktop.Models.POS
         public string UniqueCode { get; set; }
         public string Barcode { get; set; }
         public string Classification { get; set; }
+        public decimal CostPrice { get; set; }
         public decimal EndCustomerPrice { get; set; }
         public string Price { get { return $"${EndCustomerPrice}"; } }
         public string Name { get; set; }

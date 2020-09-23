@@ -41,7 +41,7 @@ namespace Desktop.Tests.ViewModels
             var drug = new Drug {
                 UniqueCode = searchPattern,
                 BarCode = searchPattern,
-                DrugName = searchPattern,
+                Name = searchPattern,
                 ActivePrinciple = searchPattern,
             };
             var mockDrugService = new Mock<IDrugService>();
