@@ -89,14 +89,14 @@ namespace Application.Services
 
         public virtual IEnumerable<Drug> SearchDrugsByName(string name)
         {
-            return _drugRepository.Query().Where(d => EF.Functions.Like(d.DrugName.ToLower(), "%" + name.ToLower() + "%") 
+            return _drugRepository.Query().Where(d => EF.Functions.Like(d.Name.ToLower(), "%" + name.ToLower() + "%") 
                 || EF.Functions.Like(d.Description.ToLower(), "%" + name.ToLower() + "%"));
         }
 
         public virtual async Task<IEnumerable<Drug>> SearchDrugsByNameAsync(string name)
         {       
             return await _drugRepository.Query()
-                                        .Where(d => d.DrugName.Contains(name))                                
+                                        .Where(d => d.Name.Contains(name))                                
                                         .ToListAsync();
         }
 

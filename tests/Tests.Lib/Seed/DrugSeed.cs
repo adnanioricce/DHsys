@@ -10,7 +10,7 @@ namespace Tests.Lib.Seed
             return new Drug{
                 ManufacturerId = 1,
                 Ncm = "30024561",
-                DrugName = "SomeDrugName 30mg 30cp",
+                Name = "SomeDrugName 30mg 30cp",
                 Description = "no description",
                 Classification = "some classification",
                 DrugCost = 14.99m,
@@ -25,6 +25,13 @@ namespace Tests.Lib.Seed
                 DigitalBuleLink = "http://falselink.com/bule000001",
                 BarCode = Guid.NewGuid().ToString(),
                 UniqueCode = "40028922",
+                ThumbnailImage = new ProductMedia
+                {
+                    Media = new Core.Entities.Media.MediaResource
+                    {
+                        SourceUrl = "https://fakeurl.com"
+                    }
+                }
             };
         }
     }

@@ -39,10 +39,9 @@ namespace Api.IntegrationTests
             string sqliteConnString = $"DataSource=./Data/{Guid.NewGuid().ToString()}.db";
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("./appsettings.json")
-                .Build();                                
-            //services            
+                .Build();                                            
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.AddDataStore(configuration, rOpt => rOpt.UseNpgsql(configuration.GetConnectionString("NpgsqlConnection")));
+            services.AddDataStore(configuration,Assembly.GetAssembly(typeof(Api)).GetName().Name, rOpt => rOpt.UseNpgsql(configuration.GetConnectionString("NpgsqlConnection")));
             services.AddTransient<DbContextResolver>(provider => key => {
                 string option = key.ToLower();
                 var services = provider.GetServices(typeof(BaseContext));                

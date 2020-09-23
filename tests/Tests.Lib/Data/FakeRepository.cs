@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Core.Entities;
 using Core.Extensions;
 using Core.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace Tests.Lib.Data
 {
@@ -120,6 +121,16 @@ namespace Tests.Lib.Data
         public IQueryable<T> MultipleFromRawSql(string sql, params object[] parameters)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async IAsyncEnumerable<T> GetAsyncEnumerable()
+        {
+            foreach(var item in context)
+            {
+                yield return item.Value;
+                //just to ignore the compiler
+                await Task.CompletedTask;
+            }
         }
     }
 }

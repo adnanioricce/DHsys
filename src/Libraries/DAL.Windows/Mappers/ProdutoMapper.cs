@@ -33,7 +33,7 @@ namespace DAL.Windows.Mappers
                 Description = produto.Prdesc,
                 LotNumber = produto.Prlote,
                 Ncm = produto.Prncms,
-                DrugName = produto.Prdesc,
+                Name = produto.Prdesc,
                 DrugCost = decimal.TryParse(produto.Prfabr.ToString(), out var result) ? result : Convert.ToDecimal(produto.Prfabr),
                 Classification = produto.Prclas,
                 CommercialName = produto.Pretiq,

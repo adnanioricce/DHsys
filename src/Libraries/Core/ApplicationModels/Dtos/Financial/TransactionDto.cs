@@ -30,8 +30,7 @@ namespace Core.ApplicationModels.Dtos.Financial
         public Transaction ToModel()
         {
             return new Transaction()
-            {
-                TransactionTotal = TransactionTotal, 
+            {                
                 PaymentMethod = PaymentMethod, 
                 HasDealWithStore = HasDealWithStore, 
                 Items = Items.Select(it => it.ToModel()).ToList(), 

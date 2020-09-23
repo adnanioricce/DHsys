@@ -16,5 +16,3 @@ src/Presentation/Desktop.
 - Tecle F5
 # Licensa 
 O projeto utiliza da licença MIT
-
-

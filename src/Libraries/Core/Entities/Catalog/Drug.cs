@@ -8,7 +8,7 @@ namespace Core.Entities.Catalog
     {
         public Drug()
         {
-            Druginformation = new HashSet<DrugInformation>();            
+                   
         }
         
         public int? BaseDrugId { get; set; }
