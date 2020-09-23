@@ -33,20 +33,45 @@ namespace DAL.Extensions
         {
             if(context is RemoteContext)
             {
-                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");                
+                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");
+                ((RemoteContext)context).PrepareRemote();
             }
             if(context is LocalContext)
             {
                 context = context as LocalContext ?? throw new InvalidCastException($"can't cast context {context} to LocalContext");
             }            
+            
+            var migrator = context.Database.GetService<IMigrator>();
+            var pendingMigrations = context.GetPendingMigrationScripts().ToList();
+            if (pendingMigrations.Any())
+            {
+                pendingMigrations.ForEach(migration => {
+                    try
+                    {
+                        context.Database.ExecuteSqlRaw(migration);
+                        AppLogger.Log.Information("Migrations Applied");
+                    }
+                    catch (Exception ex)
+                    {
+                        AppLogger.Log.Error("Exception throwed when trying to apply migration to Database Context. Exception Throwed:{@ex} \n Given Context: {@context} \n Migration:{@migration} \n", ex, context, migration);
+                    }
+                });
+            }
+        }
+        /// <summary>
+        /// Creates the remote database without any migration or model
+        /// </summary>
+        /// <param name="context">The <see cref="RemoteContext"/> of the remote database </param>
+        public static void PrepareRemote(this RemoteContext context)
+        {
             var connection = context.Database.GetDbConnection();
             string connStr = connection.ConnectionString;
             string dbParameterSubstring = connStr.Substring(connStr.IndexOf("Database="));
             dbParameterSubstring = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";") + 1);
             int start = dbParameterSubstring.IndexOf("=") + 1;
             int end = dbParameterSubstring.IndexOf(";");
-            string databaseName = dbParameterSubstring.Substring(start ,end - start);
-            string dbParameterAndValue = dbParameterSubstring.Substring(0,dbParameterSubstring.IndexOf(";"));            
+            string databaseName = dbParameterSubstring.Substring(start, end - start);
+            string dbParameterAndValue = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";"));
             connection.ConnectionString = connection.ConnectionString.Replace(dbParameterAndValue, "Database=postgres;");
             connection.Open();
             var command = connection.CreateCommand();
@@ -58,29 +83,14 @@ namespace DAL.Extensions
                 {
                     AppLogger.Log.Information("Database created");
                 }
-            }catch(Exception ex)
+            }
+            catch (Exception ex)
             {
-                AppLogger.Log.Error("Database is already created, or connection string is wrong. Given exception:{@ex}",ex);
+                AppLogger.Log.Error("Database is already created, or connection string is wrong. Given exception:{@ex}", ex);
             }
             AppLogger.Log.Information("Applying Migrations");
             connection.ChangeDatabase(databaseName);
-            connection.Close();                        
-            var migrator = context.Database.GetService<IMigrator>();
-            var pendingMigrations = context.GetPendingMigrationScripts().Select(s => s.Replace("\r\nGO", " "))
-                                                                        .ToList();           
-            if (pendingMigrations.Any())
-            {                
-                pendingMigrations.ForEach(migration => {
-                    try
-                    {
-                        context.Database.ExecuteSqlRaw(migration);
-                        AppLogger.Log.Information("Migrations Applied");
-                    }catch(Exception ex)
-                    {
-                        AppLogger.Log.Error("Exception throwed when trying to apply migration to Database Context. Exception Throwed:{@ex} \n Given Context: {@context} \n Migration:{@migration} \n", ex, context, migration);                        
-                    }
-                });
-            }
+            connection.Close();            
         }
         /// <summary>
         /// Returns list of Sql script strings of each migration not applied in current <see cref="BaseContext"/>
@@ -102,9 +112,9 @@ namespace DAL.Extensions
                 return m.Contains(context.Database.IsSqlite() ? "sqlite" : context.Database.IsNpgsql() ? "npgsql" : "sqlserver");
                 }).ToList();
             var scriptsEnum = pendingMigrations.GetEnumerator();
-            var idempotent = !context.Database.IsSqlite();
+            var idempotent = context.Database.IsSqlite();
             var migrator = context.Database.GetService<IMigrator>();
-            var scripts = pendingMigrations.Select(m => migrator.GenerateScript(toMigration:m,idempotent:idempotent));
+            var scripts = pendingMigrations.Select(m => migrator.GenerateScript(toMigration:m,idempotent:false));
             return scripts;
         }
         /// <summary>

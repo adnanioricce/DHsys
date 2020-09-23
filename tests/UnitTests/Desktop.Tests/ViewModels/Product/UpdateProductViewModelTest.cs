@@ -29,7 +29,7 @@ namespace Desktop.Tests.ViewModels.ProductViewModelsTests
         {
             var fakeDrugProdutoMediator = new Mock<IDrugService>();
             fakeDrugProdutoMediator.Setup(m => m.UpdateDrug(It.IsAny<int>(),It.IsAny<Drug>()))
-                .Callback((Drug drug) => drug.QuantityInStock = 4);
+                .Callback((int id,Drug drug) => drug.QuantityInStock = 4);
             return fakeDrugProdutoMediator.Object;            
         }
         private IBillingService GetFakeBillingService(Billing billing)

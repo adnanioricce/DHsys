@@ -4,11 +4,13 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:Desktop.ViewModels.Billings"
+        xmlns:posVms="clr-namespace:Desktop.ViewModels.POS"
         xmlns:productVms="clr-namespace:Desktop.ViewModels.Product"
         xmlns:contaViews="clr-namespace:Desktop.Views.Conta"
         xmlns:settingsVms="clr-namespace:Desktop.ViewModels.Settings"
         xmlns:productViews="clr-namespace:Desktop.Views.Product"
         xmlns:settingsView="clr-namespace:Desktop.Views.Settings"
+        xmlns:posViews="clr-namespace:Desktop.Views.POS"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:Desktop"
         xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
@@ -40,6 +42,9 @@
         <DataTemplate DataType="{x:Type settingsVms:SettingsViewModel}">
             <settingsView:SettingsView/>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type posVms:OrderViewModel }">
+            <posViews:OrderView/>
+        </DataTemplate>
     </Window.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
@@ -65,14 +70,17 @@
                       Grid.Row="0" 
                       Grid.ColumnSpan="5" 
                       HorizontalAlignment="Stretch">
-            <Grid Grid.Row="0" Grid.ColumnSpan="5" >
+            <Grid Grid.Row="0" 
+                  Grid.ColumnSpan="5" >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
                     <ColumnDefinition Width="Auto"  
                                       MinWidth="60" 
                                       MaxWidth="100"/>
                 </Grid.ColumnDefinitions>
-                <Menu DockPanel.Dock="Top" Grid.Row="0" Grid.Column="0">
+                <Menu DockPanel.Dock="Top" 
+                      Grid.Row="0" 
+                      Grid.Column="0">
                     <MenuItem Header="Produtos">
                         <MenuItem Header="Adicionar Produtos" 
                                   Command="{Binding MoveToViewModelCommand}" 
@@ -89,6 +97,11 @@
                         <MenuItem Header="Ver Contas" 
                                   Command="{Binding MoveToViewModelCommand}" 
                                   CommandParameter="{Binding Source={StaticResource Locator},Path=BillingListViewModel}"/>
+                    </MenuItem>
+                    <MenuItem Header="POS">
+                        <MenuItem Header="Pedidos"
+                                  Command="{Binding MoveToViewModelCommand}"
+                                  CommandParameter="{Binding Source={StaticResource Locator},Path=OrderViewModel}" />
                     </MenuItem>
                 </Menu>
                 <Button Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}" 

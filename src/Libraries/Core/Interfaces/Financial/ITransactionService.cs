@@ -13,11 +13,9 @@ namespace Core.Interfaces.Financial
         Task<BaseResult<Transaction>> CreateTransactionAsync(Transaction transaction);
         IEnumerable<Transaction> GetTransactions();
         IEnumerable<Transaction> GetTodayTransactions();
-        Task<IEnumerable<Transaction>> GetTodayTransactionsAsync();
+        IAsyncEnumerable<Transaction> GetTodayTransactionsAsync();
         IEnumerable<Transaction> GetTransactionsByDate(DateTimeOffset dateTime);
-        Task<IEnumerable<Transaction>> GetTransactionsByDateAsync(DateTimeOffset dateTime);
-        IEnumerable<Transaction> GetTransactionsByRange(int biggerThan = 0, int lessThan = 50);
-        Task<IEnumerable<Transaction>> GetTransactionsByRangeAsync(int biggerThan = 0, int lessThan = 50);
+        Task<IEnumerable<Transaction>> GetTransactionsByDateAsync(DateTimeOffset dateTime);                
 
     }
 }

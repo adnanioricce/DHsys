@@ -36,13 +36,13 @@ namespace Desktop
         public App()
         {
             ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();
-            host = Host.CreateDefaultBuilder()                
+            host = Host.CreateDefaultBuilder()               
                 .ConfigureAppConfiguration((context,builder) =>
-                {                    
+                {                                        
                     builder.AddJsonFile("appsettings.json", optional: true);
                 })
                 .ConfigureServices((context, services) =>
-                {                    
+                {
                     ConfigureServices(context.Configuration, services);
                 })                
                 .Build();
@@ -82,16 +82,8 @@ namespace Desktop
             services.AddTransient(typeof(ILegacyRepository<>),typeof(ProdutoRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddScoped<CustomNavigationService>(ConfigureNavigationService);
-            services.AddSingleton<IFileSystemService, IOService>();
-            services.AddTransient<DbContextResolver>(provider => key => {
-                string option = key.ToLower();
-                var services = provider.GetServices(typeof(BaseContext));
-                return option switch
-                {
-                    "remote" => (BaseContext)services.FirstOrDefault(d => (d is RemoteContext)),
-                    "local" => (BaseContext)services.FirstOrDefault(d => (d is LocalContext)),
-                    _ => (BaseContext)services.FirstOrDefault(d => (d is LocalContext))
-                };
+            services.AddSingleton<IFileSystemService, IOService>(factory => {
+                return new IOService("C:\\");
             });
             var validators = Assembly.GetAssembly(typeof(Core.Core))
                                      .GetTypes()
@@ -102,8 +94,7 @@ namespace Desktop
                 services.AddTransient(validator.BaseType, validator);
             }
             ServiceProvider = services.BuildServiceProvider();
-            var dbResolver = ServiceProvider.GetRequiredService<DbContextResolver>();
-            var dbcontext = dbResolver("local");
+            var dbcontext = ServiceProvider.GetRequiredService<BaseContext>();            
             dbcontext.ApplyUpgrades();
         }                        
         private CustomNavigationService ConfigureNavigationService(IServiceProvider provider)

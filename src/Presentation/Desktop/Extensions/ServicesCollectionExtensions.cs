@@ -7,8 +7,11 @@ using Desktop.ViewModels.Settings;
 using Desktop.ViewModels.Update;
 using Desktop.Views.Conta;
 using Desktop.Views.Product;
+using GalaSoft.MvvmLight;
 using Infrastructure.Settings;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
+using System.Reflection;
 
 namespace Desktop.Extensions
 {
@@ -25,13 +28,11 @@ namespace Desktop.Extensions
         }
         public static void AddViewModels(this IServiceCollection services)
         {
-            services.AddTransient(typeof(MainWindowViewModel));
-            services.AddTransient<CreateBillingViewModel>();
-            services.AddTransient<BillingListViewModel>();
-            services.AddTransient<CreateProductViewModel>();
-            services.AddTransient<ProductListViewModel>();
-            services.AddTransient<ApplicationUpdateViewModel>();
-            services.AddTransient<SettingsViewModel>();
+            var viewModels = Assembly.GetExecutingAssembly()
+                    .GetTypes()
+                    .Where(t => t.BaseType == typeof(ViewModelBase))
+                    .ToList();
+            viewModels.ForEach(viewModel => services.AddTransient(viewModel));
         }
         public static void ConfigureWritableOptionsModel(this IServiceCollection services)
         {

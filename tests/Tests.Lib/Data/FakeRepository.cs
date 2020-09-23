@@ -61,7 +61,7 @@ namespace Tests.Lib.Data
 
         public IQueryable<T> Query()
         {
-            return context.Values.AsQueryable();
+            return new TestAsyncEnumerable<T>(context.Values.AsQueryable());
         }
 
         public int SaveChanges()
@@ -82,7 +82,7 @@ namespace Tests.Lib.Data
 
         public IQueryable<T> Query(string query)
         {
-            return context.Values.AsQueryable(); 
+            return new TestAsyncEnumerable<T>(context.Values.AsQueryable()); 
         }
 
         public Task<T> GetByAsync(int id)
@@ -120,17 +120,13 @@ namespace Tests.Lib.Data
 
         public IQueryable<T> MultipleFromRawSql(string sql, params object[] parameters)
         {
+            //If this is needed, maybe is better to mock or actually use a Database
             throw new System.NotImplementedException();
         }
 
-        public async IAsyncEnumerable<T> GetAsyncEnumerable()
+        public IAsyncEnumerable<T> GetAsyncEnumerable()
         {
-            foreach(var item in context)
-            {
-                yield return item.Value;
-                //just to ignore the compiler
-                await Task.CompletedTask;
-            }
+            return new TestAsyncEnumerable<T>(context.Values.AsEnumerable());
         }
     }
 }

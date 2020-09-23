@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Core.Entities.Catalog
 {
@@ -98,14 +99,13 @@ namespace Core.Entities.Catalog
         /// <value></value>
         public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; } = new List<ProductSupplier>();
         public virtual ICollection<ProductPrice> ProductPrices { get; set; } = new List<ProductPrice>();
-        public virtual ICollection<ProductStockEntry> Stockentries { get; set; } = new List<ProductStockEntry>();
+        public virtual ICollection<ProductStockEntry> Stockentries { get; set; } = new List<ProductStockEntry>();        
         public virtual ICollection<ProductMedia> ProductMedias { get; set; } = new List<ProductMedia>();
         /// <summary>
         /// get or set collection of Shelf life 
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();
-        public virtual ProductMedia ThumbnailImage { get; set; }
+        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();                
         #region Legacy field models        
         public string ProdutoId { get; set; }        
         #endregion
@@ -129,6 +129,10 @@ namespace Core.Entities.Catalog
                 ProductId = this.Id,
             };
             UpdatePrice(price);
+        }
+        public virtual ProductMedia GetThumbnailImage()
+        {
+            return ProductMedias.Where(p => p.IsThumbnail && p.Media.Type == Media.MediaType.Image).FirstOrDefault();
         }
         #endregion
     }   
