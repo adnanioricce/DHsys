@@ -68,7 +68,7 @@ namespace Desktop.ViewModels.Product
         }        
         public async Task ExecuteGetProductsBySearchPattern(string pattern)
         {
-            //TODO:Insecure code, throws exception when just user type            
+            //TODO:Insecure code, throws exception when user type
             var drugs = await _drugService.SearchDrugsByNameAsync(pattern);
 
             foreach (var drug in drugs)

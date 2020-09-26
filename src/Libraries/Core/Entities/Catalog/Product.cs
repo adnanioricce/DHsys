@@ -1,3 +1,4 @@
+using Core.Entities.Media;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -129,6 +130,20 @@ namespace Core.Entities.Catalog
                 ProductId = this.Id,
             };
             UpdatePrice(price);
+        }
+        public virtual void AddProductImage(ProductMedia media)
+        {
+            ProductMedias.Add(media);
+        }
+        public virtual void AddNewProductMedia(MediaResource media,bool isThumbnail = false)
+        {
+            var productMedia = new ProductMedia
+            {
+                Media = media,
+                Product = this,
+                IsThumbnail = isThumbnail,                
+            };
+            ProductMedias.Add(productMedia);
         }
         public virtual ProductMedia GetThumbnailImage()
         {

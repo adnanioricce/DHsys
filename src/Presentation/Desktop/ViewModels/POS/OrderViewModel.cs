@@ -9,7 +9,9 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace Desktop.ViewModels.POS
 {
@@ -26,22 +28,32 @@ namespace Desktop.ViewModels.POS
                 return $"Total: ${ReceiptItems.Sum(item => item.Quantity * item.CustomerValue)}"; 
             } 
         }
+        private string _searchPattern = string.Empty;
+        public string SearchPattern { get { return _searchPattern; }
+            set 
+            {
+                if (this._searchPattern == value) return;
+                Set(ref _searchPattern, value.ToUpper());
+                Dispatcher.CurrentDispatcher.InvokeAsync(() => SearchDrugs(_searchPattern));
+            }
+        }
         public ObservableCollection<DrugItemModel> Products { get; set; } = new ObservableCollection<DrugItemModel>();        
         public ObservableCollection<TransactionItemModel> ReceiptItems { get; set; } = new ObservableCollection<TransactionItemModel>();
-        public RelayCommand LoadDrugsCommand { get; set; }
-        public RelayCommand<string> SearchDrugsCommand { get; set; }
-        
+        public RelayCommand LoadDrugsCommand { get; set; }        
+        public RelayCommand CreatePosOrderCommand { get; set; }
+
         public OrderViewModel(ITransactionService transactionService, IRepository<Drug> repository)
         {
             _transactionService = transactionService;            
             _repository = repository;
             LoadDrugsCommand = new RelayCommand(async () => await LoadProducts());
-            SearchDrugsCommand = new RelayCommand<string>(async (pattern) => await SearchDrugs(pattern));            
+            CreatePosOrderCommand = new RelayCommand(async () => await Dispatcher.CurrentDispatcher.InvokeAsync(CreatePosOrder));
+
         }
-        public async Task SearchDrugs(string searchPattern)
-        {
+        public Task SearchDrugs(string searchPattern)
+        {            
             Products.Clear();
-            await Task.Run(() =>
+            return Task.Run(() =>
             {                
                 foreach(var item in _backProducts)
                 {
@@ -92,10 +104,7 @@ namespace Desktop.ViewModels.POS
                 CostPrice = item.Drug.CostPrice,
                 CustomerValue = item.Drug.EndCustomerPrice,
             });
-            var transaction = new Transaction
-            {
-                HasDealWithStore = false,
-            };
+            var transaction = new Transaction();
             transaction.AddItems(transactionItems.ToArray());
             await _transactionService.CreateTransactionAsync(transaction);
             ReceiptItems.Clear();
