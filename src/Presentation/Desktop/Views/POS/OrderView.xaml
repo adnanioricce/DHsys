@@ -6,8 +6,16 @@
              xmlns:local="clr-namespace:Desktop.Views.POS"
              xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:vm="clr-namespace:Desktop.ViewModels.POS"
+             FontFamily="{DynamicResource MaterialDesignFont}"
+             DataContext="{Binding Source={StaticResource Locator},Path=OrderViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <DataTemplate DataType="{x:Type vm:OrderViewModel}">
+            <local:OrderView/>
+        </DataTemplate>
+    </UserControl.Resources>
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
             <i:InvokeCommandAction Command="{Binding LoadCommand}" />
@@ -30,11 +38,6 @@
                      md:HintAssist.Hint="Search for Products" 
                      md:ThemeAssist.Theme="Light" 
                      Text="{Binding SearchPattern,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="KeyEventArgs">
-                        <i:InvokeCommandAction Command="{Binding SearchDrugCommand}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
             </TextBox>
         </DockPanel>
         <ListView Grid.Column="0" 
@@ -99,7 +102,9 @@
                 </ListView.ItemTemplate>
             </ListView>
             <Button Grid.Row="2" 
-                    Content="Confirm"/>
+                    Content="Confirm"
+                    Command="{Binding CreatePosOrderCommand}"
+                    />
         </Grid>
     </Grid>
 </UserControl>

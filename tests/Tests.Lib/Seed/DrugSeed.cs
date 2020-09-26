@@ -1,5 +1,6 @@
 using System;
 using Core.Entities.Catalog;
+using Core.Entities.Media;
 
 namespace Tests.Lib.Seed
 {
@@ -7,7 +8,8 @@ namespace Tests.Lib.Seed
     {
         public static Drug BaseCreateDrugEntity()
         {
-            return new Drug{
+            var drug = new Drug
+            {
                 ManufacturerId = 1,
                 Ncm = "30024561",
                 Name = "SomeDrugName 30mg 30cp",
@@ -20,19 +22,18 @@ namespace Tests.Lib.Seed
                 ReorderLevel = 0,
                 ReorderQuantity = 1,
                 EndCustomerPrice = 32.99m,
-                ActivePrinciple = "Some Substance",                
+                ActivePrinciple = "Some Substance",
                 PrescriptionNeeded = false,
                 DigitalBuleLink = "http://falselink.com/bule000001",
                 BarCode = Guid.NewGuid().ToString(),
                 UniqueCode = "40028922",
-                ThumbnailImage = new ProductMedia
-                {
-                    Media = new Core.Entities.Media.MediaResource
-                    {
-                        SourceUrl = "https://fakeurl.com"
-                    }
-                }
             };
+            drug.AddNewProductMedia(new MediaResource
+            {
+                SourceUrl = "https://fakeurl.com",
+                Type = MediaType.Image
+            }, isThumbnail: true);
+            return drug;
         }
     }
 }

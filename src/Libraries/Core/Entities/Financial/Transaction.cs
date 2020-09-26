@@ -5,10 +5,14 @@ using System.Linq;
 namespace Core.Entities.Financial
 {
     public class Transaction : BaseEntity
-    {                
+    {
+        public Transaction()
+        {
+            HasDealWithStore = false;
+        }
         public decimal TransactionTotal { get { return CalculateTransactionTotal(); } }
         public virtual PaymentMethods PaymentMethod { get; set; }
-        public bool HasDealWithStore { get; set; }        
+        public bool HasDealWithStore { get; set; }
         public virtual IList<TransactionItem> Items { get; set; } = new List<TransactionItem>();         
         public void AddItem(TransactionItem item)
         {
