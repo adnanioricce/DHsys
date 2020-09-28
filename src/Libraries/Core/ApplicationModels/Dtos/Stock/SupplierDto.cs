@@ -26,7 +26,7 @@ namespace Core.ApplicationModels.Dtos.Stock
             return new SupplierDto()
             {
                 AddressId = model.AddressId, 
-                SupplierName = model.SupplierName, 
+                SupplierName = model.Name, 
                 Cnpj = model.Cnpj, 
                 Address = AddressDto.FromModel(model.Address), 
                 Products = model.Products.Select(p => ProductSupplierDto.FromModel(p)).ToList(), 
@@ -39,7 +39,7 @@ namespace Core.ApplicationModels.Dtos.Stock
             return new Supplier()
             {
                 AddressId = AddressId, 
-                SupplierName = SupplierName, 
+                Name = SupplierName, 
                 Cnpj = Cnpj, 
                 Address = Address.ToModel(), 
                 Products = Products.Select(p => p.ToModel()).ToList(), 

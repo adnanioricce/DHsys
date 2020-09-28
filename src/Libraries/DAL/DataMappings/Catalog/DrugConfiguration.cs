@@ -8,7 +8,7 @@ namespace DAL.DataMappings.Catalog
     {
         public override void Configure(EntityTypeBuilder<Drug> builder)
         {            
-            base.Configure(builder);
+            base.Configure(builder);            
         }
     }
 }

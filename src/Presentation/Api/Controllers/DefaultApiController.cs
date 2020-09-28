@@ -70,6 +70,7 @@ namespace Api.Controllers
             }
         }
         [HttpGet("{id}")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 200)]
         [ProducesResponseType(typeof(BaseResourceResponse), 404)]
         [ProducesResponseType(typeof(BaseResourceResponse), 500)]
@@ -93,6 +94,7 @@ namespace Api.Controllers
             }            
         }
         [HttpPut("{id}")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 200)]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> UpdateAsync([FromRoute]int id, [FromBody]TEntityDto dto)
@@ -112,6 +114,7 @@ namespace Api.Controllers
             }
         }
         [HttpDelete("{id}")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(BaseResourceResponse), 200)]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> DeleteAsync(int id)

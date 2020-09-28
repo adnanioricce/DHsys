@@ -22,7 +22,7 @@ namespace Api.Tests.Seed
                     ProductSuppliers = new List<ProductSupplier>{
                         new ProductSupplier{
                             Supplier = new Supplier{
-                                SupplierName = "MainSupplier"                                
+                                Name = "MainSupplier"                                
                             },
                             Product = new Product{
                                 
@@ -50,7 +50,7 @@ namespace Api.Tests.Seed
                     ProductSuppliers = new List<ProductSupplier>{
                         new ProductSupplier{
                             Supplier = new Supplier{
-                                SupplierName = "MainSupplier"
+                                Name = "MainSupplier"
                             },
                             Product = new Product{
 

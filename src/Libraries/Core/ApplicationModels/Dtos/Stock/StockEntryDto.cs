@@ -33,13 +33,13 @@ namespace Core.ApplicationModels.Dtos.Stock
             return new StockEntryDto()
             {
                 SupplierId = model.SupplierId, 
-                Quantity = model.Quantity, 
+                Quantity = model.ItemsCount, 
                 DrugMaturityDate = model.DrugMaturityDate, 
                 NfNumber = model.NfNumber, 
                 NfEmissionDate = model.NfEmissionDate, 
                 Totalcost = model.Totalcost, 
                 LotCode = model.LotCode, 
-                Drugs = model.Drugs.Select(d => DrugDto.FromModel(d)).ToList(), 
+                Drugs = model.Items.Select(d => DrugDto.FromModel(d)).ToList(), 
                 Supplier = SupplierDto.FromModel(model.Supplier), 
             }; 
         }
@@ -49,13 +49,13 @@ namespace Core.ApplicationModels.Dtos.Stock
             return new StockEntry()
             {
                 SupplierId = SupplierId, 
-                Quantity = Quantity, 
+                ItemsCount = Quantity, 
                 DrugMaturityDate = DrugMaturityDate, 
                 NfNumber = NfNumber, 
                 NfEmissionDate = NfEmissionDate, 
                 Totalcost = Totalcost, 
                 LotCode = LotCode, 
-                Drugs = Drugs.Select(d => d.ToModel()).ToList(), 
+                Items = Drugs.Select(d => d.ToModel()).ToList(), 
                 Supplier = Supplier.ToModel(), 
             }; 
         }

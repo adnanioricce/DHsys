@@ -15,7 +15,7 @@ namespace Tests.Lib.Seed
                 Name = "SomeDrugName 30mg 30cp",
                 Description = "no description",
                 Classification = "some classification",
-                DrugCost = 14.99m,
+                CostPrice = 14.99m,
                 AbsoluteDosageInMg = 30,
                 Dosage = "30mg",
                 QuantityInStock = 4,

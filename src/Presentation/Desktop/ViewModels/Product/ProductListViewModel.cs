@@ -34,17 +34,7 @@ namespace Desktop.ViewModels.Product
         {            
             GetDrugByCodeCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductByCode(parameter));
             GetDrugBySearchPatternCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductsBySearchPattern(parameter));
-            GetDrugByBarcodeCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductByBarcode(parameter));
-            DrugCollection.Add(new ProductCardModel
-            {
-                Barcode = "1234567788123213",
-                Code = "123456",
-                Description = "description",
-                EndCustomerPrice = 19.99m,
-                StockQuantity = 1,
-                FrontImage = "",
-                Name = "Ibuprofeno"
-            });
+            GetDrugByBarcodeCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductByBarcode(parameter));            
             _drugService = drugService;
         }               
         public async Task ExecuteGetProductByCode(string parameter)
