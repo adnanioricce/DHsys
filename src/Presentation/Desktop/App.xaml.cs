@@ -10,6 +10,7 @@ using Desktop.Services;
 using Desktop.Views.Conta;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.Settings;
+<<<<<<< HEAD
 using Application.Extensions;
 using Desktop.Extensions;
 using System.Reflection;
@@ -22,6 +23,10 @@ using DAL.Windows;
 using DAL.Windows.Repositories;
 using Infrastructure.Logging;
 using Core.Validations;
+=======
+using Desktop.ViewModels.Billings;
+using Infrastructure.Extensions;
+>>>>>>> b20b89e6e04442a3b590457efadaaab5cad16133
 
 namespace Desktop
 {
@@ -62,6 +67,7 @@ namespace Desktop
             base.OnExit(e);
         }
 
+<<<<<<< HEAD
         private void ConfigureServices(IConfiguration configuration, IServiceCollection services){
             //Creating assembly reference file
             var assembly = Assembly.GetExecutingAssembly();
@@ -80,6 +86,30 @@ namespace Desktop
             services.AddViewModels();
             services.AddDataStore(configuration,Assembly.GetExecutingAssembly().GetName().Name ,opt => opt.UseSqlite(configuration.GetValue<string>($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}:{nameof(ConnectionStrings)}:LocalConnection")));
             services.AddTransient(typeof(ILegacyRepository<>),typeof(ProdutoRepository<>));
+=======
+        private void ConfigureServices(IConfiguration configuration, IServiceCollection services){                        
+            
+            services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
+            services.Configure<LegacyDatabaseSettings>(configuration.GetSection(nameof(LegacyDatabaseSettings)));
+            services.ConfigureAppDataFolder(null);
+            services.AddTransient(typeof(MainWindow));
+            services.AddTransient(typeof(MainWindowViewModel));
+            services.AddTransient<CreateBillingViewModel>();
+            services.AddTransient<BillingListViewModel>();
+            services.AddTransient<CreateProductViewModel>();
+            services.AddTransient<ProductListViewModel>();
+            services.AddTransient<CreateProductView>();
+            services.AddTransient<ProductListView>();
+            services.AddTransient<ProductCardControlView>();
+            services.AddTransient<BillingListView>();
+            services.AddTransient<CreateBillingView>();
+            services.AddDbContext<DbContext, MainContext>(opt =>
+             {
+                 opt.UseSqlite("database.db");
+             });            
+            services.AddScoped(typeof(LegacyContext<>));
+            services.AddTransient(typeof(ILegacyRepository<>),typeof(DbfRepository<>));
+>>>>>>> b20b89e6e04442a3b590457efadaaab5cad16133
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddScoped<CustomNavigationService>(ConfigureNavigationService);
             services.AddSingleton<IFileSystemService, IOService>(factory => {
