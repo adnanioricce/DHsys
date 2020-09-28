@@ -2,7 +2,11 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment>
     <!-- Product Components-->
+<<<<<<< HEAD
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER" >      
+=======
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">      
+>>>>>>> b20b89e6e04442a3b590457efadaaab5cad16133
       <!-- Shortcut -->
       <ComponentRef Id="MainAppShortcut" />
       
