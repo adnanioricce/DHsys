@@ -3,19 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
-<<<<<<< HEAD
     <ProductVersion>3.11</ProductVersion>
     <ProjectGuid>e76f7908-b1fa-42ed-8344-81added946a7</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
     <OutputName>Desktop-$(Configuration)-$(Platform)</OutputName>
     <OutputType>Package</OutputType>          
-=======
-    <ProductVersion>3.10</ProductVersion>
-    <ProjectGuid>e76f7908-b1fa-42ed-8344-81added946a7</ProjectGuid>
-    <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>Desktop-$(Configuration)-$(Platform)</OutputName>
-    <OutputType>Package</OutputType>        
->>>>>>> b20b89e6e04442a3b590457efadaaab5cad16133
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -54,7 +46,6 @@
       <RefTargetDir>INSTALLFOLDER</RefTargetDir>
     </ProjectReference>
   </ItemGroup>
-<<<<<<< HEAD
   <PropertyGroup>
       <WixToolPath>..\..\..\tools\wix\3.11\</WixToolPath>
       <WixTargetsPath>$(WixToolPath)wix.targets</WixTargetsPath>
@@ -67,15 +58,6 @@
     </WixExtension>
     <WixExtension Include="WixUIExtension">
       <HintPath>..\..\..\tools\wix\3.11\WixUIExtension.dll</HintPath>
-=======
-  <ItemGroup>
-    <WixExtension Include="WixUtilExtension">
-      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
-      <Name>WixUtilExtension</Name>
-    </WixExtension>
-    <WixExtension Include="WixUIExtension">
-      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
->>>>>>> b20b89e6e04442a3b590457efadaaab5cad16133
       <Name>WixUIExtension</Name>
     </WixExtension>
   </ItemGroup>
@@ -97,17 +79,10 @@
     </GetAssemblyIdentity>
     <!-- Define some variables -->
     <PropertyGroup>
-<<<<<<< HEAD
       <DefineConstants>BuildVersion=%(AssemblyVersion.Version);BasePath=..\Desktop\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish</DefineConstants>
     </PropertyGroup>
     <!-- get file components from publish folder  -->
     <HeatDirectory OutputFile="ComponentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="..\Desktop\bin\$(configuration)\netcoreapp3.1\win-$(Platform)\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)"  PreprocessorVariable="var.BasePath" />
-=======
-      <DefineConstants>BuildVersion=%(AssemblyVersion.Version);BasePath=..\Desktop\bin\$(configuration)\netcoreapp3.1\win-$(Platform)\publish</DefineConstants>
-    </PropertyGroup>
-    <!-- get file components from publish folder  -->
-    <HeatDirectory OutputFile="ComponentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishedComponents" SuppressCom="true" Directory="..\Desktop\bin\$(configuration)\netcoreapp3.1\win-$(Platform)\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />
->>>>>>> b20b89e6e04442a3b590457efadaaab5cad16133
   </Target>
   <Target Name="AfterBuild">
   </Target>

@@ -2,6 +2,7 @@
 using AspNetCore.Http.Extensions;
 using Core.ApplicationModels.Dtos.Financial;
 using Core.Entities.Catalog;
+using Core.Entities.Financial;
 using Core.Models.ApplicationResources;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,10 @@ using Xunit;
 
 namespace Api.Tests
 {
-    public class TransactionsControllerTests : IClassFixture<TestFixture<Startup>>
-    {
-        private readonly HttpClient _client;
-        private readonly TestFixture<Startup> _fixture;
-        public TransactionsControllerTests(TestFixture<Startup> fixture)
-        {
-            _client = fixture.Client;
-            _fixture = fixture;
+    public class TransactionsControllerTests : ControllerTestBase<Transaction,TransactionDto,Startup>
+    {        
+        public TransactionsControllerTests(TestFixture<Startup> fixture) : base(fixture)
+        {            
         }
         [Fact]
         public async Task Given_POST_legacy_creates_CreateLegacys_When_requests_prcodi_and_quantity_Then_expects_200_status_code()

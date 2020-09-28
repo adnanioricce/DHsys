@@ -1,4 +1,5 @@
 using Core.Entities.Media;
+using Core.Entities.Stock;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -117,14 +118,12 @@ namespace Core.Entities.Catalog
             this.ProductPrices.Add(price);
             this.EndCustomerPrice = price.EndCustomerDrugPrice;
             this.CostPrice = price.CostPrice;
-            this.SavingPercentage = price.CalculatePercentageSaving();
-            //this.Produto.Prfabr = Convert.ToDouble(this.CostPrice);
-            //this.Produto.Prcons = Convert.ToDouble(this.EndCustomerPrice);
-        }
-        public virtual void UpdatePrice(decimal newEndCustomerPriceValue,decimal newCostPrice)
+            this.SavingPercentage = price.CalculatePercentageSaving();            
+        }        
+        public virtual void UpdatePrice(decimal newEndCustomerPriceValue,decimal newCostPrice,DateTimeOffset? startDate = null)
         {
             var price = new ProductPrice{
-                Pricestartdate = DateTimeOffset.UtcNow,
+                Pricestartdate = startDate.HasValue ? startDate : DateTimeOffset.UtcNow,
                 EndCustomerDrugPrice = newEndCustomerPriceValue,
                 CostPrice = newCostPrice,
                 ProductId = this.Id,
@@ -145,10 +144,25 @@ namespace Core.Entities.Catalog
             };
             ProductMedias.Add(productMedia);
         }
+        public virtual void AddSupplier(Supplier supplier)
+        {
+            if(!this.ProductSuppliers.Any(s => s.SupplierId == supplier.Id))
+            {
+                var productSupplier = new ProductSupplier
+                {
+                    ProductId = this.Id,
+                    SupplierId = supplier.Id,
+                };
+                ProductSuppliers.Add(productSupplier);
+                supplier.Products.Any(p => p.Id == this.Id);
+            }
+        }
+        
         public virtual ProductMedia GetThumbnailImage()
         {
             return ProductMedias.Where(p => p.IsThumbnail && p.Media.Type == Media.MediaType.Image).FirstOrDefault();
         }
+        
         #endregion
     }   
 }

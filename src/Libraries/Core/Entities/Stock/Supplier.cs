@@ -12,7 +12,7 @@ namespace Core.Entities.Stock
             Stockentries = new HashSet<StockEntry>();
         }        
         public int? AddressId { get; set; }
-        public string SupplierName { get; set; }
+        public string Name { get; set; }
         public string Cnpj { get; set; }
 
         public virtual Address Address { get; set; }

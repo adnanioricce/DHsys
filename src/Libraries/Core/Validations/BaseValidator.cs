@@ -1,14 +1,17 @@
-﻿using Core.Models;
+﻿using Core.Entities;
+using Core.Interfaces;
+using Core.Models;
 using FluentValidation;
 using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Core.Validations
 {
-    public class BaseValidator<T> : AbstractValidator<T> 
+    public class BaseValidator<T> : AbstractValidator<T> where T : BaseEntity
     {
         public virtual BaseResult<T> IsValid(T obj)
         {
@@ -22,11 +25,13 @@ namespace Core.Validations
                     Value = obj,
                 };
             }
+            
             return new BaseResult<T>
             {
                 Success = validateResult.IsValid,
                 Value = obj
             };
+            
         }        
         private string FormatToErrorMessage(ValidationFailure failure)
         {

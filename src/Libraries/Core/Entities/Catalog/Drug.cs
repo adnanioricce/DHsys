@@ -31,12 +31,7 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public string Classification { get; set; }
-        
-        /// <summary>
-        /// Get or Set the cost for the business to buy this drug
-        /// </summary>
-        /// <value></value>
-        public decimal? DrugCost { get; set; }
+                
         /// <summary>
         /// Get or set the string representation of the drug dosage
         /// </summary>

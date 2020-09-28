@@ -28,7 +28,7 @@ namespace Application.Services
                                          .Select(st => st.Given);
             var existingEntries = existingAndNewEntries.Where(st => !(st.Existing is null));           
             foreach(var (Existing, Given) in existingEntries){                                                
-                Existing.AddDrugs(Given.Drugs);                
+                Existing.AddDrugs(Given.Items);                
             }
             _stockEntryRepository.AddRange(newEntries);
             _stockEntryRepository.AddRange(existingEntries.Select(st => st.Existing));
