@@ -11,24 +11,27 @@ using Core.Entities;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
 using DAL.Seed;
+using Simple.OData.Client;
 using Tests.Lib;
 using Xunit;
 
 namespace Api.Tests
 {
-    public abstract class ControllerTestBase<TEntity,TEntityDto,TStartup> : IClassFixture<TestFixture<Startup>> where TEntity : BaseEntity where TEntityDto : class
+    public abstract class ControllerTestBase<TEntity,TEntityDto> : IClassFixture<ApiTestFixture> where TEntity : BaseEntity where TEntityDto : class 
     {
         protected readonly IRepository<TEntity> _repository;
         protected readonly IMapper _mapper;
         protected readonly IDataObjectSeed<TEntity> _seeder;
-        protected readonly TestFixture<TStartup> _fixture;
+        protected readonly ApiTestFixture _fixture;
         protected readonly HttpClient _client;
-        public ControllerTestBase(TestFixture<Startup> fixture)
+        protected readonly ODataClient _odataClient;
+        public ControllerTestBase(ApiTestFixture fixture)
         {            
             _repository = (IRepository<TEntity>)fixture.ServiceProvider.GetService(typeof(IRepository<TEntity>));
             _mapper = (IMapper)fixture.ServiceProvider.GetService(typeof(IMapper));
             _seeder = (IDataObjectSeed<TEntity>)fixture.ServiceProvider.GetService(typeof(IDataObjectSeed<TEntity>));
             _client = fixture.Client;
+            _odataClient = fixture.ODataClient;
             _fixture = fixture;
         }
         [Fact(DisplayName = "Test default GET method to retrieve entity by Id")]
@@ -47,10 +50,11 @@ namespace Api.Tests
         public virtual async Task POST_Create_ReceivesEntityObject_ExpectedToReturnCreatedEntity()
         {
             // Arrange
-            var seedObject = _mapper.Map<TEntity, TEntityDto>(CreateSeedObject());
+            var seedObject = _mapper.Map<TEntity, TEntityDto>(_seeder.GetSeedObject());
             string url = GetRequestUrl("api/{0}/create?api-version=1.0", "POST");
-            // Act
+            // Act            
             var response = await _client.PostAsJsonAsync(url,seedObject);
+            var content = await response.Content.ReadAsStringAsync();
             // Assert            
             Assert.True(response.IsSuccessStatusCode);            
         }
@@ -84,31 +88,13 @@ namespace Api.Tests
         {
             // Arrange
             var seedObject = _seeder.GetSeedObject();
-            var url = $"api/{typeof(TEntity)}/validate-create?api-version=1.0";
+            var url = $"api/{typeof(TEntity).Name}/validate-create?api-version=1.0";
             // Act
             var response = await _client.PostAsJsonAsync(url, seedObject);
             // Assert
             //only need to know if the endpoint tries to validate the object sended
             Assert.True(response.StatusCode == System.Net.HttpStatusCode.OK || response.StatusCode == System.Net.HttpStatusCode.BadRequest);
-        }
-        [Theory(DisplayName = "Test the default query")]
-        [InlineData("$orderBy=id")]
-        [InlineData("$filter=id gt 3")]
-        [InlineData("$skip=5")]
-        [InlineData("$skip=2&$select=id,uniqueCode&$orderBy=id desc&filter=id gt 3")]
-        public virtual async Task GET_Query_ReceivesCustomQueryParameters_ExpectedToReturnObjectsThatMatchQueryParameters(string query)
-        {
-            // Arrange
-            var seedObjects = Enumerable.Repeat(_seeder.GetSeedObject(), 10).ToList();
-            _repository.AddRange(seedObjects);
-            await _repository.SaveChangesAsync();
-            string templateUrl = "api/{0}/query?api-version=1.0&{1}";
-            var url = string.Format(templateUrl,typeof(TEntity),query);
-            // Act
-            var response = await _client.GetAsync("api/");
-            // Assert
-            Assert.True(response.IsSuccessStatusCode);
-        }
+        }        
 
         protected string GetRequestUrl(string templateUrl,string method,int id = 0)
         {

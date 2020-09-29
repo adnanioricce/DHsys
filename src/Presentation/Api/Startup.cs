@@ -31,9 +31,7 @@ namespace Api
             services.AddApplicationServices();
             services.ConfigureApplicationOptions(Configuration);
             services.AddAutoMapperConfiguration();
-            services.AddControllers();
-            services.AddGrpc();
-            
+            services.AddControllers();                        
 
             services.AddMvc(options => {
                 options.EnableEndpointRouting = false;                

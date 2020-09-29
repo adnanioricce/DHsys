@@ -26,38 +26,6 @@ namespace Core.ApplicationModels.Dtos.Stock
 
         public IList<DrugDto> Drugs { get; set; }
 
-        public SupplierDto Supplier { get; set; }
-
-        public static StockEntryDto FromModel(StockEntry model)
-        {
-            return new StockEntryDto()
-            {
-                SupplierId = model.SupplierId, 
-                Quantity = model.ItemsCount, 
-                DrugMaturityDate = model.DrugMaturityDate, 
-                NfNumber = model.NfNumber, 
-                NfEmissionDate = model.NfEmissionDate, 
-                Totalcost = model.Totalcost, 
-                LotCode = model.LotCode, 
-                Drugs = model.Items.Select(d => DrugDto.FromModel(d)).ToList(), 
-                Supplier = SupplierDto.FromModel(model.Supplier), 
-            }; 
-        }
-
-        public StockEntry ToModel()
-        {
-            return new StockEntry()
-            {
-                SupplierId = SupplierId, 
-                ItemsCount = Quantity, 
-                DrugMaturityDate = DrugMaturityDate, 
-                NfNumber = NfNumber, 
-                NfEmissionDate = NfEmissionDate, 
-                Totalcost = Totalcost, 
-                LotCode = LotCode, 
-                Items = Drugs.Select(d => d.ToModel()).ToList(), 
-                Supplier = Supplier.ToModel(), 
-            }; 
-        }
+        public SupplierDto Supplier { get; set; }        
     }
 }

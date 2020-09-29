@@ -107,10 +107,7 @@ namespace Core.Entities.Catalog
         /// get or set collection of Shelf life 
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();                
-        #region Legacy field models        
-        public string ProdutoId { get; set; }        
-        #endregion
+        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();                        
         
         #region Methods
         public virtual void UpdatePrice(ProductPrice price)
@@ -150,11 +147,11 @@ namespace Core.Entities.Catalog
             {
                 var productSupplier = new ProductSupplier
                 {
-                    ProductId = this.Id,
-                    SupplierId = supplier.Id,
+                    Product = this,
+                    Supplier = supplier,
                 };
                 ProductSuppliers.Add(productSupplier);
-                supplier.Products.Any(p => p.Id == this.Id);
+                
             }
         }
         
