@@ -34,12 +34,14 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />    
+    <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
+    <PackageReference Include="Simple.OData.Client" Version="5.14.0" />    
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
   </ItemGroup>
 
   <ItemGroup>    
     <!--<ProjectReference Include="..\..\Libraries\Application\Application.csproj" />-->    
+    <ProjectReference Include="..\..\..\tests\Tests.Lib\Tests.Lib.csproj" />    
     <ProjectReference Include="..\..\Libraries\Application\Application.csproj" />    
     <ProjectReference Include="..\..\Libraries\Core\Core.csproj" />    
     <ProjectReference Include="..\..\Libraries\DAL\DAL.csproj" />    

@@ -13,9 +13,9 @@ using Xunit;
 
 namespace Api.Tests
 {
-    public class TransactionsControllerTests : ControllerTestBase<Transaction,TransactionDto,Startup>
+    public class TransactionsControllerTests : ControllerTestBase<Transaction,TransactionDto>
     {        
-        public TransactionsControllerTests(TestFixture<Startup> fixture) : base(fixture)
+        public TransactionsControllerTests(ApiTestFixture fixture) : base(fixture)
         {            
         }
         [Fact]

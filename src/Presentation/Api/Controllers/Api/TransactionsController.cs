@@ -34,7 +34,7 @@ namespace Api.Controllers.Api
         public override async Task<ActionResult<BaseResourceResponse>> CreateAsync([FromBody]TransactionDto transactionDto)
         {
             if (transactionDto is null) return BadRequest("invalid request, body was null");
-            var transaction = transactionDto.ToModel();
+            var transaction = _mapper.Map<TransactionDto,Transaction>(transactionDto);
             try
             {
                 var result = await _transactionService.CreateTransactionAsync(transaction);

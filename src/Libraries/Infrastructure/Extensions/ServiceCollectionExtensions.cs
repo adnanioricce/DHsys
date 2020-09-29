@@ -19,7 +19,7 @@ namespace Infrastructure.Extensions
             {
                 var environment = provider.GetService<IHostEnvironment>();
                 var options = provider.GetService<IOptionsMonitor<T>>();
-                return new OptionWriter<T>(environment, file);
+                return new OptionWriter<T>(environment,options, file);
             });
         }
         public static void ConfigureAppDataFolder(this IServiceCollection services,IConfiguration configuration,string myFolder = "DHsys")
@@ -62,7 +62,7 @@ namespace Infrastructure.Extensions
                 var updateSettingsWriter = provider.GetService<OptionWriter<AutoUpdateSettings>>();
                 updateSettingsWriter.Update(settings =>
                 {
-                    settings.UpdateFileUrl
+                    //settings.UpdateFileUrl;
                    //TODO:Add dsa public key path
                 });
             }

@@ -8,8 +8,8 @@ using Tests.Lib;
 
 namespace Api.Tests.Api
 {
-    public class StockEntryControllerTests : ControllerTestBase<StockEntry,StockEntryDto,Startup>
+    public class StockEntryControllerTests : ControllerTestBase<StockEntry,StockEntryDto>
     {
-        public StockEntryControllerTests(TestFixture<Startup> fixture) : base(fixture) { }
+        public StockEntryControllerTests(ApiTestFixture fixture) : base(fixture) { }
     }
 }

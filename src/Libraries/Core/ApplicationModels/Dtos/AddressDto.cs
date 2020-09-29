@@ -29,39 +29,6 @@ namespace Core.ApplicationModels.Dtos
         public ICollection<ManufacturerDto> Manufacturer { get; set; }
 
         public ICollection<SupplierDto> Suppliers { get; set; }
-
-        public static AddressDto FromModel(Address model)
-        {
-            return new AddressDto()
-            {
-                FirstAddressLine = model.FirstAddressLine, 
-                SecondAddressLine = model.SecondAddressLine, 
-                Zipcode = model.Zipcode, 
-                Addressnumber = model.Addressnumber, 
-                City = model.City, 
-                AddressState = model.AddressState, 
-                District = model.District, 
-                Clients = model.Clients.Select(c => ClientDto.FromModel(c)).ToList(), 
-                Manufacturer = model.Manufacturer.Select(m => ManufacturerDto.FromModel(m)).ToList(), 
-                Suppliers = model.Suppliers.Select(s => SupplierDto.FromModel(s)).ToList(), 
-            }; 
-        }
-
-        public Address ToModel()
-        {
-            return new Address()
-            {
-                FirstAddressLine = FirstAddressLine, 
-                SecondAddressLine = SecondAddressLine, 
-                Zipcode = Zipcode, 
-                Addressnumber = Addressnumber, 
-                City = City, 
-                AddressState = AddressState, 
-                District = District, 
-                Clients = Clients.Select(c => c.ToModel()).ToList(), 
-                Manufacturer = Manufacturer.Select(m => m.ToModel()).ToList(), 
-                Suppliers = Suppliers.Select(s => s.ToModel()).ToList(), 
-            }; 
-        }
+       
     }
 }

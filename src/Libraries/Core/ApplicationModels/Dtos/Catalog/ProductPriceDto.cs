@@ -15,29 +15,6 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public decimal CostPrice { get; set; }
 
         public ProductDto Product { get; set; }
-
-        public static ProductPriceDto FromModel(ProductPrice model)
-        {
-            return new ProductPriceDto()
-            {
-                ProductId = model.ProductId, 
-                Pricestartdate = model.Pricestartdate, 
-                EndCustomerDrugPrice = model.EndCustomerDrugPrice, 
-                CostPrice = model.CostPrice, 
-                Product = ProductDto.FromModel(model.Product), 
-            }; 
-        }
-
-        public ProductPrice ToModel()
-        {
-            return new ProductPrice()
-            {
-                ProductId = ProductId, 
-                Pricestartdate = Pricestartdate, 
-                EndCustomerDrugPrice = EndCustomerDrugPrice, 
-                CostPrice = CostPrice, 
-                Product = Product.ToModel(), 
-            }; 
-        }
+       
     }
 }
