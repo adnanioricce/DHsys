@@ -36,9 +36,9 @@ namespace Api
             services.AddMvc(options => {
                 options.EnableEndpointRouting = false;                
             }).AddNewtonsoftJson(settings => {
-                    settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;                    
-                });            
+                settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            });            
             services.AddDataStore(Configuration,Assembly.GetExecutingAssembly().GetName().Name,null);
             services.AddApiVersioning(options => options.ReportApiVersions = true);
             services.AddOdataSupport();
@@ -50,8 +50,9 @@ namespace Api
                     // add a custom operation filter which sets default values
                     options.OperationFilter<SwaggerDefaultValues>();
                 });
-            var validators = Assembly.GetAssembly(typeof(Core.Core)).GetTypes().Where(t => t.Namespace.StartsWith("Core.Validations"))
-                                                                               .Where(t => !t.Name.StartsWith("BaseValidator"));
+            var validators = Assembly.GetAssembly(typeof(Core.Core)).GetTypes()
+                                                                    .Where(t => t.Namespace.StartsWith("Core.Validations"))
+                                                                    .Where(t => !t.Name.StartsWith("BaseValidator"));
             foreach (var validator in validators)
             {
                 services.AddTransient(validator.BaseType,validator);
@@ -72,8 +73,7 @@ namespace Api
             {                
                 foreach (var description in provider.ApiVersionDescriptions)
                 {
-                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-                    
+                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());                    
                 }
                 c.RoutePrefix = string.Empty;
             });

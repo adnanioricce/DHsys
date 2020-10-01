@@ -34,7 +34,7 @@ namespace DAL.Windows.Mappers
                 LotNumber = produto.Prlote,
                 Ncm = produto.Prncms,
                 Name = produto.Prdesc,
-                DrugCost = decimal.TryParse(produto.Prfabr.ToString(), out var result) ? result : Convert.ToDecimal(produto.Prfabr),
+                CostPrice = decimal.TryParse(produto.Prfabr.ToString(), out var result) ? result : Convert.ToDecimal(produto.Prfabr),
                 Classification = produto.Prclas,
                 CommercialName = produto.Pretiq,
                 QuantityInStock = int.TryParse(produto.Prestq.ToString(), out var estResult) ? estResult : Convert.ToInt32(produto.Prestq),

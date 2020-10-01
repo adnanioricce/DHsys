@@ -17,7 +17,8 @@ using Xunit;
 
 namespace Api.Tests
 {
-    public abstract class ControllerTestBase<TEntity,TEntityDto> : IClassFixture<ApiTestFixture> where TEntity : BaseEntity where TEntityDto : class 
+    public abstract class ControllerTestBase<TEntity,TEntityDto> : IClassFixture<ApiTestFixture> where TEntity : BaseEntity 
+                                                                                                 where TEntityDto : class 
     {
         protected readonly IRepository<TEntity> _repository;
         protected readonly IMapper _mapper;
