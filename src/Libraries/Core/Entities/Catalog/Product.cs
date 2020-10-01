@@ -95,6 +95,7 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public string Name { get; set; }
+        
         /// <summary>
         /// Get or set the Many-To-Many reference to the Supplier Entity
         /// </summary>
@@ -107,8 +108,10 @@ namespace Core.Entities.Catalog
         /// get or set collection of Shelf life 
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();                        
-        
+        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();
+        #region Legacy Fields
+        public string ProdutoId { get; set; }
+        #endregion        
         #region Methods
         public virtual void UpdatePrice(ProductPrice price)
         {

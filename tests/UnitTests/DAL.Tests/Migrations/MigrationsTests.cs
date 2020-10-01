@@ -29,8 +29,7 @@ namespace DAL.Tests.Migrations
                 var command = connection.CreateCommand();
                 command.CommandText = m;
                 int result = command.ExecuteNonQuery();
-                return result < 0;
-                //connection.CreateCommand() < 0
+                return result < 0;                
             });
             connection.Close();
             Assert.False(hasFails);

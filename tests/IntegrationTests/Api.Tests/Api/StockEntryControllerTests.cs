@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Tests.Lib;
 
-namespace Api.Tests.Api
+namespace Api.Tests
 {
     public class StockEntryControllerTests : ControllerTestBase<StockEntry,StockEntryDto>
     {

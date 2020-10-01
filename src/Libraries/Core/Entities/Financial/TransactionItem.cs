@@ -10,5 +10,6 @@ namespace Core.Entities.Financial
         public decimal CustomerValue { get; set; }
         public decimal CostPrice { get; set; }
         public int TransactionId { get; set; }
+        public Transaction Transaction { get; set; }
     }
 }
