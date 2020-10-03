@@ -1,6 +1,10 @@
 ﻿using Core.Entities;
 using Core.Interfaces;
+using DAL;
+using DAL.DbContexts;
+using DAL.Extensions;
 using DAL.Seed;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,32 +13,38 @@ using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DAL.Tests
+namespace Tests.Lib
 {
-    public class BaseRepositoryTest<TEntity> where TEntity : BaseEntity
+
+    public class BaseRepositoryTest<TEntity> : IDisposable where TEntity : BaseEntity
     {
         protected readonly IRepository<TEntity> _repository;
         protected readonly IDataObjectSeed<TEntity> _seeder;
+        protected readonly BaseContext _context;
         public BaseRepositoryTest()
         {
-            _repository = new Repository<TEntity>(DbContextHelper.CreateContext());
+            _context = DbContextHelper.CreateContext();
+            _context.Database.OpenConnection();
+            _context.Database.EnsureCreated();
+            _repository = new Repository<TEntity>(_context);
             var dataObjectSeedType = Assembly.GetAssembly(typeof(DALAssembly))
                     .GetTypes()
                     .Where(t => t.GetInterfaces().Any(it => it.IsGenericType && it.Name == typeof(IDataObjectSeed<>).Name && it.GetGenericArguments().Any(genericArgument => genericArgument == typeof(TEntity))))
                     .FirstOrDefault();
             var seederInstance = (IDataObjectSeed<TEntity>)Activator.CreateInstance(dataObjectSeedType);
-            _seeder = seederInstance;
+            _seeder = seederInstance;            
         }
         [Fact]
         public async Task TestAdd()
         {
-            // Arrange
+            // Arrange            
             var seedObject = _seeder.GetSeedObject();
             // Act
             _repository.Add(seedObject);
             var result = await _repository.SaveChangesAsync();
+            var entity = _repository.Query().OrderBy(c => c.Id).LastOrDefault();            
             // Assert
-            Assert.Equal(1, result);
+            Assert.NotNull(entity);
         }
         [Fact]
         public async Task TestAddRange()
@@ -65,14 +75,13 @@ namespace DAL.Tests
             // Arrange
             var seedObject = _seeder.GetSeedObject();
             _repository.Add(seedObject);
-            await _repository.SaveChangesAsync();
-            var lastUpdatedAt = seedObject.LastUpdatedOn;
+            await _repository.SaveChangesAsync();                        
             // Act
             seedObject.UniqueCode = Guid.NewGuid().ToString();
             _repository.Update(seedObject);
-            await _repository.SaveChangesAsync();
+            var result = await _repository.SaveChangesAsync();
             // Assert
-            Assert.NotEqual(lastUpdatedAt,seedObject.LastUpdatedOn);
+            Assert.Equal(1,result);
         }
         [Fact]
         public async Task TestDelete()
@@ -100,6 +109,11 @@ namespace DAL.Tests
             var entities = await _repository.GetAllAsync();
             // Assert
             Assert.NotEmpty(entities);
+        }
+        public void Dispose()
+        {
+            //_context.Database.CloseConnection();
+            //_context.Dispose();
         }
     }
 }

@@ -45,16 +45,8 @@ namespace DAL.Extensions
             var pendingMigrations = context.GetPendingMigrationScripts().ToList();
             if (pendingMigrations.Any())
             {
-                pendingMigrations.ForEach(migration => {
-                    try
-                    {
-                        context.Database.ExecuteSqlRaw(migration);
-                        AppLogger.Log.Information("Migrations Applied");
-                    }
-                    catch (Exception ex)
-                    {
-                        AppLogger.Log.Error("Exception throwed when trying to apply migration to Database Context. Exception Throwed:{@ex} \n Given Context: {@context} \n Migration:{@migration} \n", ex, context, migration);
-                    }
+                pendingMigrations.ForEach(migration => {                    
+                        var result = context.Database.ExecuteSqlRaw(migration);                                                                
                 });
             }
         }
@@ -106,15 +98,25 @@ namespace DAL.Extensions
             if (context is LocalContext)
             {
                 context = context as LocalContext ?? throw new InvalidCastException($"can't cast context {context} to LocalContext");
-            }                      
-            //If you don't do this, ef will try to execute migration from another context
-            var pendingMigrations = context.Database.GetPendingMigrations().Where(m => {
-                return m.Contains(context.Database.IsSqlite() ? "sqlite" : context.Database.IsNpgsql() ? "npgsql" : "sqlserver");
-                }).ToList();
-            var scriptsEnum = pendingMigrations.GetEnumerator();
-            var idempotent = context.Database.IsSqlite();
-            var migrator = context.Database.GetService<IMigrator>();
-            var scripts = pendingMigrations.Select(m => migrator.GenerateScript(toMigration:m,idempotent:false));
+            }            
+            var lastMigration = context.Database.GetAppliedMigrations().LastOrDefault();            
+            var migrator = context.Database.GetService<IMigrator>();            
+            var scripts = new List<string>();
+            var pendingMigrations = context.Database.GetPendingMigrations();
+            var pendingEnum = pendingMigrations.GetEnumerator();
+            pendingEnum.MoveNext();
+            string previousMigration = lastMigration;            
+            do
+            {
+                var toMigration = pendingEnum.Current;
+                if(string.IsNullOrEmpty(toMigration) && string.IsNullOrEmpty(previousMigration))
+                {
+                    scripts.Add(migrator.GenerateScript());
+                    return scripts;
+                }
+                scripts.Add(migrator.GenerateScript(previousMigration, toMigration));
+                previousMigration = toMigration;
+            } while (pendingEnum.MoveNext());
             return scripts;
         }
         /// <summary>
@@ -127,13 +129,7 @@ namespace DAL.Extensions
         public static void CreateDatabaseBackup(this RemoteContext context,string backupFileName = "",string dbName = "")
         {            
             var _dbname = string.IsNullOrEmpty(dbName) ? context.GetDatabaseName() : dbName;
-            if (context.Database.IsSqlServer())
-            {
-                var _backupFileName = string.IsNullOrEmpty(backupFileName) ? _dbname : backupFileName;
-                string backupScript = $@"BACKUP DATABASE {_dbname} to DISK=N'{_backupFileName}.bak' WITH FORMAT, INIT, STATS=10;";
-                context.Database.ExecuteSqlRaw(backupScript);
-            }
-            else
+            if(context.Database.IsNpgsql())           
             {                
                 var result = context.Database.ExecuteSqlRaw(@$"SELECT datname FROM pg_catalog.pg_database WHERE lower(datname) = lower('{_dbname}_copy');");
                 if (result == -1)
@@ -152,15 +148,7 @@ namespace DAL.Extensions
         /// <param name="backupFileName">the name of the backup filename </param>
         public static void RestoreDatabase(this RemoteContext context, string backupFileName,string dbName = "")
         {
-            var _dbname = string.IsNullOrEmpty(dbName) ? context.Database.GetDbConnection().Database : dbName;
-            if (context.Database.IsSqlServer())
-            {
-                context.Database.ExecuteSqlRaw($@"  USE master;
-                                                ALTER DATABASE {_dbname}
-                                                SET SINGLE_USER                                                
-                                                WITH ROLLBACK IMMEDIATE
-                                                RESTORE DATABASE {_dbname} FROM DISK = '{backupFileName}.bak' WITH REPLACE");
-            }
+            var _dbname = string.IsNullOrEmpty(dbName) ? context.Database.GetDbConnection().Database : dbName;            
             if (context.Database.IsNpgsql())
             {
                 var connection = context.Database.GetDbConnection();

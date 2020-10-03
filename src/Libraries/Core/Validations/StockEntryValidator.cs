@@ -1,18 +1,13 @@
-﻿using Core.Entities.Stock;
-using Core.Interfaces;
-using FluentValidation;
-using FluentValidation.Results;
-using System;
-//using System.Linq;
-using System.Threading.Tasks;
+﻿using Core.Entities.Catalog;
+using Core.Entities.Stock;
 
 namespace Core.Validations
 {
     public class StockEntryValidator : BaseValidator<StockEntry>
     {
-        public StockEntryValidator(ProductStockEntryValidator validator)
+        public StockEntryValidator()
         {
-            RuleForEach(st => st.Items).SetValidator(validator);
+            RuleForEach(st => st.Items).SetValidator(new ProductStockEntryValidator());
             
         }       
     }

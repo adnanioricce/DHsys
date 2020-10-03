@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\src\Libraries\DAL\DAL.csproj" />
+    <ProjectReference Include="..\..\Tests.Lib\Tests.Lib.csproj" />
   </ItemGroup>
 
 </Project>

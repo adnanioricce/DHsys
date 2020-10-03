@@ -8,6 +8,7 @@ namespace Core.Interfaces.Data
         Task<T> GetByAsync(object id);
         Task<T> GetByAsync(int id);
         Task<T> GetByAsync(string uniqueCode);
+        Task<T> GetByWithNoTrackingAsync(int id);
         Task<IEnumerable<T>> GetAllAsync();
         IAsyncEnumerable<T> GetAsyncEnumerable();
         Task<int> SaveChangesAsync();

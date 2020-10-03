@@ -3,6 +3,7 @@ using DAL.DbContexts;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Tests.Lib;
 
 namespace DAL.Tests
 {

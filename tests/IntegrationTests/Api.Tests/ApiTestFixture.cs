@@ -1,4 +1,6 @@
-﻿using DAL.DbContexts;
+﻿using Core.Extensions;
+using Core.Validations;
+using DAL.DbContexts;
 using DAL.Seed;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
@@ -122,6 +124,13 @@ namespace Api
             {
                 var objectInterface = seeder.GetInterface(objectSeedType.Name);
                 services.AddSingleton(objectInterface, seeder);
+            }
+            var validators = Assembly.GetAssembly(typeof(Core.Core))
+                                              .GetTypesWithBaseType(typeof(BaseValidator<>))
+                                              .ToList();
+            foreach (var validator in validators)
+            {
+                services.AddTransient(validator.BaseType, validator);
             }
             services.AddMvc(options => {
                 options.EnableEndpointRouting = false;

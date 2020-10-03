@@ -2,6 +2,7 @@
 using Core.ApplicationModels.Dtos.Stock;
 using Core.Entities.Stock;
 using Core.Interfaces;
+using Core.Validations;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace Api.Controllers.Api
 {
     public class SupplierController : DefaultApiController<Supplier,SupplierDto>
     {
-        public SupplierController(IRepository<Supplier> supplierRepository, IMapper mapper, IValidator<Supplier> validator) : base(supplierRepository, mapper, validator)
+        public SupplierController(IRepository<Supplier> supplierRepository, IMapper mapper, BaseValidator<Supplier> validator) : base(supplierRepository, mapper, validator)
         {
 
         }
