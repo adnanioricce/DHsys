@@ -128,5 +128,10 @@ namespace Tests.Lib.Data
         {
             return new TestAsyncEnumerable<T>(context.Values.AsEnumerable());
         }
+
+        public Task<T> GetByWithNoTrackingAsync(int id)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

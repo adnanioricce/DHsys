@@ -6,7 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.Tests
+namespace Tests.Lib
 {
     public class DbContextHelper
     {
@@ -14,8 +14,7 @@ namespace DAL.Tests
         {
             var optionsBuilder = new DbContextOptionsBuilder<BaseContext>();
             optionsBuilder.UseSqlite(new SqliteConnection($"DataSource=:memory:"));
-            var context = new BaseContext(optionsBuilder.Options);
-            context.ApplyUpgrades();
+            var context = new BaseContext(optionsBuilder.Options);                        
             return context;
         }
     }

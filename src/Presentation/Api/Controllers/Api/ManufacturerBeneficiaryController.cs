@@ -2,6 +2,7 @@
 using Core.ApplicationModels.Dtos.Financial;
 using Core.Entities.Stock;
 using Core.Interfaces;
+using Core.Validations;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,7 +16,7 @@ namespace Api.Controllers.Api
     [ApiController]    
     public class ManufacturerBeneficiaryController : DefaultApiController<Manufacturer,ManufacturerDto>
     {
-        public ManufacturerBeneficiaryController(IRepository<Manufacturer> manufacturerRepository, IMapper mapper, IValidator<Manufacturer> validator) : base(manufacturerRepository, mapper, validator)
+        public ManufacturerBeneficiaryController(IRepository<Manufacturer> manufacturerRepository, IMapper mapper, BaseValidator<Manufacturer> validator) : base(manufacturerRepository, mapper, validator)
         {
         }
     }

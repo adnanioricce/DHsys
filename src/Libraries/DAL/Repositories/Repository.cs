@@ -115,5 +115,10 @@ namespace DAL
         {
             return await Context.SaveChangesAsync();
         }
+
+        public Task<T> GetByWithNoTrackingAsync(int id)
+        {
+            return Context.Set<T>().AsNoTracking().OrderBy(e => e.Id).FirstOrDefaultAsync(e => e.Id == id);
+        }
     }
 }

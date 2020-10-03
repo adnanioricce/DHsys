@@ -2,6 +2,7 @@
 using Core.ApplicationModels.Dtos.Financial;
 using Core.Entities;
 using Core.Interfaces;
+using Core.Validations;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -15,7 +16,7 @@ namespace Api.Controllers.Api
     [ApiController]
     public class ClientBeneficiaryController : DefaultApiController<Client,ClientDto>
     {
-        public ClientBeneficiaryController(IRepository<Client> clientRepository,IMapper mapper,IValidator<Client> validator) : base(clientRepository, mapper, validator)
+        public ClientBeneficiaryController(IRepository<Client> clientRepository,IMapper mapper,BaseValidator<Client> validator) : base(clientRepository, mapper, validator)
         {
 
         }        

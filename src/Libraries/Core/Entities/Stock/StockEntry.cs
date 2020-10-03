@@ -24,12 +24,9 @@ namespace Core.Entities.Stock
         /// <summary>
         /// Get or Set the total cost of all the items of this <see cref="StockEntry"/>
         /// </summary>
-        public decimal? Totalcost 
-        { 
-            //It's possible that not only the items of the stock will determine the price, so for now, this will be used
-            get { return _totalCost + CalculateStockEntryCost(); } 
-            set { _totalCost = value; } 
-        }
+        // Some problems with the mapping when trying to customize the get and set properties
+        // Need to think in a way to define custom mappings now
+        public decimal? Totalcost { get; set; }
 
         private decimal? CalculateStockEntryCost()
         {
