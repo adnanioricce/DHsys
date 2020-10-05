@@ -109,13 +109,15 @@ namespace DAL.Extensions
             do
             {
                 var toMigration = pendingEnum.Current;
-                if(string.IsNullOrEmpty(toMigration) && string.IsNullOrEmpty(previousMigration))
+                if (string.IsNullOrEmpty(toMigration) && string.IsNullOrEmpty(previousMigration))
                 {
                     scripts.Add(migrator.GenerateScript());
-                    return scripts;
                 }
-                scripts.Add(migrator.GenerateScript(previousMigration, toMigration));
-                previousMigration = toMigration;
+                else
+                {
+                    scripts.Add(migrator.GenerateScript(previousMigration, toMigration));
+                    previousMigration = toMigration;
+                }
             } while (pendingEnum.MoveNext());
             return scripts;
         }

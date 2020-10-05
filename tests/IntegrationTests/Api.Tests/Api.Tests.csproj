@@ -9,9 +9,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="TestDbFiles\AGENDA.DBF">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Compile Remove="TestDbFiles\**" />
+    <Content Remove="TestDbFiles\**" />
+    <EmbeddedResource Remove="TestDbFiles\**" />
+    <None Remove="TestDbFiles\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -17,11 +17,7 @@ namespace DAL.Migrations.Remote
 
             migrationBuilder.DropIndex(
                 name: "IX_Products_StockEntryId",
-                table: "Products");
-
-            migrationBuilder.DropColumn(
-                name: "TransactionTotal",
-                table: "Transaction");
+                table: "Products");           
 
             migrationBuilder.DropColumn(
                 name: "SupplierName",
@@ -71,8 +67,11 @@ namespace DAL.Migrations.Remote
             migrationBuilder.AddColumn<string>(
                 name: "Name",
                 table: "Products",
-                nullable: true);            
-
+                nullable: true);
+            migrationBuilder.AddColumn<string>(
+                name: "Name",
+                table: "Supplier",
+                nullable: true);
             migrationBuilder.CreateTable(
                 name: "ProductMedia",
                 columns: table => new
@@ -141,8 +140,8 @@ namespace DAL.Migrations.Remote
                 table: "Products");
 
             migrationBuilder.AddColumn<decimal>(
-                name: "TransactionTotal",
-                table: "Transaction",
+                name: "OrderTotal",
+                table: "POSOrder",
                 type: "numeric",
                 nullable: false,
                 defaultValue: 0m);            
@@ -189,13 +188,7 @@ namespace DAL.Migrations.Remote
                 table: "Products",
                 type: "integer",
                 nullable: true);
-
-            migrationBuilder.AddColumn<string>(
-                name: "ProdutoId",
-                table: "Products",
-                type: "text",
-                nullable: true);            
-
+                     
             migrationBuilder.CreateTable(
                 name: "DrugInformation",
                 columns: table => new

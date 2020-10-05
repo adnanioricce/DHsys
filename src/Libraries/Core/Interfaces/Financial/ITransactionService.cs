@@ -9,13 +9,13 @@ namespace Core.Interfaces.Financial
 {
     public interface ITransactionService
     {        
-        BaseResult<Transaction> CreateTransaction(Transaction transaction);
-        Task<BaseResult<Transaction>> CreateTransactionAsync(Transaction transaction);
-        IEnumerable<Transaction> GetTransactions();
-        IEnumerable<Transaction> GetTodayTransactions();
-        IAsyncEnumerable<Transaction> GetTodayTransactionsAsync();
-        IEnumerable<Transaction> GetTransactionsByDate(DateTimeOffset dateTime);
-        Task<IEnumerable<Transaction>> GetTransactionsByDateAsync(DateTimeOffset dateTime);                
+        BaseResult<POSOrder> CreateTransaction(POSOrder transaction);
+        Task<BaseResult<POSOrder>> CreateTransactionAsync(POSOrder transaction);
+        IEnumerable<POSOrder> GetTransactions();
+        IEnumerable<POSOrder> GetTodayTransactions();
+        IAsyncEnumerable<POSOrder> GetTodayTransactionsAsync();
+        IEnumerable<POSOrder> GetTransactionsByDate(DateTimeOffset dateTime);
+        Task<IEnumerable<POSOrder>> GetTransactionsByDateAsync(DateTimeOffset dateTime);                
 
     }
 }

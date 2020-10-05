@@ -10,8 +10,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DAL.Migrations.Remote
 {
     [DbContext(typeof(RemoteContext))]
-    [Migration("20200914020851_AddingTransactions")]
-    partial class AddingTransactions
+    [Migration("20200914020851_AddingPOSOrders")]
+    partial class AddingPOSOrders
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -464,7 +464,7 @@ namespace DAL.Migrations.Remote
                     b.ToTable("Billings");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.Transaction", b =>
+            modelBuilder.Entity("Core.Entities.Financial.POSOrder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -490,7 +490,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("integer");
 
-                    b.Property<decimal>("TransactionTotal")
+                    b.Property<decimal>("POSOrderTotal")
                         .HasColumnType("numeric");
 
                     b.Property<string>("UniqueCode")
@@ -498,10 +498,10 @@ namespace DAL.Migrations.Remote
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("POSOrder");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.TransactionItem", b =>
+            modelBuilder.Entity("Core.Entities.Financial.POSOrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -536,7 +536,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
-                    b.Property<int>("TransactionId")
+                    b.Property<int>("POSOrderId")
                         .HasColumnType("integer");
 
                     b.Property<string>("UniqueCode")
@@ -546,9 +546,9 @@ namespace DAL.Migrations.Remote
 
                     b.HasIndex("DrugId");
 
-                    b.HasIndex("TransactionId");
+                    b.HasIndex("POSOrderId");
 
-                    b.ToTable("TransactionItem");
+                    b.ToTable("POSOrderItem");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.StockEntry", b =>
@@ -816,15 +816,15 @@ namespace DAL.Migrations.Remote
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.TransactionItem", b =>
+            modelBuilder.Entity("Core.Entities.Financial.POSOrderItem", b =>
                 {
                     b.HasOne("Core.Entities.Catalog.Drug", "Drug")
                         .WithMany()
                         .HasForeignKey("DrugId");
 
-                    b.HasOne("Core.Entities.Financial.Transaction", null)
+                    b.HasOne("Core.Entities.Financial.POSOrder", null)
                         .WithMany("Items")
-                        .HasForeignKey("TransactionId")
+                        .HasForeignKey("POSOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

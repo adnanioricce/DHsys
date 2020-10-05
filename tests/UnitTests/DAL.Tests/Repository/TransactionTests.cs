@@ -3,7 +3,7 @@ using Tests.Lib;
 
 namespace DAL.Tests.Repository
 {
-    public class TransactionTests : BaseRepositoryTest<Transaction>
+    public class TransactionTests : BaseRepositoryTest<POSOrder>
     {
     }
 }

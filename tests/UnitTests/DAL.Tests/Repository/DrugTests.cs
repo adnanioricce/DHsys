@@ -2,7 +2,7 @@
 using DAL.Seed;
 using Tests.Lib;
 
-namespace DAL.Tests
+namespace DAL.Tests.Repository
 {
     public class DrugTests : BaseRepositoryTest<Drug>
     {
