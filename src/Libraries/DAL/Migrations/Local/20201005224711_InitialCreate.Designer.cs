@@ -9,14 +9,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DAL.Migrations.Local
 {
     [DbContext(typeof(LocalContext))]
-    [Migration("20200929141436_RemovingFieldsAndEditingRelations-sqlite")]
-    partial class RemovingFieldsAndEditingRelationssqlite
+    [Migration("20201005224711_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.3");
+                .HasAnnotation("ProductVersion", "5.0.0-rc.1.20451.13");
 
             modelBuilder.Entity("Core.Entities.Address", b =>
                 {
@@ -36,7 +36,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 570, DateTimeKind.Unspecified).AddTicks(6422), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 378, DateTimeKind.Unspecified).AddTicks(4129), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("District")
                         .HasColumnType("TEXT");
@@ -50,7 +50,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 570, DateTimeKind.Unspecified).AddTicks(6763), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 378, DateTimeKind.Unspecified).AddTicks(4927), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("SecondAddressLine")
                         .HasColumnType("TEXT");
@@ -84,7 +84,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 595, DateTimeKind.Unspecified).AddTicks(9184), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 409, DateTimeKind.Unspecified).AddTicks(4893), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
@@ -108,7 +108,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 595, DateTimeKind.Unspecified).AddTicks(9569), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 409, DateTimeKind.Unspecified).AddTicks(5416), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("MainSupplierName")
                         .HasColumnType("TEXT");
@@ -123,6 +123,9 @@ namespace DAL.Migrations.Local
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Ncm")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("ProdutoId")
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("QuantityInStock")
@@ -159,7 +162,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 596, DateTimeKind.Unspecified).AddTicks(4827), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 410, DateTimeKind.Unspecified).AddTicks(1161), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
@@ -170,7 +173,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 596, DateTimeKind.Unspecified).AddTicks(5203), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 410, DateTimeKind.Unspecified).AddTicks(1959), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("MediaResourceId")
                         .HasColumnType("INTEGER");
@@ -202,7 +205,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 597, DateTimeKind.Unspecified).AddTicks(23), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 411, DateTimeKind.Unspecified).AddTicks(2699), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("EndCustomerDrugPrice")
                         .HasColumnType("TEXT");
@@ -213,7 +216,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 597, DateTimeKind.Unspecified).AddTicks(392), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 411, DateTimeKind.Unspecified).AddTicks(3417), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTimeOffset?>("Pricestartdate")
                         .HasColumnType("TEXT");
@@ -240,7 +243,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 597, DateTimeKind.Unspecified).AddTicks(5144), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 411, DateTimeKind.Unspecified).AddTicks(9873), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("TEXT");
@@ -251,7 +254,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 597, DateTimeKind.Unspecified).AddTicks(5503), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 412, DateTimeKind.Unspecified).AddTicks(481), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
@@ -281,7 +284,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 598, DateTimeKind.Unspecified).AddTicks(25), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 412, DateTimeKind.Unspecified).AddTicks(6344), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
@@ -289,7 +292,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 598, DateTimeKind.Unspecified).AddTicks(365), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 412, DateTimeKind.Unspecified).AddTicks(7002), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("LotCode")
                         .HasColumnType("TEXT");
@@ -327,7 +330,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 598, DateTimeKind.Unspecified).AddTicks(5288), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 413, DateTimeKind.Unspecified).AddTicks(2215), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
@@ -335,7 +338,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 598, DateTimeKind.Unspecified).AddTicks(5630), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 413, DateTimeKind.Unspecified).AddTicks(2696), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("INTEGER");
@@ -367,7 +370,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 592, DateTimeKind.Unspecified).AddTicks(5038), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 405, DateTimeKind.Unspecified).AddTicks(8427), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -379,7 +382,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 592, DateTimeKind.Unspecified).AddTicks(5418), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 405, DateTimeKind.Unspecified).AddTicks(9100), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -409,7 +412,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 567, DateTimeKind.Unspecified).AddTicks(1106), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 373, DateTimeKind.Unspecified).AddTicks(5542), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal?>("Discount")
                         .HasColumnType("TEXT");
@@ -426,7 +429,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 567, DateTimeKind.Unspecified).AddTicks(1505), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 373, DateTimeKind.Unspecified).AddTicks(6333), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("PersonType")
                         .HasColumnType("INTEGER");
@@ -442,7 +445,7 @@ namespace DAL.Migrations.Local
                     b.ToTable("Billings");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.Transaction", b =>
+            modelBuilder.Entity("Core.Entities.Financial.POSOrder", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -451,7 +454,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 554, DateTimeKind.Unspecified).AddTicks(4060), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 353, DateTimeKind.Unspecified).AddTicks(7062), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("HasDealWithStore")
                         .HasColumnType("INTEGER");
@@ -462,7 +465,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 554, DateTimeKind.Unspecified).AddTicks(4587), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 353, DateTimeKind.Unspecified).AddTicks(8241), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("INTEGER");
@@ -472,10 +475,10 @@ namespace DAL.Migrations.Local
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transaction");
+                    b.ToTable("POSOrder");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.TransactionItem", b =>
+            modelBuilder.Entity("Core.Entities.Financial.POSOrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -487,7 +490,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 561, DateTimeKind.Unspecified).AddTicks(5419), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 366, DateTimeKind.Unspecified).AddTicks(4361), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("CustomerValue")
                         .HasColumnType("TEXT");
@@ -504,12 +507,15 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 561, DateTimeKind.Unspecified).AddTicks(5894), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 366, DateTimeKind.Unspecified).AddTicks(5380), new TimeSpan(0, 0, 0, 0, 0)));
 
-                    b.Property<int>("Quantity")
+                    b.Property<int>("POSOrderId")
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("TransactionId")
+                    b.Property<int?>("POSOrderId1")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("Quantity")
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("UniqueCode")
@@ -519,9 +525,11 @@ namespace DAL.Migrations.Local
 
                     b.HasIndex("DrugId");
 
-                    b.HasIndex("TransactionId");
+                    b.HasIndex("POSOrderId");
 
-                    b.ToTable("TransactionItem");
+                    b.HasIndex("POSOrderId1");
+
+                    b.ToTable("POSOrderItem");
                 });
 
             modelBuilder.Entity("Core.Entities.Media.MediaResource", b =>
@@ -536,7 +544,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 561, DateTimeKind.Unspecified).AddTicks(9965), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 367, DateTimeKind.Unspecified).AddTicks(1567), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
@@ -544,7 +552,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 562, DateTimeKind.Unspecified).AddTicks(292), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 367, DateTimeKind.Unspecified).AddTicks(2328), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<long>("Size")
                         .HasColumnType("INTEGER");
@@ -572,7 +580,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 545, DateTimeKind.Unspecified).AddTicks(3030), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 339, DateTimeKind.Unspecified).AddTicks(4379), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
@@ -580,7 +588,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 545, DateTimeKind.Unspecified).AddTicks(3337), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 339, DateTimeKind.Unspecified).AddTicks(5257), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("NfEmissionDate")
                         .HasColumnType("TEXT");
@@ -619,7 +627,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 545, DateTimeKind.Unspecified).AddTicks(7696), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 340, DateTimeKind.Unspecified).AddTicks(2068), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
@@ -627,7 +635,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 545, DateTimeKind.Unspecified).AddTicks(8011), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 340, DateTimeKind.Unspecified).AddTicks(2769), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
                         .HasColumnType("TEXT");
@@ -651,7 +659,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 299, DateTimeKind.Unspecified).AddTicks(1690), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 10, 992, DateTimeKind.Unspecified).AddTicks(9639), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("INTEGER");
@@ -662,7 +670,7 @@ namespace DAL.Migrations.Local
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("TEXT")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 29, 14, 14, 36, 305, DateTimeKind.Unspecified).AddTicks(5361), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 10, 5, 22, 47, 11, 6, DateTimeKind.Unspecified).AddTicks(1525), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("UniqueCode")
                         .HasColumnType("TEXT");
@@ -729,8 +737,8 @@ namespace DAL.Migrations.Local
                     b.HasBaseType("Core.Entities.Financial.Beneficiary");
 
                     b.Property<string>("Cpf")
-                        .HasColumnType("TEXT")
-                        .HasMaxLength(12);
+                        .HasMaxLength(12)
+                        .HasColumnType("TEXT");
 
                     b.HasIndex("AddressId");
 
@@ -744,8 +752,7 @@ namespace DAL.Migrations.Local
                     b.Property<string>("Cnpj")
                         .HasColumnType("TEXT");
 
-                    b.HasIndex("AddressId")
-                        .HasName("IX_beneficiaries_AddressId1");
+                    b.HasIndex("AddressId");
 
                     b.HasDiscriminator().HasValue("Manufacturer");
                 });
@@ -763,6 +770,10 @@ namespace DAL.Migrations.Local
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Media");
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Core.Entities.Catalog.ProductPrice", b =>
@@ -772,6 +783,8 @@ namespace DAL.Migrations.Local
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Core.Entities.Catalog.ProductShelfLife", b =>
@@ -796,6 +809,10 @@ namespace DAL.Migrations.Local
                         .HasForeignKey("StockEntryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("StockEntry");
                 });
 
             modelBuilder.Entity("Core.Entities.Catalog.ProductSupplier", b =>
@@ -803,7 +820,7 @@ namespace DAL.Migrations.Local
                     b.HasOne("Core.Entities.Catalog.Product", "Product")
                         .WithMany("ProductSuppliers")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Stock.Supplier", "Supplier")
@@ -811,19 +828,31 @@ namespace DAL.Migrations.Local
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.TransactionItem", b =>
+            modelBuilder.Entity("Core.Entities.Financial.POSOrderItem", b =>
                 {
                     b.HasOne("Core.Entities.Catalog.Drug", "Drug")
                         .WithMany()
                         .HasForeignKey("DrugId");
 
-                    b.HasOne("Core.Entities.Financial.Transaction", null)
+                    b.HasOne("Core.Entities.Financial.POSOrder", null)
                         .WithMany("Items")
-                        .HasForeignKey("TransactionId")
+                        .HasForeignKey("POSOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Core.Entities.Financial.POSOrder", "POSOrder")
+                        .WithMany()
+                        .HasForeignKey("POSOrderId1");
+
+                    b.Navigation("Drug");
+
+                    b.Navigation("POSOrder");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.StockEntry", b =>
@@ -831,6 +860,8 @@ namespace DAL.Migrations.Local
                     b.HasOne("Core.Entities.Stock.Supplier", "Supplier")
                         .WithMany("Stockentries")
                         .HasForeignKey("SupplierId");
+
+                    b.Navigation("Supplier");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.Supplier", b =>
@@ -838,6 +869,8 @@ namespace DAL.Migrations.Local
                     b.HasOne("Core.Entities.Address", "Address")
                         .WithMany("Suppliers")
                         .HasForeignKey("AddressId");
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Core.Entities.Client", b =>
@@ -847,6 +880,8 @@ namespace DAL.Migrations.Local
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.Manufacturer", b =>
@@ -854,9 +889,52 @@ namespace DAL.Migrations.Local
                     b.HasOne("Core.Entities.Address", "Address")
                         .WithMany("Manufacturer")
                         .HasForeignKey("AddressId")
-                        .HasConstraintName("FK_beneficiaries_addresses_AddressId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Core.Entities.Address", b =>
+                {
+                    b.Navigation("Clients");
+
+                    b.Navigation("Manufacturer");
+
+                    b.Navigation("Suppliers");
+                });
+
+            modelBuilder.Entity("Core.Entities.Catalog.Product", b =>
+                {
+                    b.Navigation("ProductMedias");
+
+                    b.Navigation("ProductPrices");
+
+                    b.Navigation("ProductSuppliers");
+
+                    b.Navigation("ShelfLifes");
+                });
+
+            modelBuilder.Entity("Core.Entities.Financial.POSOrder", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Core.Entities.Stock.StockEntry", b =>
+                {
+                    b.Navigation("Items");
+                });
+
+            modelBuilder.Entity("Core.Entities.Stock.Supplier", b =>
+                {
+                    b.Navigation("Products");
+
+                    b.Navigation("Stockentries");
+                });
+
+            modelBuilder.Entity("Core.Entities.Catalog.Drug", b =>
+                {
+                    b.Navigation("Stockentries");
                 });
 #pragma warning restore 612, 618
         }

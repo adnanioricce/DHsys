@@ -9,8 +9,8 @@ namespace Desktop.MappingProfiles
     {
         public DesktopFinancialProfile()
         {
-            CreateMap<Transaction, TransactionModel>();
-            CreateMap<TransactionModel, Transaction>();
+            CreateMap<POSOrder, TransactionModel>();
+            CreateMap<TransactionModel, POSOrder>();
         }
     }
 }

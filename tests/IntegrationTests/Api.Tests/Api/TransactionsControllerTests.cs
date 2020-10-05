@@ -13,7 +13,7 @@ using Xunit;
 
 namespace Api.Tests
 {
-    public class TransactionsControllerTests : ControllerTestBase<Transaction,TransactionDto>
+    public class TransactionsControllerTests : ControllerTestBase<POSOrder,TransactionDto>
     {        
         public TransactionsControllerTests(ApiTestFixture fixture) : base(fixture)
         {            

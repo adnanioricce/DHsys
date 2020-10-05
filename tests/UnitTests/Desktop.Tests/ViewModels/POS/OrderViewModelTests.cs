@@ -74,7 +74,7 @@ namespace Desktop.ViewModels.Tests
             var drug = DrugSeed.BaseCreateDrugEntity();            
             var drugRepository = new FakeRepository<Drug>(new[] { drug });            
             var mockTransactionService = new Mock<ITransactionService>();
-            mockTransactionService.Setup(m => m.CreateTransactionAsync(It.IsAny<Transaction>()))
+            mockTransactionService.Setup(m => m.CreateTransactionAsync(It.IsAny<POSOrder>()))
                                   .Callback(() => Task.Delay(0));
             var viewModel = new OrderViewModel(mockTransactionService.Object, null);
             // When

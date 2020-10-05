@@ -12408,7 +12408,7 @@ namespace DAL.Migrations.Remote
                         .HasColumnType("timestamp with time zone")
                         .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 18, DateTimeKind.Unspecified).AddTicks(6010), new TimeSpan(0, 0, 0, 0, 0)));
 
-                    b.Property<string>("SupplierName")
+                    b.Property<string>("Name")
                         .HasColumnType("text");
 
                     b.Property<string>("UniqueCode")

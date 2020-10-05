@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Core.Validations
 {
-    public class TransactionValidator : BaseValidator<Transaction>
+    public class TransactionValidator : BaseValidator<POSOrder>
     {
     }
 }

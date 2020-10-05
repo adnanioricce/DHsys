@@ -14,14 +14,14 @@ namespace Services.Tests.Financial
 {
     public class TransactionServiceTests
     {
-        public static Transaction GetSeedTransaction()
+        public static POSOrder GetSeedTransaction()
         {
-            return new Transaction
+            return new POSOrder
             {
                 HasDealWithStore = false,
                 PaymentMethod = PaymentMethods.InHands,
-                Items = new List<TransactionItem> {
-                    new TransactionItem
+                Items = new List<POSOrderItem> {
+                    new POSOrderItem
                     {
                         Drug = DrugSeed.BaseCreateDrugEntity(),
                         DrugUniqueCode = "123456",
@@ -32,17 +32,17 @@ namespace Services.Tests.Financial
                 }
             };
         }
-        public static ITransactionService GetServiceWithSeed(IEnumerable<Transaction> transactions)
+        public static ITransactionService GetServiceWithSeed(IEnumerable<POSOrder> transactions)
         {
-            return new TransactionService(new FakeRepository<Transaction>(transactions), new TransactionValidator());
+            return new TransactionService(new FakeRepository<POSOrder>(transactions), new TransactionValidator());
         }
         public static ITransactionService GetServiceWithSeed()
         {
-            return new TransactionService(new FakeRepository<Transaction>(new[] { GetSeedTransaction() }), new TransactionValidator());
+            return new TransactionService(new FakeRepository<POSOrder>(new[] { GetSeedTransaction() }), new TransactionValidator());
         }
         public static ITransactionService GetService()
         {
-            return new TransactionService(new FakeRepository<Transaction>(), new TransactionValidator());
+            return new TransactionService(new FakeRepository<POSOrder>(), new TransactionValidator());
         }        
 
         [Fact()]
@@ -50,7 +50,7 @@ namespace Services.Tests.Financial
         {
             //Given
             var transaction = GetSeedTransaction();
-            var transactionRepository = new FakeRepository<Transaction>();
+            var transactionRepository = new FakeRepository<POSOrder>();
             var service = new TransactionService(transactionRepository, new TransactionValidator());
             //When
             var result = service.CreateTransaction(transaction);
@@ -69,7 +69,7 @@ namespace Services.Tests.Financial
             var oldTransaction = GetSeedTransaction();
             var oldDate = DateTimeOffset.UtcNow.AddDays(-2);
             oldTransaction.CreatedAt = oldDate;
-            var transactionRepository = new FakeRepository<Transaction>(new[] { transaction ,oldTransaction});
+            var transactionRepository = new FakeRepository<POSOrder>(new[] { transaction ,oldTransaction});
             var service = new TransactionService(transactionRepository, new TransactionValidator());
             // When
             var result = service.GetTodayTransactions();
@@ -82,7 +82,7 @@ namespace Services.Tests.Financial
         public void Given_GetTransactions_When_condition_Should_expect()
         {
             // Given
-            var transactionRepository = new FakeRepository<Transaction>(new[] { GetSeedTransaction() });
+            var transactionRepository = new FakeRepository<POSOrder>(new[] { GetSeedTransaction() });
             var service = new TransactionService(transactionRepository, new TransactionValidator());
             // When
             var transactions = service.GetTransactions();
@@ -100,7 +100,7 @@ namespace Services.Tests.Financial
                 t.CreatedAt = todayDate.AddDays(index % 2.0 == 0.0 ? -1.0 * index : 0.0);
                 return t;
             });
-            var transactionRepository = new FakeRepository<Transaction>(transactions);
+            var transactionRepository = new FakeRepository<POSOrder>(transactions);
             var service = new TransactionService(transactionRepository, new TransactionValidator());
             // When
             var todayTransactions = service.GetTransactionsByDate(todayDate);
@@ -128,13 +128,13 @@ namespace Services.Tests.Financial
             // Given
             var todayDate = DateTimeOffset.UtcNow;
             var transactions = Enumerable.Range(0, 10).Select((i) => {
-                var transaction = new Transaction
+                var transaction = new POSOrder
                 {
                     CreatedAt = i % 2 == 0 ? todayDate : DateTimeOffset.UtcNow.AddDays(-2)
                 };                
                 return transaction;
             });
-            var transactionRepository = new FakeRepository<Transaction>(transactions);
+            var transactionRepository = new FakeRepository<POSOrder>(transactions);
             var service = new TransactionService(transactionRepository, new TransactionValidator());
             // When 
             //var result = Task.Run(async () => await service.GetTodayTransactionsAsync());
@@ -155,7 +155,7 @@ namespace Services.Tests.Financial
                 t.CreatedAt = index % 2.0 == 0 ? todayDate : DateTimeOffset.UtcNow.AddDays(-1.0 * index);
                 return t;
             });
-            var transactionRepository = new FakeRepository<Transaction>(transactions);
+            var transactionRepository = new FakeRepository<POSOrder>(transactions);
             var service = new TransactionService(transactionRepository, new TransactionValidator());
             // When 
             var result = service.GetTransactionsByDateAsync(todayDate).GetAwaiter().GetResult();

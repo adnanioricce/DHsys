@@ -97,14 +97,14 @@ namespace Desktop.ViewModels.POS
 
         public async Task CreatePosOrder()
         {
-            var transactionItems = ReceiptItems.Select(item => new TransactionItem
+            var transactionItems = ReceiptItems.Select(item => new POSOrderItem
             {
                 DrugUniqueCode = item.Drug.UniqueCode,
                 Quantity = item.Quantity,
                 CostPrice = item.Drug.CostPrice,
                 CustomerValue = item.Drug.EndCustomerPrice,
             });
-            var transaction = new Transaction();
+            var transaction = new POSOrder();
             transaction.AddItems(transactionItems.ToArray());
             await _transactionService.CreateTransactionAsync(transaction);
             ReceiptItems.Clear();

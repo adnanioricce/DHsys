@@ -9,7 +9,7 @@ namespace Desktop.Models.POS
         public decimal TransactionTotal { get; set; }
         public virtual PaymentMethods PaymentMethod { get; set; }
         public bool HasDealWithStore { get; set; }
-        public virtual IList<TransactionItem> Items { get; set; } = new List<TransactionItem>();
+        public virtual IList<POSOrderItem> Items { get; set; } = new List<POSOrderItem>();
         public DateTimeOffset CreatedAt { get; set; }
     }
 }

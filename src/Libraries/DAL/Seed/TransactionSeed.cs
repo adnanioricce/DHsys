@@ -3,27 +3,27 @@ using System;
 
 namespace DAL.Seed
 {
-    public class TransactionSeed : IDataObjectSeed<Transaction>
+    public class POSOrderSeed : IDataObjectSeed<POSOrder>
     {
-        public Transaction GetSeedObject()
+        public POSOrder GetSeedObject()
         {
-            var transaction = new Transaction {
+            var POSOrder = new POSOrder {
                 CreatedAt = DateTimeOffset.UtcNow,
                 UniqueCode = Guid.NewGuid().ToString(),
                 HasDealWithStore = false,
                 PaymentMethod = PaymentMethods.InHands
             };
-            var item = new TransactionItem {
+            var item = new POSOrderItem {
                 CostPrice = 23.99m,
                 CreatedAt = DateTimeOffset.UtcNow,
                 CustomerValue = 39.99m,
                 Drug = new DrugSeed().GetSeedObject(),
                 Quantity = 4,
                 UniqueCode = Guid.NewGuid().ToString(),
-                Transaction = transaction
+                POSOrder = POSOrder
             };
-            transaction.AddItems(item);            
-            return transaction;
+            POSOrder.AddItems(item);            
+            return POSOrder;
         }
     }
 }
