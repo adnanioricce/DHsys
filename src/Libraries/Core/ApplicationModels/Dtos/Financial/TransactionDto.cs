@@ -16,25 +16,5 @@ namespace Core.ApplicationModels.Dtos.Financial
 
         public IList<TransactionItemDto> Items { get; set; }
 
-        public static TransactionDto FromModel(Transaction model)
-        {
-            return new TransactionDto()
-            {
-                TransactionTotal = model.TransactionTotal, 
-                PaymentMethod = model.PaymentMethod, 
-                HasDealWithStore = model.HasDealWithStore, 
-                Items = model.Items.Select(it =>TransactionItemDto.FromModel(it)).ToList() 
-            }; 
-        }
-
-        public Transaction ToModel()
-        {
-            return new Transaction()
-            {                
-                PaymentMethod = PaymentMethod, 
-                HasDealWithStore = HasDealWithStore, 
-                Items = Items.Select(it => it.ToModel()).ToList(), 
-            }; 
-        }
     }
 }

@@ -30,7 +30,7 @@ namespace Desktop.Tests.ViewModels
         {
             var mockDrugProdutoMediator = new Mock<IDrugProdutoMediator>();
             mockDrugProdutoMediator.Setup(m => m.CreateDrugFrom(It.IsAny<Drug>()))
-            .Callback((Drug drug) => fakeRepository.Add(drug));
+                                   .Callback((Drug drug) => fakeRepository.Add(drug));
             return mockDrugProdutoMediator.Object;
         }
     }

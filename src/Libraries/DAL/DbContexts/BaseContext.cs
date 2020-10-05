@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DAL.DbContexts
@@ -17,7 +18,8 @@ namespace DAL.DbContexts
         {            
         }
         protected BaseContext(DbContextOptions options) : base(options)
-        {            
+        {
+            
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,22 +27,31 @@ namespace DAL.DbContexts
             var assemblyWithConfigurations = GetType().Assembly;
             modelBuilder.ApplyConfigurationsFromAssembly(assemblyWithConfigurations);
         }
-        public override int SaveChanges()
+        protected void PrepareEntities()
         {
             var entries = ChangeTracker.Entries()
                                        .Where(e => e.Entity is BaseEntity && (e.State == EntityState.Added || e.State == EntityState.Modified));
 
             foreach (var entityEntry in entries)
             {
-                ((BaseEntity)entityEntry.Entity).LastUpdatedOn = DateTimeOffset.Now;
+                ((BaseEntity)entityEntry.Entity).LastUpdatedOn = DateTimeOffset.UtcNow;
 
                 if (entityEntry.State == EntityState.Added)
                 {
-                    ((BaseEntity)entityEntry.Entity).CreatedAt = DateTimeOffset.Now;
-                }
+                    ((BaseEntity)entityEntry.Entity).CreatedAt = DateTimeOffset.UtcNow;
+                }                
             }
 
+        }
+        public override int SaveChanges()
+        {
+            PrepareEntities();
             return base.SaveChanges();
+        }
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            PrepareEntities();
+            return base.SaveChangesAsync(cancellationToken);
         }
         #region Untested/Not implemented
         //Need to think better about how to implement this

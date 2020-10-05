@@ -1,5 +1,6 @@
 ﻿using DAL.DbContexts;
 using DAL.Extensions;
+using DAL.Seed;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
@@ -42,8 +44,8 @@ namespace Tests.Lib
             throw new Exception($"Project root could not be located using the application root {applicationBasePath}.");
         }
 
-        private TestServer Server;
-        public IServiceProvider ServiceProvider;        
+        protected TestServer Server;
+        public IServiceProvider ServiceProvider;
 
         public TestFixture()
             : this(Path.Combine(""))
@@ -51,11 +53,10 @@ namespace Tests.Lib
             
         }
 
-        public HttpClient Client { get; }
+        public HttpClient Client { get; protected set; }
 
         public void Dispose()
-        {
-            var context = GetRemoteContext();           
+        {            
             Client.Dispose();
             Server.Dispose();
         }
@@ -76,8 +77,18 @@ namespace Tests.Lib
                     new ViewComponentFeatureProvider()
                 }
             };
-
+            
             services.AddSingleton(manager);
+            var objectSeedType = typeof(IDataObjectSeed<>);
+            var seedObjects = Assembly.GetAssembly(typeof(DAL.DALAssembly))
+                                      .GetTypes()
+                                      .Where(t => t.GetInterfaces().Any(it => it.IsGenericType && it.Name == objectSeedType.Name))
+                                      .ToList();            
+            foreach (var seeder in seedObjects)
+            {
+                var objectInterface = seeder.GetInterface(objectSeedType.Name);
+                services.AddSingleton(objectInterface, seeder);
+            }
         }
 
         protected TestFixture(string relativeTargetProjectParentDir)
@@ -103,9 +114,8 @@ namespace Tests.Lib
             Client = Server.CreateClient();
             Client.BaseAddress = Server.BaseAddress;
             Client.DefaultRequestHeaders.Accept.Clear();
-            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            ServiceProvider = Server.Services;
-            var context = GetRemoteContext();            
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));            
+            ServiceProvider = Server.Services;                  
         }
         public BaseContext GetRemoteContext()
         {

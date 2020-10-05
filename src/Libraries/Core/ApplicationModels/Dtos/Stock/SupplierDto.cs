@@ -20,31 +20,6 @@ namespace Core.ApplicationModels.Dtos.Stock
         public ICollection<ProductSupplierDto> Products { get; set; }
 
         public ICollection<StockEntryDto> Stockentries { get; set; }
-
-        public static SupplierDto FromModel(Supplier model)
-        {
-            return new SupplierDto()
-            {
-                AddressId = model.AddressId, 
-                SupplierName = model.SupplierName, 
-                Cnpj = model.Cnpj, 
-                Address = AddressDto.FromModel(model.Address), 
-                Products = model.Products.Select(p => ProductSupplierDto.FromModel(p)).ToList(), 
-                Stockentries = model.Stockentries.Select(st => StockEntryDto.FromModel(st)).ToList()
-            }; 
-        }
-
-        public Supplier ToModel()
-        {
-            return new Supplier()
-            {
-                AddressId = AddressId, 
-                SupplierName = SupplierName, 
-                Cnpj = Cnpj, 
-                Address = Address.ToModel(), 
-                Products = Products.Select(p => p.ToModel()).ToList(), 
-                Stockentries = Stockentries.Select(st => st.ToModel()).ToList(), 
-            }; 
-        }
+        
     }
 }

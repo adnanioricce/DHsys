@@ -17,7 +17,7 @@ namespace Desktop.ViewModels.POS
         private readonly ITransactionService _transacionService;
         private readonly IMapper _mapper;
         //used internally to update front transaction to show on UI
-        private IEnumerable<Transaction> BackTransactions = new List<Transaction>();
+        private IEnumerable<POSOrder> BackTransactions = new List<POSOrder>();
         public ObservableCollection<TransactionModel> FrontTransactions { get; set; } = new ObservableCollection<TransactionModel>();
         public RelayCommand LoadCommand { get; set; }
         public RelayCommand<DateTimeOffset> GetTransactionsByDateCommand { get; set; }
@@ -35,7 +35,7 @@ namespace Desktop.ViewModels.POS
             await foreach(var transaction in transactions)
             {
                 BackTransactions.Append(transaction);
-                FrontTransactions.Add(_mapper.Map<Transaction,TransactionModel>(transaction));
+                FrontTransactions.Add(_mapper.Map<POSOrder,TransactionModel>(transaction));
             }
         }
         public void ExecuteGetTransactionsByDate(DateTimeOffset date)
@@ -44,7 +44,7 @@ namespace Desktop.ViewModels.POS
             var nextCollection = new ObservableCollection<TransactionModel>();
             foreach (var transaction in transactionsByDate)
             {
-                nextCollection.Add(_mapper.Map<Transaction,TransactionModel>(transaction));
+                nextCollection.Add(_mapper.Map<POSOrder,TransactionModel>(transaction));
             }
             FrontTransactions = nextCollection;
         }        

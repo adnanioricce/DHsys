@@ -8,7 +8,7 @@ using Core.Entities.Stock;
 namespace Core.ApplicationModels.Dtos.Stock
 {
     public class StockEntryDto
-    {
+    {        
         public int Id { get; set; }
         public int? SupplierId { get; set; }
 
@@ -26,38 +26,6 @@ namespace Core.ApplicationModels.Dtos.Stock
 
         public IList<DrugDto> Drugs { get; set; }
 
-        public SupplierDto Supplier { get; set; }
-
-        public static StockEntryDto FromModel(StockEntry model)
-        {
-            return new StockEntryDto()
-            {
-                SupplierId = model.SupplierId, 
-                Quantity = model.Quantity, 
-                DrugMaturityDate = model.DrugMaturityDate, 
-                NfNumber = model.NfNumber, 
-                NfEmissionDate = model.NfEmissionDate, 
-                Totalcost = model.Totalcost, 
-                LotCode = model.LotCode, 
-                Drugs = model.Drugs.Select(d => DrugDto.FromModel(d)).ToList(), 
-                Supplier = SupplierDto.FromModel(model.Supplier), 
-            }; 
-        }
-
-        public StockEntry ToModel()
-        {
-            return new StockEntry()
-            {
-                SupplierId = SupplierId, 
-                Quantity = Quantity, 
-                DrugMaturityDate = DrugMaturityDate, 
-                NfNumber = NfNumber, 
-                NfEmissionDate = NfEmissionDate, 
-                Totalcost = Totalcost, 
-                LotCode = LotCode, 
-                Drugs = Drugs.Select(d => d.ToModel()).ToList(), 
-                Supplier = Supplier.ToModel(), 
-            }; 
-        }
+        public SupplierDto Supplier { get; set; }        
     }
 }

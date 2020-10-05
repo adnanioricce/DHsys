@@ -15,16 +15,16 @@ namespace Api.Controllers.Api
 {
     [Route("api/[Controller]")]
     [ApiController]
-    public class TransactionsController : DefaultApiController<Transaction,TransactionDto>
+    public class TransactionsController : DefaultApiController<POSOrder,TransactionDto>
     {
         protected readonly ITransactionService _transactionService;
-        protected readonly IRepository<Transaction> _transactionRepository;
+        protected readonly IRepository<POSOrder> _transactionRepository;
         protected readonly IRepository<Drug> _drugRepository;        
         public TransactionsController(ITransactionService transactionService,
-            IRepository<Transaction> transactionRepository,
+            IRepository<POSOrder> transactionRepository,
             IRepository<Drug> drugRepository,
             IMapper mapper,
-            BaseValidator<Transaction> drugValidator) : base(transactionRepository,mapper,drugValidator)
+            BaseValidator<POSOrder> drugValidator) : base(transactionRepository,mapper,drugValidator)
         {
             _transactionRepository = transactionRepository;
             _transactionService = transactionService;
@@ -34,7 +34,7 @@ namespace Api.Controllers.Api
         public override async Task<ActionResult<BaseResourceResponse>> CreateAsync([FromBody]TransactionDto transactionDto)
         {
             if (transactionDto is null) return BadRequest("invalid request, body was null");
-            var transaction = transactionDto.ToModel();
+            var transaction = _mapper.Map<TransactionDto,POSOrder>(transactionDto);
             try
             {
                 var result = await _transactionService.CreateTransactionAsync(transaction);

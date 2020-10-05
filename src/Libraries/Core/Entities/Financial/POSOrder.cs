@@ -4,21 +4,21 @@ using System.Linq;
 
 namespace Core.Entities.Financial
 {
-    public class Transaction : BaseEntity
+    public class POSOrder : BaseEntity
     {
-        public Transaction()
+        public POSOrder()
         {
             HasDealWithStore = false;
         }
-        public decimal TransactionTotal { get { return CalculateTransactionTotal(); } }
+        public decimal OrderTotal { get { return CalculateTransactionTotal(); } }
         public virtual PaymentMethods PaymentMethod { get; set; }
         public bool HasDealWithStore { get; set; }
-        public virtual IList<TransactionItem> Items { get; set; } = new List<TransactionItem>();         
-        public void AddItem(TransactionItem item)
+        public virtual IList<POSOrderItem> Items { get; set; } = new List<POSOrderItem>();         
+        public void AddItem(POSOrderItem item)
         {
             Items.Add(item);
         }
-        public void AddItems(params TransactionItem[] items)
+        public void AddItems(params POSOrderItem[] items)
         {
             foreach (var item in items)
             {

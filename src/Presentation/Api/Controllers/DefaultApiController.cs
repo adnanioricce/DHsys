@@ -2,6 +2,7 @@
 using Core.Entities;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
+using Core.Validations;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNet.OData;
@@ -22,7 +23,7 @@ namespace Api.Controllers
         protected readonly IRepository<TEntity> _repository;
         protected readonly IValidator _validator;
         protected readonly IMapper _mapper;
-        public DefaultApiController(IRepository<TEntity> repository, IMapper mapper,IValidator<TEntity> validator)
+        public DefaultApiController(IRepository<TEntity> repository, IMapper mapper,BaseValidator<TEntity> validator)
         {
             _repository = repository;
             _mapper = mapper;
@@ -70,6 +71,7 @@ namespace Api.Controllers
             }
         }
         [HttpGet("{id}")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 200)]
         [ProducesResponseType(typeof(BaseResourceResponse), 404)]
         [ProducesResponseType(typeof(BaseResourceResponse), 500)]
@@ -93,6 +95,7 @@ namespace Api.Controllers
             }            
         }
         [HttpPut("{id}")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 200)]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> UpdateAsync([FromRoute]int id, [FromBody]TEntityDto dto)
@@ -112,11 +115,12 @@ namespace Api.Controllers
             }
         }
         [HttpDelete("{id}")]
+        [Produces("application/json")]
         [ProducesResponseType(typeof(BaseResourceResponse), 200)]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> DeleteAsync(int id)
         {
-            var entity = await _repository.GetByAsync(id);
+            var entity = await _repository.GetByWithNoTrackingAsync(id);
             try
             {
                 _repository.Delete(entity);

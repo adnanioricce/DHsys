@@ -11,10 +11,11 @@ namespace DAL.DataMappings.Catalog
             mapper.ToTable("Products");
             mapper.HasMany(r => r.ProductSuppliers)
                   .WithOne(ps => ps.Product)
-                  .OnDelete(DeleteBehavior.Restrict);
+                  .OnDelete(DeleteBehavior.Cascade);
             mapper.HasMany(p => p.ProductMedias)
                   .WithOne(p => p.Product)
-                  .HasForeignKey(p => p.ProductId);            
+                  .HasForeignKey(p => p.ProductId)
+                  .OnDelete(DeleteBehavior.Cascade);            
             base.Configure(mapper);
         }
     }

@@ -13,10 +13,10 @@ using Serilog;
 
 namespace Api.Controllers.Api
 {    
-    public class DrugsController : DefaultApiController<Drug,DrugDto>
+    public class DrugController : DefaultApiController<Drug,DrugDto>
     {
         private readonly IDrugService _drugService;        
-        public DrugsController(IRepository<Drug> drugRepository,IMapper mapper,BaseValidator<Drug> drugValidator, IDrugService drugService) : base(drugRepository,mapper,drugValidator)
+        public DrugController(IRepository<Drug> drugRepository,IMapper mapper,BaseValidator<Drug> drugValidator, IDrugService drugService) : base(drugRepository,mapper,drugValidator)
         {
             _drugService = drugService;
         }

@@ -16,25 +16,25 @@ namespace Application.Services.Financial
 {
     public class TransactionService : ITransactionService
     {
-        protected readonly IRepository<Transaction> _transactionRepository;        
-        protected readonly BaseValidator<Transaction> _validator;
-        public TransactionService(IRepository<Transaction> transactionRepository,BaseValidator<Transaction> transactionValidator)
+        protected readonly IRepository<POSOrder> _transactionRepository;        
+        protected readonly BaseValidator<POSOrder> _validator;
+        public TransactionService(IRepository<POSOrder> transactionRepository,BaseValidator<POSOrder> transactionValidator)
         {
             _transactionRepository = transactionRepository;
             _validator = transactionValidator;
         }
-        public BaseResult<Transaction> CreateTransaction(Transaction transaction)
+        public BaseResult<POSOrder> CreateTransaction(POSOrder transaction)
         {            
             _transactionRepository.Add(transaction);
             _transactionRepository.SaveChanges();
-            return new BaseResult<Transaction>
+            return new BaseResult<POSOrder>
             {
                 Success = true,
                 Value = transaction            
             };
         }
 
-        public IEnumerable<Transaction> GetTodayTransactions()
+        public IEnumerable<POSOrder> GetTodayTransactions()
         {
             foreach(var transaction in _transactionRepository.Query())
             {
@@ -45,39 +45,39 @@ namespace Application.Services.Financial
             }            
         }
 
-        public IEnumerable<Transaction> GetTransactions()
+        public IEnumerable<POSOrder> GetTransactions()
         {            
             return _transactionRepository.GetAll();
         }
 
-        public IEnumerable<Transaction> GetTransactionsByDate(DateTimeOffset dateTime)
+        public IEnumerable<POSOrder> GetTransactionsByDate(DateTimeOffset dateTime)
         {
             return _transactionRepository.Query().Where(d => d.CreatedAt >= dateTime);                
         }        
 
-        public async Task<BaseResult<Transaction>> CreateTransactionAsync(Transaction transaction)
+        public async Task<BaseResult<POSOrder>> CreateTransactionAsync(POSOrder transaction)
         {
             var validationResult = _validator.Validate(transaction);
             if (!validationResult.IsValid) {
                 AppLogger.Log.Information("Failed to validate transaction at {className}. Validation Result:{@validationResult}", this.GetType().Name, validationResult);
-                return BaseResult<Transaction>.CreateFailResult(validationResult.Errors.Select(e => $"validation {e.Severity} failed for property {e.PropertyName} with code {e.ErrorCode}. Reason:{e.ErrorMessage}"),transaction);
+                return BaseResult<POSOrder>.CreateFailResult(validationResult.Errors.Select(e => $"validation {e.Severity} failed for property {e.PropertyName} with code {e.ErrorCode}. Reason:{e.ErrorMessage}"),transaction);
             }
             _transactionRepository.Add(transaction);
             await _transactionRepository.SaveChangesAsync();
-            return new BaseResult<Transaction>
+            return new BaseResult<POSOrder>
             {
                 Success = true,
                 Value = transaction
             };
         }
 
-        public IAsyncEnumerable<Transaction> GetTodayTransactionsAsync()
+        public IAsyncEnumerable<POSOrder> GetTodayTransactionsAsync()
         {
             return _transactionRepository.GetAsyncEnumerable()
                                          .Where(t => t.CreatedAt.Day == DateTimeOffset.UtcNow.Day);
         }
 
-        public async Task<IEnumerable<Transaction>> GetTransactionsByDateAsync(DateTimeOffset dateTime)
+        public async Task<IEnumerable<POSOrder>> GetTransactionsByDateAsync(DateTimeOffset dateTime)
         {
             return await GetTransactionsByDate(dateTime).AsQueryable()
                                                         .ToListAsync();

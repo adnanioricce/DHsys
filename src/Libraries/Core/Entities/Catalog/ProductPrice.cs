@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Core.Entities.Catalog
 {
@@ -18,10 +17,11 @@ namespace Core.Entities.Catalog
         {
             ProductId = productId;
         }
-        public int ProductId { get; set; }
+        
         public DateTimeOffset? Pricestartdate { get; set; } = DateTimeOffset.UtcNow;
         public decimal EndCustomerDrugPrice { get; set; }
         public decimal CostPrice { get; set; }
+        public int ProductId { get; set; }
         public virtual Product Product { get; set; }
         public virtual decimal CalculatePercentageSaving()
         {

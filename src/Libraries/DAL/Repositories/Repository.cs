@@ -60,14 +60,8 @@ namespace DAL
             return Context.Set<T>().FromSqlRaw<T>(sql,parameters);
         }
         public virtual void Update(T entity)
-        {
-            try
-            {
-                DbSet.Update(entity);
-            }catch(Exception ex)
-            {
-                throw;
-            }
+        {            
+            DbSet.Update(entity);
         }
 
         public virtual int SaveChanges()
@@ -105,6 +99,10 @@ namespace DAL
         {
             return await Context.FindAsync<T>(uniqueCode);
         }
+        public Task<T> GetByWithNoTrackingAsync(int id)
+        {
+            return Context.Set<T>().AsNoTracking().OrderBy(e => e.Id).FirstOrDefaultAsync(e => e.Id == id);
+        }
 
         public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
@@ -115,5 +113,6 @@ namespace DAL
         {
             return await Context.SaveChangesAsync();
         }
+       
     }
 }

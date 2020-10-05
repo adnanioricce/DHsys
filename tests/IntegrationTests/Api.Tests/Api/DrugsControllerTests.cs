@@ -19,25 +19,21 @@ using Newtonsoft.Json;
 
 namespace Api.Tests
 {
-    public class DrugsControllerTests : IClassFixture<TestFixture<Startup>>
-    {
-        private readonly HttpClient _client;
-        private readonly TestFixture<Startup> _fixture;
-        public DrugsControllerTests(TestFixture<Startup> fixture)
-        {            
-            _fixture = fixture;
-            _client = _fixture.Client;
+    public class DrugsControllerTests : ControllerTestBase<Drug,DrugDto>
+    {        
+        public DrugsControllerTests(ApiTestFixture fixture) : base(fixture)
+        {                        
         }        
         [Fact]
         public async Task GET_GetDrugsByName_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var baseUrl = "api/Drugs/search/list?name={0}&api-version=1.0";                                    
+            var baseUrl = "api/Drug/search/list?name={0}&api-version=1.0";                                    
             var drug = DrugSeed.GetDataForHttpGetMethods().FirstOrDefault();
             var context = _fixture.GetRemoteContext();
             context.Add(drug);
             context.SaveChanges();
-            string requestUrl = string.Format(baseUrl, drug.DrugName);
+            string requestUrl = string.Format(baseUrl, drug.Name);
             // Act            
             var result = await _client.GetAsync(requestUrl);
             result.EnsureSuccessStatusCode();
@@ -51,7 +47,7 @@ namespace Api.Tests
         public async Task GET_GetDrugByBarCode_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            string baseUrl = "api/Drugs/search/{0}?api-version=1.0";                                    
+            string baseUrl = "api/Drug/search/{0}?api-version=1.0";                                    
             var drug = DrugSeed.GetDataForHttpGetMethods().FirstOrDefault();
             var context = _fixture.GetRemoteContext();
             context.Add(drug);
@@ -72,9 +68,9 @@ namespace Api.Tests
         public async Task POST_CreateDrug_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            string request_url = "api/Drugs/create?api-version=1.0";            
+            string request_url = "api/Drug/create?api-version=1.0";            
             var drug = new Drug { 
-                DrugName = "Dipirona GTS 5mg",
+                Name = "Dipirona GTS 5mg",
                 Description = "Dipirona GTS 5mg",
                 DiscountValue = 0,
                 Ncm = "300025567889",
@@ -84,9 +80,7 @@ namespace Api.Tests
                 ReorderLevel = 1,
                 ReorderQuantity = 5,
                 QuantityInStock = 2,
-                UniqueCode = "123456",
-                //Produto = GetBaseProduto()
-                ProdutoId = "1"
+                UniqueCode = "123456",                
             };
 
             // Act

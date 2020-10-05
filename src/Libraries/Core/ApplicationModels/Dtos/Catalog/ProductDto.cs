@@ -32,8 +32,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
             ProductSuppliers = dto.ProductSuppliers;
             ProductPrices = dto.ProductPrices;
             Stockentries = dto.Stockentries;
-            ShelfLifes = dto.ShelfLifes;            
-            ProdutoId = dto.ProdutoId;
+            ShelfLifes = dto.ShelfLifes;                        
         }
         public int Id { get; set; }
         public string Ncm { get; set; }
@@ -75,65 +74,6 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public ICollection<ProductStockEntryDto> Stockentries { get; set; } = new List<ProductStockEntryDto>();
 
         public ICollection<ProductShelfLifeDto> ShelfLifes { get; set; } = new List<ProductShelfLifeDto>();        
-
-        public string ProdutoId { get; set; }
-
-        public static ProductDto FromModel(Product model)
-        {
-            return new ProductDto()
-            {
-                Ncm = model.Ncm, 
-                QuantityInStock = model.QuantityInStock, 
-                ReorderLevel = model.ReorderLevel, 
-                ReorderQuantity = model.ReorderQuantity, 
-                EndCustomerPrice = model.EndCustomerPrice, 
-                CostPrice = model.CostPrice, 
-                SavingPercentage = model.SavingPercentage, 
-                BarCode = model.BarCode, 
-                Description = model.Description, 
-                Section = model.Section, 
-                MaxDiscountPercentage = model.MaxDiscountPercentage, 
-                DiscountValue = model.DiscountValue, 
-                Commission = model.Commission, 
-                ICMS = model.ICMS, 
-                MinimumStock = model.MinimumStock, 
-                MainSupplierName = model.MainSupplierName, 
-                ProductSuppliers = model.ProductSuppliers.Select(p => ProductSupplierDto.FromModel(p)).ToList(), 
-                ProductPrices = model.ProductPrices.Select(p => ProductPriceDto.FromModel(p)).ToList(), 
-                Stockentries = model.Stockentries.Select(p => ProductStockEntryDto.FromModel(p)).ToList(), 
-                ShelfLifes = model.ShelfLifes.Select(p => ProductShelfLifeDto.FromModel(p)).ToList(), 
-                //Produto = ProdutoDto.FromModel(model.Produto), 
-                ProdutoId = model.ProdutoId, 
-            }; 
-        }
-
-        public Product ToModel()
-        {
-            return new Product()
-            {
-                Ncm = Ncm, 
-                QuantityInStock = QuantityInStock, 
-                ReorderLevel = ReorderLevel, 
-                ReorderQuantity = ReorderQuantity, 
-                EndCustomerPrice = EndCustomerPrice, 
-                CostPrice = CostPrice, 
-                SavingPercentage = SavingPercentage, 
-                BarCode = BarCode, 
-                Description = Description, 
-                Section = Section, 
-                MaxDiscountPercentage = MaxDiscountPercentage, 
-                DiscountValue = DiscountValue, 
-                Commission = Commission, 
-                ICMS = ICMS, 
-                MinimumStock = MinimumStock, 
-                MainSupplierName = MainSupplierName, 
-                ProductSuppliers = ProductSuppliers.Select(p => p.ToModel()).ToList(), 
-                ProductPrices = ProductPrices.Select(p => p.ToModel()).ToList(), 
-                Stockentries = Stockentries.Select(p => p.ToModel()).ToList(), 
-                ShelfLifes = ShelfLifes.Select(p => p.ToModel()).ToList(), 
-                //Produto = Produto.ToModel(), 
-                ProdutoId = ProdutoId, 
-            }; 
-        }
+                
     }
 }

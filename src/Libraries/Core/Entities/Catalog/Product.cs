@@ -1,4 +1,5 @@
 using Core.Entities.Media;
+using Core.Entities.Stock;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -94,6 +95,7 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public string Name { get; set; }
+        
         /// <summary>
         /// Get or set the Many-To-Many reference to the Supplier Entity
         /// </summary>
@@ -106,25 +108,22 @@ namespace Core.Entities.Catalog
         /// get or set collection of Shelf life 
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();                
-        #region Legacy field models        
-        public string ProdutoId { get; set; }        
-        #endregion
-        
+        public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();
+        #region Legacy Fields
+        public string ProdutoId { get; set; }
+        #endregion        
         #region Methods
         public virtual void UpdatePrice(ProductPrice price)
         {
             this.ProductPrices.Add(price);
             this.EndCustomerPrice = price.EndCustomerDrugPrice;
             this.CostPrice = price.CostPrice;
-            this.SavingPercentage = price.CalculatePercentageSaving();
-            //this.Produto.Prfabr = Convert.ToDouble(this.CostPrice);
-            //this.Produto.Prcons = Convert.ToDouble(this.EndCustomerPrice);
-        }
-        public virtual void UpdatePrice(decimal newEndCustomerPriceValue,decimal newCostPrice)
+            this.SavingPercentage = price.CalculatePercentageSaving();            
+        }        
+        public virtual void UpdatePrice(decimal newEndCustomerPriceValue,decimal newCostPrice,DateTimeOffset? startDate = null)
         {
             var price = new ProductPrice{
-                Pricestartdate = DateTimeOffset.UtcNow,
+                Pricestartdate = startDate.HasValue ? startDate : DateTimeOffset.UtcNow,
                 EndCustomerDrugPrice = newEndCustomerPriceValue,
                 CostPrice = newCostPrice,
                 ProductId = this.Id,
@@ -145,10 +144,25 @@ namespace Core.Entities.Catalog
             };
             ProductMedias.Add(productMedia);
         }
+        public virtual void AddSupplier(Supplier supplier)
+        {
+            if(!this.ProductSuppliers.Any(s => s.SupplierId == supplier.Id))
+            {
+                var productSupplier = new ProductSupplier
+                {
+                    Product = this,
+                    Supplier = supplier,
+                };
+                ProductSuppliers.Add(productSupplier);
+                
+            }
+        }
+        
         public virtual ProductMedia GetThumbnailImage()
         {
             return ProductMedias.Where(p => p.IsThumbnail && p.Media.Type == Media.MediaType.Image).FirstOrDefault();
         }
+        
         #endregion
     }   
 }

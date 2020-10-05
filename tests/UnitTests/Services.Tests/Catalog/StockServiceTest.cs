@@ -57,7 +57,7 @@ namespace Services.Tests.Catalog
             var newDrug = DrugSeed.BaseCreateDrugEntity();            
             oldDrug.Ncm = "300024567";
             newDrug.Ncm = oldDrug.Ncm;                                                      
-            newDrug.DrugCost += 0.01m;
+            newDrug.CostPrice += 0.01m;
             var service = new StockService(new FakeRepository<StockEntry>(),
             new DrugService(new FakeRepository<Drug>(new Drug[]{oldDrug})));
             //When

@@ -28,7 +28,7 @@ namespace Application.Services
                                          .Select(st => st.Given);
             var existingEntries = existingAndNewEntries.Where(st => !(st.Existing is null));           
             foreach(var (Existing, Given) in existingEntries){                                                
-                Existing.AddDrugs(Given.Drugs);                
+                Given.Items.ToList().ForEach(given => Existing.AddEntry(given));                
             }
             _stockEntryRepository.AddRange(newEntries);
             _stockEntryRepository.AddRange(existingEntries.Select(st => st.Existing));
@@ -58,7 +58,7 @@ namespace Application.Services
         {                        
             var drugsDict = drugs.ToDictionary(d => d.Ncm);            
             var existingDrugs = _drugService.GetDrugsByNcm(drugs.Select(d => d.Ncm));
-            return existingDrugs.Where(d => drugs.Any(dd => dd.Ncm == d.Ncm && dd.DrugCost != d.DrugCost));
+            return existingDrugs.Where(d => drugs.Any(dd => dd.Ncm == d.Ncm && dd.CostPrice != d.CostPrice));
         }        
     }
 }

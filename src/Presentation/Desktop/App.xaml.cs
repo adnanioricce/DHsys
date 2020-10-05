@@ -61,7 +61,6 @@ namespace Desktop
             }
             base.OnExit(e);
         }
-
         private void ConfigureServices(IConfiguration configuration, IServiceCollection services){
             //Creating assembly reference file
             var assembly = Assembly.GetExecutingAssembly();

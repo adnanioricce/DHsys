@@ -9,5 +9,8 @@
 	<String Id="ProductName_x86">DHsys Desktop(32bit)</String>
   <String Id="ProductName_x64">DHsys Desktop(64bit)</String>
   <String Id="Language">1033</String>
+<<<<<<< HEAD
   <String Id="NewerVersionDetected">No newer Version detected</String>
+=======
+>>>>>>> b20b89e6e04442a3b590457efadaaab5cad16133
 </WixLocalization>

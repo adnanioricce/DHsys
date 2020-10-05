@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace DAL.Migrations.Remote
 {
-    public partial class AddingTransactions : Migration
+    public partial class AddingPOSOrders : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -1546,230 +1546,6 @@ namespace DAL.Migrations.Remote
                 table: "beneficiaries",
                 newName: "IX_beneficiaries_AddressId");
 
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "Syncronization",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 307, DateTimeKind.Unspecified).AddTicks(231), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 40, 785, DateTimeKind.Unspecified).AddTicks(5173), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "Syncronization",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 300, DateTimeKind.Unspecified).AddTicks(9413), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 40, 783, DateTimeKind.Unspecified).AddTicks(848), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "Supplier",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 520, DateTimeKind.Unspecified).AddTicks(5413), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 18, DateTimeKind.Unspecified).AddTicks(6010), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "Supplier",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 520, DateTimeKind.Unspecified).AddTicks(5095), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 18, DateTimeKind.Unspecified).AddTicks(5539), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "StockEntry",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 520, DateTimeKind.Unspecified).AddTicks(562), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 17, DateTimeKind.Unspecified).AddTicks(7771), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "StockEntry",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 520, DateTimeKind.Unspecified).AddTicks(234), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 17, DateTimeKind.Unspecified).AddTicks(7238), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "ProductSupplier",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 589, DateTimeKind.Unspecified).AddTicks(7238), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 78, DateTimeKind.Unspecified).AddTicks(570), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "ProductSupplier",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 589, DateTimeKind.Unspecified).AddTicks(6866), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 77, DateTimeKind.Unspecified).AddTicks(9607), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "ProductStockEntry",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 589, DateTimeKind.Unspecified).AddTicks(1655), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 76, DateTimeKind.Unspecified).AddTicks(7110), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "ProductStockEntry",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 589, DateTimeKind.Unspecified).AddTicks(1242), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 76, DateTimeKind.Unspecified).AddTicks(6605), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "ProductShelfLife",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 588, DateTimeKind.Unspecified).AddTicks(5855), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 75, DateTimeKind.Unspecified).AddTicks(9616), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "ProductShelfLife",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 588, DateTimeKind.Unspecified).AddTicks(5530), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 75, DateTimeKind.Unspecified).AddTicks(9155), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<string>(
-                name: "ProdutoId",
-                table: "Products",
-                nullable: true,
-                oldClrType: typeof(int),
-                oldType: "integer",
-                oldNullable: true);
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "Products",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 587, DateTimeKind.Unspecified).AddTicks(6611), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 68, DateTimeKind.Unspecified).AddTicks(838), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "Products",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 587, DateTimeKind.Unspecified).AddTicks(6198), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 68, DateTimeKind.Unspecified).AddTicks(408), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "ProductPrice",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 588, DateTimeKind.Unspecified).AddTicks(1423), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 75, DateTimeKind.Unspecified).AddTicks(2218), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "ProductPrice",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 588, DateTimeKind.Unspecified).AddTicks(1072), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 75, DateTimeKind.Unspecified).AddTicks(1678), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "DrugInformation",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 586, DateTimeKind.Unspecified).AddTicks(326), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 68, DateTimeKind.Unspecified).AddTicks(8154), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "DrugInformation",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 585, DateTimeKind.Unspecified).AddTicks(9984), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 68, DateTimeKind.Unspecified).AddTicks(7749), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "Billings",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 557, DateTimeKind.Unspecified).AddTicks(2557), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 37, DateTimeKind.Unspecified).AddTicks(7832), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "Billings",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 557, DateTimeKind.Unspecified).AddTicks(2122), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 37, DateTimeKind.Unspecified).AddTicks(7278), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "beneficiaries",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 584, DateTimeKind.Unspecified).AddTicks(9489), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 67, DateTimeKind.Unspecified).AddTicks(1459), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "beneficiaries",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 584, DateTimeKind.Unspecified).AddTicks(9142), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 67, DateTimeKind.Unspecified).AddTicks(1000), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "LastUpdatedOn",
-                table: "addresses",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 561, DateTimeKind.Unspecified).AddTicks(56), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 38, DateTimeKind.Unspecified).AddTicks(9839), new TimeSpan(0, 0, 0, 0, 0)));
-
-            migrationBuilder.AlterColumn<DateTimeOffset>(
-                name: "CreatedAt",
-                table: "addresses",
-                nullable: false,
-                defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 560, DateTimeKind.Unspecified).AddTicks(9718), new TimeSpan(0, 0, 0, 0, 0)),
-                oldClrType: typeof(DateTimeOffset),
-                oldType: "timestamp with time zone",
-                oldDefaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 38, DateTimeKind.Unspecified).AddTicks(9507), new TimeSpan(0, 0, 0, 0, 0)));
-
             migrationBuilder.AddPrimaryKey(
                 name: "PK_beneficiaries",
                 table: "beneficiaries",
@@ -1781,7 +1557,7 @@ namespace DAL.Migrations.Remote
                 column: "Id");
 
             migrationBuilder.CreateTable(
-                name: "Transaction",
+                name: "POSOrder",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -1790,17 +1566,17 @@ namespace DAL.Migrations.Remote
                     IsDeleted = table.Column<bool>(nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 541, DateTimeKind.Unspecified).AddTicks(3769), new TimeSpan(0, 0, 0, 0, 0))),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 9, 14, 2, 8, 50, 541, DateTimeKind.Unspecified).AddTicks(4286), new TimeSpan(0, 0, 0, 0, 0))),
-                    TransactionTotal = table.Column<decimal>(nullable: false),
+                    POSOrderTotal = table.Column<decimal>(nullable: false),
                     PaymentMethod = table.Column<int>(nullable: false),
                     HasDealWithStore = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Transaction", x => x.Id);
+                    table.PrimaryKey("PK_POSOrder", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TransactionItem",
+                name: "POSOrderItem",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -1814,34 +1590,34 @@ namespace DAL.Migrations.Remote
                     Quantity = table.Column<int>(nullable: false),
                     CustomerValue = table.Column<decimal>(nullable: false),
                     CostPrice = table.Column<decimal>(nullable: false),
-                    TransactionId = table.Column<int>(nullable: false)
+                    POSOrderId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TransactionItem", x => x.Id);
+                    table.PrimaryKey("PK_POSOrderItem", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_TransactionItem_Products_DrugId",
+                        name: "FK_POSOrderItem_Products_DrugId",
                         column: x => x.DrugId,
                         principalTable: "Products",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_TransactionItem_Transaction_TransactionId",
-                        column: x => x.TransactionId,
-                        principalTable: "Transaction",
+                        name: "FK_POSOrderItem_POSOrder_POSOrderId",
+                        column: x => x.POSOrderId,
+                        principalTable: "POSOrder",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionItem_DrugId",
-                table: "TransactionItem",
+                name: "IX_POSOrderItem_DrugId",
+                table: "POSOrderItem",
                 column: "DrugId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_TransactionItem_TransactionId",
-                table: "TransactionItem",
-                column: "TransactionId");
+                name: "IX_POSOrderItem_POSOrderId",
+                table: "POSOrderItem",
+                column: "POSOrderId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_beneficiaries_addresses_AddressId",
@@ -1883,10 +1659,10 @@ namespace DAL.Migrations.Remote
                 table: "Supplier");
 
             migrationBuilder.DropTable(
-                name: "TransactionItem");
+                name: "POSOrderItem");
 
             migrationBuilder.DropTable(
-                name: "Transaction");
+                name: "POSOrder");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_beneficiaries",
