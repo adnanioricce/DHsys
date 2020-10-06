@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using Api.Extensions;
@@ -21,25 +22,24 @@ namespace Api
         protected IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;
+            Configuration = configuration;            
         }        
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            //base.ConfigureServices(services);            
+        {            
             services.AddApplicationServices();
             services.ConfigureApplicationOptions(Configuration);
             services.AddAutoMapperConfiguration();
-            services.AddControllers();                        
-
+            services.AddControllers();
+            services.AddControllersWithViews();
             services.AddMvc(options => {
                 options.EnableEndpointRouting = false;                
             }).AddNewtonsoftJson(settings => {
                 settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });            
-            services.AddDataStore(Configuration,Assembly.GetExecutingAssembly().GetName().Name,null);
+            services.AddDataStore(Configuration,Assembly.GetExecutingAssembly().GetName().Name);
             services.AddApiVersioning(options => options.ReportApiVersions = true);
             services.AddOdataSupport();
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -62,12 +62,12 @@ namespace Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
-        {
+        {            
             app.ConfigureOdata();
             if (env.IsDevelopment())
             {
-                app.BuildDatabase(Assembly.GetExecutingAssembly().GetName().Name);
-            }
+                //app.BuildDatabase(Assembly.GetExecutingAssembly().GetName().Name);
+            }            
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {                
@@ -75,17 +75,19 @@ namespace Api
                 {
                     c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());                    
                 }
-                c.RoutePrefix = string.Empty;
+                c.RoutePrefix = "api/v1";
             });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+            app.UseStaticFiles();            
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthorization();            
             app.UseEndpoints(endpoints =>
-            {
+            {                
+                
                 endpoints.MapControllers();                                
             });            
         }        

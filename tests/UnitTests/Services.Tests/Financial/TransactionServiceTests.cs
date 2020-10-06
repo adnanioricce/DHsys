@@ -34,15 +34,15 @@ namespace Services.Tests.Financial
         }
         public static ITransactionService GetServiceWithSeed(IEnumerable<POSOrder> transactions)
         {
-            return new TransactionService(new FakeRepository<POSOrder>(transactions), new TransactionValidator());
+            return new POSOrderService(new FakeRepository<POSOrder>(transactions), new TransactionValidator());
         }
         public static ITransactionService GetServiceWithSeed()
         {
-            return new TransactionService(new FakeRepository<POSOrder>(new[] { GetSeedTransaction() }), new TransactionValidator());
+            return new POSOrderService(new FakeRepository<POSOrder>(new[] { GetSeedTransaction() }), new TransactionValidator());
         }
         public static ITransactionService GetService()
         {
-            return new TransactionService(new FakeRepository<POSOrder>(), new TransactionValidator());
+            return new POSOrderService(new FakeRepository<POSOrder>(), new TransactionValidator());
         }        
 
         [Fact()]
@@ -51,7 +51,7 @@ namespace Services.Tests.Financial
             //Given
             var transaction = GetSeedTransaction();
             var transactionRepository = new FakeRepository<POSOrder>();
-            var service = new TransactionService(transactionRepository, new TransactionValidator());
+            var service = new POSOrderService(transactionRepository, new TransactionValidator());
             //When
             var result = service.CreateTransaction(transaction);
             var createdTransaction = transactionRepository.GetBy(result.Value.Id);
@@ -70,7 +70,7 @@ namespace Services.Tests.Financial
             var oldDate = DateTimeOffset.UtcNow.AddDays(-2);
             oldTransaction.CreatedAt = oldDate;
             var transactionRepository = new FakeRepository<POSOrder>(new[] { transaction ,oldTransaction});
-            var service = new TransactionService(transactionRepository, new TransactionValidator());
+            var service = new POSOrderService(transactionRepository, new TransactionValidator());
             // When
             var result = service.GetTodayTransactions();
             // Then
@@ -83,7 +83,7 @@ namespace Services.Tests.Financial
         {
             // Given
             var transactionRepository = new FakeRepository<POSOrder>(new[] { GetSeedTransaction() });
-            var service = new TransactionService(transactionRepository, new TransactionValidator());
+            var service = new POSOrderService(transactionRepository, new TransactionValidator());
             // When
             var transactions = service.GetTransactions();
             // Then
@@ -101,7 +101,7 @@ namespace Services.Tests.Financial
                 return t;
             });
             var transactionRepository = new FakeRepository<POSOrder>(transactions);
-            var service = new TransactionService(transactionRepository, new TransactionValidator());
+            var service = new POSOrderService(transactionRepository, new TransactionValidator());
             // When
             var todayTransactions = service.GetTransactionsByDate(todayDate);
             // Then
@@ -135,7 +135,7 @@ namespace Services.Tests.Financial
                 return transaction;
             });
             var transactionRepository = new FakeRepository<POSOrder>(transactions);
-            var service = new TransactionService(transactionRepository, new TransactionValidator());
+            var service = new POSOrderService(transactionRepository, new TransactionValidator());
             // When 
             //var result = Task.Run(async () => await service.GetTodayTransactionsAsync());
             //var result = ;            
@@ -156,7 +156,7 @@ namespace Services.Tests.Financial
                 return t;
             });
             var transactionRepository = new FakeRepository<POSOrder>(transactions);
-            var service = new TransactionService(transactionRepository, new TransactionValidator());
+            var service = new POSOrderService(transactionRepository, new TransactionValidator());
             // When 
             var result = service.GetTransactionsByDateAsync(todayDate).GetAwaiter().GetResult();
             // Then 

@@ -103,7 +103,7 @@ namespace Application.Extensions
             services.AddTransient<IDrugService, DrugService>();            
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IBillingService, BillingService>();
-            services.AddTransient<ITransactionService, TransactionService>();
+            services.AddTransient<ITransactionService, POSOrderService>();
         }
         /// <summary>
         /// Add default data services and Database context.
@@ -133,7 +133,12 @@ namespace Application.Extensions
                         localContextOptions(opt);
                     }
                 });
-                services.AddScoped<BaseContext, RemoteContext>();
+                services.AddTransient<RemoteContextFactory>();
+                services.AddScoped<BaseContext, RemoteContext>(provider => {
+                    var options = provider.GetService<IOptions<ConnectionStrings>>();
+                    var factory = provider.GetService<RemoteContextFactory>();
+                    return factory.CreateContext(options.Value.RemoteConnection);                    
+                });
                 services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             }
             if (applicationName == "Desktop")

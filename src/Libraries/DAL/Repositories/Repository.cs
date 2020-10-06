@@ -23,7 +23,7 @@ namespace DAL
         }        
         public virtual void Add(T entry)
         {
-            DbSet.Add(entry);
+            DbSet.Add(entry);            
         }
 
         public virtual void AddRange(IEnumerable<T> entities)
@@ -33,8 +33,7 @@ namespace DAL
 
         public virtual void Delete(T entity)
         {
-            DbSet.Remove(entity);
-            Context.SaveChanges();
+            DbSet.Remove(entity);            
         }
 
         public virtual IEnumerable<T> GetAll()

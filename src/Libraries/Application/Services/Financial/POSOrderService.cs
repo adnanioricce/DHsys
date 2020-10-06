@@ -14,11 +14,11 @@ using System.Threading.Tasks;
 
 namespace Application.Services.Financial
 {
-    public class TransactionService : ITransactionService
+    public class POSOrderService : ITransactionService
     {
         protected readonly IRepository<POSOrder> _transactionRepository;        
         protected readonly BaseValidator<POSOrder> _validator;
-        public TransactionService(IRepository<POSOrder> transactionRepository,BaseValidator<POSOrder> transactionValidator)
+        public POSOrderService(IRepository<POSOrder> transactionRepository,BaseValidator<POSOrder> transactionValidator)
         {
             _transactionRepository = transactionRepository;
             _validator = transactionValidator;

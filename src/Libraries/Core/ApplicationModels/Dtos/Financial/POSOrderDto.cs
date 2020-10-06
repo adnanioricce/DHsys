@@ -5,16 +5,16 @@ using Core.Entities.Financial;
 
 namespace Core.ApplicationModels.Dtos.Financial
 {
-    public class TransactionDto
+    public class POSOrderDto
     {
         public int Id { get; set; }
-        public decimal TransactionTotal { get; set; }
+        public decimal OrderTotal { get; set; }
 
         public PaymentMethods PaymentMethod { get; set; }
 
         public bool HasDealWithStore { get; set; }
 
-        public IList<TransactionItemDto> Items { get; set; }
+        public IList<POSOrderItemDto> Items { get; set; }
 
     }
 }

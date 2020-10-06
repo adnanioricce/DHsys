@@ -29,8 +29,7 @@ namespace Application.Services.Sync
         private readonly RemoteContext _remoteContext;
         private readonly LocalContext _localContext;
         private readonly IOptions<DatabaseSettings> _dbSettings;
-        private readonly IAppLogger<DbSyncronizer> _logger;
-        private readonly IRepository<Syncronization> _syncRepository;
+        private readonly IAppLogger<DbSyncronizer> _logger;        
         public DbSyncronizer(DbContextResolver contextResolver,
                             IOptions<DatabaseSettings> dbSettings,
                             IAppLogger<DbSyncronizer> logger)
