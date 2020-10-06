@@ -40,18 +40,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="TestData\**\*.*">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Remove="Data\TestGitRepository\**" />
     <Content Remove="Data\TestGitRepository\**" />
     <EmbeddedResource Remove="Data\TestGitRepository\**" />
     <None Remove="Data\TestGitRepository\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="TestData\Source\AGENDA.DBF" />
   </ItemGroup>
 
 </Project>

@@ -1,21 +1,11 @@
-using Core.Entities.Catalog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
-    public class DrugDto : ProductDto
+    public class DrugDto
     {
-        public DrugDto(ProductDto productDto) : base(productDto)
-        {
-
-        }
-        public DrugDto()
-        {
-
-        }
-        public int Id { get; set; }
         public int? BaseDrugId { get; set; }
 
         public int? SupplierId { get; set; }
@@ -26,13 +16,9 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public string ManufacturerName { get; set; }
 
-        public string Name { get; set; }
-
         public string CommercialName { get; set; }
 
         public string Classification { get; set; }
-
-        public decimal? DrugCost { get; set; }
 
         public string Dosage { get; set; }
 
@@ -46,6 +32,48 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public bool IsPriceFixed { get; set; }
 
-        public string DigitalBuleLink { get; set; }        
+        public string DigitalBuleLink { get; set; }
+
+        public static DrugDto FromModel(Drug model)
+        {
+            return new DrugDto()
+            {
+                BaseDrugId = model.BaseDrugId, 
+                SupplierId = model.SupplierId, 
+                PrCdse = model.PrCdse, 
+                ManufacturerId = model.ManufacturerId, 
+                ManufacturerName = model.ManufacturerName, 
+                CommercialName = model.CommercialName, 
+                Classification = model.Classification, 
+                Dosage = model.Dosage, 
+                AbsoluteDosageInMg = model.AbsoluteDosageInMg, 
+                ActivePrinciple = model.ActivePrinciple, 
+                LotNumber = model.LotNumber, 
+                PrescriptionNeeded = model.PrescriptionNeeded, 
+                IsPriceFixed = model.IsPriceFixed, 
+                DigitalBuleLink = model.DigitalBuleLink, 
+            }; 
+        }
+
+        public Drug ToModel()
+        {
+            return new Drug()
+            {
+                BaseDrugId = BaseDrugId, 
+                SupplierId = SupplierId, 
+                PrCdse = PrCdse, 
+                ManufacturerId = ManufacturerId, 
+                ManufacturerName = ManufacturerName, 
+                CommercialName = CommercialName, 
+                Classification = Classification, 
+                Dosage = Dosage, 
+                AbsoluteDosageInMg = AbsoluteDosageInMg, 
+                ActivePrinciple = ActivePrinciple, 
+                LotNumber = LotNumber, 
+                PrescriptionNeeded = PrescriptionNeeded, 
+                IsPriceFixed = IsPriceFixed, 
+                DigitalBuleLink = DigitalBuleLink, 
+            }; 
+        }
     }
 }

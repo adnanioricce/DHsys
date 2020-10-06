@@ -77,14 +77,14 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(BaseResourceResponse), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> GetAsync([FromRoute]int id)
         {
-            try
+            var entity = await _repository.GetByAsync(id);
+            if (entity == null)
             {
-                var entity = await _repository.GetByAsync(id);
-                if(entity == null)
-                {
-                    Log.Information("GetByAsync call with {idType} id {id} returned a null result",id.GetType().Name,id);
-                    return NotFound(BaseResourceResponse.GetFailureResponseWithMessage($"entity with id {id} was not found"));
-                }
+                Log.Information("GetByAsync call with {idType} id {id} returned a null result", id.GetType().Name, id);
+                return NotFound(BaseResourceResponse.GetFailureResponseWithMessage($"entity with id {id} was not found"));
+            }
+            try
+            {                
                 var entityDto = _mapper.Map<TEntity, TEntityDto>(entity);
                 return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(entityDto));
             }
@@ -92,7 +92,7 @@ namespace Api.Controllers
             {
                 Log.Error("Exception throwed at {className} of entity {entityName} when creating entity: Exception:{@ex}",this.GetType().Name,nameof(TEntity), ex);
                 return StatusCode(500, BaseResourceResponse.GetFailureResponseWithMessage(string.Format("Sorry, a problem occured when trying to search for the entity with id {0}", id)));
-            }            
+            }
         }
         [HttpPut("{id}")]
         [Produces("application/json")]
@@ -102,10 +102,11 @@ namespace Api.Controllers
         {            
             try
             {
-                var entity = _mapper.Map<TEntityDto, TEntity>(dto);
-                _repository.Update(entity);
+                var existing = await _repository.GetByAsync(id);
+                _mapper.Map<TEntityDto, TEntity>(dto,existing);
+                _repository.Update(existing);
                 var result = await _repository.SaveChangesAsync();
-                var resultDto = _mapper.Map<TEntity, TEntityDto>(entity);
+                var resultDto = _mapper.Map<TEntity, TEntityDto>(existing);
                 return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(resultDto));
             }
             catch(DbUpdateException ex)
@@ -120,14 +121,19 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> DeleteAsync(int id)
         {
-            var entity = await _repository.GetByWithNoTrackingAsync(id);
+            var entity = await _repository.GetByAsync(id);
+            if(entity is null)
+            {
+                Log.Information("GetByAsync call with {idType} id {id} returned a null result", id.GetType().Name, id);
+                return NotFound(BaseResourceResponse.GetFailureResponseWithMessage($"entity with id {id} was not found"));
+            }
             try
             {
                 _repository.Delete(entity);
                 _repository.SaveChanges();
                 return Ok(BaseResourceResponse.DefaultSuccessResponse);
             }
-            catch (Exception ex)
+            catch (DbUpdateException ex)
             {
                 Log.Error("Exception throwed at {className} of entity {entityName} when trying to delete entity. Exception:{@exception} \n entity object:{@entity}", this.GetType().Name, nameof(TEntity), ex, entity);
                 return StatusCode(500, BaseResourceResponse.GetDefaultFailureResponseWithObject<TEntityDto>(_mapper.Map<TEntity,TEntityDto>(entity),string.Format("Sorry, a problem occured when trying to delete the entity with id {0}", id)));

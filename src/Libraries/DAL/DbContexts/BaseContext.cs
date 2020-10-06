@@ -39,7 +39,7 @@ namespace DAL.DbContexts
                 if (entityEntry.State == EntityState.Added)
                 {
                     ((BaseEntity)entityEntry.Entity).CreatedAt = DateTimeOffset.UtcNow;
-                }                
+                }
             }
 
         }

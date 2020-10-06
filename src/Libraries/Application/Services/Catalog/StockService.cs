@@ -1,7 +1,6 @@
 ﻿using Core.Entities.Catalog;
 using Core.Entities.Stock;
 using Core.Interfaces;
-using Core.Models.ApplicationResources.Catalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -80,6 +80,7 @@ namespace Api.Tests
             var url = GetRequestUrl("api/{0}/{1}?api-version=1.0", typeof(TEntity).Name, seedObject.Id);
             // Act
             var response = await _client.DeleteAsync(url);
+            response.EnsureSuccessStatusCode();
             // Assert
             Assert.True(response.IsSuccessStatusCode);
 
@@ -88,7 +89,7 @@ namespace Api.Tests
         public virtual async Task POST_ValidateCreate_ReceivesEntityObject_ExpectedToReturnValidationResultObject()
         {
             // Arrange
-            var seedObject = _seeder.GetSeedObject();
+            var seedObject = _seeder.GetSeedObject();            
             var url = $"api/{typeof(TEntity).Name}/validate-create?api-version=1.0";
             // Act
             var response = await _client.PostAsJsonAsync(url, seedObject);

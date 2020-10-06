@@ -5,7 +5,7 @@ namespace Core.Entities.Catalog
 {
     public class ProductStockEntry : BaseEntity
     {
-        public ProductStockEntry(){}        
+        public ProductStockEntry(){}
         public int ProductId { get; set; }
         public virtual Drug Product { get; set; }
         public int StockEntryId { get; set; }

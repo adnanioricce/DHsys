@@ -6244,7 +6244,7 @@ namespace DAL.Migrations.Remote
                     CreatedAt = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 18, DateTimeKind.Unspecified).AddTicks(5539), new TimeSpan(0, 0, 0, 0, 0))),
                     LastUpdatedOn = table.Column<DateTimeOffset>(nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 9, 12, 4, 9, 41, 18, DateTimeKind.Unspecified).AddTicks(6010), new TimeSpan(0, 0, 0, 0, 0))),
                     AddressId = table.Column<int>(nullable: true),
-                    Name = table.Column<string>(nullable: true),
+                    SupplierName = table.Column<string>(nullable: true),
                     Cnpj = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

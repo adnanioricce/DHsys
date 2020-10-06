@@ -11,20 +11,15 @@ namespace Core.ApplicationModels.Dtos.Stock
     {        
         public int Id { get; set; }
         public int? SupplierId { get; set; }
-
-        public int? Quantity { get; set; }
-
+        public int? ItemsCount { get { return Items.Count; } }
         public DateTime? DrugMaturityDate { get; set; }
-
         public string NfNumber { get; set; }
 
         public DateTime? NfEmissionDate { get; set; }
 
         public decimal? Totalcost { get; set; }
 
-        public string LotCode { get; set; }
-
-        public IList<DrugDto> Drugs { get; set; }
+        public IList<ProductStockEntryDto> Items { get; set; } = new List<ProductStockEntryDto>();
 
         public SupplierDto Supplier { get; set; }        
     }

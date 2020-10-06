@@ -1,6 +1,5 @@
 ﻿using Core.Entities.Catalog;
 using Core.Entities.Stock;
-using Core.Models.ApplicationResources.Catalog;
 using System.Collections.Generic;
 
 namespace Core.Interfaces
