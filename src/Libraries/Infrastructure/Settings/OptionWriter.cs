@@ -36,7 +36,7 @@ namespace Infrastructure.Settings
             var physicalPath = fileInfo.PhysicalPath;
 
             var jObject = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(physicalPath));
-            var sectionObject = jObject.TryGetValue(nameof(T), out JToken section) ?
+            var sectionObject = jObject.TryGetValue(typeof(T).Name, out JToken section) ?
                 JsonConvert.DeserializeObject<T>(section.ToString()) : (Value ?? new T());
             
             applyChanges(sectionObject);

@@ -2,8 +2,7 @@
 {
     public class ConnectionStrings
     {
-        public string RemoteConnection { get; set; }
-        public string LocalConnection { get; set; }
-        public string LegacyConnection { get; set; }
+        public string DefaultConnection { get; set; }
+        public string RemoteConnection { get; set; }        
     }
 }

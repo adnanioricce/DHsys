@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\src\Libraries\Application.Windows\Application.Windows.csproj" />
     <ProjectReference Include="..\..\..\src\Libraries\Legacy\Legacy.csproj" />
     <ProjectReference Include="..\..\..\src\Presentation\Api\Api.csproj" />
     <ProjectReference Include="..\..\..\src\Libraries\Application\Application.csproj" />

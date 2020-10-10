@@ -32,22 +32,24 @@ namespace Api.Controllers
             {
                 return Redirect("api/v1");
             }
-            return View();
+            return View(new DbConnectionSetup());
             
         }        
                 
-        [HttpPost]
-        [Route("Migrate")]
-        public ActionResult Migrate(DbConnectionSetup model)
+        [HttpPost]        
+        public ActionResult Index(DbConnectionSetup model)
         {
-            string connectionString = $"User ID={model.UserId};Password={model.Password};Host={model.Hostname};Port={model.Port};Database={model.Database};Pooling=true;";
-            _connectionStrings.Update((connStr) => connStr.RemoteConnection = connectionString);
-            var context = (RemoteContext)_serviceProvider.GetService(typeof(RemoteContext));
+            if (!GlobalConfiguration.IsFirstRun)
+            {
+                return Redirect("api/v1");
+            }
+            _connectionStrings.Update((connStr) => connStr.RemoteConnection = model.ToString());
+            var context = (RemoteContext)_serviceProvider.GetService(typeof(BaseContext));
             try
             {
                 context.ApplyUpgrades();
                 GlobalConfiguration.IsFirstRun = false;
-                return View();
+                return Redirect("api/v1");
             }
             catch
             {
