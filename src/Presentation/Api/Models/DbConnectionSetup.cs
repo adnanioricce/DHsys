@@ -13,6 +13,10 @@ namespace Api.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
         [StringLength(100)]
-        public string UserId { get; set; }        
+        public string UserId { get; set; }
+        public override string ToString()
+        {
+            return $"User ID={this.UserId};Password={this.Password};Host={this.Hostname};Port={this.Port};Database={this.Database};Pooling=true;";
+        }
     }
 }

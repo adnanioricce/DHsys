@@ -17,6 +17,7 @@ using Xunit;
 using Application;
 using Microsoft.EntityFrameworkCore;
 using Legacy.Entities;
+using Application.Windows.Services.Sync;
 
 namespace Api.IntegrationTests.Services.Sync
 {
@@ -24,9 +25,9 @@ namespace Api.IntegrationTests.Services.Sync
     {
         private readonly DbContext _context;
         private readonly IDbConnection _sourceConnection;
-        private readonly ILegacyDbSynchronizer _dbSyncronizer;
+        private readonly LegacyDbSynchronizer _dbSyncronizer;
         
-        public LegacyDbSyncronizerTests(ILegacyDbSynchronizer dbSyncronizer, DbContext context)
+        public LegacyDbSyncronizerTests(LegacyDbSynchronizer dbSyncronizer, DbContext context)
         {
             //_connection = new SqliteConnection("Data Source=database.db");            
             _context = context;

@@ -4,6 +4,7 @@ using System.Reflection;
 using Api.Extensions;
 using Application.Extensions;
 using FluentValidation;
+using Infrastructure.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
@@ -28,8 +29,9 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {            
-            services.AddApplicationServices();
-            services.ConfigureApplicationOptions(Configuration);
+            services.Configure<ConnectionStrings>(Configuration.GetSection(nameof(ConnectionStrings)));
+            services.ConfigureWritable<ConnectionStrings>();
+            services.AddApplicationServices();            
             services.AddAutoMapperConfiguration();
             services.AddControllers();
             services.AddControllersWithViews();
@@ -56,8 +58,7 @@ namespace Api
             foreach (var validator in validators)
             {
                 services.AddTransient(validator.BaseType,validator);
-            }
-            
+            }            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

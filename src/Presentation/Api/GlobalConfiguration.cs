@@ -10,6 +10,6 @@ namespace Api
         public static bool IsFirstRun { 
             get { return Convert.ToBoolean(Environment.GetEnvironmentVariable("IS_FIRST_RUN")); } 
             set { Environment.SetEnvironmentVariable("IS_FIRST_RUN", value.ToString()); }
-        }
+        }        
     }
 }
