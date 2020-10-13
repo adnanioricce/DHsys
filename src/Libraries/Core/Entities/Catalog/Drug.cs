@@ -11,8 +11,7 @@ namespace Core.Entities.Catalog
                    
         }
         
-        public int? BaseDrugId { get; set; }
-        public int? SupplierId { get; set; }
+        public int? BaseDrugId { get; set; }        
         /// <summary>
         /// Legacy property, keeped for compability purposes. Ignore it
         /// </summary>
@@ -67,7 +66,13 @@ namespace Core.Entities.Catalog
         /// Get or set a link to the bule of the drug 
         /// </summary>
         /// <value></value>
-        public string DigitalBuleLink { get; set; }                  
+        public string DigitalBuleLink { get; set; }
+        /// <summary>
+        /// Get or set the identifier code of the laboratory of this drug
+        /// </summary>
+        /// <value></value>
+        public string LaboratoryCode { get; set; }
+        public string LaboratoryName { get; set; }
         
     }
 }

@@ -1,21 +1,10 @@
-﻿using System.IO;
-using Core.Entities;
-using Core.Interfaces;
-using Core.Models.ApplicationResources.Requests;
-using DAL;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Data;
-using System.Data.Common;
-using System.Data.OleDb;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Infrastructure.Settings;
 using Application;
 using MediatR;
+using Legacy.Interfaces.Sync;
+using Legacy.Models.Sync;
 
 namespace Api.Windows.Controllers
 {
