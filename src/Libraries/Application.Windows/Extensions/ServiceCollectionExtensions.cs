@@ -1,6 +1,7 @@
 ﻿using Application.Windows.Services.Sync;
 using Core.Interfaces;
 using Infrastructure.Windows.Interfaces;
+using Legacy.Interfaces.Sync;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;

@@ -6,9 +6,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
 {
     public class DrugDto
     {
-        public int? BaseDrugId { get; set; }
-
-        public int? SupplierId { get; set; }
+        public int? BaseDrugId { get; set; }        
 
         public string PrCdse { get; set; }
 
@@ -38,8 +36,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
         {
             return new DrugDto()
             {
-                BaseDrugId = model.BaseDrugId, 
-                SupplierId = model.SupplierId, 
+                BaseDrugId = model.BaseDrugId,                 
                 PrCdse = model.PrCdse, 
                 ManufacturerId = model.ManufacturerId, 
                 ManufacturerName = model.ManufacturerName, 
@@ -59,8 +56,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
         {
             return new Drug()
             {
-                BaseDrugId = BaseDrugId, 
-                SupplierId = SupplierId, 
+                BaseDrugId = BaseDrugId,                 
                 PrCdse = PrCdse, 
                 ManufacturerId = ManufacturerId, 
                 ManufacturerName = ManufacturerName, 
