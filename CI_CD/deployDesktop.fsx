@@ -46,9 +46,9 @@ Target.create "GithubRelease" (fun _ ->
   let token =
     match Environment.environmentVarOrDefault "github_token" "" with
       | s when not (System.String.IsNullOrWhiteSpace s) -> s
-      | _ -> failwith "please set the github_token environment variable to a github personal access token with repro access"
+      | _ -> failwith "please set the github_token environment variable to a github personal access token with repo access"
   let files =
-    !! "../release/*.zip"    
+    !! "../release/Desktop/*.zip"    
     // runtimes @ ["portable";"packages"]
     // |> List.map (fun n -> sprintf "release/dotnetcore/Fake.netcore/fake-dotnetcore-%s.zip" n)
   GitHub.createClientWithToken token

@@ -11,9 +11,12 @@ namespace Core.Entities.Financial
             HasDealWithStore = false;
         }
         public decimal OrderTotal { get { return CalculateTransactionTotal(); } }
+        public decimal DiscountTotal { get; set; }
         public virtual PaymentMethods PaymentMethod { get; set; }
         public bool HasDealWithStore { get; set; }
-        public virtual IList<POSOrderItem> Items { get; set; } = new List<POSOrderItem>();         
+        public string ConsumerCode { get; set; }
+        public virtual IList<POSOrderItem> Items { get; set; } = new List<POSOrderItem>();  
+        
         public void AddItem(POSOrderItem item)
         {
             Items.Add(item);
