@@ -124,7 +124,7 @@ namespace Application.Extensions
                     opt.UseLazyLoadingProxies();
                     if (localContextOptions == null)
                     {
-                        string connStr = configuration.GetValue<string>("AppSettings:ConnectionStrings:DefaultConnection");
+                        string connStr = configuration.GetValue<string>("AppSettings:ConnectionStrings:RemoteConnection");
                         opt.UseNpgsql(connStr);
                         return;
                     }
@@ -135,7 +135,7 @@ namespace Application.Extensions
                 });
                 services.AddTransient<RemoteContextFactory>();
                 services.AddScoped<BaseContext, RemoteContext>(provider => {
-                    var options = provider.GetService<IOptions<ConnectionStrings>>();
+                    var options = provider.GetService<IWritableOptions<ConnectionStrings>>();
                     var factory = provider.GetService<RemoteContextFactory>();
                     return factory.CreateContext(options.Value.RemoteConnection);                    
                 });

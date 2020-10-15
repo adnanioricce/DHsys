@@ -41,7 +41,7 @@ namespace Infrastructure.Settings
             
             applyChanges(sectionObject);
 
-            jObject[nameof(T)] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
+            jObject[typeof(T).Name] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
             File.WriteAllText(physicalPath, JsonConvert.SerializeObject(jObject, Formatting.Indented));
         }
     }
