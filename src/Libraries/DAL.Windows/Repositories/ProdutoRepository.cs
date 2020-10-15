@@ -39,7 +39,7 @@ namespace DAL.Windows
 
         public T GetById(string id)
         {
-            return _context.RawQuery<T>($"SELECT * FROM {nameof(T)} WHERE prcodi = {id}");
+            return _context.RawQuery<T>($"SELECT * FROM {typeof(T).Name} WHERE prcodi = {id}");
         }
 
         public IEnumerable<T> MultipleFromRawSqlQuery(string query)

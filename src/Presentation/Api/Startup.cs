@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using Api.Extensions;
@@ -63,18 +64,14 @@ namespace Api
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
-        {            
+        {
             app.ConfigureOdata();
-            if (env.IsDevelopment())
-            {
-                //app.BuildDatabase(Assembly.GetExecutingAssembly().GetName().Name);
-            }            
             app.UseSwagger();
             app.UseSwaggerUI(c =>
-            {                
+            {
                 foreach (var description in provider.ApiVersionDescriptions)
                 {
-                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());                    
+                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
                 }
                 c.RoutePrefix = "api/v1";
             });
@@ -82,14 +79,16 @@ namespace Api
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseStaticFiles();            
+            if(!env.IsDevelopment()){
+                GlobalConfiguration.IsFirstRun = !File.Exists(nameof(GlobalConfiguration.IsFirstRun));
+            }
+            app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseRouting();
-            app.UseAuthorization();            
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
-            {                
-                
-                endpoints.MapControllers();                                
+            {                                
+                endpoints.MapControllers();
             });            
         }        
     }

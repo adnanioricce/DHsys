@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Api.Models;
 using DAL.DbContexts;
 using DAL.Extensions;
+using Infrastructure.Logging;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -49,11 +50,15 @@ namespace Api.Controllers
             {
                 context.ApplyUpgrades();
                 GlobalConfiguration.IsFirstRun = false;
+                GlobalConfiguration.WriteFirstRunFile();
+                AppLogger.Log.Information("Migrations applied successfully");
                 return Redirect("api/v1");
             }
-            catch
+            catch(Exception ex)
             {
-                throw;
+                AppLogger.Log.Error("Failed to apply migrations to the database, given exception was throw: @ex", ex);
+                //TODO:Create a view error to use instead of simply throwing a whole exception to the user.                
+                throw ex;
             }
         }
     }
