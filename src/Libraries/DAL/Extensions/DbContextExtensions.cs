@@ -34,15 +34,14 @@ namespace DAL.Extensions
         {
             if(context is RemoteContext)
             {
-                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");
-                ((RemoteContext)context).PrepareRemote();
+                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");                
             }
             if(context is LocalContext)
             {
                 context = context as LocalContext ?? throw new InvalidCastException($"can't cast context {context} to LocalContext");
             }            
             
-            var migrator = context.Database.GetService<IMigrator>();
+            var migrator = context.Database.GetService<IMigrator>();            
             var pendingMigrations = context.GetPendingMigrationScripts().ToList();
             if (pendingMigrations.Any())
             {
@@ -78,7 +77,8 @@ namespace DAL.Extensions
             AppLogger.Log.Information("Applying Migrations");
             connection.ChangeDatabase(databaseName);
             connection.Close();            
-        }
+        }        
+
         /// <summary>
         /// Change the database used for the given <see cref="IDbConnection"/>
         /// </summary>

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using Core.Entities.Stock;
-
-namespace Core.Entities.Catalog
+﻿namespace Core.Entities.Catalog
 {
     public class Drug : Product
     {
@@ -72,6 +68,9 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public string LaboratoryCode { get; set; }
+        /// <summary>
+        /// Get or set the name of the laboratory that this drug was manufactured
+        /// </summary>
         public string LaboratoryName { get; set; }
         
     }

@@ -1,10 +1,11 @@
-using System;
-using System.IO;
 using System.Linq;
 using System.Reflection;
 using Api.Extensions;
 using Application.Extensions;
+using DAL.DbContexts;
+using DAL.Extensions;
 using FluentValidation;
+using Infrastructure.Logging;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Api
@@ -24,25 +26,24 @@ namespace Api
         protected IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
-            Configuration = configuration;            
-        }        
-
+            Configuration = configuration;
+        }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {            
+        {                              
             services.Configure<ConnectionStrings>(Configuration.GetSection(nameof(ConnectionStrings)));
-            services.ConfigureWritable<ConnectionStrings>();
-            services.AddApplicationServices();            
+            services.ConfigureWritable<ConnectionStrings>();            
+            services.AddApplicationServices();
             services.AddAutoMapperConfiguration();
             services.AddControllers();
             services.AddControllersWithViews();
             services.AddMvc(options => {
-                options.EnableEndpointRouting = false;                
+                options.EnableEndpointRouting = false;
             }).AddNewtonsoftJson(settings => {
                 settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });            
-            services.AddDataStore(Configuration,Assembly.GetExecutingAssembly().GetName().Name);
+            });
+            services.AddApiDataStore();
             services.AddApiVersioning(options => options.ReportApiVersions = true);
             services.AddOdataSupport();
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
@@ -65,12 +66,21 @@ namespace Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
+            AppLogger.Log.Information("Starting to migrate application");
+            AppLogger.Log.Information("Current Environment variables values:");                       
+            if (GlobalConfiguration.IsDockerContainer && !string.IsNullOrEmpty(GlobalConfiguration.DhConnectionString))
+            {
+                using var scope = app.ApplicationServices.CreateScope();
+                var context = (RemoteContext)scope.ServiceProvider.GetRequiredService<BaseContext>();
+                AppLogger.Log.Information("Migrating...");
+                context.ApplyUpgrades();
+                AppLogger.Log.Information("Database Migrations Applied");
+            }
             app.ConfigureOdata();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                foreach (var description in provider.ApiVersionDescriptions)
-                {
+                foreach (var description in provider.ApiVersionDescriptions) {
                     c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
                 }
                 c.RoutePrefix = "api/v1";
@@ -78,10 +88,7 @@ namespace Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            if(!env.IsDevelopment()){
-                GlobalConfiguration.IsFirstRun = !File.Exists(nameof(GlobalConfiguration.IsFirstRun));
-            }
+            }            
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseRouting();

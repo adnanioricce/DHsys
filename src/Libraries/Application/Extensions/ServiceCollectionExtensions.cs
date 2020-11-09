@@ -105,48 +105,27 @@ namespace Application.Extensions
             services.AddTransient<IBillingService, BillingService>();
             services.AddTransient<ITransactionService, POSOrderService>();
         }
+        
         /// <summary>
         /// Add default data services and Database context.
         /// </summary>
         /// <param name="services"></param>
         /// <param name="configuration">the <see cref="IConfiguration"/> instance with the Connection String data</param>
         /// <param name="applicationName">The name of the calling application </param>
-        /// <param name="localContextOptions">a custom action to configure custom options</param>
+        /// <param name="contextOptionsAction">a custom action to configure custom options</param>
         public static void AddDataStore(this IServiceCollection services,
             IConfiguration configuration,
             string applicationName,
-            Action<DbContextOptionsBuilder> localContextOptions = null)
+            Action<DbContextOptionsBuilder> contextOptionsAction = null)
         {
-            if (applicationName == "Api")
-            {
-                services.AddDbContextPool<BaseContext, RemoteContext>(opt =>
-                {
-                    opt.UseLazyLoadingProxies();
-                    if (localContextOptions == null)
-                    {
-                        string connStr = configuration.GetValue<string>("AppSettings:ConnectionStrings:RemoteConnection");
-                        opt.UseNpgsql(connStr);
-                        return;
-                    }
-                    else
-                    {
-                        localContextOptions(opt);
-                    }
-                });
-                services.AddTransient<RemoteContextFactory>();
-                services.AddScoped<BaseContext, RemoteContext>(provider => {
-                    var options = provider.GetService<IWritableOptions<ConnectionStrings>>();
-                    var factory = provider.GetService<RemoteContextFactory>();
-                    return factory.CreateContext(options.Value.RemoteConnection);                    
-                });
-                services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            }
+            services.AddTransient<DbContextOptionsFactory>();
+            services.AddTransient<RemoteContextFactory>();
             if (applicationName == "Desktop")
             {
                 services.AddDbContextPool<BaseContext, LocalContext>(opt =>
                 {
                     opt.UseLazyLoadingProxies();
-                    if (localContextOptions == null)
+                    if (contextOptionsAction == null)
                     {
                         string connStr = configuration.GetValue<string>("AppSettings:ConnectionStrings:DefaultConnection");
                         opt.UseSqlite(connStr);
@@ -154,7 +133,7 @@ namespace Application.Extensions
                     }
                     else
                     {
-                        localContextOptions(opt);
+                        contextOptionsAction(opt);
                     }
                 });
                 services.AddScoped<BaseContext, LocalContext>();

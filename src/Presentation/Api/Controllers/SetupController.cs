@@ -10,9 +10,12 @@ using Infrastructure.Logging;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Hosting.Internal;
 using Npgsql;
 
 namespace Api.Controllers
@@ -44,22 +47,13 @@ namespace Api.Controllers
             {
                 return Redirect("api/v1");
             }
-            _connectionStrings.Update((connStr) => connStr.RemoteConnection = model.ToString());
+            _connectionStrings.Update((connStr) => connStr.RemoteConnection = model.ToString());            
             var context = (RemoteContext)_serviceProvider.GetService(typeof(BaseContext));
-            try
-            {
-                context.ApplyUpgrades();
-                GlobalConfiguration.IsFirstRun = false;
-                GlobalConfiguration.WriteFirstRunFile();
-                AppLogger.Log.Information("Migrations applied successfully");
-                return Redirect("api/v1");
-            }
-            catch(Exception ex)
-            {
-                AppLogger.Log.Error("Failed to apply migrations to the database, given exception was throw: @ex", ex);
-                //TODO:Create a view error to use instead of simply throwing a whole exception to the user.                
-                throw ex;
-            }
+            //quick fix?
+            context.Database.Migrate();
+            GlobalConfiguration.IsFirstRun = false;
+            GlobalConfiguration.WriteFirstRunFile();
+            return Ok();
         }
     }
 }

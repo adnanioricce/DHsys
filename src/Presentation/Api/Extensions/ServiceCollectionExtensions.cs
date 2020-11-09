@@ -1,11 +1,13 @@
-﻿using Microsoft.AspNet.OData.Extensions;
+﻿using Core.Interfaces;
+using DAL;
+using DAL.DbContexts;
+using Infrastructure.Settings;
+using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Formatter;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Api.Extensions
 {
@@ -22,17 +24,49 @@ namespace Api.Extensions
                 .EnableApiVersioning();
             services.AddMvcCore(options =>
             {
-                foreach (var outputFormatter in options.OutputFormatters.OfType<ODataOutputFormatter>()
+                foreach (var outputFormatter in options.OutputFormatters
+                                                       .OfType<ODataOutputFormatter>()
                                                        .Where(_ => _.SupportedMediaTypes.Count == 0))
                 {
                     outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
                 }
-                foreach (var inputFormatter in options.InputFormatters.OfType<ODataInputFormatter>().Where(_ => _.SupportedMediaTypes.Count == 0))
+                foreach (var inputFormatter in options.InputFormatters
+                                                      .OfType<ODataInputFormatter>()
+                                                      .Where(_ => _.SupportedMediaTypes.Count == 0))
                 {
                     inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
                 }
             });
             return services;
+        }
+        /// <summary>
+        /// Add Default data services for the Api application
+        /// </summary>
+        /// <param name="services">instance of <see cref="IServiceCollection"/> used to registers application services</param>
+        public static void AddApiDataStore(this IServiceCollection services)
+        {
+            services.AddTransient<RemoteContextFactory>();
+            services.AddDbContext<BaseContext, RemoteContext>((sp,options)=> {                
+                if (GlobalConfiguration.IsDockerContainer)
+                {
+                    string connectionString = GlobalConfiguration.DhConnectionString;
+                    options.UseNpgsql(connectionString);
+                    return;
+                }
+                var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();
+                options.UseNpgsql(opt.Value.RemoteConnection);
+             });
+            services.AddScoped<BaseContext, RemoteContext>(provider => {
+                var factory = provider.GetService<RemoteContextFactory>();
+                if (GlobalConfiguration.IsDockerContainer)
+                {
+                    string connectionString = GlobalConfiguration.DhConnectionString;
+                    return factory.CreateContext(connectionString);
+                }
+                var options = provider.GetService<IWritableOptions<ConnectionStrings>>();
+                return factory.CreateContext(options.Value.RemoteConnection);                
+            });
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }
     }
 }
