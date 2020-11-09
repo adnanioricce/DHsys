@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UserSecretsId>1e5b4299-e01a-4a96-b3a9-8262242aa0c3</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\..</DockerfileContext>
+    <DockerfileContext>..\..\..</DockerfileContext>
     <PublishDir>..\..\..\build\$(MSBuildProjectName)</PublishDir>
   </PropertyGroup>
 

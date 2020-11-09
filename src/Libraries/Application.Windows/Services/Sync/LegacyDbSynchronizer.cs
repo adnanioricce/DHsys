@@ -174,15 +174,15 @@ namespace Application.Windows.Services.Sync
                     int result = command.ExecuteNonQuery();
                     _localDbConnection.Close();                                
                     return result;
-                }catch(Exception ex){
-                    //TODO:
+                }catch(Exception ex){                    
+                    AppLogger.Log.Error("Exception thrown at legacy database sync when trying to build query to sync source with local. Exception throwed:{@ex}",ex);
                     return 0;
                 }
                 
                 
             }catch(DBConcurrencyException ex)
-            {                
-                //TODO:log exception
+            {                                
+                AppLogger.Log.Error("Exception throwed when trying to sync source with local database on legacy database sync process. Exception:{@ex}",ex);
                 throw;
             }
         }
