@@ -48,9 +48,7 @@ Target.create "GithubRelease" (fun _ ->
       | s when not (System.String.IsNullOrWhiteSpace s) -> s
       | _ -> failwith "please set the github_token environment variable to a github personal access token with repo access"
   let files =
-    !! "../release/Desktop/*.zip"    
-    // runtimes @ ["portable";"packages"]
-    // |> List.map (fun n -> sprintf "release/dotnetcore/Fake.netcore/fake-dotnetcore-%s.zip" n)
+    !! "../release/Desktop/*.zip"
   GitHub.createClientWithToken token
   |> GitHub.draftNewRelease gitOwner gitName release.NugetVersion (release.SemVer.PreRelease <> None) release.Notes
   |> GitHub.uploadFiles files
@@ -59,7 +57,7 @@ Target.create "GithubRelease" (fun _ ->
 )
 Target.create "All" ignore
 
- "BuildMsiInstaller"  
+ "BuildMsiInstaller"
   ==> "ZipBuild"
   ==> "GithubRelease"
   ==> "All"

@@ -96,9 +96,7 @@ namespace DAL.Extensions
             string connStr = connection.ConnectionString;
             string dbParameterSubstring = connStr.Substring(connStr.IndexOf("Database="));
             dbParameterSubstring = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";")).Substring("Database=".Length);
-            return dbParameterSubstring;
-            //string dbParameterAndValue = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";"));
-            //return dbParameterAndValue;
+            return dbParameterSubstring;            
         }
         /// <summary>
         /// Returns list of Sql script strings of each migration not applied in current <see cref="BaseContext"/>
