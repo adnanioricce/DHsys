@@ -59,7 +59,6 @@ namespace Api.Tests
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<Drug>>();
             // Assert
-
             Assert.NotNull(valueResult);
             Assert.Equal(drug.BarCode,valueResult.ResultObject.BarCode);
         }                
@@ -69,8 +68,9 @@ namespace Api.Tests
         {
             // Arrange
             string request_url = "api/Drug/create?api-version=1.0";            
-            var drug = new Drug { 
+            var drug = new DrugDto { 
                 Name = "Dipirona GTS 5mg",
+                RegistryCode = "1234",
                 Description = "Dipirona GTS 5mg",
                 DiscountValue = 0,
                 Ncm = "300025567889",

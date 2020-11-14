@@ -4,9 +4,9 @@ using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
-    public class DrugDto
+    public class DrugDto : ProductDto
     {
-        public int? BaseDrugId { get; set; }        
+        public int? BaseDrugId { get; set; }
 
         public string PrCdse { get; set; }
 
@@ -32,44 +32,9 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public string DigitalBuleLink { get; set; }
 
-        public static DrugDto FromModel(Drug model)
-        {
-            return new DrugDto()
-            {
-                BaseDrugId = model.BaseDrugId,                 
-                PrCdse = model.PrCdse, 
-                ManufacturerId = model.ManufacturerId, 
-                ManufacturerName = model.ManufacturerName, 
-                CommercialName = model.CommercialName, 
-                Classification = model.Classification, 
-                Dosage = model.Dosage, 
-                AbsoluteDosageInMg = model.AbsoluteDosageInMg, 
-                ActivePrinciple = model.ActivePrinciple, 
-                LotNumber = model.LotNumber, 
-                PrescriptionNeeded = model.PrescriptionNeeded, 
-                IsPriceFixed = model.IsPriceFixed, 
-                DigitalBuleLink = model.DigitalBuleLink, 
-            }; 
-        }
+        public string LaboratoryCode { get; set; }
 
-        public Drug ToModel()
-        {
-            return new Drug()
-            {
-                BaseDrugId = BaseDrugId,                 
-                PrCdse = PrCdse, 
-                ManufacturerId = ManufacturerId, 
-                ManufacturerName = ManufacturerName, 
-                CommercialName = CommercialName, 
-                Classification = Classification, 
-                Dosage = Dosage, 
-                AbsoluteDosageInMg = AbsoluteDosageInMg, 
-                ActivePrinciple = ActivePrinciple, 
-                LotNumber = LotNumber, 
-                PrescriptionNeeded = PrescriptionNeeded, 
-                IsPriceFixed = IsPriceFixed, 
-                DigitalBuleLink = DigitalBuleLink, 
-            }; 
-        }
+        public string LaboratoryName { get; set; }
+
     }
 }

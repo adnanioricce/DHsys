@@ -28,6 +28,8 @@ namespace DAL.Seed
             drug.IsPriceFixed = false;
             //TODO:Lot number probably has his own formatting
             drug.LotNumber = Guid.NewGuid().ToString("N");
+            drug.LaboratoryCode = Guid.NewGuid().ToString();
+            drug.LaboratoryName = "Sample Laboratory Name";
             drug.MainSupplierName = "Sample Main Supplier";
             drug.ManufacturerName = "Sample Manufacturer Name";
             drug.MaxDiscountPercentage = 20;
@@ -35,6 +37,7 @@ namespace DAL.Seed
             drug.Name = "Sample Drug";
             drug.Ncm = "40028922";
             drug.PrescriptionNeeded = false;
+            drug.RegistryCode = Guid.NewGuid().ToString();            
             drug.AddNewProductMedia(new Core.Entities.Media.MediaResource
             {
                 Type = Core.Entities.Media.MediaType.Image,

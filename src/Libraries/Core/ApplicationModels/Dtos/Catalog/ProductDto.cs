@@ -10,6 +10,8 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public ProductDto()
         {                                    
         }
+        public string UniqueCode { get; set; }
+        public string RegistryCode { get; set; }
         public string Ncm { get; set; }
 
         public int? QuantityInStock { get; set; }

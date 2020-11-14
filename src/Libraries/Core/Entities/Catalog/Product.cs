@@ -10,8 +10,7 @@ namespace Core.Entities.Catalog
     /// Product entity. It's used mainly as base entity    
     /// </summary>
     public class Product : BaseEntity
-    {
-        public int StockQuantity { get; set; }
+    {        
         /// <summary>
         /// Get or Set product NCM.
         /// https://pt.wikipedia.org/wiki/Nomenclatura_Comum_do_Mercosul
@@ -111,10 +110,7 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();
-        #region Legacy Fields
-        public string ProdutoId { get; set; }
-        public string Sal { get; set; }        
-        #endregion        
+        
         #region Methods
         public virtual void UpdatePrice(ProductPrice price)
         {

@@ -126,8 +126,8 @@ namespace Api
                 services.AddSingleton(objectInterface, seeder);
             }
             var validators = Assembly.GetAssembly(typeof(Core.Core))
-                                              .GetTypesWithBaseType(typeof(BaseValidator<>))
-                                              .ToList();
+                                     .GetTypesWithBaseType(typeof(BaseValidator<>))
+                                     .ToList();
             foreach (var validator in validators)
             {
                 services.AddTransient(validator.BaseType, validator);

@@ -30,7 +30,11 @@ namespace Api
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {                              
+        {
+            var configuration = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddEnvironmentVariables()
+                .Build();
             services.Configure<ConnectionStrings>(Configuration.GetSection(nameof(ConnectionStrings)));
             services.ConfigureWritable<ConnectionStrings>();            
             services.AddApplicationServices();
@@ -57,17 +61,16 @@ namespace Api
             var validators = Assembly.GetAssembly(typeof(Core.Core)).GetTypes()
                                                                     .Where(t => t.Namespace.StartsWith("Core.Validations"))
                                                                     .Where(t => !t.Name.StartsWith("BaseValidator"));
-            foreach (var validator in validators)
-            {
+            foreach (var validator in validators) {
                 services.AddTransient(validator.BaseType,validator);
-            }            
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
             AppLogger.Log.Information("Starting to migrate application");
-            AppLogger.Log.Information("Current Environment variables values:");                       
+            AppLogger.Log.Information("Current Environment variables values:");
             if (GlobalConfiguration.IsDockerContainer && !string.IsNullOrEmpty(GlobalConfiguration.DhConnectionString))
             {
                 using var scope = app.ApplicationServices.CreateScope();
