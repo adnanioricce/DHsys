@@ -27,7 +27,7 @@ namespace Desktop.Tests.ViewModels
                            .ReturnsAsync(entry);
             //When
             var viewModel = new ProductListViewModel(mockDrugService.Object);
-            viewModel.ExecuteGetProductByCode(code);
+            viewModel.ExecuteGetProductByCode(code).RunSynchronously();
             //Then                              
             Assert.NotNull(viewModel.DrugCollection.FirstOrDefault());
         }

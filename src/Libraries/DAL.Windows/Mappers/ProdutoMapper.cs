@@ -9,7 +9,8 @@ using Legacy.Entities;
 //TODO: Move this to DAL project
 namespace DAL.Windows.Mappers
 {
-    public class ProdutoMapper : ILegacyDataMapper<Drug,Produto>
+    #warning Don't use this class or code using this class, the data models of the Core and Legacy systems will be separate from now on
+    internal class ProdutoMapper : ILegacyDataMapper<Drug,Produto>
     {
         private readonly ILegacyRepository<Produto> _legacyProdutoRepository;        
         
@@ -69,8 +70,7 @@ namespace DAL.Windows.Mappers
             drug.ShelfLifes.Add(new ProductShelfLife
             {
                 EndDate = produto.Prvalid
-            });            
-            drug.ProdutoId = produto.Prcodi;
+            });                        
             string pattern = "\\d+[a-zA-z]";
             var regex = new Regex(pattern);
             if (string.IsNullOrEmpty(produto.Prdesc))

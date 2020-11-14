@@ -74,7 +74,7 @@ namespace DAL.Migrations.Remote
                 {
                     table.PrimaryKey("PK_Syncronization", x => x.Id);
                 });
-
+            
             migrationBuilder.CreateTable(
                 name: "Beneficiaries",
                 columns: table => new
@@ -188,8 +188,6 @@ namespace DAL.Migrations.Remote
                     ICMS = table.Column<decimal>(nullable: false),
                     MinimumStock = table.Column<int>(nullable: false),
                     MainSupplierName = table.Column<string>(nullable: true),
-                    //ProdutoId = table.Column<int>(nullable: true),
-                    //Sal = table.Column<string>(nullable: true),
                     Discriminator = table.Column<string>(nullable: false),
                     BaseDrugId = table.Column<int>(nullable: true),
                     SupplierId = table.Column<int>(nullable: true),
