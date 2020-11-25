@@ -29,7 +29,9 @@ namespace DAL.Migrations.Remote
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     PaymentMethod = table.Column<int>(type: "integer", nullable: false),
-                    HasDealWithStore = table.Column<bool>(type: "boolean", nullable: false),
+                    HasDealWithStore = table.Column<bool>(type: "boolean", nullable: false),                    
+                    ConsumerCode = table.Column<string>(type:"text",nullable: false),
+                    DiscountTotal = table.Column<decimal>(type:"numeric", nullable:false),
                     UniqueCode = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 10, 5, 22, 53, 23, 787, DateTimeKind.Unspecified).AddTicks(2924), new TimeSpan(0, 0, 0, 0, 0))),

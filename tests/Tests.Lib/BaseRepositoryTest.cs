@@ -2,14 +2,11 @@
 using Core.Interfaces;
 using DAL;
 using DAL.DbContexts;
-using DAL.Extensions;
 using DAL.Seed;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -89,7 +86,7 @@ namespace Tests.Lib
             // Arrange
             var seedObject = _seeder.GetSeedObject();
             _repository.Add(seedObject);
-            await _repository.SaveChangesAsync();
+            var createResult = await _repository.SaveChangesAsync();
             int id = seedObject.Id;
             // Act
             _repository.Delete(seedObject);

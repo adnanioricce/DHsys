@@ -1,12 +1,9 @@
-using System;
-using System.Linq;
 using Core.Entities;
 
 namespace Core.ApplicationModels.Dtos.Financial
 {
-    public class ClientDto
-    {
-        public int Id { get; set; }
+    public class ClientDto : BaseEntityDto
+    {        
         public string Cpf { get; set; }
 
         public static ClientDto FromModel(Client model)

@@ -4,6 +4,7 @@ using Core.ApplicationModels.Dtos.Financial;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
 using Core.Models.ApplicationResources;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -31,11 +32,12 @@ namespace Api.Tests
             {
                 HasDealWithStore = false,
                 PaymentMethod = Core.Entities.Financial.PaymentMethods.InHands,                
+                ConsumerCode = Guid.NewGuid().ToString(),
                 Items = new POSOrderItemDto[]
                 {
                     new POSOrderItemDto
                     {
-                        DrugUniqueCode = drug.UniqueCode,
+                        DrugUniqueCode = drug.UniqueCode,                        
                         CostPrice = drug.CostPrice,
                         CustomerValue = drug.EndCustomerPrice.Value,
                         Quantity = 1,

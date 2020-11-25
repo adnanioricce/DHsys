@@ -14,7 +14,7 @@ namespace DAL.DataMappings.Catalog
             base.Configure(builder);
             builder.HasOne(p => p.Supplier)
                    .WithMany(p => p.Products)
-                   .OnDelete(DeleteBehavior.Cascade);
+                   .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(p => p.Product)
                    .WithMany(p => p.ProductSuppliers)
                    .OnDelete(DeleteBehavior.Cascade);

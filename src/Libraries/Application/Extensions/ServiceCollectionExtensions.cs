@@ -163,7 +163,8 @@ namespace Application.Extensions
         {                        
             var mapperConfig = new MapperConfiguration(cfg =>
             {
-                cfg.AddProfile(new CoreProfile());                
+                cfg.AddProfile(new CoreProfile());
+                cfg.AddProfile(new UpdateProfile());
             });
             var mapper = mapperConfig.CreateMapper();            
             services.AddSingleton(mapper);

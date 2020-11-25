@@ -15,7 +15,7 @@ namespace DAL.Seed
             stockEntry.NfNumber = Guid.NewGuid().ToString();
             stockEntry.NfEmissionDate = DateTime.Now.AddDays(-2);
             var supplier = new SupplierSeed().GetSeedObject();
-            stockEntry.Supplier = (Supplier)supplier;            
+            stockEntry.Supplier = supplier;            
             return stockEntry;
         }
     }

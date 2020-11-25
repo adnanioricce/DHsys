@@ -4,7 +4,7 @@ using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
-    public class ProductMediaDto
+    public class ProductMediaDto : BaseEntityDto
     {
         public int MediaResourceId { get; set; }
 

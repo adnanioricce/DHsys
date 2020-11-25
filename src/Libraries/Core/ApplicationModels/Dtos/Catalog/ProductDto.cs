@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
-    public class ProductDto
+    public class ProductDto : BaseEntityDto
     {        
         public ProductDto()
         {                                    

@@ -356,7 +356,7 @@ namespace DAL.Migrations.Remote
                         column: x => x.ProductId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_ProductSupplier_Supplier_SupplierId",
                         column: x => x.SupplierId,

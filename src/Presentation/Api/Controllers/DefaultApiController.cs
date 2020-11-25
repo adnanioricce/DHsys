@@ -64,7 +64,8 @@ namespace Api.Controllers
                 _repository.Add(entity);
                 var result = await _repository.SaveChangesAsync();
                 return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(_mapper.Map<TEntity,TEntityDto>(entity)));
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 Log.Error("Exception throwed at {className} for entity {entityName} when creating entity: Exception:{@exception}\n entity object:{@entity}", this.GetType().Name ,nameof(TEntity), ex, entity);
                 return StatusCode(500, BaseResourceResponse.GetDefaultFailureResponseWithObject<TEntityDto>(_mapper.Map<TEntity,TEntityDto>(entity),string.Format("Sorry, a problem occured when trying to create a new entry for the given object ")));
@@ -99,12 +100,17 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 200)]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> UpdateAsync([FromRoute]int id, [FromBody]TEntityDto dto)
-        {            
-            try
+        {
+            var existing = await _repository.GetByAsync(id);
+            if (existing is null)
             {
-                var existing = await _repository.GetByAsync(id);
-                _mapper.Map<TEntityDto, TEntity>(dto,existing);
-                _repository.Update(existing);
+                Log.Information("Tried to retrieve a entity that don't exist for entity {entityName}. The given id was:{id}", typeof(TEntity).Name, id);
+            }
+            var updated = _mapper.Map<TEntityDto, TEntity>(dto);
+            _mapper.Map(updated, existing);
+            _repository.Update(existing);
+            try
+            {                                
                 var result = await _repository.SaveChangesAsync();
                 var resultDto = _mapper.Map<TEntity, TEntityDto>(existing);
                 return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(resultDto));

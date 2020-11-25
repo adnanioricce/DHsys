@@ -4,15 +4,10 @@ using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
-    public class ProductStockEntryDto
-    {
-        public int Id { get; set; }
-        public int ProductId { get; set; }
-
-        public DrugDto Product { get; set; }
-
+    public class ProductStockEntryDto : BaseEntityDto
+    {        
+        public int ProductId { get; set; }        
         public int StockEntryId { get; set; }
-
         public StockEntryDto StockEntry { get; set; }
         public DateTime? ProductMaturityDate { get; set; }
         public int Quantity { get; set; }

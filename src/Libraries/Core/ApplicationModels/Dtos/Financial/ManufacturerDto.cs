@@ -1,12 +1,9 @@
-using System;
-using System.Linq;
 using Core.Entities.Stock;
 
 namespace Core.ApplicationModels.Dtos.Financial
 {
-    public class ManufacturerDto
-    {
-        public int Id { get; set; }
+    public class ManufacturerDto : BaseEntityDto
+    {        
         public string Cnpj { get; set; }
 
         public static ManufacturerDto FromModel(Manufacturer model)

@@ -41,14 +41,20 @@ namespace DAL.Seed
             drug.AddNewProductMedia(new Core.Entities.Media.MediaResource
             {
                 Type = Core.Entities.Media.MediaType.Image,
-                SourceUrl = "https://fakeurl.com"                
-            });            
+                SourceUrl = "https://fakeurl.com"
+            });
             drug.UpdatePrice(12.00m, 10.00m);
-            drug.AddSupplier(new Supplier
+            var supplier = new Supplier
             {
                 Cnpj = "1234456567678",
-                
+            };            
+            supplier.Address = new AddressSeed().GetSeedObject();
+            supplier.Products.Add(new ProductSupplier {
+                Product = drug,
+                Supplier = supplier,
+                UniqueCode = Guid.NewGuid().ToString()
             });            
+            drug.AddSupplier(supplier);
             drug.QuantityInStock = 10;            
             drug.UniqueCode = Guid.NewGuid().ToString();
             return drug;

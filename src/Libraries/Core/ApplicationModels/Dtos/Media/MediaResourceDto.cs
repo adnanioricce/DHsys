@@ -1,12 +1,9 @@
-using System;
-using System.Linq;
 using Core.Entities.Media;
 
 namespace Core.ApplicationModels.Dtos.Media
 {
-    public class MediaResourceDto
-    {
-        public int Id { get; set; }
+    public class MediaResourceDto : BaseEntityDto
+    {        
         public long Size { get; set; }
 
         public MediaType Type { get; set; }

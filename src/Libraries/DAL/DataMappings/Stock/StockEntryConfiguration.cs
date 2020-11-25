@@ -1,8 +1,7 @@
 ﻿using Core.Entities.Stock;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace DAL.DataMappings.Stock
 {
@@ -11,6 +10,13 @@ namespace DAL.DataMappings.Stock
         public override void Configure(EntityTypeBuilder<StockEntry> builder)
         {
             base.Configure(builder);
+            builder.HasMany(p => p.Items)
+                   .WithOne(p => p.StockEntry)
+                   .HasForeignKey(p => p.StockEntryId)
+                   .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(p => p.Supplier)
+                   .WithMany()                   
+                   .OnDelete(DeleteBehavior.Restrict);                    
         }
     }
 }

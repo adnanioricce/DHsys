@@ -124,7 +124,7 @@ namespace Core.Entities.Catalog
             var price = new ProductPrice{
                 Pricestartdate = startDate.HasValue ? startDate : DateTimeOffset.UtcNow,
                 EndCustomerDrugPrice = newEndCustomerPriceValue,
-                CostPrice = newCostPrice,
+                CostPrice = newCostPrice,                
                 ProductId = this.Id,
             };
             UpdatePrice(price);
@@ -150,7 +150,7 @@ namespace Core.Entities.Catalog
                 var productSupplier = new ProductSupplier
                 {
                     Product = this,
-                    Supplier = supplier,
+                    Supplier = supplier,                    
                 };
                 ProductSuppliers.Add(productSupplier);
                 

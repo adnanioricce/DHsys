@@ -59,6 +59,8 @@ namespace Api.Extensions
                 var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();
                 if (environment == "Development")
                 {
+                    options.EnableDetailedErrors();
+                    options.EnableSensitiveDataLogging();
                     options.UseNpgsql(opt.Value.DevConnection);
                     return;
                 }
@@ -75,7 +77,7 @@ namespace Api.Extensions
                 }
                 var options = provider.GetService<IWritableOptions<ConnectionStrings>>();
                 if (environment == "Development") {
-                    return factory.CreateContext(options.Value.DevConnection);
+                    return factory.CreateContext(options.Value.DevConnection,isDevelopment:true);
                 }                
                 
                 return factory.CreateContext(options.Value.RemoteConnection);                

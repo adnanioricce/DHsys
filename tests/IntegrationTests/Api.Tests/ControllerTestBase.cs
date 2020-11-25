@@ -57,7 +57,7 @@ namespace Api.Tests
             var response = await _client.PostAsJsonAsync(url,seedObject);
             var content = await response.Content.ReadAsStringAsync();
             // Assert            
-            Assert.True(response.IsSuccessStatusCode);            
+            Assert.True(response.IsSuccessStatusCode);
         }
         [Fact(DisplayName = "Test default update endpoint of the entity controller.")]
         public virtual async Task PUT_Update_ReceivesEntityObject_ExpectedToReturnUpdatedEntity()

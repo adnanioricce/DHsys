@@ -27,7 +27,7 @@ namespace Core.Entities.Stock
         // Some problems with the mapping when trying to customize the get and set properties
         // Need to think in a way to define custom mappings now
         public decimal? Totalcost { get; set; }
-        public virtual IList<ProductStockEntry> Items { get; set; } = new List<ProductStockEntry>();
+        public virtual ICollection<ProductStockEntry> Items { get; set; } = new List<ProductStockEntry>();
         public virtual Supplier Supplier { get; set; }
         private decimal? CalculateStockEntryCost()
         {
