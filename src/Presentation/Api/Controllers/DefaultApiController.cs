@@ -63,6 +63,9 @@ namespace Api.Controllers
             {
                 _repository.Add(entity);
                 var result = await _repository.SaveChangesAsync();
+                if(result < 0) {
+                    return StatusCode(500, BaseResourceResponse.GetDefaultFailureResponseWithObject<TEntityDto>(_mapper.Map<TEntity, TEntityDto>(entity), string.Format("Sorry, a problem occured when trying to create a new entry for the given object ")));
+                }
                 return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(_mapper.Map<TEntity,TEntityDto>(entity)));
             }
             catch(Exception ex)

@@ -24,6 +24,10 @@ namespace DAL.DataMappings.Catalog
                   .WithOne(p => p.Product)
                   .HasForeignKey(p => p.ProductId)
                   .OnDelete(DeleteBehavior.Restrict);
+            mapper.HasMany(p => p.Categories)
+                  .WithOne(p => p.Product)
+                  .HasForeignKey(p => p.ProductId)
+                  .OnDelete(DeleteBehavior.Cascade);
             base.Configure(mapper);
         }
     }

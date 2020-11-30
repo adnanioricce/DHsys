@@ -11,7 +11,8 @@ namespace DAL.Seed
                 CreatedAt = DateTimeOffset.UtcNow,
                 UniqueCode = Guid.NewGuid().ToString(),
                 HasDealWithStore = false,
-                PaymentMethod = PaymentMethods.InHands
+                PaymentMethod = PaymentMethods.InHands,
+                ConsumerCode = Guid.NewGuid().ToString()
             };
             var item = new POSOrderItem {
                 CostPrice = 23.99m,

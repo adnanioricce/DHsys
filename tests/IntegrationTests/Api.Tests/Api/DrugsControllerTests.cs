@@ -79,8 +79,7 @@ namespace Api.Tests
                 Section = "Bonificados",
                 ReorderLevel = 1,
                 ReorderQuantity = 5,
-                QuantityInStock = 2,
-                UniqueCode = "123456",                
+                QuantityInStock = 2,                 
             };
 
             // Act

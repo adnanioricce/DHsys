@@ -45,7 +45,7 @@ namespace Api.Tests
             //Act
             var response = await _client.GetAsync(url);            
             //Assert
-            Assert.True(response.IsSuccessStatusCode);            
+            Assert.True(response.IsSuccessStatusCode,await response.Content.ReadAsStringAsync());            
         }
         [Fact(DisplayName = "Test default create method of the entity controller")]
         public virtual async Task POST_Create_ReceivesEntityObject_ExpectedToReturnCreatedEntity()

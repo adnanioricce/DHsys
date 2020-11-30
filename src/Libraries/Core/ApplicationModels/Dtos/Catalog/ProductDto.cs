@@ -1,17 +1,12 @@
-using Core.ApplicationModels.Dtos.Catalog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
-    public class ProductDto : BaseEntityDto
-    {        
-        public ProductDto()
-        {                                    
-        }
-        public string UniqueCode { get; set; }
-        public string RegistryCode { get; set; }
+    public class ProductDto
+    {
         public string Ncm { get; set; }
 
         public int? QuantityInStock { get; set; }
@@ -46,16 +41,18 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public string Name { get; set; }
 
-        public ICollection<ProductSupplierDto> ProductSuppliers { get; set; } = new List<ProductSupplierDto>();
+        public string RegistryCode { get; set; }
 
-        public ICollection<ProductPriceDto> ProductPrices { get; set; } = new List<ProductPriceDto>();
+        public ICollection<ProductSupplierDto> ProductSuppliers { get; set; }
 
-        public ICollection<ProductStockEntryDto> Stockentries { get; set; } = new List<ProductStockEntryDto>();
+        public ICollection<ProductPriceDto> ProductPrices { get; set; }
 
-        public ICollection<ProductMediaDto> ProductMedias { get; set; } = new List<ProductMediaDto>();
+        public ICollection<ProductStockEntryDto> Stockentries { get; set; }
 
-        public ICollection<ProductShelfLifeDto> ShelfLifes { get; set; } = new List<ProductShelfLifeDto>();
+        public ICollection<ProductMediaDto> ProductMedias { get; set; }
 
-        public string ProdutoId { get; set; }
+        public ICollection<ProductShelfLifeDto> ShelfLifes { get; set; }
+
+        public ICollection<ProductCategoryDto> Categories { get; set; }
     }
 }

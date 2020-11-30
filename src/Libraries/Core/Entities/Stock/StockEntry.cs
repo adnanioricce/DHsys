@@ -7,8 +7,7 @@ namespace Core.Entities.Stock
 {
     public class StockEntry : BaseEntity
     {
-        protected decimal? _totalCost = 0.0m;
-        public int? SupplierId { get; set; }
+        protected decimal? _totalCost = 0.0m;        
         /// <summary>
         /// Get or Set the total count of items related with the this <see cref="StockEntry"/>
         /// </summary>
@@ -27,8 +26,7 @@ namespace Core.Entities.Stock
         // Some problems with the mapping when trying to customize the get and set properties
         // Need to think in a way to define custom mappings now
         public decimal? Totalcost { get; set; }
-        public virtual ICollection<ProductStockEntry> Items { get; set; } = new List<ProductStockEntry>();
-        public virtual Supplier Supplier { get; set; }
+        public virtual ICollection<ProductStockEntry> Items { get; set; } = new List<ProductStockEntry>();        
         private decimal? CalculateStockEntryCost()
         {
             return Items.Sum(item => item.Quantity * item.Product.CostPrice);
@@ -51,12 +49,12 @@ namespace Core.Entities.Stock
             AddEntry(entry);
         }
         public void AddEntry(ProductStockEntry entry)
-        {
-            this.Items.Add(entry);
+        {            
             if(entry.StockEntry is null)
             {
                 entry.StockEntry = this;
-            }            
+            }
+            this.Items.Add(entry);
         }
     }
 }

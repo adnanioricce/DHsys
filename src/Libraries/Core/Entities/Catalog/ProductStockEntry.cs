@@ -13,6 +13,5 @@ namespace Core.Entities.Catalog
         public DateTime? ProductMaturityDate { get; set; }
         public int Quantity { get; set; }
         public string LotCode { get; set; }
-
     }
 }

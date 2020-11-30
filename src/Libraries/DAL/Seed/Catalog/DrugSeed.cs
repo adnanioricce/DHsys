@@ -1,5 +1,6 @@
 ﻿using Core.Entities.Catalog;
 using Core.Entities.Stock;
+using DAL.Seed.Catalog;
 using System;
 
 namespace DAL.Seed
@@ -40,6 +41,7 @@ namespace DAL.Seed
             drug.RegistryCode = Guid.NewGuid().ToString();            
             drug.AddNewProductMedia(new Core.Entities.Media.MediaResource
             {
+                UniqueCode = Guid.NewGuid().ToString(),
                 Type = Core.Entities.Media.MediaType.Image,
                 SourceUrl = "https://fakeurl.com"
             });
@@ -47,14 +49,15 @@ namespace DAL.Seed
             var supplier = new Supplier
             {
                 Cnpj = "1234456567678",
-            };            
-            supplier.Address = new AddressSeed().GetSeedObject();
-            supplier.Products.Add(new ProductSupplier {
-                Product = drug,
-                Supplier = supplier,
-                UniqueCode = Guid.NewGuid().ToString()
-            });            
+            };
+            supplier.Address = new AddressSeed().GetSeedObject();            
             drug.AddSupplier(supplier);
+            var category = new CategorySeed().GetSeedObject();
+            drug.Categories.Add(new ProductCategory
+            {
+                Category = category,
+                Product = drug
+            });
             drug.QuantityInStock = 10;            
             drug.UniqueCode = Guid.NewGuid().ToString();
             return drug;

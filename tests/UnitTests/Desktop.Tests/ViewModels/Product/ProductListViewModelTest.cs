@@ -20,14 +20,14 @@ namespace Desktop.Tests.ViewModels
             {
                 UniqueCode = code,
             };
-            //var repository = new FakeLegacyProdutoRepository();
-            //repository.Add(entry);
+            //var repository = new FakeLegacyProdutoRepository();            
             var mockDrugService = new Mock<IDrugService>();
             mockDrugService.Setup(m => m.GetDrugByUniqueCodeAsync(It.IsAny<string>()))
                            .ReturnsAsync(entry);
             //When
             var viewModel = new ProductListViewModel(mockDrugService.Object);
-            viewModel.ExecuteGetProductByCode(code).RunSynchronously();
+            var result = viewModel.ExecuteGetProductByCode(code);
+            result.Wait();
             //Then                              
             Assert.NotNull(viewModel.DrugCollection.FirstOrDefault());
         }

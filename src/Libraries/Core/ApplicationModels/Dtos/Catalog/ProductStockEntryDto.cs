@@ -6,7 +6,8 @@ namespace Core.ApplicationModels.Dtos.Catalog
 {
     public class ProductStockEntryDto : BaseEntityDto
     {        
-        public int ProductId { get; set; }        
+        public int ProductId { get; set; }
+        public ProductDto Product { get; set; }
         public int StockEntryId { get; set; }
         public StockEntryDto StockEntry { get; set; }
         public DateTime? ProductMaturityDate { get; set; }

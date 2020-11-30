@@ -13,7 +13,7 @@ namespace DAL.DataMappings.Catalog
         {            
             base.Configure(builder);
             builder.HasOne(p => p.Supplier)
-                   .WithMany(p => p.Products)
+                   .WithMany()
                    .OnDelete(DeleteBehavior.Restrict);
             builder.HasOne(p => p.Product)
                    .WithMany(p => p.ProductSuppliers)

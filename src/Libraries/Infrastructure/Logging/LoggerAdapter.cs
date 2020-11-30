@@ -11,29 +11,29 @@ namespace Infrastructure.Logging
 
     public class LoggerAdapter<T> : IAppLogger<T> where T : class
     {
-        private readonly Microsoft.Extensions.Logging.ILogger<T> logger;
-        public LoggerAdapter()
+        private readonly Microsoft.Extensions.Logging.ILogger<T> _logger;
+        public LoggerAdapter(ILogger<T> logger)
         {
-
+            _logger = logger;
         }
         public void LogError(string message, params object[] args)
         {
-            logger.LogError(message, args);
+            _logger.LogError(message, args);
         }
 
         public void LogInformation(string message, params object[] args)
         {
-            logger.LogInformation(message, args);
+            _logger.LogInformation(message, args);
         }
 
         public void LogStackTrace(string message, params object[] args)
         {
-            logger.LogTrace(message, args);
+            _logger.LogTrace(message, args);
         }
 
         public void LogWarning(string message, params object[] args)
         {
-            logger.LogWarning(message, args);
+            _logger.LogWarning(message, args);
         }
     }
 }

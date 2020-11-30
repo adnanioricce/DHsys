@@ -13,10 +13,7 @@ namespace DAL.DataMappings.Stock
             builder.HasMany(p => p.Items)
                    .WithOne(p => p.StockEntry)
                    .HasForeignKey(p => p.StockEntryId)
-                   .OnDelete(DeleteBehavior.Cascade);
-            builder.HasOne(p => p.Supplier)
-                   .WithMany()                   
-                   .OnDelete(DeleteBehavior.Restrict);                    
+                   .OnDelete(DeleteBehavior.Cascade);            
         }
     }
 }
