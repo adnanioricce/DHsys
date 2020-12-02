@@ -5,7 +5,8 @@ using Core.Entities.Financial;
 namespace Core.ApplicationModels.Dtos.Financial
 {
     public class BillingDto : BaseEntityDto
-    {        
+    {
+        public int BeneficiaryId { get; set; }
         public string BeneficiaryName { get; set; }
 
         public PersonDocumentType PersonType { get; set; }

@@ -8,8 +8,7 @@ namespace Application.Windows.Services.Catalog
 {
     public class ProdutoService : IProdutoService
     {        
-        private readonly ILegacyRepository<Produto> _produtoLegacyRepository;
-        private readonly IRepository<Produto> _produtoDomainRepository;
+        private readonly ILegacyRepository<Produto> _produtoLegacyRepository;        
         public ProdutoService(ILegacyRepository<Produto> produtoLegacyRepository)
         {            
             _produtoLegacyRepository = produtoLegacyRepository;                        

@@ -7,13 +7,12 @@ namespace Core.ApplicationModels.Dtos.Stock
     {        
         public int? AddressId { get; set; }
 
-        public string SupplierName { get; set; }
+        public string Name { get; set; }
 
         public string Cnpj { get; set; }
 
         public AddressDto Address { get; set; }
-
-        public ICollection<ProductSupplierDto> Products { get; set; }
+        
 
         public ICollection<StockEntryDto> Stockentries { get; set; }
         

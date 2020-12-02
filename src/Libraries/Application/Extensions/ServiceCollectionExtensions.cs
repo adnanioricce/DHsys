@@ -163,9 +163,14 @@ namespace Application.Extensions
         {                        
             var mapperConfig = new MapperConfiguration(cfg =>
             {
+                cfg.AddGlobalIgnore("CreatedAt");
+                cfg.AddGlobalIgnore("LastUpdatedOn");
+                cfg.AddGlobalIgnore("IsDeleted");
                 cfg.AddProfile(new CoreProfile());
                 cfg.AddProfile(new UpdateProfile());
+                
             });
+            mapperConfig.AssertConfigurationIsValid();
             var mapper = mapperConfig.CreateMapper();            
             services.AddSingleton(mapper);
         }              

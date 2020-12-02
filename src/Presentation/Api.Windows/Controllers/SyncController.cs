@@ -14,7 +14,7 @@ namespace Api.Windows.Controllers
     {
         private readonly ILegacyDbSynchronizer _dbSyncronizer;
         private readonly IDbConnection _connection;        
-        private readonly string _dbfSourceFolder;
+        private readonly string _dbfSourceFolder = "C://Dbfs"; // need something to load the source path from
         public SyncController(ILegacyDbSynchronizer dbSynchronizer,
             ConnectionResolver connection,
             IMediator mediator)

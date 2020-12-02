@@ -5,7 +5,7 @@ using Core.Entities.Financial;
 
 namespace Core.ApplicationModels.Dtos.Financial
 {
-    public class POSOrderItemDto
+    public class POSOrderItemDto : BaseEntityDto
     {
         public string DrugUniqueCode { get; set; }
 

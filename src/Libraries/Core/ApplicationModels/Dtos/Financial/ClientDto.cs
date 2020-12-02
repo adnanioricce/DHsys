@@ -2,7 +2,7 @@ using Core.Entities;
 
 namespace Core.ApplicationModels.Dtos.Financial
 {
-    public class ClientDto : BaseEntityDto
+    public class ClientDto : BeneficiaryDto
     {        
         public string Cpf { get; set; }
 

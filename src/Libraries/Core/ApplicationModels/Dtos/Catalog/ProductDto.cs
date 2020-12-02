@@ -5,8 +5,8 @@ using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
-    public class ProductDto
-    {
+    public class ProductDto : BaseEntityDto
+    {        
         public string Ncm { get; set; }
 
         public int? QuantityInStock { get; set; }
@@ -43,16 +43,16 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public string RegistryCode { get; set; }
 
-        public ICollection<ProductSupplierDto> ProductSuppliers { get; set; }
+        public ICollection<ProductSupplierDto> ProductSuppliers { get; set; } = new List<ProductSupplierDto>();
 
-        public ICollection<ProductPriceDto> ProductPrices { get; set; }
+        public ICollection<ProductPriceDto> ProductPrices { get; set; } = new List<ProductPriceDto>();
 
-        public ICollection<ProductStockEntryDto> Stockentries { get; set; }
+        public ICollection<ProductStockEntryDto> Stockentries { get; set; } = new List<ProductStockEntryDto>();
 
-        public ICollection<ProductMediaDto> ProductMedias { get; set; }
+        public ICollection<ProductMediaDto> ProductMedias { get; set; } = new List<ProductMediaDto>();
 
-        public ICollection<ProductShelfLifeDto> ShelfLifes { get; set; }
+        public ICollection<ProductShelfLifeDto> ShelfLifes { get; set; } = new List<ProductShelfLifeDto>();
 
-        public ICollection<ProductCategoryDto> Categories { get; set; }
+        public ICollection<ProductCategoryDto> Categories { get; set; } = new List<ProductCategoryDto>();
     }
 }

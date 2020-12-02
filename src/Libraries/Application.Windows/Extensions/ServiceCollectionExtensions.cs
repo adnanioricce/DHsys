@@ -13,8 +13,7 @@ namespace Application.Windows.Extensions
     {
         public static void AddWindowsApplicationServices(this IServiceCollection services)
         {
-            services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();
-            services.AddTransient<ISyncQueryBuilder, SyncQueryBuilder>();
+            services.AddTransient<ILegacyDbSynchronizer, LegacyDbSynchronizer>();            
         }
     }
 }

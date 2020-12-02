@@ -35,7 +35,5 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public string LaboratoryCode { get; set; }
 
         public string LaboratoryName { get; set; }
-
-
     }
 }

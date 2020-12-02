@@ -1,4 +1,5 @@
-﻿using Core.Extensions;
+﻿using Application.Extensions;
+using Core.Extensions;
 using Core.Validations;
 using DAL.DbContexts;
 using DAL.Seed;
@@ -132,6 +133,7 @@ namespace Api
             {
                 services.AddTransient(validator.BaseType, validator);
             }
+            services.AddAutoMapperConfiguration();
             services.AddMvc(options => {
                 options.EnableEndpointRouting = false;
             }).AddNewtonsoftJson(settings => {

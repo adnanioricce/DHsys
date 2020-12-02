@@ -23,6 +23,7 @@ using Infrastructure.Logging;
 
 namespace Application.Windows.Services.Sync
 {
+#warning while this is not cleaned, get away from it
     public class LegacyDbSynchronizer : ILegacyDbSynchronizer
     {        
         private readonly IDbConnection _sourceDbConnection;        
