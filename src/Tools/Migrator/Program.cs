@@ -1,35 +1,51 @@
-﻿using DAL.DbContexts;
+﻿using Core.Entities;
+using Core.Entities.Catalog;
+using Core.Entities.Financial;
+using Core.Entities.Stock;
+using DAL.DbContexts;
 using DAL.Extensions;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Migrator
 {
     class Program
     {
+        private static readonly string[] _commandList = new string[]
+        {
+            "migrate","seed"
+        };
         private static readonly string _helpMessage = @"
         options:
-            --connectionString - npgsql connection string to be migrated            
-        ";
+            migrate - run remaining database migrations for given npgsql connection string                
+            seed - run seed script on given npgsql connection string
+        ";        
+        
         static void Main(string[] args)
-        {
-            args = new string[] { "--connectionString", "User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_dev;Pooling=true;" };
+        {            
             if(args.Length == 0)
             {
                 Console.WriteLine(_helpMessage);    
             }
             for (int i = 0; i < args.Length; i++)
-            {                
-                if (args[i].StartsWith("--"))
-                {
-                    if(args.Length < (i + 1))
-                    {
-                        Console.WriteLine($"{args[i]} option has no argument");
-                        return;
-                    }
-                    Handle(args[i].Substring(args[i].LastIndexOf("-") + 1),args[i + 1]);
+            {                                
+                if (args.Length == (i + 1))
+                {                    
+                    return;
                 }
+                Handle(args[i].Substring(args[i].LastIndexOf("-") + 1), args[i + 1]);
             }
         }
+        /// <summary>
+        /// Applies all remaining sql migrations for the given connection
+        /// </summary>
+        /// <param name="connectionString">the connection string of the database to be migrated</param>
         public static void Migrate(string connectionString)
         {
             var remoteContextFactory = new RemoteContextFactory();
@@ -43,16 +59,21 @@ namespace Migrator
                 Console.WriteLine($"Migrations failed with the following error:{ex}");
             }
         }
+        
         public static void Handle(string option,string argument)
         {
             switch (option.ToLower())
             {
-                case "connectionstring":
+                case "migrate":
                     Migrate(argument);
+                    break;
+                case "seed":
+                    Seeder.Seed(argument);
                     break;
                 default:
                     break;
             }
         }        
     }
+    
 }

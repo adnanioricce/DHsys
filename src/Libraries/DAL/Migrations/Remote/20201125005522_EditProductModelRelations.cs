@@ -9,16 +9,7 @@ namespace DAL.Migrations.Remote
         {
             migrationBuilder.DropForeignKey(
                 name: "FK_ProductStockEntry_Products_ProductId",
-                table: "ProductStockEntry");
-            
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ProductStockEntry_Products_ProductId",
-                table: "ProductStockEntry",
-                column: "ProductId",
-                principalTable: "Products",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                table: "ProductStockEntry");            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

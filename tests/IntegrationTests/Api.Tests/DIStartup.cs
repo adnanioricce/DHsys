@@ -35,7 +35,7 @@ namespace Api.Tests
             services.AddDbContext<BaseContext,RemoteContext>((sp,options) => {
                 var factory = sp.GetService<RemoteContextFactory>();
                 options.EnableDetailedErrors();
-                options.EnableSensitiveDataLogging();
+                options.EnableSensitiveDataLogging();                
                 options.UseNpgsql(configuration.GetConnectionString("DevConnection"));
             });
             services.AddScoped<BaseContext, RemoteContext>((sp) => {

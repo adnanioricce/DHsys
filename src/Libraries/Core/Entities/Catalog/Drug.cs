@@ -71,7 +71,7 @@
         /// <summary>
         /// Get or set the name of the laboratory that this drug was manufactured
         /// </summary>
-        public string LaboratoryName { get; set; }
-        
+        public string LaboratoryName { get; set; }        
+
     }
 }

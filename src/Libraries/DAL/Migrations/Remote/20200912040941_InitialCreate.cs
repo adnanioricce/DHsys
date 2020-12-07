@@ -218,7 +218,7 @@ namespace DAL.Migrations.Remote
                         column: x => x.StockEntryId,
                         principalTable: "StockEntry",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(

@@ -20,6 +20,14 @@ namespace Core.Entities.Stock
         /// Get or Set the date in which the NF related with this <see cref="StockEntry"/> was emited
         /// </summary>
         public DateTime? NfEmissionDate { get; set; }
+        // ///<summary>
+        // /// Get or set the date in which this <see cref="StockEntry"/> was registered
+        // ///</summary>
+        // public DateTime EntryDate { get; set; }
+        // ///<summary>
+        // /// Get or set the Id of the optional relation between this entity and Supplier entity
+        // ///</summary>
+        // public int? SupplierId { get; set; }
         /// <summary>
         /// Get or Set the total cost of all the items of this <see cref="StockEntry"/>
         /// </summary>

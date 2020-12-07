@@ -100,7 +100,7 @@ namespace DAL.Migrations.Remote
                         column: x => x.DrugId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_POSOrderItem_POSOrder_POSOrderId",
                         column: x => x.POSOrderId,
