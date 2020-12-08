@@ -17,6 +17,7 @@ namespace Api.Tests.Seed
                 {
                     Name = "Lixiana 10mg 2cp",
                     BarCode = "0987654321012",
+                    RegistryCode = Guid.NewGuid().ToString(),
                     CostPrice = 4.67m,
                     Ncm = "30003234124",
                     ProductSuppliers = new List<ProductSupplier>{
@@ -25,7 +26,7 @@ namespace Api.Tests.Seed
                                 Name = "MainSupplier"                                
                             },
                             Product = new Product{
-                                
+                                RegistryCode = Guid.NewGuid().ToString(),
                             }
                         }
                     },                    
@@ -40,6 +41,7 @@ namespace Api.Tests.Seed
                 {
                     Name = "Lixiana 10mg 2cp",
                     BarCode = "0987654321012",
+                    RegistryCode = Guid.NewGuid().ToString(),
                     //TODO: Remove duplicated property
                     CostPrice = 4.67m,
                     EndCustomerPrice = 12.99m,
@@ -53,7 +55,7 @@ namespace Api.Tests.Seed
                                 Name = "MainSupplier"
                             },
                             Product = new Product{
-
+                                RegistryCode = Guid.NewGuid().ToString(),
                             }
                         }
                     }

@@ -6,7 +6,6 @@ using Core.Entities.Stock;
 using Application.Services;
 using Tests.Lib.Seed;
 using Core.Entities.Catalog;
-using Core.Models.ApplicationResources.Catalog;
 using Core.Interfaces;
 using Moq;
 

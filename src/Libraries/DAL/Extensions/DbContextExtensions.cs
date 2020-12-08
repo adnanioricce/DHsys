@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace DAL.Extensions
@@ -33,15 +34,14 @@ namespace DAL.Extensions
         {
             if(context is RemoteContext)
             {
-                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");
-                ((RemoteContext)context).PrepareRemote();
+                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");                
             }
             if(context is LocalContext)
             {
                 context = context as LocalContext ?? throw new InvalidCastException($"can't cast context {context} to LocalContext");
             }            
             
-            var migrator = context.Database.GetService<IMigrator>();
+            var migrator = context.Database.GetService<IMigrator>();            
             var pendingMigrations = context.GetPendingMigrationScripts().ToList();
             if (pendingMigrations.Any())
             {
@@ -49,7 +49,7 @@ namespace DAL.Extensions
                         var result = context.Database.ExecuteSqlRaw(migration);                                                                
                 });
             }
-        }
+        }        
         /// <summary>
         /// Creates the remote database without any migration or model
         /// </summary>
@@ -57,14 +57,8 @@ namespace DAL.Extensions
         public static void PrepareRemote(this RemoteContext context)
         {
             var connection = context.Database.GetDbConnection();
-            string connStr = connection.ConnectionString;
-            string dbParameterSubstring = connStr.Substring(connStr.IndexOf("Database="));
-            dbParameterSubstring = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";") + 1);
-            int start = dbParameterSubstring.IndexOf("=") + 1;
-            int end = dbParameterSubstring.IndexOf(";");
-            string databaseName = dbParameterSubstring.Substring(start, end - start);
-            string dbParameterAndValue = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";"));
-            connection.ConnectionString = connection.ConnectionString.Replace(dbParameterAndValue, "Database=postgres;");
+            var databaseName = GetDatabaseName(connection);
+            ChangeDatabase(connection,"postgres");
             connection.Open();
             var command = connection.CreateCommand();
             command.CommandText = $"CREATE DATABASE {databaseName};";
@@ -83,6 +77,26 @@ namespace DAL.Extensions
             AppLogger.Log.Information("Applying Migrations");
             connection.ChangeDatabase(databaseName);
             connection.Close();            
+        }        
+
+        /// <summary>
+        /// Change the database used for the given <see cref="IDbConnection"/>
+        /// </summary>
+        /// <param name="connection">The given <see cref="IDbConnection"/> in which database should be changed</param>
+        /// <param name="newDatabaseName">The given <see cref="IDbConnection"/> in which database should be changed</param>
+        /// <returns> the <see cref="IDbConnection"/> instance with the Database parameter changed to the given database name</returns>
+        private static IDbConnection ChangeDatabase(IDbConnection connection,string newDatabaseName)
+        {
+            var dbNameAndValue = GetDatabaseName(connection);
+            connection.ConnectionString = connection.ConnectionString.Replace($"Database={dbNameAndValue};", $"Database={newDatabaseName};");
+            return connection;
+        }
+        private static string GetDatabaseName(IDbConnection connection)
+        {
+            string connStr = connection.ConnectionString;
+            string dbParameterSubstring = connStr.Substring(connStr.IndexOf("Database="));
+            dbParameterSubstring = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";")).Substring("Database=".Length);
+            return dbParameterSubstring;            
         }
         /// <summary>
         /// Returns list of Sql script strings of each migration not applied in current <see cref="BaseContext"/>

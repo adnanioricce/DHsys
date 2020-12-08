@@ -41,5 +41,10 @@ namespace Core.Entities.Catalog.Tests
             Assert.Equal(12.99m,newPrice.CostPrice);
             Assert.Equal(15.99m,newPrice.EndCustomerDrugPrice);            
         }
+        [Fact]
+        public void Given_Existing_Product_and_Supplier_When_()
+        {
+
+        }
     }
 }

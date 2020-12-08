@@ -37,9 +37,10 @@ namespace DAL.DbContexts
                 ((BaseEntity)entityEntry.Entity).LastUpdatedOn = DateTimeOffset.UtcNow;
 
                 if (entityEntry.State == EntityState.Added)
-                {
+                {                    
                     ((BaseEntity)entityEntry.Entity).CreatedAt = DateTimeOffset.UtcNow;
-                }                
+                    ((BaseEntity)entityEntry.Entity).UniqueCode = Guid.NewGuid().ToString();
+                }
             }
 
         }

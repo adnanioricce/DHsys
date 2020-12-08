@@ -31,8 +31,7 @@ namespace Api.Windows
                 var context = new LegacyContext(Configuration.GetConnectionString("DefaultConnection"));
                 return context;
             });
-            services.AddScoped(typeof(ILegacyRepository<>), typeof(ProdutoRepository<>));
-            services.AddSingleton(typeof(ILegacyDataMapper<,>), typeof(ProdutoMapper));
+            services.AddScoped(typeof(ILegacyRepository<>), typeof(ProdutoRepository<>));            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,13 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Application;
 using Infrastructure.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 
 namespace Api
@@ -16,7 +11,7 @@ namespace Api
     {
         public static int Main(string[] args)
         {
-            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();            
+            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();
             try
             {
                 CreateHostBuilder(args).Build().Run();
@@ -31,8 +26,14 @@ namespace Api
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
                 .UseSerilog()
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
+                .ConfigureAppConfiguration((hostingContext, config) => {
+                    var configuration = new ConfigurationBuilder()
+                            .AddJsonFile("appsettings.json",optional: true,reloadOnChange:true)
+                            .AddEnvironmentVariables()
+                            .Build();
+                    config.AddConfiguration(configuration);
+                })
+                .ConfigureWebHostDefaults(webBuilder => {                    
                     webBuilder.UseStartup<Startup>();
                 });      
     }

@@ -45,7 +45,7 @@ namespace Api.Tests
             //Act
             var response = await _client.GetAsync(url);            
             //Assert
-            Assert.True(response.IsSuccessStatusCode);            
+            Assert.True(response.IsSuccessStatusCode,await response.Content.ReadAsStringAsync());            
         }
         [Fact(DisplayName = "Test default create method of the entity controller")]
         public virtual async Task POST_Create_ReceivesEntityObject_ExpectedToReturnCreatedEntity()
@@ -57,7 +57,7 @@ namespace Api.Tests
             var response = await _client.PostAsJsonAsync(url,seedObject);
             var content = await response.Content.ReadAsStringAsync();
             // Assert            
-            Assert.True(response.IsSuccessStatusCode);            
+            Assert.True(response.IsSuccessStatusCode);
         }
         [Fact(DisplayName = "Test default update endpoint of the entity controller.")]
         public virtual async Task PUT_Update_ReceivesEntityObject_ExpectedToReturnUpdatedEntity()
@@ -80,6 +80,7 @@ namespace Api.Tests
             var url = GetRequestUrl("api/{0}/{1}?api-version=1.0", typeof(TEntity).Name, seedObject.Id);
             // Act
             var response = await _client.DeleteAsync(url);
+            response.EnsureSuccessStatusCode();
             // Assert
             Assert.True(response.IsSuccessStatusCode);
 
@@ -88,7 +89,7 @@ namespace Api.Tests
         public virtual async Task POST_ValidateCreate_ReceivesEntityObject_ExpectedToReturnValidationResultObject()
         {
             // Arrange
-            var seedObject = _seeder.GetSeedObject();
+            var seedObject = _seeder.GetSeedObject();            
             var url = $"api/{typeof(TEntity).Name}/validate-create?api-version=1.0";
             // Act
             var response = await _client.PostAsJsonAsync(url, seedObject);

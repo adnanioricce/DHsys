@@ -1,15 +1,11 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.ApplicationModels.Dtos.Financial;
 using Core.ApplicationModels.Dtos.Stock;
-using Core.Entities;
 
 namespace Core.ApplicationModels.Dtos
 {
-    public class AddressDto
-    {
-        public int Id { get; set; }
+    public class AddressDto : BaseEntityDto
+    {        
         public string FirstAddressLine { get; set; }
 
         public string SecondAddressLine { get; set; }

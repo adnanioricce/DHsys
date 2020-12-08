@@ -1,4 +1,5 @@
-﻿using Core.Extensions;
+﻿using Application.Extensions;
+using Core.Extensions;
 using Core.Validations;
 using DAL.DbContexts;
 using DAL.Seed;
@@ -126,12 +127,13 @@ namespace Api
                 services.AddSingleton(objectInterface, seeder);
             }
             var validators = Assembly.GetAssembly(typeof(Core.Core))
-                                              .GetTypesWithBaseType(typeof(BaseValidator<>))
-                                              .ToList();
+                                     .GetTypesWithBaseType(typeof(BaseValidator<>))
+                                     .ToList();
             foreach (var validator in validators)
             {
                 services.AddTransient(validator.BaseType, validator);
             }
+            services.AddAutoMapperConfiguration();
             services.AddMvc(options => {
                 options.EnableEndpointRouting = false;
             }).AddNewtonsoftJson(settings => {

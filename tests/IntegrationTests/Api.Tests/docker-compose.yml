@@ -13,5 +13,3 @@ services:
       - "dhsysdb-dev:dhsysdb-dev"
     depends_on:
       - dhsysdb-dev
-    
-  

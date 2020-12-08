@@ -3,9 +3,8 @@ using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
-    public class ProductShelfLifeDto
-    {
-        public int Id { get; set; }
+    public class ProductShelfLifeDto : BaseEntityDto
+    {        
         public int ProductId { get; set; }
 
         public int StockEntryId { get; set; }

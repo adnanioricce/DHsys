@@ -17,7 +17,7 @@ namespace DAL.Migrations.Remote
                 column: "ProductId",
                 principalTable: "Products",
                 principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
+                onDelete: ReferentialAction.Cascade);
         }
     }
 }

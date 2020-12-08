@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>DHsys.Application</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>adnanioricce</Authors>
+    <Company>adnanioricce</Company>
+    <PackageOutputPath>..\..\..\build\Libraries\</PackageOutputPath>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
@@ -10,7 +16,7 @@
     <PackageReference Include="Dotmim.Sync.Sqlite" Version="0.5.5" />
     <PackageReference Include="Dotmim.Sync.SqlServer" Version="0.5.5" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />    
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.8" />    
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.0-rc.1.20451.13" />    
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0-rc.1.20451.14" />    
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0-rc.1.20451.14" />    
     <PackageReference Include="System.Data.SQLite" Version="1.0.112" />    

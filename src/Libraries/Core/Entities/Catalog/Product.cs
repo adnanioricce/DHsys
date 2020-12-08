@@ -89,29 +89,44 @@ namespace Core.Entities.Catalog
         /// On legacy model:est_minimo
         /// </summary>
         public int MinimumStock { get; set; } = 1;
+        /// <summary>
+        /// Get or set the name of the main supplier
+        /// </summary>
         public string MainSupplierName { get; set; }
         /// <summary>
         /// Get or set the Name.
         /// </summary>
         /// <value></value>
         public string Name { get; set; }
+        public string RegistryCode { get; set; }
         
         /// <summary>
-        /// Get or set the Many-To-Many reference to the Supplier Entity
+        /// Get or set the collection reference to the Supplier Entity
         /// </summary>
         /// <value></value>
         public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; } = new List<ProductSupplier>();
+        /// <summary>
+        /// Get or set collection of previous and current entity prices
+        /// </summary>
         public virtual ICollection<ProductPrice> ProductPrices { get; set; } = new List<ProductPrice>();
-        public virtual ICollection<ProductStockEntry> Stockentries { get; set; } = new List<ProductStockEntry>();        
+        /// <summary>
+        /// Get or set collection of Stock entries that this entity is present
+        /// </summary>
+        public virtual ICollection<ProductStockEntry> Stockentries { get; set; } = new List<ProductStockEntry>();
+        /// <summary>
+        /// Get or set collection of media used by this entity
+        /// </summary>
         public virtual ICollection<ProductMedia> ProductMedias { get; set; } = new List<ProductMedia>();
         /// <summary>
         /// get or set collection of Shelf life 
         /// </summary>
         /// <value></value>
         public virtual ICollection<ProductShelfLife> ShelfLifes { get; set; } = new List<ProductShelfLife>();
-        #region Legacy Fields
-        public string ProdutoId { get; set; }
-        #endregion        
+        /// <summary>
+        /// Get or set collection of categories that this entity is included
+        /// </summary>
+        public virtual ICollection<ProductCategory> Categories { get; set; } = new List<ProductCategory>();
+
         #region Methods
         public virtual void UpdatePrice(ProductPrice price)
         {
@@ -125,7 +140,7 @@ namespace Core.Entities.Catalog
             var price = new ProductPrice{
                 Pricestartdate = startDate.HasValue ? startDate : DateTimeOffset.UtcNow,
                 EndCustomerDrugPrice = newEndCustomerPriceValue,
-                CostPrice = newCostPrice,
+                CostPrice = newCostPrice,                
                 ProductId = this.Id,
             };
             UpdatePrice(price);
@@ -142,7 +157,7 @@ namespace Core.Entities.Catalog
                 Product = this,
                 IsThumbnail = isThumbnail,                
             };
-            ProductMedias.Add(productMedia);
+            AddProductImage(productMedia);
         }
         public virtual void AddSupplier(Supplier supplier)
         {
@@ -151,7 +166,7 @@ namespace Core.Entities.Catalog
                 var productSupplier = new ProductSupplier
                 {
                     Product = this,
-                    Supplier = supplier,
+                    Supplier = supplier,                    
                 };
                 ProductSuppliers.Add(productSupplier);
                 

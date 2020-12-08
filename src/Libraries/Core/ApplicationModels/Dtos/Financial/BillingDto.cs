@@ -1,13 +1,12 @@
 using System;
-using System.Linq;
 using Core.Entities;
 using Core.Entities.Financial;
 
 namespace Core.ApplicationModels.Dtos.Financial
 {
-    public class BillingDto
+    public class BillingDto : BaseEntityDto
     {
-        public int Id { get; set; }
+        public int BeneficiaryId { get; set; }
         public string BeneficiaryName { get; set; }
 
         public PersonDocumentType PersonType { get; set; }

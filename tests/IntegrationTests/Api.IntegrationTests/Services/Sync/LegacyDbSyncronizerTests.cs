@@ -1,34 +1,25 @@
-﻿using System.Text;
-using System.Reflection;
-using Application.Services;
-using Core.Interfaces;
-using Core.Models.Dbf;
-using Core.Models.ApplicationResources.Requests;
-using DAL;
+﻿using System.Reflection;
 using dBASE.NET;
-using Microsoft.Data.Sqlite;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
 using System.Linq;
 using Xunit;
-using Application;
 using Microsoft.EntityFrameworkCore;
 using Legacy.Entities;
+using Application.Windows.Services.Sync;
+using Legacy.Models.Sync;
+using Legacy.Models.Dbf;
 
 namespace Api.IntegrationTests.Services.Sync
 {
     public class LegacyDbSyncronizerTests : IDisposable
     {
-        private readonly DbContext _context;
-        private readonly IDbConnection _sourceConnection;
-        private readonly ILegacyDbSynchronizer _dbSyncronizer;
+        private readonly DbContext _context;        
+        private readonly LegacyDbSynchronizer _dbSyncronizer;
         
-        public LegacyDbSyncronizerTests(ILegacyDbSynchronizer dbSyncronizer, DbContext context)
-        {
-            //_connection = new SqliteConnection("Data Source=database.db");            
+        public LegacyDbSyncronizerTests(LegacyDbSynchronizer dbSyncronizer, DbContext context)
+        {            
             _context = context;
             _dbSyncronizer = dbSyncronizer;
         }

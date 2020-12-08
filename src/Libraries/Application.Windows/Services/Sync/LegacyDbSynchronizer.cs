@@ -1,7 +1,4 @@
-﻿using Core.Interfaces;
-using Core.Models.Dbf;
-using Core.Models.ApplicationResources.Requests;
-using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -18,9 +15,15 @@ using Infrastructure.Windows.Extensions;
 using Microsoft.Data.Sqlite;
 using Infrastructure.Windows.Models;
 using Legacy.Entities;
+using Legacy.Models.Sync;
+using Legacy.Interfaces.Sync;
+using Legacy.Models.Dbf;
+using Application.Windows.Extensions;
+using Infrastructure.Logging;
 
 namespace Application.Windows.Services.Sync
 {
+#warning while this is not cleaned, get away from it
     public class LegacyDbSynchronizer : ILegacyDbSynchronizer
     {        
         private readonly IDbConnection _sourceDbConnection;        
@@ -38,7 +41,7 @@ namespace Application.Windows.Services.Sync
                 .ToDictionary(v => v.Name);
             _localDbConnection = connectionResolver("local");
             _sourceDbConnection = connectionResolver("source");
-            _localDataAdapter = GetDataAdapter(_localDbConnection);            
+            _localDataAdapter = _localDbConnection.GetDataAdapter();            
             var tables = LegacyTypes.Select(lt => new DataTableMapping(lt.Key, lt.Key))
                                                                .ToArray();            
              
@@ -62,7 +65,7 @@ namespace Application.Windows.Services.Sync
             Converter = this.GetType().GetMethod("CastObject").MakeGenericMethod(type);                        
             foreach (var record in request.RecordDiffs) {                
                 if (!record.Value.IsNew){                                     
-                    string ColumnsAndValues = string.Join(",", record.Value.ColumsChanged.Select(WriteUpdateSetToCorrectSqlType));
+                    string ColumnsAndValues = string.Join(",", record.Value.ColumsChanged.Select(column => column.WriteUpdateSetToCorrectSqlType()));
                     sqlCommandBuilder.Append($"UPDATE {type.Name} SET LastUpdatedOn = CURRENT_TIMESTAMP,{ColumnsAndValues} WHERE Id = {record.Value.RecordIndex};");
                     continue;
                 }                
@@ -74,7 +77,7 @@ namespace Application.Windows.Services.Sync
                         FieldName = p.Name,
                         Value = p.GetValue(entity)
                     });
-                string values = string.Join(',', fields.Select(f => WriteInsertValuesToCorrectSqlType(f.Value)));
+                string values = string.Join(',', fields.Select(f => RecordColumn.WriteInsertValuesToCorrectSqlType(f.Value)));
                 string columnNames = string.Join(",", fields.Select(f => f.FieldName));
                 sqlCommandBuilder.Append($"INSERT INTO {type.Name.ToUpper()}(UniqueCode,CreatedAt,LastUpdatedOn,{columnNames}) VALUES('{fields.FirstOrDefault().Value}',CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,{values});");
             }
@@ -141,7 +144,7 @@ namespace Application.Windows.Services.Sync
             var changes = MapDbfsToDataset(Directory.GetFiles(sourceDatabaseFolder,"*.DBF"),_sourceDbConnection);
             try {
                 string queryTemplate = "SELECT * FROM {0} WHERE UniqueCode = '{1}';";
-                var commandBuilder = GetCommandBuilder(_localDbConnection,_localDataAdapter);                
+                var commandBuilder = _localDbConnection.GetCommandBuilder(_localDataAdapter);                
                 var queryBuilder = new StringBuilder();                                                
                 _localDbConnection.Open();
                 var queryCommand = _localDbConnection.CreateCommand();                
@@ -156,12 +159,12 @@ namespace Application.Windows.Services.Sync
                         queryCommand.CommandText = query;
                         var queryResult = queryCommand.ExecuteScalar();
                         if(IsQueryResultNull(queryResult)){
-                            var values = string.Join(',',changes.Tables[i].Rows[j].ItemArray.Select(WriteInsertValuesToCorrectSqlType));                            
+                            var values = string.Join(',',changes.Tables[i].Rows[j].ItemArray.Select(RecordColumn.WriteInsertValuesToCorrectSqlType));                            
                             queryBuilder.AppendLine($"INSERT INTO {changes.Tables[i].TableName}(LastUpdatedOn,CreatedAt,UniqueCode,{fields}) VALUES(CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,{changes.Tables[i].Rows[j].ItemArray[0]},{values});");
                             continue;
                         }            
                         string columnsToUpdate = string.Join(',', changes.Tables[i].Rows[j].ItemArray
-                            .Select(WriteInsertValuesToCorrectSqlType)
+                            .Select(RecordColumn.WriteInsertValuesToCorrectSqlType)
                             .Select((item,index) => $"{columns[index]}={item}"));                        
                         queryBuilder.AppendLine($"UPDATE {changes.Tables[i].TableName} SET LastUpdatedOn=CURRENT_TIMESTAMP,{columnsToUpdate} WHERE UniqueCode = {queryResult};");                                                        
                     }                    
@@ -172,17 +175,17 @@ namespace Application.Windows.Services.Sync
                     int result = command.ExecuteNonQuery();
                     _localDbConnection.Close();                                
                     return result;
-                }catch(Exception ex){
-                    //TODO:
+                }catch(Exception ex){                    
+                    AppLogger.Log.Error("Exception thrown at legacy database sync when trying to build query to sync source with local. Exception throwed:{@ex}",ex);
                     return 0;
                 }
                 
                 
             }catch(DBConcurrencyException ex)
-            {
-                //TODO:log exception
+            {                                
+                AppLogger.Log.Error("Exception throwed when trying to sync source with local database on legacy database sync process. Exception:{@ex}",ex);
                 throw;
-            }            
+            }
         }
         private bool IsQueryResultNull(object record)
         {
@@ -214,60 +217,24 @@ namespace Application.Windows.Services.Sync
             {
                 var adapter = new OleDbDataAdapter(tableNamesAndFilenames[i].Query,(OleDbConnection)dbConnection);                                                
                 adapter.TableMappings.Add(tableNamesAndFilenames[i].TableName,tableNamesAndFilenames[i].TableName);
-                try{
-                    // adapter.TableMappings.
+                try{                    
                     adapter.Fill(dataSet);
                     dataSet.Tables[i].TableName = tableNamesAndFilenames[i].TableName;                    
                 }catch(Exception ex){
-                    //TODO:
+                    AppLogger.Log.Error("Error occurred whem trying to map legacy databases files to DataAdapter objects, with the given exception. @ex", ex);                   
                 }                                
             }                           
             
             dbConnection.Close();
             return dataSet;
-        }
-        public string WriteUpdateSetToCorrectSqlType(RecordColumn column) => column.Value.GetType().Name switch
-        {
-            "Int32" => $"{column.ColumnName}={Convert.ToInt32(column.Value)}",
-            "Int64" => $"{column.ColumnName}={Convert.ToInt64(column.Value)}",
-            "Int16" => $"{column.ColumnName}={Convert.ToInt16(column.Value)}",
-            "Byte" => $"{column.ColumnName}={Convert.ToByte(column.Value)}",
-            "Decimal" => $"{column.ColumnName}={Convert.ToDecimal(column.Value)}",
-            "DateTime" => $"{column.ColumnName}={Convert.ToDateTime(column.Value)}",
-            "Double" => $"{column.ColumnName}={Convert.ToDouble(column.Value)}",
-            _ => $"{column.ColumnName}='{column.Value}'"
-        };
-        public string WriteInsertValuesToCorrectSqlType(object value) => value.GetType().Name switch 
-        {
-            "Int32" => $"{Convert.ToInt32(value)}",
-            "Int64" => $"{Convert.ToInt64(value)}",
-            "Int16" => $"{Convert.ToInt16(value)}",
-            "Byte" => $"{Convert.ToByte(value)}",
-            "Decimal" => $"{Convert.ToDecimal(value)}",
-            "DateTime" => $"{Convert.ToDateTime(value).ToShortDateString()}",
-            "Double" => $"{Convert.ToDouble(value.ToString().Replace(',','.'))}",
-            "Single" => $"{Convert.ToSingle(value.ToString().Replace(',','.'))}",
-            "String" => $"'{value.ToString().Replace("'"," ")}'",
-            _ => "NULL"
-        };
+        }        
+        
         public (string Query,string TableName) ConvertFilenameToSelectQuery(string filepath)
         {
             string filename = Path.GetFileNameWithoutExtension(filepath);                                                
             string tableName = char.ToUpper(filename[0]) + filename.Substring(1);
             return (Query:$"SELECT * FROM {tableName.ToUpper()}.DBF",TableName:tableName);            
-        }
-        private DbDataAdapter GetDataAdapter(IDbConnection dbConnection)
-        {
-            if(dbConnection is SqliteConnection) return new SQLiteDataAdapter();
-            if(dbConnection is OleDbConnection) return new OleDbDataAdapter();
-            return new System.Data.SQLite.SQLiteDataAdapter();            
-        }
-        private DbCommandBuilder GetCommandBuilder(IDbConnection dbConnection,DbDataAdapter adapter)
-        {            
-            if(dbConnection is SQLiteConnection) return new SQLiteCommandBuilder((SQLiteDataAdapter)adapter);
-            if(dbConnection is OleDbConnection) return new OleDbCommandBuilder((OleDbDataAdapter)adapter);
-            return new System.Data.SQLite.SQLiteCommandBuilder((SQLiteDataAdapter)adapter);
-        }
+        }                
         public static T CastObject<T>(object input)
         {            
             if(input is JObject)
@@ -275,7 +242,6 @@ namespace Application.Windows.Services.Sync
                 return (T)(JsonSerializer.Deserialize((input as JObject).ToString(), typeof(T)));
             }            
             return (T)input;
-        }
-        
+        }        
     }
 }

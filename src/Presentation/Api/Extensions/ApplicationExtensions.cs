@@ -4,6 +4,8 @@ using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -77,6 +79,17 @@ namespace Api.Extensions
                 var context = scope.ServiceProvider.GetServices<BaseContext>().FirstOrDefault(c => c is LocalContext);
                 context.ApplyUpgrades();
             }
+        }
+        public static bool DatabaseExists(this IApplicationBuilder app)
+        {
+            using (var scope = app.ApplicationServices.CreateScope())
+            {
+                using (var context = scope.ServiceProvider.GetRequiredService<RemoteContext>())
+                {
+                    return (context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists();
+                }
+            }
+            
         }
     }
 }

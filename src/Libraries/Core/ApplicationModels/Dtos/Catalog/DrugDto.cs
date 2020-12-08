@@ -1,24 +1,12 @@
-using Core.Entities.Catalog;
 using System;
-using System.Collections.Generic;
 using System.Linq;
+using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
     public class DrugDto : ProductDto
     {
-        public DrugDto(ProductDto productDto) : base(productDto)
-        {
-
-        }
-        public DrugDto()
-        {
-
-        }
-        public int Id { get; set; }
         public int? BaseDrugId { get; set; }
-
-        public int? SupplierId { get; set; }
 
         public string PrCdse { get; set; }
 
@@ -26,13 +14,9 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public string ManufacturerName { get; set; }
 
-        public string Name { get; set; }
-
         public string CommercialName { get; set; }
 
         public string Classification { get; set; }
-
-        public decimal? DrugCost { get; set; }
 
         public string Dosage { get; set; }
 
@@ -46,6 +30,10 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public bool IsPriceFixed { get; set; }
 
-        public string DigitalBuleLink { get; set; }        
+        public string DigitalBuleLink { get; set; }
+
+        public string LaboratoryCode { get; set; }
+
+        public string LaboratoryName { get; set; }
     }
 }

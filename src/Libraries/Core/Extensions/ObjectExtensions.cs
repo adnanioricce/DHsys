@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace Core.Extensions
 {
     public static class ObjectExtensions
@@ -15,6 +17,6 @@ namespace Core.Extensions
                     || value is float
                     || value is double
                     || value is decimal;
-        }       
+        }        
     }
 }

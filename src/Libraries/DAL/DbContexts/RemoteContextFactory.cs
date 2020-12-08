@@ -14,5 +14,17 @@ namespace DAL.DbContexts
             optionsBuilder.UseNpgsql("User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_dev;Pooling=true;");            
             return new RemoteContext(optionsBuilder.Options);
         }
+        public RemoteContext CreateContext(string connectionString,bool isDevelopment = false)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<RemoteContext>();
+            optionsBuilder.UseNpgsql(connectionString);
+            optionsBuilder.UseLazyLoadingProxies();
+            if (isDevelopment)
+            {
+                optionsBuilder.EnableDetailedErrors();
+                optionsBuilder.EnableSensitiveDataLogging();
+            }
+            return new RemoteContext(optionsBuilder.Options);
+        }        
     }
 }

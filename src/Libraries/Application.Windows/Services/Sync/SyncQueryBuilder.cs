@@ -10,9 +10,7 @@ namespace Application.Windows.Services.Sync
 {
     public class SyncQueryBuilder : ISyncQueryBuilder
     {
-        private readonly StringBuilder queryBuilder = new StringBuilder();
-        private readonly string getByIdTemplate = "SELECT * FROM {0} WHERE {1} = {2};";
-        // private readonly string 
+        private readonly StringBuilder queryBuilder = new StringBuilder();                
         public string BuildQueryFrom(params DbfRecordDiff[] records)
         {
             //TODO:
