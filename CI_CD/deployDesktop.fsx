@@ -1,12 +1,13 @@
+
 #r "paket:
 nuget Fake.DotNet.Cli
 nuget Fake.IO.FileSystem
 nuget Fake.Core.Target
 nuget Fake.IO.Zip 
-nuget Fake.IO
 nuget Fake.Api.GitHub
 //"
-#load ".fake/build.fsx/intellisense.fsx"
+#load ".fake/deployDesktop.fsx/intellisense.fsx"
+open Fake.Api
 open Fake.Core
 open Fake.DotNet
 open Fake.IO
@@ -14,10 +15,10 @@ open Fake.IO
 open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
 open Fake.Core.TargetOperators
-open Fake.Api.GitHub
-let releaseDir = "../release/"
 
+let releaseDir = "../release/"
 let zipFilename = "releases/DHsys.zip"
+
 Target.initEnvironment ()
 let targetCreateZip param = 
     Trace.log "--- Starting to zip release builds ---"
@@ -36,7 +37,7 @@ Target.create "BuildMsiInstaller" (fun _ ->
 )
 Target.create "InstallMsi" (fun _ -> 
   Trace.log "--- Installing Msi Installer ---"
-  (CreateProcess.fromRawCommand "msiexec /i ""Desktop-Installer.msi"" /norestart /L*V ""package.log"" ")
+  (CreateProcess.fromRawCommand "deployDesktop.fsx" [])
   |> Proc.run 
   |> ignore
 )
@@ -44,20 +45,22 @@ Target.create "InstallMsi" (fun _ ->
 Target.create "ZipBuild" targetCreateZip
 Target.create "GithubRelease" (fun _ ->
   let token =
-    match Environment.environmentVarOrDefault "github_token" "" with
+    match Environment.environVarOrDefault "github_token" "" with
       | s when not (System.String.IsNullOrWhiteSpace s) -> s
       | _ -> failwith "please set the github_token environment variable to a github personal access token with repo access"
   let files =
     !! "../release/Desktop/*.zip"
   GitHub.createClientWithToken token
-  |> GitHub.draftNewRelease gitOwner gitName release.NugetVersion (release.SemVer.PreRelease <> None) release.Notes
+  |> GitHub.draftNewRelease "adnanioricce" "DHsys" "POS" true []
   |> GitHub.uploadFiles files
   |> GitHub.publishDraft
   |> Async.RunSynchronously
 )
+
+
 Target.create "All" ignore
 
- "BuildMsiInstaller"
+"BuildMsiInstaller"
   ==> "ZipBuild"
   ==> "GithubRelease"
   ==> "All"
