@@ -2,9 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <PackageId>DHsys.Core</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>adnanioricce</Authors>
+    <Company>adnanioricce</Company>
     <PackageOutputPath>..\..\..\build\Libraries\</PackageOutputPath>
-    <PackageLicenseFile>..\..\..\LICENSE</PackageLicenseFile>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
+  
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="FluentValidation" Version="8.6.1" />

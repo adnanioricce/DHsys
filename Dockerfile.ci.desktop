@@ -6,4 +6,5 @@ ENV setx PATH "%PATH%;C:\\Users\\ContainerUser\\.dotnet\\tools"
 ENV github_token="${GITHUB_TOKEN}"
 COPY . .
 RUN fake run ./buildDesktop.fsx
-RUN fake run ./deployDesktop.fsx
+# TODO: finish the deploy script of the desktop project
+# RUN fake run ./deployDesktop.fsx

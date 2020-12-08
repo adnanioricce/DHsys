@@ -15,7 +15,7 @@ using DAL.Extensions;
 using DAL.DbContexts;
 using Application.Extensions;
 using Microsoft.EntityFrameworkCore;
-
+using Api;
 [assembly: TestFramework("Api.Tests.DIStartup", "Api.Tests")]
 namespace Api.Tests
 {
@@ -35,12 +35,20 @@ namespace Api.Tests
             services.AddDbContext<BaseContext,RemoteContext>((sp,options) => {
                 var factory = sp.GetService<RemoteContextFactory>();
                 options.EnableDetailedErrors();
-                options.EnableSensitiveDataLogging();                
-                options.UseNpgsql(configuration.GetConnectionString("DevConnection"));
+                options.EnableSensitiveDataLogging();
+                if(GlobalConfiguration.IsDockerContainer){
+                    string connectionString = GlobalConfiguration.DhConnectionString;
+                    options.UseNpgsql(connectionString);
+                    return;
+                }
+                options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddScoped<BaseContext, RemoteContext>((sp) => {
-                var factory = sp.GetService<RemoteContextFactory>();                
-                return factory.CreateContext(configuration.GetConnectionString("DevConnection"));
+                var factory = sp.GetService<RemoteContextFactory>();
+                if(GlobalConfiguration.IsDockerContainer){                    
+                    return factory.CreateContext(GlobalConfiguration.DhConnectionString);
+                }
+                return factory.CreateContext(configuration.GetConnectionString("DefaultConnection"));
             });
             services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
             services.AddTransient<IStockService, StockService>();
