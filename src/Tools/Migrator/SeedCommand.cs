@@ -19,7 +19,7 @@ namespace Helper
         }
         public Task<int> Seed()
         {
-            var contextFactory = new RemoteContextFactory();
+            var contextFactory = new DHsysContextFactory();
             var context = contextFactory.CreateContext(_connectionString);
             try
             {

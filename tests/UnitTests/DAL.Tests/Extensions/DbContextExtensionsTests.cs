@@ -37,13 +37,13 @@ namespace DAL.Tests.Extensions
             Assert.Null(result);
         }
 
-        private BaseContext CreateContext()
+        private DHsysContext CreateContext()
         {            
-            var context = new LocalContext(CreateOptions<LocalContext>(new SqliteConnection($"DataSource=:memory:")));
+            var context = new DHsysContext(CreateOptions<DHsysContext>(new SqliteConnection($"DataSource=:memory:")));
             return context;
         }
 
-        private DbContextOptions<TContext> CreateOptions<TContext>(SqliteConnection connection) where TContext : BaseContext
+        private DbContextOptions<TContext> CreateOptions<TContext>(SqliteConnection connection) where TContext : DHsysContext
         {            
             var optionsBuilder = new DbContextOptionsBuilder<TContext>();
             optionsBuilder.UseSqlite(connection);

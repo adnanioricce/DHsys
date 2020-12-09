@@ -9,11 +9,11 @@ namespace Api.Tests.Seed
 {
     public static class DrugSeed
     {
-        public static IEnumerable<Drug> GetDataForHttpGetMethods()
+        public static IEnumerable<Product> GetDataForHttpGetMethods()
         {
-            return new List<Drug>
+            return new List<Product>
             {
-                new Drug
+                new Product
                 {
                     Name = "Lixiana 10mg 2cp",
                     BarCode = "0987654321012",
@@ -33,11 +33,11 @@ namespace Api.Tests.Seed
                 },                
             };
         }
-        public static IEnumerable<Drug> GetDrugForTransactions()
+        public static IEnumerable<Product> GetDrugForTransactions()
         {
-            return new List<Drug>
+            return new List<Product>
             {
-                new Drug
+                new Product
                 {
                     Name = "Lixiana 10mg 2cp",
                     BarCode = "0987654321012",

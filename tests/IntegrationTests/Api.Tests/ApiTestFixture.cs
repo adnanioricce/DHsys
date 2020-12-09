@@ -142,9 +142,9 @@ namespace Api
             });            
             
         }
-        public BaseContext GetRemoteContext()
+        public DHsysContext GetContext()
         {
-            var context = ServiceProvider.GetService<BaseContext>();
+            var context = ServiceProvider.GetService<DHsysContext>();
             return context;
         }
     }

@@ -14,9 +14,9 @@ namespace DAL
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        protected virtual BaseContext Context { get; }
+        protected virtual DHsysContext Context { get; }
         protected virtual DbSet<T> DbSet { get; }
-        public Repository(BaseContext context) 
+        public Repository(DHsysContext context) 
         {            
             Context = context;
             DbSet = Context.Set<T>();

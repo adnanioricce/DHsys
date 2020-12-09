@@ -25,7 +25,7 @@ namespace Api.Tests
             // Given
             var baseUrl = "api/POSOrder/create?api-version=1.0";
             var drug = DrugSeed.GetDrugForTransactions().FirstOrDefault();
-            var context = _fixture.GetRemoteContext();
+            var context = _fixture.GetContext();
             context.Add(drug);
             context.SaveChanges();
             var transaction = new POSOrderDto
@@ -37,7 +37,7 @@ namespace Api.Tests
                 {
                     new POSOrderItemDto
                     {
-                        DrugUniqueCode = drug.UniqueCode,                        
+                        ProductUniqueCode = drug.UniqueCode,                        
                         CostPrice = drug.CostPrice,
                         CustomerValue = drug.EndCustomerPrice.Value,
                         Quantity = 1,

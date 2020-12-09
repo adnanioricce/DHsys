@@ -31,9 +31,9 @@ namespace Api.Tests
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
-            services.AddTransient<RemoteContextFactory>();
-            services.AddDbContext<BaseContext,RemoteContext>((sp,options) => {
-                var factory = sp.GetService<RemoteContextFactory>();
+            services.AddTransient<DHsysContextFactory>();
+            services.AddDbContext<DbContext,DHsysContext>((sp,options) => {
+                var factory = sp.GetService<DHsysContextFactory>();
                 options.EnableDetailedErrors();
                 options.EnableSensitiveDataLogging();
                 if(GlobalConfiguration.IsDockerContainer){
@@ -43,8 +43,8 @@ namespace Api.Tests
                 }
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddScoped<BaseContext, RemoteContext>((sp) => {
-                var factory = sp.GetService<RemoteContextFactory>();
+            services.AddScoped<DbContext,DHsysContext>((sp) => {
+                var factory = sp.GetService<DHsysContextFactory>();
                 if(GlobalConfiguration.IsDockerContainer){                    
                     return factory.CreateContext(GlobalConfiguration.DhConnectionString);
                 }
@@ -52,7 +52,7 @@ namespace Api.Tests
             });
             services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
             services.AddTransient<IStockService, StockService>();
-            services.AddTransient<IProductService, DrugService>();
+            services.AddTransient<IProductService, ProductService>();
             services.AddTransient<IBillingService, BillingService>();
             services.AddAutoMapperConfiguration();
         }
@@ -62,7 +62,7 @@ namespace Api.Tests
         }
         protected override void Configure(IServiceProvider provider)
         {
-            var contexts = provider.GetServices<BaseContext>().ToList();
+            var contexts = provider.GetServices<DHsysContext>().ToList();
             contexts.ForEach(context => context.ApplyUpgrades());
         }
     }

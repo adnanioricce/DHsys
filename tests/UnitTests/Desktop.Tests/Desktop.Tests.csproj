@@ -17,8 +17,7 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\src\Presentation\Desktop\Desktop.csproj" />    
+  <ItemGroup>    
     <ProjectReference Include="..\..\Tests.Lib\Tests.Lib.csproj" />
   </ItemGroup>
 

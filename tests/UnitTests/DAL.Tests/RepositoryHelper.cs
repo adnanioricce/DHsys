@@ -9,7 +9,7 @@ namespace DAL.Tests
 {
     public class RepositoryHelper
     {
-        public static Repository<T> GetRepository<T>(BaseContext context) where T : BaseEntity
+        public static Repository<T> GetRepository<T>(DHsysContext context) where T : BaseEntity
         {
             return new Repository<T>(DbContextHelper.CreateContext());
         }        

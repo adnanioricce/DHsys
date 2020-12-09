@@ -17,7 +17,7 @@ namespace Tests.Lib
     {
         protected readonly IRepository<TEntity> _repository;
         protected readonly IDataObjectSeed<TEntity> _seeder;
-        protected readonly BaseContext _context;
+        protected readonly DHsysContext _context;
         public BaseRepositoryTest()
         {
             _context = DbContextHelper.CreateContext();

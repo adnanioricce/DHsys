@@ -117,9 +117,9 @@ namespace Tests.Lib
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));            
             ServiceProvider = Server.Services;                  
         }
-        public BaseContext GetRemoteContext()
+        public DHsysContext GetRemoteContext()
         {
-            var context = ServiceProvider.GetService<BaseContext>();
+            var context = ServiceProvider.GetService<DHsysContext>();
             return context;
         }
 

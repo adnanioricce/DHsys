@@ -47,8 +47,8 @@ namespace Api.Controllers
             {
                 return Redirect("api/v1");
             }
-            _connectionStrings.Update((connStr) => connStr.RemoteConnection = model.ToString());            
-            var context = (RemoteContext)_serviceProvider.GetService(typeof(BaseContext));
+            _connectionStrings.Update((connStr) => connStr.DefaultConnection = model.ToString());            
+            var context = (DHsysContext)_serviceProvider.GetService(typeof(DHsysContext));
             //quick fix?
             context.Database.Migrate();
             GlobalConfiguration.IsFirstRun = false;

@@ -116,8 +116,8 @@ namespace Application.Extensions
         public static void AddDesktopDataStore(this IServiceCollection services)
         {
             services.AddTransient<DbContextOptionsFactory>();
-            services.AddTransient<RemoteContextFactory>();
-            services.AddDbContext<BaseContext, RemoteContext>((sp, options) =>
+            services.AddTransient<DHsysContextFactory>();
+            services.AddDbContext<DHsysContext, DHsysContext>((sp, options) =>
             {
                 var configuration = sp.GetService<IConfiguration>();                                
                 var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();
@@ -125,8 +125,8 @@ namespace Application.Extensions
                 options.EnableSensitiveDataLogging();
                 options.UseNpgsql(opt.Value.DefaultConnection);
             });
-            services.AddScoped<BaseContext, RemoteContext>(sp => {
-                var factory = sp.GetRequiredService<RemoteContextFactory>();                
+            services.AddScoped<DHsysContext, DHsysContext>(sp => {
+                var factory = sp.GetRequiredService<DHsysContextFactory>();                
                 var options = sp.GetService<IWritableOptions<ConnectionStrings>>();
                 return factory.CreateContext(options.Value.DefaultConnection);
             });
@@ -148,7 +148,7 @@ namespace Application.Extensions
             services.ConfigureWritable<DatabaseSettings>();
             services.ConfigureWritable<AppSettings>();
         }        
-        public static void TryCreateDatabase(this IServiceProvider provider, BaseContext context)
+        public static void TryCreateDatabase(this IServiceProvider provider, DHsysContext context)
         {
             context.Database.Migrate();
         }

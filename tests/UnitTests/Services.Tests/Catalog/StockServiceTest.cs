@@ -52,16 +52,16 @@ namespace Services.Tests.Catalog
         public void Given_New_StockEntry_With_Drugs_With_DrugCostChanged_Between_Last_StockEntry_Of_Each_Product_When_Get_Diff_Between_Current_Products_And_StockEntry_Product_Then_Return_List_With_Previous_And_New_Product_Object()
         {
             //Given
-            var oldDrug = ProductSeed.BaseCreateDrugEntity();
-            var newDrug = ProductSeed.BaseCreateDrugEntity();            
-            oldDrug.Ncm = "300024567";
-            newDrug.Ncm = oldDrug.Ncm;                                                      
-            newDrug.CostPrice += 0.01m;
+            var oldProduct = ProductSeed.BaseCreateProductEntity();
+            var newProduct = ProductSeed.BaseCreateProductEntity();
+            oldProduct.Ncm = "300024567";
+            newProduct.Ncm = oldProduct.Ncm;
+            newProduct.CostPrice += 0.01m;
             var service = new StockService(new FakeRepository<StockEntry>(),
-            new DrugService(new FakeRepository<Drug>(new Drug[]{oldDrug})));
+            new ProductService(new FakeRepository<Product>(new Product[]{ oldProduct })));
             //When
-            var result = service.GetItemsWithPriceChanged(new List<Drug>{
-                newDrug
+            var result = service.GetItemsWithPriceChanged(new List<Product>{
+                newProduct
             });
             //Then
             Assert.Single(result);            
@@ -77,11 +77,11 @@ namespace Services.Tests.Catalog
                 }
             };
         }
-        private IProductService GetFakeDrugService(Drug drug)
+        private IProductService GetFakeDrugService(Product drug)
         {
             var fakeDrugService = new Mock<IProductService>();
-            fakeDrugService.Setup(m => m.GetDrugsByNcm(It.IsAny<string[]>()))
-                           .Returns(new Drug[]{
+            fakeDrugService.Setup(m => m.GetProductsByNcm(It.IsAny<string[]>()))
+                           .Returns(new Product[]{
                                 drug
                            });
             return fakeDrugService.Object; 

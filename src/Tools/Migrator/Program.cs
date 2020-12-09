@@ -48,12 +48,10 @@ namespace Helper
                     Migrator.Migrate(argument);
                     break;
                 case "add_migration":
-                    Migrator.AddMigration(argument, ContextType.Remote);
-                    Migrator.AddMigration(argument, ContextType.Local);
+                    Migrator.AddMigration(argument);                    
                     break;
                 case "remove_migration":
-                    Migrator.DeleteMigration(ContextType.Remote);
-                    Migrator.DeleteMigration(ContextType.Local);
+                    Migrator.DeleteMigration();                    
                     break;
                 case "seed":
                     Seeder.Seed(argument);

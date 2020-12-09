@@ -11,7 +11,7 @@ namespace Core.Entities.Catalog.Tests
         public void Given_Update_Price_Object_When_Calling_UpdatePrice_Method_On_Instance_Of_Product_And_Pass_UpdatePrice_Object_Then_Add_Object_Collection_And_Update_Internal_Fields()
         {
             //Given
-            var product = ProductSeed.BaseProductEntity();
+            var product = ProductSeed.BaseCreateProductEntity();
             var productPrice = new ProductPrice{
                 ProductId = 1,
                 Pricestartdate = DateTimeOffset.UtcNow,
@@ -33,7 +33,7 @@ namespace Core.Entities.Catalog.Tests
             //Given
             decimal costPrice = 12.99m;
             decimal endCustomerPrice = 15.99m;
-            var product = ProductSeed.BaseProductEntity();
+            var product = ProductSeed.BaseCreateProductEntity();
             //When
             product.UpdatePrice(endCustomerPrice,costPrice);        
             //Then

@@ -23,7 +23,7 @@ namespace Services.Tests.Financial
                 Items = new List<POSOrderItem> {
                     new POSOrderItem
                     {
-                        Product = ProductSeed.BaseCreateDrugEntity(),
+                        Product = ProductSeed.BaseCreateProductEntity(),
                         ProductUniqueCode = "123456",
                         CustomerValue = 32.99m,
                         CostPrice = 29.99m,

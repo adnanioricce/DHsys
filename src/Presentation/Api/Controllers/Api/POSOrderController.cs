@@ -18,15 +18,15 @@ namespace Api.Controllers.Api
     public class POSOrderController : DefaultApiController<POSOrder,POSOrderDto>
     {
         protected readonly ITransactionService _transactionService;        
-        protected readonly IRepository<Drug> _drugRepository;        
+        protected readonly IRepository<Product> _productRepository;        
         public POSOrderController(ITransactionService transactionService,
             IRepository<POSOrder> transactionRepository,
-            IRepository<Drug> drugRepository,
+            IRepository<Product> ProductRepository,
             IMapper mapper,
             BaseValidator<POSOrder> transactionValidator) : base(transactionRepository,mapper,transactionValidator)
         {            
             _transactionService = transactionService;
-            _drugRepository = drugRepository;            
+            _productRepository = ProductRepository;            
         }
         [HttpPost("create")]
         public override async Task<ActionResult<BaseResourceResponse>> CreateAsync([FromBody]POSOrderDto transactionDto)

@@ -6,7 +6,7 @@ namespace Tests.Lib.Seed
 {
     public static class ProductSeed
     {
-        public static Product BaseCreateDrugEntity()
+        public static Product BaseCreateProductEntity()
         {
             var drug = new Product
             {

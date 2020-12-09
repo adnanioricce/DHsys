@@ -19,7 +19,7 @@ using Newtonsoft.Json;
 
 namespace Api.Tests
 {
-    public class DrugsControllerTests : ControllerTestBase<Drug,DrugDto>
+    public class DrugsControllerTests : ControllerTestBase<Product, ProductDto>
     {        
         public DrugsControllerTests(ApiTestFixture fixture) : base(fixture)
         {                        
@@ -28,16 +28,16 @@ namespace Api.Tests
         public async Task GET_GetDrugsByName_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var baseUrl = "api/Drug/search/list?name={0}&api-version=1.0";                                    
+            var baseUrl = "api/Product/search/list?name={0}&api-version=1.0";                                    
             var drug = DrugSeed.GetDataForHttpGetMethods().FirstOrDefault();
-            var context = _fixture.GetRemoteContext();
+            var context = _fixture.GetContext();
             context.Add(drug);
             context.SaveChanges();
             string requestUrl = string.Format(baseUrl, drug.Name);
             // Act            
             var result = await _client.GetAsync(requestUrl);
             result.EnsureSuccessStatusCode();
-            var response = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IList<DrugDto>>>();            
+            var response = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IList<ProductDto>>>();            
             // Assert                        
             Assert.True(response.Success);
             Assert.True(response.ResultObject.Count() > 0);
@@ -47,28 +47,29 @@ namespace Api.Tests
         public async Task GET_GetDrugByBarCode_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            string baseUrl = "api/Drug/search/{0}?api-version=1.0";                                    
-            var drug = DrugSeed.GetDataForHttpGetMethods().FirstOrDefault();
-            var context = _fixture.GetRemoteContext();
-            context.Add(drug);
+            string baseUrl = "api/Product/search/{0}?api-version=1.0";                                    
+            var Product = DrugSeed.GetDataForHttpGetMethods().FirstOrDefault();
+            var context = _fixture.GetContext();
+            context.Add(Product);
             context.SaveChanges();
-            string requestUrl = string.Format(baseUrl, drug.BarCode);
+            string requestUrl = string.Format(baseUrl, Product.BarCode);
             // Act
             //var result = drugsController.GetDrugByBarCode(barCode);
             var result = await _client.GetAsync(requestUrl);           
             result.EnsureSuccessStatusCode();
-            var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<Drug>>();
+            var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<Product>>();
             // Assert
             Assert.NotNull(valueResult);
-            Assert.Equal(drug.BarCode,valueResult.ResultObject.BarCode);
+            Assert.Equal(Product.BarCode,valueResult.ResultObject.BarCode);
         }                
 
         [Fact]
         public async Task POST_CreateDrug_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            string request_url = "api/Drug/create?api-version=1.0";            
-            var drug = new DrugDto { 
+            string request_url = "api/Product/create?api-version=1.0";            
+            var Product = new ProductDto
+            { 
                 Name = "Dipirona GTS 5mg",
                 RegistryCode = "1234",
                 Description = "Dipirona GTS 5mg",
@@ -83,7 +84,7 @@ namespace Api.Tests
             };
 
             // Act
-            var result = await _client.PostAsJsonAsync(request_url, drug);
+            var result = await _client.PostAsJsonAsync(request_url, Product);
             result.EnsureSuccessStatusCode();
             var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse>();
 

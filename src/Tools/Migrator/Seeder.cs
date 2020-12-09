@@ -71,7 +71,7 @@ namespace Helper
             {
                 Console.WriteLine("Couldn't set max number of threads");
             }
-            var remoteContextFactory = new RemoteContextFactory();
+            var remoteContextFactory = new DHsysContextFactory();
             foreach (var item in GetDataChunked<T>(jsonPath))
             {
                 var command = new SeedCommand(_seedCommands.Count + 1, connectionString, item);

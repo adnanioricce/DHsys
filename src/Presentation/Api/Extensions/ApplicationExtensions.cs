@@ -61,30 +61,12 @@ namespace Api.Extensions
             return Assembly.GetAssembly(typeof(Core.Core))
                            .GetTypes()
                            .Where(t => t.IsClass && t.Name.EndsWith("Dto"));
-        }
-        /// <summary>
-        /// try to build database and apply pending migrations for <see cref="LocalContext"/> of the caller Application
-        /// </summary>
-        /// <param name="application"></param>        
-        public static void BuildDatabase(this IApplicationBuilder application,string applicationCallerTypeName)
-        {                                    
-            using var scope = application.ApplicationServices.CreateScope();
-            if (applicationCallerTypeName == "Api")
-            {
-                var context = scope.ServiceProvider.GetServices<BaseContext>().FirstOrDefault(c => c is RemoteContext);
-                context.ApplyUpgrades();
-            }
-            if (applicationCallerTypeName == "Desktop")
-            {
-                var context = scope.ServiceProvider.GetServices<BaseContext>().FirstOrDefault(c => c is LocalContext);
-                context.ApplyUpgrades();
-            }
-        }
+        }        
         public static bool DatabaseExists(this IApplicationBuilder app)
         {
             using (var scope = app.ApplicationServices.CreateScope())
             {
-                using (var context = scope.ServiceProvider.GetRequiredService<RemoteContext>())
+                using (var context = scope.ServiceProvider.GetRequiredService<DHsysContext>())
                 {
                     return (context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists();
                 }
