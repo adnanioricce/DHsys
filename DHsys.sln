@@ -65,7 +65,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Legacy", "src\Libraries\Leg
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F1C3B431-BA23-4E63-A4AD-B656C9A1152D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Migrator", "src\Tools\Migrator\Migrator.csproj", "{9972ECF9-8A07-4AB1-BBFC-0CEDD944EF31}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Helper", "src\Tools\Migrator\Helper.csproj", "{9972ECF9-8A07-4AB1-BBFC-0CEDD944EF31}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

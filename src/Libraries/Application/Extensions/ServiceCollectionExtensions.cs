@@ -113,32 +113,27 @@ namespace Application.Extensions
         /// <param name="configuration">the <see cref="IConfiguration"/> instance with the Connection String data</param>
         /// <param name="applicationName">The name of the calling application </param>
         /// <param name="contextOptionsAction">a custom action to configure custom options</param>
-        public static void AddDataStore(this IServiceCollection services,
-            IConfiguration configuration,
-            string applicationName,
+        public static void AddDesktopDataStore(this IServiceCollection services,
+            IConfiguration configuration,            
             Action<DbContextOptionsBuilder> contextOptionsAction = null)
         {
             services.AddTransient<DbContextOptionsFactory>();
-            services.AddTransient<RemoteContextFactory>();
-            if (applicationName == "Desktop")
+            services.AddTransient<LocalContextFactory>();
+            services.AddDbContextPool<BaseContext, LocalContext>((sp, options) =>
             {
-                services.AddDbContextPool<BaseContext, LocalContext>(opt =>
-                {
-                    opt.UseLazyLoadingProxies();
-                    if (contextOptionsAction == null)
-                    {
-                        string connStr = configuration.GetValue<string>("AppSettings:ConnectionStrings:DefaultConnection");
-                        opt.UseSqlite(connStr);
-                        return;
-                    }
-                    else
-                    {
-                        contextOptionsAction(opt);
-                    }
-                });
-                services.AddScoped<BaseContext, LocalContext>();
-                services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            }
+                var configuration = sp.GetService<IConfiguration>();                                
+                var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();                
+                options.EnableDetailedErrors();
+                options.EnableSensitiveDataLogging();                
+                options.UseSqlite(opt.Value.DefaultConnection);
+            });
+            services.AddScoped<BaseContext, LocalContext>(sp => {
+                var factory = sp.GetRequiredService<LocalContextFactory>();                
+                var options = sp.GetService<IWritableOptions<ConnectionStrings>>();                                
+                return factory.CreateContext(options.Value.DefaultConnection);
+            });
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            
         }
         public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
         {

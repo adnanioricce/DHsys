@@ -77,7 +77,7 @@ namespace Desktop
             services.AddAutoMapperConfiguration();
             services.AddViews();
             services.AddViewModels();
-            services.AddDataStore(configuration,Assembly.GetExecutingAssembly().GetName().Name ,opt => opt.UseSqlite(configuration.GetConnectionString("DevConnection")));
+            services.AddDesktopDataStore(configuration,opt => opt.UseSqlite(configuration.GetConnectionString("DevConnection")));
             services.AddTransient(typeof(ILegacyRepository<>),typeof(ProdutoRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddScoped<CustomNavigationService>(ConfigureNavigationService);

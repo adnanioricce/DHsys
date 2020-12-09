@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Migrator
+namespace Helper
 {
     public class Seeder
     {

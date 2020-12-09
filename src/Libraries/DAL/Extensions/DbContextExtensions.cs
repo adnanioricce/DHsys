@@ -2,8 +2,11 @@
 using DAL.DbContexts;
 using Infrastructure.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations.Design;
+using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -90,7 +93,7 @@ namespace DAL.Extensions
             var dbNameAndValue = GetDatabaseName(connection);
             connection.ConnectionString = connection.ConnectionString.Replace($"Database={dbNameAndValue};", $"Database={newDatabaseName};");
             return connection;
-        }
+        }        
         private static string GetDatabaseName(IDbConnection connection)
         {
             string connStr = connection.ConnectionString;
@@ -193,6 +196,33 @@ namespace DAL.Extensions
         public static string GetDatabaseName(this RemoteContext context)
         {
             return context.Database.GetDbConnection().Database;
+        }
+        /// <summary>
+        /// Builds a service provider with EF services used in the design time workflow, like <see cref="IMigrationsCodeGenerator"/>.
+        /// </summary>
+        /// <param name="context">The <see cref="BaseContext"/> instance in whick get the design time services</param>
+        /// <returns></returns>
+        public static IServiceProvider BuildEFDesignTimeServiceProvider(this BaseContext context)
+        {
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddEntityFrameworkDesignTimeServices();
+            serviceCollection.AddDbContextDesignTimeServices(context);
+            return serviceCollection.BuildServiceProvider();
+        }
+        public static IMigrationsScaffolder GetMigrationsScaffolderService(this BaseContext context)
+        {
+            var serviceProvider = context.BuildEFDesignTimeServiceProvider();
+            return serviceProvider.GetService<IMigrationsScaffolder>();
+        }
+        public static (ScaffoldedMigration ScaffoldedMigration,IMigrationsScaffolder Scaffolder) ScaffoldMigration(this BaseContext context,string migrationName,string rootNamespace)
+        {
+            var scaffolder = context.GetMigrationsScaffolderService();
+            return (scaffolder.ScaffoldMigration(migrationName, rootNamespace), scaffolder);
+        }
+        public static MigrationFiles AddMigration(this BaseContext context,string projectDir, string outputDir, string migrationName,string rootNamespace = "DAL")
+        {
+            var scaffolding = context.ScaffoldMigration(migrationName, rootNamespace);
+            return scaffolding.Scaffolder.Save(projectDir, scaffolding.ScaffoldedMigration, outputDir);
         }
     }
 }

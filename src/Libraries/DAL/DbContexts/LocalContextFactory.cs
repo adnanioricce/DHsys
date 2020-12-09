@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace DAL.DbContexts
 {
     public class LocalContextFactory : IDesignTimeDbContextFactory<LocalContext>
@@ -12,7 +8,19 @@ namespace DAL.DbContexts
         {
             var optionsBuilder = new DbContextOptionsBuilder<LocalContext>();
             optionsBuilder.UseSqlite("Data Source=migration-placeholder.db");
-
+            return new LocalContext(optionsBuilder.Options);
+        }
+        public LocalContext CreateContext(string connectionString,bool isDevelopment = false)
+        {
+            //Duplicated code...
+            var optionsBuilder = new DbContextOptionsBuilder<LocalContext>();
+            optionsBuilder.UseSqlite(connectionString);
+            optionsBuilder.UseLazyLoadingProxies();
+            if (isDevelopment)
+            {
+                optionsBuilder.EnableDetailedErrors();
+                optionsBuilder.EnableSensitiveDataLogging();
+            }
             return new LocalContext(optionsBuilder.Options);
         }
     }
