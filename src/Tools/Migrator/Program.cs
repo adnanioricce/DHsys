@@ -8,7 +8,7 @@ namespace Helper
     {
         private static readonly string[] _commandList = new string[]
         {
-            "migrate","seed"
+            "migrate","add_migration","remove_migration","seed"
         };
         private static readonly string _helpMessage = @"
         options:
@@ -16,12 +16,12 @@ namespace Helper
             add_migration - Add a new migration for the Desktop and Api Projects
                 parameters:                    
                     --migrationName -> the name of the migration
+            remove_migration - removes a migration from the Desktop and Api projects 
             seed - run seed script on given npgsql connection string
         ";        
         
         static void Main(string[] args)
-        {
-            args = new string[] { "add_migration", "test_migration_2" };
+        {            
             if(args.Length == 0)
             {
                 Console.WriteLine(_helpMessage);
@@ -50,6 +50,10 @@ namespace Helper
                 case "add_migration":
                     Migrator.AddMigration(argument, ContextType.Remote);
                     Migrator.AddMigration(argument, ContextType.Local);
+                    break;
+                case "remove_migration":
+                    Migrator.DeleteMigration(ContextType.Remote);
+                    Migrator.DeleteMigration(ContextType.Local);
                     break;
                 case "seed":
                     Seeder.Seed(argument);

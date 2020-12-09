@@ -27,8 +27,7 @@ namespace Helper
         /// <param name="contextType"></param>
         public static void AddMigration(string migrationName, ContextType contextType)
         {            
-            if (contextType == ContextType.Local)
-            {
+            if (contextType == ContextType.Local) {
                 var localContext = new LocalContextFactory().CreateDbContext(new[] { "" });
                 var migrationFiles = localContext.AddMigration(MigrationProjectDir, $"{MigrationProjectDir}/Migrations/Local",string.Format("{0}-local",migrationName));
                 Console.WriteLine("--- Files created ---");
@@ -36,17 +35,36 @@ namespace Helper
                 Console.WriteLine("MigrationFile: {0}", migrationFiles.MigrationFile);
                 Console.WriteLine("SnapshotFile: {0}", migrationFiles.SnapshotFile);
             }
-            else if(contextType == ContextType.Remote)
-            {
+            else if(contextType == ContextType.Remote) {
                 var remoteContext = new RemoteContextFactory().CreateDbContext(new[] { "" });
                 var migrationFiles = remoteContext.AddMigration(MigrationProjectDir, $"{MigrationProjectDir}/Migrations/Remote", string.Format("{0}-remote", migrationName));
                 Console.WriteLine("--- Files created ---");
                 Console.WriteLine("MetadataFile: {0}", migrationFiles.MetadataFile);
                 Console.WriteLine("MigrationFile: {0}", migrationFiles.MigrationFile);
                 Console.WriteLine("SnapshotFile: {0}", migrationFiles.SnapshotFile);
-            }            
-        }                
-        //public static void 
+            }
+        }
+        public static void DeleteMigration(ContextType contextType)
+        {
+            if (contextType == ContextType.Local)
+            {
+                var localContext = new LocalContextFactory().CreateDbContext(new[] { "" });
+                var migrationFiles = localContext.DeleteMigration(MigrationProjectDir, "DAL");
+                Console.WriteLine("--- Files created ---");
+                Console.WriteLine("MetadataFile: {0}", migrationFiles.MetadataFile);
+                Console.WriteLine("MigrationFile: {0}", migrationFiles.MigrationFile);
+                Console.WriteLine("SnapshotFile: {0}", migrationFiles.SnapshotFile);
+            }
+            else if (contextType == ContextType.Remote)
+            {
+                var remoteContext = new RemoteContextFactory().CreateDbContext(new[] { "" });
+                var migrationFiles = remoteContext.DeleteMigration(MigrationProjectDir, "DAL");
+                Console.WriteLine("--- Files created ---");
+                Console.WriteLine("MetadataFile: {0}", migrationFiles.MetadataFile);
+                Console.WriteLine("MigrationFile: {0}", migrationFiles.MigrationFile);
+                Console.WriteLine("SnapshotFile: {0}", migrationFiles.SnapshotFile);
+            }
+        }
         /// <summary>
         /// Applies all remaining sql migrations for the given connection
         /// </summary>

@@ -214,15 +214,26 @@ namespace DAL.Extensions
             var serviceProvider = context.BuildEFDesignTimeServiceProvider();
             return serviceProvider.GetService<IMigrationsScaffolder>();
         }
+        public static IMigrationsCodeGenerator GetMigrationsCodeGenerator(this BaseContext context)
+        {
+            var serviceProvider = context.BuildEFDesignTimeServiceProvider();
+            return serviceProvider.GetService<IMigrationsCodeGenerator>();
+        }
         public static (ScaffoldedMigration ScaffoldedMigration,IMigrationsScaffolder Scaffolder) ScaffoldMigration(this BaseContext context,string migrationName,string rootNamespace)
         {
             var scaffolder = context.GetMigrationsScaffolderService();
             return (scaffolder.ScaffoldMigration(migrationName, rootNamespace), scaffolder);
         }
+        //public static 
         public static MigrationFiles AddMigration(this BaseContext context,string projectDir, string outputDir, string migrationName,string rootNamespace = "DAL")
         {
-            var scaffolding = context.ScaffoldMigration(migrationName, rootNamespace);
+            var scaffolding = context.ScaffoldMigration(migrationName, rootNamespace);            
             return scaffolding.Scaffolder.Save(projectDir, scaffolding.ScaffoldedMigration, outputDir);
+        }
+        public static MigrationFiles DeleteMigration(this BaseContext context, string projectDir, string rootNamespace)
+        {
+            var scaffolder = context.GetMigrationsScaffolderService();            
+            return scaffolder.RemoveMigration(projectDir, rootNamespace, true, "?");            
         }
     }
 }
