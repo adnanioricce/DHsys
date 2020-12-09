@@ -39,7 +39,6 @@ namespace Api.Windows.Controllers
                 _connection.Close();
                 return result;
             });
-
             if(!(result != -1))
             {
                 return StatusCode(500, "not all changes are writen on database");

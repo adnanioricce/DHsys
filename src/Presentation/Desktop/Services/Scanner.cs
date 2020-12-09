@@ -11,30 +11,27 @@ namespace Desktop.Services
 {
     public class Scanner : IApplicationScanner
     {
-        private readonly IDrugService _drugService;
+        private readonly IProductService _drugService;
         private StringBuilder _barcode = new StringBuilder();
         public event EventHandler BarcodeScanned;  
         
-        public Scanner(IDrugService drugService)
+        public Scanner(IProductService drugService)
         {
             _drugService = drugService;
         }
-        public Task<BaseResult<Drug>> OnBarcodeScan(object sender,KeyEventArgs e)
+        public Task<BaseResult<Product>> OnBarcodeScan(object sender,KeyEventArgs e)
         {
             if (44 == (int)e.Key) e.Handled = true;
             _barcode.Append(e.Key);
             if(_barcode.Length == 12)
             {
-                var drug = _drugService.SearchDrugByBarCode(_barcode.ToString());
+                var drug = _drugService.SearchProductByBarCode(_barcode.ToString());
                 _barcode.Clear();                
             }
-            throw new NotImplementedException();
-            //if(e)
-            //return GetDrugByBarcodeAsync(e);
-            //var drug = 
+            throw new NotImplementedException();            
         }
 
-        public Task<BaseResult<Drug>> GetDrugByBarcodeAsync(string barcode)
+        public Task<BaseResult<Product>> GetProductByBarcodeAsync(string barcode)
         {
             throw new NotImplementedException();
         }

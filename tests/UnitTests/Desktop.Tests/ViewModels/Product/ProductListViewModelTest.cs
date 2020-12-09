@@ -21,12 +21,12 @@ namespace Desktop.Tests.ViewModels
                 UniqueCode = code,
             };
             //var repository = new FakeLegacyProdutoRepository();            
-            var mockDrugService = new Mock<IDrugService>();
+            var mockDrugService = new Mock<IProductService>();
             mockDrugService.Setup(m => m.GetDrugByUniqueCodeAsync(It.IsAny<string>()))
                            .ReturnsAsync(entry);
             //When
             var viewModel = new ProductListViewModel(mockDrugService.Object);
-            var result = viewModel.ExecuteGetProductByCode(code);
+            var result = viewModel.GetProductByCode(code);
             result.Wait();
             //Then                              
             Assert.NotNull(viewModel.DrugCollection.FirstOrDefault());
@@ -44,12 +44,12 @@ namespace Desktop.Tests.ViewModels
                 Name = searchPattern,
                 ActivePrinciple = searchPattern,
             };
-            var mockDrugService = new Mock<IDrugService>();
+            var mockDrugService = new Mock<IProductService>();
             mockDrugService.Setup(m => m.SearchDrugsByNameAsync(It.IsAny<string>()))
                            .ReturnsAsync(new[] { drug });
             var viewModel = new ProductListViewModel(mockDrugService.Object);
             //When
-            await viewModel.ExecuteGetProductsBySearchPattern(searchPattern);
+            await viewModel.GetProductsBySearchPattern(searchPattern);
             //Then
             Assert.NotNull(viewModel.DrugCollection.FirstOrDefault());
         }

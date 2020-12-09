@@ -11,7 +11,7 @@ namespace Desktop.ViewModels.Product
 {
     public class CreateProductViewModel : ViewModelBase
     {        
-        private readonly IDrugService _drugService;
+        private readonly IProductService _drugService;
         //private readonly BaseValidator<Drug> _validator;
         public CreateProductModel Model { get; set; } = new CreateProductModel();
         public ObservableCollection<ManufacturerModel> Manufacturers { get; set; } = new ObservableCollection<ManufacturerModel>();
@@ -22,11 +22,11 @@ namespace Desktop.ViewModels.Product
             "Varejo",
             "Perfumaria"
         });
-        public RelayCommand<Drug> CreateDrugCommand { get; set; }
-        public CreateProductViewModel(IDrugService drugService, IRepository<Manufacturer> manufactuerRepository)
+        public RelayCommand<Core.Entities.Catalog.Product> CreateDrugCommand { get; set; }
+        public CreateProductViewModel(IProductService drugService, IRepository<Manufacturer> manufactuerRepository)
         {
             _drugService = drugService;            
-            CreateDrugCommand = new RelayCommand<Drug>(_drugService.CreateDrug,CanExecuteCreateDrug);
+            CreateDrugCommand = new RelayCommand<Core.Entities.Catalog.Product>(_drugService.CreateProduct, CanExecuteCreateProduct);
             var manufacturers = manufactuerRepository.Query()
                 .Select(m => new ManufacturerModel { Id = m.Id, ManufacturerName = m.Name});
             foreach(var manufacturer in manufacturers)
@@ -34,7 +34,7 @@ namespace Desktop.ViewModels.Product
                 Manufacturers.Add(manufacturer);
             }
         }        
-        public bool CanExecuteCreateDrug(Drug drug)
+        public bool CanExecuteCreateProduct(Core.Entities.Catalog.Product product)
         {            
             return true;
         }

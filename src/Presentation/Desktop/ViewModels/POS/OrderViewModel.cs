@@ -18,9 +18,9 @@ namespace Desktop.ViewModels.POS
     public class OrderViewModel : ViewModelBase
     {
         protected readonly ITransactionService _transactionService;
-        protected readonly IDrugService _drugService;
-        protected readonly IRepository<Drug> _repository;
-        protected readonly IList<DrugItemModel> _backProducts = new List<DrugItemModel>();
+        protected readonly IProductService _drugService;
+        protected readonly IRepository<Core.Entities.Catalog.Product> _repository;
+        protected readonly List<Core.Entities.Catalog.Product> _backProducts = new List<Core.Entities.Catalog.Product>();
         public string TransactionTotalString 
         { 
             get 
@@ -37,51 +37,30 @@ namespace Desktop.ViewModels.POS
                 Dispatcher.CurrentDispatcher.InvokeAsync(() => SearchDrugs(_searchPattern));
             }
         }
-        public ObservableCollection<DrugItemModel> Products { get; set; } = new ObservableCollection<DrugItemModel>();        
+        public ObservableCollection<ProductItemModel> Products { get; set; } = new ObservableCollection<ProductItemModel>();        
         public ObservableCollection<TransactionItemModel> ReceiptItems { get; set; } = new ObservableCollection<TransactionItemModel>();
-        public RelayCommand LoadDrugsCommand { get; set; }        
+        public RelayCommand LoadCommand { get; set; }        
         public RelayCommand CreatePosOrderCommand { get; set; }
 
-        public OrderViewModel(ITransactionService transactionService, IRepository<Drug> repository)
+        public OrderViewModel(ITransactionService transactionService, IRepository<Core.Entities.Catalog.Product> repository)
         {
             _transactionService = transactionService;            
-            _repository = repository;
-            LoadDrugsCommand = new RelayCommand(async () => await LoadProducts());
+            _repository = repository;            
             CreatePosOrderCommand = new RelayCommand(async () => await Dispatcher.CurrentDispatcher.InvokeAsync(CreatePosOrder));
-
+            LoadCommand = new RelayCommand(() => ThreadPool.QueueUserWorkItem(async (state) => await LoadProducts()));
         }
         public Task SearchDrugs(string searchPattern)
-        {            
-            Products.Clear();
+        {                        
             return Task.Run(() =>
-            {                
-                foreach(var item in _backProducts)
-                {
-                    if (item.Name.Contains(searchPattern) || item.Barcode.Contains(searchPattern) || item.UniqueCode.Contains(searchPattern) || item.Classification.Contains(searchPattern)) {
-                        Products.Add(item);
-                    }
-                }                               
+            {
+                var products = _backProducts.Where(item => item.Name.Contains(searchPattern) || item.BarCode.Contains(searchPattern) || item.UniqueCode.Contains(searchPattern) || item.Classification.Contains(searchPattern));
+                Products = ToObserableCollection(products);                                               
             });            
         }
         public async Task LoadProducts()
         {            
-            await foreach (var drug in _repository.GetAsyncEnumerable())
-            {
-                var thumbnail = drug.GetThumbnailImage();
-                var drugItem = new DrugItemModel
-                {
-                    Id = drug.Id,
-                    UniqueCode = drug.UniqueCode,
-                    Barcode = drug.BarCode,
-                    Name = drug.Name,
-                    EndCustomerPrice = drug.EndCustomerPrice.Value,
-                    CostPrice = drug.CostPrice,
-                    ImageSource = !(thumbnail is null) ? new Uri(thumbnail.Media.SourceUrl) : new Uri(""),
-                    Classification = drug.Classification
-                };
-                _backProducts.Add(drugItem);
-                Products.Add(drugItem);
-            }            
+            _backProducts.AddRange(await _repository.GetAsyncEnumerable().ToListAsync());            
+            Products = ToObserableCollection(_backProducts);
         }
 
         public void AddProductToOrder(int id,int quantity)
@@ -99,7 +78,7 @@ namespace Desktop.ViewModels.POS
         {
             var transactionItems = ReceiptItems.Select(item => new POSOrderItem
             {
-                DrugUniqueCode = item.Drug.UniqueCode,
+                ProductUniqueCode = item.Drug.UniqueCode,
                 Quantity = item.Quantity,
                 CostPrice = item.Drug.CostPrice,
                 CustomerValue = item.Drug.EndCustomerPrice,
@@ -108,6 +87,29 @@ namespace Desktop.ViewModels.POS
             transaction.AddItems(transactionItems.ToArray());
             await _transactionService.CreateTransactionAsync(transaction);
             ReceiptItems.Clear();
+        }
+        private ObservableCollection<ProductItemModel> ToObserableCollection(IEnumerable<Core.Entities.Catalog.Product> products)
+        {
+            var collection = new ObservableCollection<ProductItemModel>();
+            foreach (var product in products)
+            {
+                collection.Add(ToProductItemModel(product));
+            }
+            return collection;
+        }
+        private ProductItemModel ToProductItemModel(Core.Entities.Catalog.Product product)
+        {
+            return new ProductItemModel
+            {
+                Id = product.Id,
+                UniqueCode = product.UniqueCode,
+                Barcode = product.BarCode,
+                Name = product.Name,
+                EndCustomerPrice = product.EndCustomerPrice.Value,
+                CostPrice = product.CostPrice,
+                ImageSource = !(product.GetThumbnailImage() is null) ? new Uri(product.GetThumbnailImage().Media.SourceUrl) : new Uri("\\Resources\\Images\\placeholder.png"),
+                Classification = product.Classification
+            };
         }
     }
 }

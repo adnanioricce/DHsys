@@ -66,18 +66,17 @@ namespace Desktop
             var assembly = Assembly.GetExecutingAssembly();
             string assemblyContent = assembly.FullName;
             string assemblyName = assembly.GetName().Name;
-            File.WriteAllText(assemblyName, assemblyContent);
-            services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));            
-            services.Configure<AutoUpdateSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(AutoUpdateSettings)}"));
+            File.WriteAllText(assemblyName, assemblyContent);            
+            services.Configure<ConnectionStrings>(configuration.GetSection(nameof(ConnectionStrings)));
+            services.Configure<AutoUpdateSettings>(configuration.GetSection(nameof(AutoUpdateSettings)));
             services.ConfigureWritableOptionsModel();
-            services.ConfigureAppDataFolder();            
-            services.AddApplicationUpdater();            
-            services.AddApplicationServices();            
+            services.ConfigureAppDataFolder();
+            services.AddApplicationUpdater();
+            services.AddApplicationServices();
             services.AddAutoMapperConfiguration();
             services.AddViews();
             services.AddViewModels();
-            services.AddDesktopDataStore(configuration,opt => opt.UseSqlite(configuration.GetConnectionString("DevConnection")));
+            services.AddDesktopDataStore();
             services.AddTransient(typeof(ILegacyRepository<>),typeof(ProdutoRepository<>));
             services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
             services.AddScoped<CustomNavigationService>(ConfigureNavigationService);
@@ -92,9 +91,7 @@ namespace Desktop
             {
                 services.AddTransient(validator.BaseType, validator);
             }
-            ServiceProvider = services.BuildServiceProvider();
-            var dbcontext = ServiceProvider.GetRequiredService<BaseContext>();            
-            dbcontext.ApplyUpgrades();
+            ServiceProvider = services.BuildServiceProvider();            
         }                        
         private CustomNavigationService ConfigureNavigationService(IServiceProvider provider)
         {

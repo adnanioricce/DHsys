@@ -10,7 +10,7 @@ using Legacy.Entities;
 namespace DAL.Windows.Mappers
 {
     #warning Don't use this class or code using this class, the data models of the Core and Legacy systems will be separate from now on
-    internal class ProdutoMapper : ILegacyDataMapper<Drug,Produto>
+    internal class ProdutoMapper : ILegacyDataMapper<Product, Produto>
     {
         private readonly ILegacyRepository<Produto> _legacyProdutoRepository;        
         
@@ -19,15 +19,15 @@ namespace DAL.Windows.Mappers
             _legacyProdutoRepository = legacyProdutoRepository;                    
         }                
         
-        public IEnumerable<Drug> MapTable(string tableName)
+        public IEnumerable<Product> MapTable(string tableName)
         {
             var produtoTable = _legacyProdutoRepository.QueryableByRawQuery();
             var products = produtoTable.Select(MapToDomainModel);
             return products;
         }
-        private Drug MapSimpleFields(Produto produto)
+        private Product MapSimpleFields(Produto produto)
         {
-            var drug = new Drug
+            var drug = new Product
             {
                 BarCode = produto.Prbarra,
                 UniqueCode = produto.Prcodi,
@@ -63,7 +63,7 @@ namespace DAL.Windows.Mappers
                     
             return drug;
         }
-        public Drug MapToDomainModel(Produto produto)
+        public Product MapToDomainModel(Produto produto)
         {
             //TODO:Not all fields are mapped
             var drug = MapSimpleFields(produto);
@@ -88,7 +88,7 @@ namespace DAL.Windows.Mappers
             }
             return drug;
         }
-        public Produto MapToLegacyModel(Drug domainModel)
+        public Produto MapToLegacyModel(Product domainModel)
         {
             //TODO:
             throw new NotImplementedException();

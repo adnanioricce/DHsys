@@ -52,8 +52,8 @@ namespace Services.Tests.Catalog
         public void Given_New_StockEntry_With_Drugs_With_DrugCostChanged_Between_Last_StockEntry_Of_Each_Product_When_Get_Diff_Between_Current_Products_And_StockEntry_Product_Then_Return_List_With_Previous_And_New_Product_Object()
         {
             //Given
-            var oldDrug = DrugSeed.BaseCreateDrugEntity();
-            var newDrug = DrugSeed.BaseCreateDrugEntity();            
+            var oldDrug = ProductSeed.BaseCreateDrugEntity();
+            var newDrug = ProductSeed.BaseCreateDrugEntity();            
             oldDrug.Ncm = "300024567";
             newDrug.Ncm = oldDrug.Ncm;                                                      
             newDrug.CostPrice += 0.01m;
@@ -77,9 +77,9 @@ namespace Services.Tests.Catalog
                 }
             };
         }
-        private IDrugService GetFakeDrugService(Drug drug)
+        private IProductService GetFakeDrugService(Drug drug)
         {
-            var fakeDrugService = new Mock<IDrugService>();
+            var fakeDrugService = new Mock<IProductService>();
             fakeDrugService.Setup(m => m.GetDrugsByNcm(It.IsAny<string[]>()))
                            .Returns(new Drug[]{
                                 drug

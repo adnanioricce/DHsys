@@ -52,7 +52,7 @@ namespace Api.Tests
             });
             services.AddTransient(typeof(IRepository<>),typeof(Repository<>));
             services.AddTransient<IStockService, StockService>();
-            services.AddTransient<IDrugService, DrugService>();
+            services.AddTransient<IProductService, DrugService>();
             services.AddTransient<IBillingService, BillingService>();
             services.AddAutoMapperConfiguration();
         }

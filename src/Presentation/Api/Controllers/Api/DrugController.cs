@@ -15,8 +15,8 @@ namespace Api.Controllers.Api
 {    
     public class DrugController : DefaultApiController<Drug,DrugDto>
     {
-        private readonly IDrugService _drugService;        
-        public DrugController(IRepository<Drug> drugRepository,IMapper mapper,BaseValidator<Drug> drugValidator, IDrugService drugService) : base(drugRepository,mapper,drugValidator)
+        private readonly IProductService _drugService;        
+        public DrugController(IRepository<Drug> drugRepository,IMapper mapper,BaseValidator<Drug> drugValidator, IProductService drugService) : base(drugRepository,mapper,drugValidator)
         {
             _drugService = drugService;
         }

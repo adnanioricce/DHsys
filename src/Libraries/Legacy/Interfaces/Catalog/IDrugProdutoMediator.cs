@@ -14,12 +14,12 @@ namespace Legacy.Interfaces.Catalog
         /// Updates a Drug and it's Produto entity on local and source database from a drug object
         /// </summary>
         /// <param name="drug"></param>
-        void UpdateDrugFrom(Drug drug);
+        void UpdateDrugFrom(Product drug);
 
         /// <summary>
         /// Inserts a Drug and Produto entity on local and source database from a Drug object
         /// </summary>
         /// <param name="drug">the <see cref="Core.Entities.Catalog.Drug">Drug</see> entity object to save</param>
-        void CreateDrugFrom(Drug drug);
+        void CreateDrugFrom(Product drug);
     }
 }

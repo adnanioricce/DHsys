@@ -17,7 +17,7 @@ namespace Desktop.Tests.ViewModels.ProductViewModelsTests
         public void Given_ProductModel_On_ViewModel_When_User_Sends_Command_With_Model_Parameter_Then_Update_Entity_And_Model_on_ViewModel()
         {
             // Given
-            var productModel = DrugSeed.BaseCreateDrugEntity();            
+            var productModel = ProductSeed.BaseCreateDrugEntity();            
             var viewModel = new UpdateProductViewModel(GetFakeDrugService());
             // When
             viewModel.UpdateProductCommand.Execute(productModel);
@@ -25,9 +25,9 @@ namespace Desktop.Tests.ViewModels.ProductViewModelsTests
             Assert.Equal(4,productModel.QuantityInStock);
         }        
 
-        private IDrugService GetFakeDrugService()
+        private IProductService GetFakeDrugService()
         {
-            var fakeDrugProdutoMediator = new Mock<IDrugService>();
+            var fakeDrugProdutoMediator = new Mock<IProductService>();
             fakeDrugProdutoMediator.Setup(m => m.UpdateDrug(It.IsAny<int>(),It.IsAny<Drug>()))
                 .Callback((int id,Drug drug) => drug.QuantityInStock = 4);
             return fakeDrugProdutoMediator.Object;            

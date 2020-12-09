@@ -28,9 +28,9 @@ namespace Desktop.Tests.Scanner
         //    Assert.Equal(entity.BarCode, result.Value.Barcode);
             
         //}
-        private IDrugService GetFakeDrugService(Drug drug)
+        private IProductService GetFakeDrugService(Drug drug)
         {
-            var mockDrugService = new Mock<IDrugService>();
+            var mockDrugService = new Mock<IProductService>();
             mockDrugService.Setup(m => m.SearchDrugByBarCode(It.IsAny<string>()))
                 .Returns(drug);
             return mockDrugService.Object;

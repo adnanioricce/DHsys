@@ -17,7 +17,7 @@ namespace Desktop.Tests.ViewModels
         public void Given_Drug_Entity_Passed_When_Calling_Method_To_Create_New_Entity_Then_Insert_Entity_On_DataSource()
         {
             //Given
-            var drug = DrugSeed.BaseCreateDrugEntity();
+            var drug = ProductSeed.BaseCreateDrugEntity();
             var fakeRepository = new FakeRepository<Drug>();
             var viewModel = new CreateProductViewModel(new DrugService(fakeRepository),new FakeRepository<Manufacturer>());
             //When

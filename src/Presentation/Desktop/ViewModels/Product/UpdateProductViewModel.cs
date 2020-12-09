@@ -8,12 +8,12 @@ namespace Desktop.ViewModels.Product
 {
     public class UpdateProductViewModel : ViewModelBase
     {
-        private readonly IDrugService _drugService;
-        public RelayCommand<Drug> UpdateProductCommand { get; set; }
-        public UpdateProductViewModel(IDrugService drugService)
+        private readonly IProductService _productService;
+        public RelayCommand<Core.Entities.Catalog.Product> UpdateProductCommand { get; set; }
+        public UpdateProductViewModel(IProductService productService)
         {
-            _drugService = drugService;
-            UpdateProductCommand = new RelayCommand<Drug>((drug) => _drugService.UpdateDrug(drug.Id,drug));
+            _productService = productService;
+            UpdateProductCommand = new RelayCommand<Core.Entities.Catalog.Product>((product) => _productService.UpdateProduct(product.Id,product));
         }
     }
 }

@@ -100,7 +100,7 @@ namespace Application.Extensions
         /// <param name="services">the <see cref="IServiceCollection"/> instance to add the application services</param>
         public static void AddApplicationServices(this IServiceCollection services)
         {            
-            services.AddTransient<IDrugService, DrugService>();            
+            services.AddTransient<IProductService, ProductService>();            
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IBillingService, BillingService>();
             services.AddTransient<ITransactionService, POSOrderService>();
@@ -113,23 +113,21 @@ namespace Application.Extensions
         /// <param name="configuration">the <see cref="IConfiguration"/> instance with the Connection String data</param>
         /// <param name="applicationName">The name of the calling application </param>
         /// <param name="contextOptionsAction">a custom action to configure custom options</param>
-        public static void AddDesktopDataStore(this IServiceCollection services,
-            IConfiguration configuration,            
-            Action<DbContextOptionsBuilder> contextOptionsAction = null)
+        public static void AddDesktopDataStore(this IServiceCollection services)
         {
             services.AddTransient<DbContextOptionsFactory>();
-            services.AddTransient<LocalContextFactory>();
-            services.AddDbContextPool<BaseContext, LocalContext>((sp, options) =>
+            services.AddTransient<RemoteContextFactory>();
+            services.AddDbContext<BaseContext, RemoteContext>((sp, options) =>
             {
                 var configuration = sp.GetService<IConfiguration>();                                
-                var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();                
+                var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();
                 options.EnableDetailedErrors();
-                options.EnableSensitiveDataLogging();                
-                options.UseSqlite(opt.Value.DefaultConnection);
+                options.EnableSensitiveDataLogging();
+                options.UseNpgsql(opt.Value.DefaultConnection);
             });
-            services.AddScoped<BaseContext, LocalContext>(sp => {
-                var factory = sp.GetRequiredService<LocalContextFactory>();                
-                var options = sp.GetService<IWritableOptions<ConnectionStrings>>();                                
+            services.AddScoped<BaseContext, RemoteContext>(sp => {
+                var factory = sp.GetRequiredService<RemoteContextFactory>();                
+                var options = sp.GetService<IWritableOptions<ConnectionStrings>>();
                 return factory.CreateContext(options.Value.DefaultConnection);
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -138,9 +136,9 @@ namespace Application.Extensions
         public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
         {
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.Configure<DatabaseSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(DatabaseSettings)}"));            
-            services.Configure<AutoUpdateSettings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(AutoUpdateSettings)}"));
-            services.Configure<ConnectionStrings>(configuration.GetSection($"{nameof(AppSettings)}:{nameof(ConnectionStrings)}"));
+            services.Configure<DatabaseSettings>(configuration.GetSection(nameof(DatabaseSettings)));            
+            services.Configure<AutoUpdateSettings>(configuration.GetSection(nameof(AutoUpdateSettings)));
+            services.Configure<ConnectionStrings>(configuration.GetSection(nameof(ConnectionStrings)));
             services.ConfigureApplicationWritableOptions();
         }
         public static void ConfigureApplicationWritableOptions(this IServiceCollection services)

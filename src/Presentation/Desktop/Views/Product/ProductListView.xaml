@@ -10,6 +10,11 @@
       mc:Ignorable="d" 
       d:DesignHeight="600" d:DesignWidth="900"      
       DataContext="{Binding Source={StaticResource Locator}, Path=ProductListViewModel}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadDataCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
     <UserControl.Resources>
         <DataTemplate x:Key="ProductCard" DataType="{x:Type models:ProductCardModel}">
             <local:ProductCardControlView/>
@@ -25,7 +30,13 @@
                 <ColumnDefinition MinWidth="300" Width="9*"/>
                 <ColumnDefinition MinWidth="30" Width="1*"/>
             </Grid.ColumnDefinitions>
-            <TextBox Text="{Binding SearchPattern,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Grid.Column="0" Background="White" FontSize="20" md:HintAssist.Hint="Termo a procurar">
+            <TextBox Text="{Binding SearchPattern,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"                     
+                     Grid.Row="0" 
+                     Grid.Column="0" 
+                     Background="White" 
+                     FontSize="20" 
+                     IsEnabled="{Binding SearchBoxEnabled,Mode=OneWayToSource}"
+                     md:HintAssist.Hint="Termo a procurar">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="KeyEventArgs">
                         <i:InvokeCommandAction Command="{Binding GetDrugByCodeCommand}" />
@@ -35,6 +46,9 @@
             <Button Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="parameters" FontSize="9"/>
         </Grid>
         <DataGrid Grid.Row="1" ItemsSource="{Binding DrugCollection,Mode=TwoWay}">
+            <!--<DataGrid.Columns>-->
+                
+            <!--</DataGrid.Columns>-->
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Imagem">
                     <DataGridTemplateColumn.CellTemplate>

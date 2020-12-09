@@ -40,12 +40,12 @@ namespace Core.Entities.Stock
             return Items.Sum(item => item.Quantity * item.Product.CostPrice);
         }        
         
-        public void AddEntry(Drug drug,DateTime? maturityDate,int quantity,string lotCode)
+        public void AddEntry(Product product,DateTime? maturityDate,int quantity,string lotCode)
         {
-            if(drug is null) return;
+            if(product is null) return;
             var entry = new ProductStockEntry
             {
-                Product = drug,
+                Product = product,
                 StockEntry = this,
                 Quantity = quantity,
                 LotCode = lotCode

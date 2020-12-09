@@ -9,10 +9,10 @@ namespace Application.Windows.Services.Catalog
 {
     public class DrugProdutoMediator : IDrugProdutoMediator
     {
-        private readonly IDrugService _drugService;
+        private readonly IProductService _drugService;
         private readonly IProdutoService _produtoService;
         private readonly ILegacyDataMapper<Drug,Produto> _produtoMapper;
-        public DrugProdutoMediator(IDrugService drugService,IProdutoService produtoService,ILegacyDataMapper<Drug,Produto> produtoMapper)
+        public DrugProdutoMediator(IProductService drugService,IProdutoService produtoService,ILegacyDataMapper<Drug,Produto> produtoMapper)
         {
             _drugService = drugService;
             _produtoService = produtoService;

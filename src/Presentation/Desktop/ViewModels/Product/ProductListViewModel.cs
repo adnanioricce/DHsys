@@ -5,16 +5,23 @@ using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Desktop.Models;
 using System.Threading;
+using Core.Entities.Catalog;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Windows.Threading;
+using System.Collections.Generic;
 
 namespace Desktop.ViewModels.Product
 {
     public class ProductListViewModel : ViewModelBase
     {        
-        private readonly IDrugService _drugService;        
-        private ObservableCollection<ProductCardModel> drugCollection = new ObservableCollection<ProductCardModel>();        
+        private readonly IProductService _drugService;
+        private readonly IRepository<Core.Entities.Catalog.Product> _repository;
+        private List<Core.Entities.Catalog.Product> _backCollection = new List<Core.Entities.Catalog.Product>();       
+        private ObservableCollection<ProductCardModel> drugCollection = new ObservableCollection<ProductCardModel>();
         public ObservableCollection<ProductCardModel> DrugCollection { get { return drugCollection; } 
             set 
-            {   
+            {
                 if (drugCollection == value) return;
                 Set(ref drugCollection, value);
             } 
@@ -24,73 +31,78 @@ namespace Desktop.ViewModels.Product
             {
                 if (this._searchPattern == value) return;
                 Set(ref _searchPattern, value.ToUpper());
-                ThreadPool.QueueUserWorkItem(async (parameter) => await ExecuteGetProductsBySearchPattern((string)parameter), _searchPattern);
+                Dispatcher.CurrentDispatcher.InvokeAsync(async () => await GetProductsBySearchPattern(_searchPattern));
             } }
+        private bool _searchBoxEnabled = false;
+        public bool SearchBoxEnabled { get { return _searchBoxEnabled; } set { Set(ref _searchBoxEnabled, value); }}
+        public RelayCommand LoadDataCommand { get; set; }
         public RelayCommand<string> GetDrugByCodeCommand { get; set; }
         public RelayCommand<string> GetDrugByBarcodeCommand { get; set; }        
         public RelayCommand<string> GetDrugBySearchPatternCommand { get; set; }
         
-        public ProductListViewModel(IDrugService drugService)
-        {            
-            GetDrugByCodeCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductByCode(parameter));
-            GetDrugBySearchPatternCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductsBySearchPattern(parameter));
-            GetDrugByBarcodeCommand = new RelayCommand<string>(async (parameter) => await ExecuteGetProductByBarcode(parameter));            
+        public ProductListViewModel(IProductService drugService,IRepository<Core.Entities.Catalog.Product> repository)
+        {                        
             _drugService = drugService;
-        }               
-        public async Task ExecuteGetProductByCode(string parameter)
+            GetDrugByCodeCommand = new RelayCommand<string>(async (parameter) => await GetProductByCode(parameter));
+            GetDrugBySearchPatternCommand = new RelayCommand<string>(async (parameter) => await GetProductsBySearchPattern(parameter));
+            GetDrugByBarcodeCommand = new RelayCommand<string>(async (parameter) => await GetProductByBarcode(parameter));
+            LoadDataCommand = new RelayCommand(() => ThreadPool.QueueUserWorkItem(async (state) => await LoadData()));
+            _repository = repository;
+        }
+        private ProductCardModel ToCardModel(Core.Entities.Catalog.Product drug)
         {
-            var drug = await _drugService.GetDrugByUniqueCodeAsync(parameter);
-            var productModel = new ProductCardModel
+            return new ProductCardModel
             {
                 Code = drug.UniqueCode,
                 Barcode = drug.BarCode,
                 Description = drug.Description,
                 EndCustomerPrice = drug.EndCustomerPrice.HasValue ? drug.EndCustomerPrice.Value : 0.00m,
                 Name = drug.Name,
-                FrontImage = "../../Resources/placeholder.png",
+                FrontImage = (drug.GetThumbnailImage() is null) ? "../../Resources/placeholder.png" : drug.GetThumbnailImage().Media.SourceUrl,
                 StockQuantity = drug.QuantityInStock.HasValue ? drug.QuantityInStock.Value : 0,
-                CostPrice = drug.CostPrice,                
+                CostPrice = drug.CostPrice,
             };
+        }
+        public async Task LoadData()
+        {
+            SearchBoxEnabled = true;
+            var products = _repository.Query()
+                                      .ToListAsync();
+            _backCollection.AddRange(await products);
+            var collection = ToObservable(_backCollection);
+            DrugCollection = collection;
+            SearchBoxEnabled = false;
+        }
+
+        public async Task GetProductByCode(string parameter)
+        {
+            var drug = await _drugService.GetProductByUniqueCodeAsync(parameter);
+            var productModel = ToCardModel(drug);
             if (!DrugCollection.Contains(productModel))
             {
                 DrugCollection.Add(productModel);
             }
         }        
-        public async Task ExecuteGetProductsBySearchPattern(string pattern)
-        {
-            //TODO:Insecure code, throws exception when user type
-            var drugs = await _drugService.SearchDrugsByNameAsync(pattern);
-
-            foreach (var drug in drugs)
-            {                
-                DrugCollection.Add(new ProductCardModel
-                {
-                    Code = drug.BarCode,
-                    Barcode = drug.BarCode,
-                    Description = drug.Description,
-                    CostPrice = drug.CostPrice,
-                    EndCustomerPrice = drug.EndCustomerPrice.HasValue ? drug.EndCustomerPrice.Value : 0.00m,
-                    Name = drug.Name,
-                    FrontImage = "../../Resources/placeholder.png",
-                    StockQuantity = drug.QuantityInStock.HasValue ? drug.QuantityInStock.Value : 0
-                });
-            }                          
+        public async Task GetProductsBySearchPattern(string pattern)
+        {            
+            var products = _backCollection.Where(d => d.Name.Contains(pattern));
+            var collection = ToObservable(products);
+            DrugCollection = collection;
         }      
-        public async Task ExecuteGetProductByBarcode(string barcode)
+        public async Task GetProductByBarcode(string barcode)
         {
-            var drug = await _drugService.SearchDrugByBarCodeAsync(barcode);
+            var drug = await _drugService.SearchProductByBarCodeAsync(barcode);
             DrugCollection.Clear();
-            DrugCollection.Add(new ProductCardModel
+            DrugCollection.Add(ToCardModel(drug));
+        }
+        private ObservableCollection<ProductCardModel> ToObservable(IEnumerable<Core.Entities.Catalog.Product> products)
+        {
+            var collection = new ObservableCollection<ProductCardModel>();
+            foreach (var product in products)
             {
-                Code = drug.UniqueCode,
-                Barcode = drug.BarCode,
-                Description = drug.Description,
-                CostPrice = drug.CostPrice,
-                EndCustomerPrice = drug.EndCustomerPrice.HasValue ? drug.EndCustomerPrice.Value : 0,
-                Name = drug.Name,
-                FrontImage = "../../Resources/placeholder.png",
-                StockQuantity = drug.QuantityInStock.HasValue ? drug.QuantityInStock.Value : 0
-            });
+                collection.Add(ToCardModel(product));
+            }
+            return collection;
         }
     }
 }

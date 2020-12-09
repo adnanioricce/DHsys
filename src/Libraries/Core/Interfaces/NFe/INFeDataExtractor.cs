@@ -8,7 +8,7 @@ namespace Core.Interfaces.NFe
 {
     public interface INFeDataExtractor
     {
-        Task<BaseResult<IEnumerable<Drug>>> GetProdutoseServicos(GetProductsFromNFeRequest request);
+        Task<BaseResult<IEnumerable<Product>>> GetProdutoseServicos(GetProductsFromNFeRequest request);
         
     }
 }

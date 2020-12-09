@@ -19,7 +19,7 @@ namespace Desktop.ViewModels.Tests
         public async Task Given_SearchDrugs_When_condition_Should_expect()
         {
             // Given
-            var drug = DrugSeed.BaseCreateDrugEntity();
+            var drug = ProductSeed.BaseCreateDrugEntity();
             var fakeRepository = new FakeRepository<Drug>(new[] { drug });
             var viewModel = new OrderViewModel(null, fakeRepository);
             // When
@@ -34,7 +34,7 @@ namespace Desktop.ViewModels.Tests
         public async Task Given_LoadProducts_When_condition_Should_expect()
         {
             // Given
-            var drug = DrugSeed.BaseCreateDrugEntity();
+            var drug = ProductSeed.BaseCreateDrugEntity();
             var fakeRepository = new FakeRepository<Drug>(new[] { drug });
             var viewModel = new OrderViewModel(null, fakeRepository);
             // When
@@ -49,11 +49,11 @@ namespace Desktop.ViewModels.Tests
         public void Given_AddProductToOrder_When_condition_Should_expet()
         {
             // Given
-            var drug = DrugSeed.BaseCreateDrugEntity();            
+            var drug = ProductSeed.BaseCreateDrugEntity();            
             var viewModel = new OrderViewModel(null, null);
             // When
             
-            viewModel.Products.Add(new DrugItemModel
+            viewModel.Products.Add(new ProductItemModel
             {
                 Id = drug.Id,
                 UniqueCode = drug.UniqueCode,
@@ -71,14 +71,14 @@ namespace Desktop.ViewModels.Tests
         public void Given_CreatePosOrder_When_condition_should_expect()
         {
             // Given
-            var drug = DrugSeed.BaseCreateDrugEntity();            
+            var drug = ProductSeed.BaseCreateDrugEntity();            
             var drugRepository = new FakeRepository<Drug>(new[] { drug });            
             var mockTransactionService = new Mock<ITransactionService>();
             mockTransactionService.Setup(m => m.CreateTransactionAsync(It.IsAny<POSOrder>()))
                                   .Callback(() => Task.Delay(0));
             var viewModel = new OrderViewModel(mockTransactionService.Object, null);
             // When
-            viewModel.Products.Add(new DrugItemModel
+            viewModel.Products.Add(new ProductItemModel
             {
                 Id = drug.Id,
                 UniqueCode = drug.UniqueCode,

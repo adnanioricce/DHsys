@@ -13,6 +13,6 @@ namespace Infrastructure.Interfaces
     public interface IApplicationScanner
     {
         public event EventHandler BarcodeScanned;
-        Task<BaseResult<Drug>> GetDrugByBarcodeAsync(string barcode);
+        Task<BaseResult<Product>> GetProductByBarcodeAsync(string barcode);
     }
 }

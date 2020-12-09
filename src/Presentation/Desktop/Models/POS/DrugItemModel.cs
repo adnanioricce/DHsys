@@ -2,7 +2,7 @@
 
 namespace Desktop.Models.POS
 {
-    public class DrugItemModel : GalaSoft.MvvmLight.ObservableObject
+    public class ProductItemModel : GalaSoft.MvvmLight.ObservableObject
     {
         public int Id { get; set; }
         public string UniqueCode { get; set; }

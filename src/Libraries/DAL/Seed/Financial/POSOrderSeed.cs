@@ -18,7 +18,7 @@ namespace DAL.Seed
                 CostPrice = 23.99m,
                 CreatedAt = DateTimeOffset.UtcNow,
                 CustomerValue = 39.99m,
-                Drug = new DrugSeed().GetSeedObject(),
+                Product = new ProductSeed().GetSeedObject(),
                 Quantity = 4,
                 UniqueCode = Guid.NewGuid().ToString(),
                 POSOrder = POSOrder
