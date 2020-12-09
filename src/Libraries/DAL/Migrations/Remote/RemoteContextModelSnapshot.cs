@@ -15,7 +15,7 @@ namespace DAL.Migrations.Remote
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .UseIdentityByDefaultColumns()
+                .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63)
                 .HasAnnotation("ProductVersion", "5.0.0-rc.1.20451.13");
 
@@ -24,7 +24,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("AddressState")
                         .HasColumnType("text");
@@ -38,7 +38,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 760, DateTimeKind.Unspecified).AddTicks(7505), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 864, DateTimeKind.Unspecified).AddTicks(9770), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("District")
                         .HasColumnType("text");
@@ -52,7 +52,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 760, DateTimeKind.Unspecified).AddTicks(8015), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 865, DateTimeKind.Unspecified).AddTicks(257), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("SecondAddressLine")
                         .HasColumnType("text");
@@ -73,12 +73,12 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 795, DateTimeKind.Unspecified).AddTicks(8142), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 892, DateTimeKind.Unspecified).AddTicks(5434), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -89,7 +89,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 795, DateTimeKind.Unspecified).AddTicks(8635), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 892, DateTimeKind.Unspecified).AddTicks(5872), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -110,7 +110,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("BarCode")
                         .HasColumnType("text");
@@ -124,7 +124,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 804, DateTimeKind.Unspecified).AddTicks(2032), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 901, DateTimeKind.Unspecified).AddTicks(1155), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -148,7 +148,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 804, DateTimeKind.Unspecified).AddTicks(2505), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 901, DateTimeKind.Unspecified).AddTicks(1634), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("MainSupplierName")
                         .HasColumnType("text");
@@ -198,7 +198,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("CategoryId")
                         .HasColumnType("integer");
@@ -206,7 +206,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 797, DateTimeKind.Unspecified).AddTicks(4712), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 894, DateTimeKind.Unspecified).AddTicks(3181), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -214,7 +214,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 797, DateTimeKind.Unspecified).AddTicks(5389), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 894, DateTimeKind.Unspecified).AddTicks(3741), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -236,12 +236,12 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 805, DateTimeKind.Unspecified).AddTicks(4195), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 902, DateTimeKind.Unspecified).AddTicks(5448), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -252,7 +252,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 805, DateTimeKind.Unspecified).AddTicks(4855), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 902, DateTimeKind.Unspecified).AddTicks(6106), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("MediaResourceId")
                         .HasColumnType("integer");
@@ -277,7 +277,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<decimal>("CostPrice")
                         .HasColumnType("numeric");
@@ -285,7 +285,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 806, DateTimeKind.Unspecified).AddTicks(4340), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 903, DateTimeKind.Unspecified).AddTicks(4732), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("EndCustomerDrugPrice")
                         .HasColumnType("numeric");
@@ -296,7 +296,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 806, DateTimeKind.Unspecified).AddTicks(4866), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 903, DateTimeKind.Unspecified).AddTicks(5178), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTimeOffset?>("Pricestartdate")
                         .HasColumnType("timestamp with time zone");
@@ -319,12 +319,12 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 807, DateTimeKind.Unspecified).AddTicks(42), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 903, DateTimeKind.Unspecified).AddTicks(9578), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp without time zone");
@@ -335,7 +335,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 807, DateTimeKind.Unspecified).AddTicks(486), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 904, DateTimeKind.Unspecified).AddTicks(97), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -361,12 +361,12 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 807, DateTimeKind.Unspecified).AddTicks(4735), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 904, DateTimeKind.Unspecified).AddTicks(4960), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -374,7 +374,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 807, DateTimeKind.Unspecified).AddTicks(5360), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 904, DateTimeKind.Unspecified).AddTicks(5434), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("LotCode")
                         .HasColumnType("text");
@@ -408,12 +408,12 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 808, DateTimeKind.Unspecified).AddTicks(3580), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 905, DateTimeKind.Unspecified).AddTicks(4231), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -421,7 +421,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 808, DateTimeKind.Unspecified).AddTicks(4088), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 905, DateTimeKind.Unspecified).AddTicks(4754), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -446,7 +446,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("AddressId")
                         .HasColumnType("integer");
@@ -454,7 +454,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 795, DateTimeKind.Unspecified).AddTicks(1211), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 891, DateTimeKind.Unspecified).AddTicks(9032), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -466,7 +466,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 795, DateTimeKind.Unspecified).AddTicks(1865), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 891, DateTimeKind.Unspecified).AddTicks(9841), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -486,7 +486,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int>("BeneficiaryId")
                         .HasColumnType("integer");
@@ -497,7 +497,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 756, DateTimeKind.Unspecified).AddTicks(8139), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 861, DateTimeKind.Unspecified).AddTicks(5051), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal?>("Discount")
                         .HasColumnType("numeric");
@@ -514,7 +514,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 756, DateTimeKind.Unspecified).AddTicks(8648), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 861, DateTimeKind.Unspecified).AddTicks(5520), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("PersonType")
                         .HasColumnType("integer");
@@ -535,7 +535,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("ConsumerCode")
                         .HasColumnType("text");
@@ -543,7 +543,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 746, DateTimeKind.Unspecified).AddTicks(9104), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 852, DateTimeKind.Unspecified).AddTicks(8117), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("DiscountTotal")
                         .HasColumnType("numeric");
@@ -557,7 +557,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 746, DateTimeKind.Unspecified).AddTicks(9785), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 852, DateTimeKind.Unspecified).AddTicks(8817), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("integer");
@@ -575,7 +575,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<decimal>("CostPrice")
                         .HasColumnType("numeric");
@@ -583,7 +583,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 751, DateTimeKind.Unspecified).AddTicks(5761), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 856, DateTimeKind.Unspecified).AddTicks(9083), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("CustomerValue")
                         .HasColumnType("numeric");
@@ -600,7 +600,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 751, DateTimeKind.Unspecified).AddTicks(6481), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 856, DateTimeKind.Unspecified).AddTicks(9776), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("POSOrderId")
                         .HasColumnType("integer");
@@ -630,7 +630,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<string>("Caption")
                         .HasColumnType("text");
@@ -638,7 +638,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 752, DateTimeKind.Unspecified).AddTicks(807), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 857, DateTimeKind.Unspecified).AddTicks(4038), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -646,7 +646,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 752, DateTimeKind.Unspecified).AddTicks(1301), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 857, DateTimeKind.Unspecified).AddTicks(4432), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<long>("Size")
                         .HasColumnType("bigint");
@@ -670,12 +670,12 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 672, DateTimeKind.Unspecified).AddTicks(3712), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 783, DateTimeKind.Unspecified).AddTicks(8141), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -683,7 +683,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 672, DateTimeKind.Unspecified).AddTicks(4251), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 783, DateTimeKind.Unspecified).AddTicks(8691), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("NfEmissionDate")
                         .HasColumnType("timestamp without time zone");
@@ -712,7 +712,7 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int?>("AddressId")
                         .HasColumnType("integer");
@@ -723,7 +723,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 679, DateTimeKind.Unspecified).AddTicks(1358), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 790, DateTimeKind.Unspecified).AddTicks(3836), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -731,7 +731,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 679, DateTimeKind.Unspecified).AddTicks(2099), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 790, DateTimeKind.Unspecified).AddTicks(4478), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -751,12 +751,12 @@ namespace DAL.Migrations.Remote
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 416, DateTimeKind.Unspecified).AddTicks(6342), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 542, DateTimeKind.Unspecified).AddTicks(4342), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -767,7 +767,7 @@ namespace DAL.Migrations.Remote
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 11, 30, 23, 24, 28, 428, DateTimeKind.Unspecified).AddTicks(8951), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 9, 1, 8, 4, 553, DateTimeKind.Unspecified).AddTicks(7911), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("UniqueCode")
                         .HasColumnType("text");
@@ -920,7 +920,7 @@ namespace DAL.Migrations.Remote
                     b.HasOne("Core.Entities.Catalog.Product", "Product")
                         .WithMany("Stockentries")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Core.Entities.Stock.StockEntry", "StockEntry")

@@ -21,7 +21,7 @@ namespace Helper
         
         static void Main(string[] args)
         {
-            args = new string[] { "add_migration", "test_migration" };
+            args = new string[] { "add_migration", "test_migration_2" };
             if(args.Length == 0)
             {
                 Console.WriteLine(_helpMessage);
@@ -39,8 +39,7 @@ namespace Helper
                 Handle(args[i].Substring(args[i].LastIndexOf("-") + 1), args[i + 1]);
             }
         }        
-        
-        
+                
         public static void Handle(string option,string argument)
         {
             switch (option.ToLower())

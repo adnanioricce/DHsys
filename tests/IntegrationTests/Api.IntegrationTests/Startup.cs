@@ -41,7 +41,7 @@ namespace Api.IntegrationTests
                 .AddJsonFile("./appsettings.json")
                 .Build();                                            
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.AddDesktopDataStore(configuration,Assembly.GetAssembly(typeof(Api)).GetName().Name, rOpt => rOpt.UseNpgsql(configuration.GetConnectionString("NpgsqlConnection")));
+            services.AddDesktopDataStore(configuration, rOpt => rOpt.UseNpgsql(configuration.GetConnectionString("NpgsqlConnection")));
             services.AddTransient<DbContextResolver>(provider => key => {
                 string option = key.ToLower();
                 var services = provider.GetServices(typeof(BaseContext));                
