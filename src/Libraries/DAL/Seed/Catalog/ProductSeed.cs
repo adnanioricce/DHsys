@@ -17,14 +17,14 @@ namespace DAL.Seed
             product.Classification = "Sample Data";
             product.CommercialName = "Sample Commercial Name";
             product.Commission = "0,00";
-            product.CostPrice = 10;
+            //product.CostPrice = 10m;
             product.CreatedAt = DateTimeOffset.UtcNow;
             product.Description = "Sample Description";
             product.DigitalBuleLink = "https://sample.com.br";
             product.DiscountValue = 0;
             //TODO: Convert the unit measure?
             product.Dosage = "1";
-            product.EndCustomerPrice = 12;
+            //product.EndCustomerPrice = 12;
             product.ICMS = 18;
             product.IsPriceFixed = false;
             //TODO:Lot number probably has his own formatting
@@ -58,7 +58,7 @@ namespace DAL.Seed
                 Category = category,
                 Product = product
             });
-            product.QuantityInStock = 10;            
+            //product.QuantityInStock = 10;            
             product.UniqueCode = Guid.NewGuid().ToString();
             return product;
         }

@@ -11,7 +11,7 @@ namespace Core.Entities.Catalog
     /// </summary>
     public class Product : BaseEntity
     {
-        public int? BaseDrugId { get; set; }
+        public int? BaseProductId { get; set; }
         /// <summary>
         /// Legacy property, keeped for compability purposes. Ignore it
         /// </summary>
@@ -61,7 +61,8 @@ namespace Core.Entities.Catalog
         /// Get or set if price of drug is fixed by supplier/market/ or other entity(in the human context)
         /// </summary>
         /// <value></value>
-        public bool IsPriceFixed { get; set; } = false;
+        public bool IsPriceFixed { get; set; } = false;        
+
         /// <summary>
         /// Get or set a link to the bule of the drug 
         /// </summary>
@@ -88,29 +89,33 @@ namespace Core.Entities.Catalog
         /// On legacy model:Prestq
         /// </summary>
         /// <value></value>
-        public int? QuantityInStock { get; set; }
+        public int QuantityInStock { get; protected set; }
+        /// <summary>
+        /// Get or set the last time that this product was present in the creation of a stock entry
+        /// </summary>
+        public DateTimeOffset? LastStockEntry { get; protected set; }
         /// <summary>
         /// Get or set Reorder Level, to notify when this product should be reordered 
         /// </summary>
         /// <value></value>
-        public int? ReorderLevel { get; set; }
+        public int ReorderLevel { get; set; }
         /// <summary>
         /// Get or Set the quantity to be reordered if minimal value for ReorderLevel property is reached
         /// </summary>
         /// <value></value>
-        public int? ReorderQuantity { get; set; }
+        public int ReorderQuantity { get; set; }
         /// <summary>
         /// Get or Set The price of the product to end customer.
         /// On legacy model:Prfinal
         /// </summary>
         /// <value></value>
-        public decimal? EndCustomerPrice { get; set; }
+        public decimal EndCustomerPrice { get; protected set; }
         /// <summary>
         /// Get or Set the buy cost of the product
         /// </summary>
         /// <value></value>
-        public decimal CostPrice { get; set; }
-        public decimal SavingPercentage { get; set; }
+        public decimal CostPrice { get; protected set; }
+        public decimal SavingPercentage { get; protected set; }
         /// <summary>
         /// Get or set the barcode to be used to search for the product.
         /// On legacy model:Prbarra
@@ -191,8 +196,8 @@ namespace Core.Entities.Catalog
         /// Get or set collection of categories that this entity is included
         /// </summary>
         public virtual ICollection<ProductCategory> Categories { get; set; } = new List<ProductCategory>();
-
-        #region Methods
+        public virtual ICollection<StockChange> StockChanges { get; set; } = new List<StockChange>();
+        #region Public Methods
         public virtual void UpdatePrice(ProductPrice price)
         {
             this.ProductPrices.Add(price);
@@ -209,7 +214,7 @@ namespace Core.Entities.Catalog
                 ProductId = this.Id,
             };
             UpdatePrice(price);
-        }
+        }        
         public virtual void AddProductImage(ProductMedia media)
         {
             ProductMedias.Add(media);
@@ -233,16 +238,30 @@ namespace Core.Entities.Catalog
                     Product = this,
                     Supplier = supplier,                    
                 };
-                ProductSuppliers.Add(productSupplier);
-                
+                ProductSuppliers.Add(productSupplier);                
             }
         }
-        
+        /// <summary>
+        /// update the stock quantity of the product
+        /// </summary>
+        /// <param name="stockChange">the change to be applied on the product</param>
+        public virtual void UpdateStock(StockChange stockChange)
+        {
+            //? Throw a exception or simply set StockQuantity to zero?
+            int quantity = stockChange.Quantity + this.QuantityInStock;
+            var isQuantityBiggerThanExisting = stockChange.Quantity < 0 ? quantity < 0 : false;
+            if (isQuantityBiggerThanExisting)
+            {
+                throw new ArgumentException("the given stock change is bigger than the available product in stock");
+            }
+            this.StockChanges.Add(stockChange);
+            this.QuantityInStock += stockChange.Quantity;
+            this.LastStockEntry = stockChange.CreatedAt;
+        }
         public virtual ProductMedia GetThumbnailImage()
         {
             return ProductMedias.Where(p => p.IsThumbnail && p.Media.Type == Media.MediaType.Image).FirstOrDefault();
         }
-        
-        #endregion
-    }   
+        #endregion       
+    }
 }

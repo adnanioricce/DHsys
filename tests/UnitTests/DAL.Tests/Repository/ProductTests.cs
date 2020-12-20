@@ -4,7 +4,7 @@ using Tests.Lib;
 
 namespace DAL.Tests.Repository
 {
-    public class DrugTests : BaseRepositoryTest<Product>
+    public class ProductTests : BaseRepositoryTest<Product>
     {
         
     }

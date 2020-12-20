@@ -108,9 +108,7 @@ namespace Tests.Lib
             Assert.NotEmpty(entities);
         }
         public void Dispose()
-        {
-            //_context.Database.CloseConnection();
-            //_context.Dispose();
+        {            
         }
     }
 }

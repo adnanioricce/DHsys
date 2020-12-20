@@ -5,6 +5,9 @@ using Core.Entities.Catalog;
 
 namespace Core.Entities.Stock
 {
+    /// <summary>
+    /// Represents the entry of a supply of products in the system.
+    /// </summary>
     public class StockEntry : BaseEntity
     {
         protected decimal? _totalCost = 0.0m;        
@@ -62,6 +65,7 @@ namespace Core.Entities.Stock
             {
                 entry.StockEntry = this;
             }
+            //entry.Product.Stockentries.Add(entry);
             this.Items.Add(entry);
         }
     }

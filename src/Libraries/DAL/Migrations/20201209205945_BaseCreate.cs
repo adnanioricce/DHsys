@@ -1,4 +1,5 @@
 ﻿using System;
+using Core.Entities.Stock;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -9,7 +10,7 @@ namespace DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "addresses",
+                name: "Addresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -119,7 +120,7 @@ namespace DAL.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    BaseDrugId = table.Column<int>(type: "integer", nullable: true),
+                    BaseProductId = table.Column<int>(type: "integer", nullable: true),
                     PrCdse = table.Column<string>(type: "text", nullable: true),
                     ManufacturerId = table.Column<int>(type: "integer", nullable: true),
                     ManufacturerName = table.Column<string>(type: "text", nullable: true),
@@ -129,16 +130,18 @@ namespace DAL.Migrations
                     AbsoluteDosageInMg = table.Column<double>(type: "double precision", nullable: true),
                     ActivePrinciple = table.Column<string>(type: "text", nullable: true),
                     LotNumber = table.Column<string>(type: "text", nullable: true),
+                    
                     PrescriptionNeeded = table.Column<bool>(type: "boolean", nullable: false),
                     IsPriceFixed = table.Column<bool>(type: "boolean", nullable: false),
                     DigitalBuleLink = table.Column<string>(type: "text", nullable: true),
                     LaboratoryCode = table.Column<string>(type: "text", nullable: true),
                     LaboratoryName = table.Column<string>(type: "text", nullable: true),
                     Ncm = table.Column<string>(type: "text", nullable: true),
-                    QuantityInStock = table.Column<int>(type: "integer", nullable: true),
-                    ReorderLevel = table.Column<int>(type: "integer", nullable: true),
-                    ReorderQuantity = table.Column<int>(type: "integer", nullable: true),
-                    EndCustomerPrice = table.Column<decimal>(type: "numeric", nullable: true),
+                    QuantityInStock = table.Column<int>(type: "integer", nullable: false),
+                    LastStockEntry = table.Column<int>(type: "integer",nullable:true),
+                    ReorderLevel = table.Column<int>(type: "integer", nullable: false),
+                    ReorderQuantity = table.Column<int>(type: "integer", nullable: false),
+                    EndCustomerPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     CostPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     SavingPercentage = table.Column<decimal>(type: "numeric", nullable: false),
                     BarCode = table.Column<string>(type: "text", nullable: true),
@@ -181,7 +184,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "beneficiaries",
+                name: "Beneficiaries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -474,6 +477,31 @@ namespace DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+            migrationBuilder.CreateTable("StockChange", columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                             .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ImpactingEntityId = table.Column<int>(type: "integer",nullable:false),
+                    ProductId = table.Column<int>(type: "integer", nullable: false),
+                    Quantity = table.Column<int>(type: "integer", nullable: false),
+                    Type = table.Column<int>(type: "integer",nullable:false),
+                    Note = table.Column<string>(type: "text",nullable:true),
+                    UniqueCode = table.Column<string>(type: "text", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 12, 9, 20, 59, 45, 407, DateTimeKind.Unspecified).AddTicks(645), new TimeSpan(0, 0, 0, 0, 0))),
+                    LastUpdatedOn = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 12, 9, 20, 59, 45, 407, DateTimeKind.Unspecified).AddTicks(1123), new TimeSpan(0, 0, 0, 0, 0)))
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StockChange", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StockChange_Products_ProductId",
+                        column: x => x.ProductId,
+                        principalTable: "Products",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+
+                });
 
             migrationBuilder.CreateIndex(
                 name: "IX_beneficiaries_AddressId",
@@ -534,6 +562,11 @@ namespace DAL.Migrations
                 name: "IX_ProductStockEntry_StockEntryId",
                 table: "ProductStockEntry",
                 column: "StockEntryId");
+            
+            migrationBuilder.CreateIndex(
+                name: "IX_StockTrack_ProductId",
+                table: "StockTrack",
+                column: "ProductId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductSupplier_ProductId",
