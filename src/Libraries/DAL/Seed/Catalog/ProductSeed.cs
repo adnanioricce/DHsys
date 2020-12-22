@@ -45,7 +45,7 @@ namespace DAL.Seed
                 Type = Core.Entities.Media.MediaType.Image,
                 SourceUrl = "https://fakeurl.com"
             });
-            product.UpdatePrice(12.00m, 10.00m);
+            product.UpdatePrice(12.00m, 10.00m,DateTimeOffset.UtcNow);
             var supplier = new Supplier
             {
                 Cnpj = "1234456567678",

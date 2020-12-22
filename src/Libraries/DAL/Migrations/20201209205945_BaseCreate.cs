@@ -10,7 +10,7 @@ namespace DAL.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Addresses",
+                name: "addresses",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -64,6 +64,7 @@ namespace DAL.Migrations
                     Name = table.Column<string>(type: "text", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: true),
                     ShowOnHomepage = table.Column<bool>(type: "boolean", nullable: false),
+                    ParentId = table.Column<int>(type: "integer",nullable: false),
                     UniqueCode = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 12, 9, 20, 59, 45, 391, DateTimeKind.Unspecified).AddTicks(2940), new TimeSpan(0, 0, 0, 0, 0))),
@@ -72,8 +73,14 @@ namespace DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Category", x => x.Id);
-                });
-
+                    table.ForeignKey(
+                        name: "FK_Category_Category_ParentId",
+                        column:x => x.ParentId,
+                        principalTable: "Category",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });            
+            
             migrationBuilder.CreateTable(
                 name: "MediaResource",
                 columns: table => new
@@ -93,7 +100,7 @@ namespace DAL.Migrations
                 {
                     table.PrimaryKey("PK_MediaResource", x => x.Id);
                 });
-
+            
             migrationBuilder.CreateTable(
                 name: "POSOrder",
                 columns: table => new
@@ -129,8 +136,7 @@ namespace DAL.Migrations
                     Dosage = table.Column<string>(type: "text", nullable: true),
                     AbsoluteDosageInMg = table.Column<double>(type: "double precision", nullable: true),
                     ActivePrinciple = table.Column<string>(type: "text", nullable: true),
-                    LotNumber = table.Column<string>(type: "text", nullable: true),
-                    
+                    LotNumber = table.Column<string>(type: "text", nullable: true),                    
                     PrescriptionNeeded = table.Column<bool>(type: "boolean", nullable: false),
                     IsPriceFixed = table.Column<bool>(type: "boolean", nullable: false),
                     DigitalBuleLink = table.Column<string>(type: "text", nullable: true),
@@ -138,7 +144,7 @@ namespace DAL.Migrations
                     LaboratoryName = table.Column<string>(type: "text", nullable: true),
                     Ncm = table.Column<string>(type: "text", nullable: true),
                     QuantityInStock = table.Column<int>(type: "integer", nullable: false),
-                    LastStockEntry = table.Column<int>(type: "integer",nullable:true),
+                    LastStockEntry = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable:true),
                     ReorderLevel = table.Column<int>(type: "integer", nullable: false),
                     ReorderQuantity = table.Column<int>(type: "integer", nullable: false),
                     EndCustomerPrice = table.Column<decimal>(type: "numeric", nullable: false),
@@ -184,7 +190,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Beneficiaries",
+                name: "beneficiaries",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -522,6 +528,11 @@ namespace DAL.Migrations
                 name: "IX_POSOrderItem_ProductId",
                 table: "POSOrderItem",
                 column: "ProductId");
+            
+            migrationBuilder.CreateIndex(
+                name: "IX_Category_ParentId",
+                table: "Category",
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductCategory_CategoryId",
@@ -564,8 +575,8 @@ namespace DAL.Migrations
                 column: "StockEntryId");
             
             migrationBuilder.CreateIndex(
-                name: "IX_StockTrack_ProductId",
-                table: "StockTrack",
+                name: "IX_StockChange_ProductId",
+                table: "StockChange",
                 column: "ProductId");
 
             migrationBuilder.CreateIndex(
