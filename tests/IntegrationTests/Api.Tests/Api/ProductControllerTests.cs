@@ -19,9 +19,9 @@ using Newtonsoft.Json;
 
 namespace Api.Tests
 {
-    public class DrugsControllerTests : ControllerTestBase<Product, ProductDto>
+    public class ProductControllerTests : ControllerTestBase<Product, ProductDto>
     {        
-        public DrugsControllerTests(ApiTestFixture fixture) : base(fixture)
+        public ProductControllerTests(ApiTestFixture fixture) : base(fixture)
         {                        
         }        
         [Fact]

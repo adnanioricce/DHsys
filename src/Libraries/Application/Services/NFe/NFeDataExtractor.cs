@@ -33,24 +33,21 @@ namespace Application.Services.NFe
                 Value = Enumerable.Union(existingDrugs,newDrugs),
                 Success = true                
             };
-        }       
+        }
         private Product ConvertProdToProduct(Prod prod)
         {
-            return new Product{
+            var product = new Product
+            {
                 Description = prod.XProd,
-                UniqueCode = prod.CProd,
-                ProductPrices = new List<ProductPrice>{
-                    new ProductPrice
-                    {
-                        CostPrice = decimal.TryParse(prod.VProd,out decimal price) ? price : Convert.ToDecimal(prod.VProd),
-                        Pricestartdate = DateTimeOffset.UtcNow,
-                        EndCustomerDrugPrice = price * 1.5m                        
-                    }
-                },
+                UniqueCode = prod.CProd,                                
                 DiscountValue = 20,
                 MaxDiscountPercentage = 20,
-                Section = "Varejo"                
+                Section = "Varejo"
             };
+            var isValidPrice = decimal.TryParse(prod.VProd, out decimal costPrice);
+            var price = ProductPrice.CreateNewPrice(product, isValidPrice ? costPrice : Convert.ToDecimal(prod.VProd), costPrice * 1.5m, DateTimeOffset.UtcNow);
+            product.SetNewPrice(price);
+            return product;
         }
     }
 }

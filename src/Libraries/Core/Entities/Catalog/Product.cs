@@ -198,22 +198,17 @@ namespace Core.Entities.Catalog
         public virtual ICollection<ProductCategory> Categories { get; set; } = new List<ProductCategory>();
         public virtual ICollection<StockChange> StockChanges { get; set; } = new List<StockChange>();
         #region Public Methods
-        public virtual void UpdatePrice(ProductPrice price)
+        public virtual void SetNewPrice(ProductPrice price)
         {
             this.ProductPrices.Add(price);
             this.EndCustomerPrice = price.EndCustomerDrugPrice;
             this.CostPrice = price.CostPrice;
             this.SavingPercentage = price.CalculatePercentageSaving();            
         }        
-        public virtual void UpdatePrice(decimal newEndCustomerPriceValue,decimal newCostPrice,DateTimeOffset? startDate = null)
+        public virtual void UpdatePrice(decimal newEndCustomerPriceValue,decimal newCostPrice,DateTimeOffset startDate)
         {
-            var price = new ProductPrice{
-                Pricestartdate = startDate.HasValue ? startDate : DateTimeOffset.UtcNow,
-                EndCustomerDrugPrice = newEndCustomerPriceValue,
-                CostPrice = newCostPrice,                
-                ProductId = this.Id,
-            };
-            UpdatePrice(price);
+            var price = ProductPrice.CreateNewPrice(this,newCostPrice,newEndCustomerPriceValue,startDate);                
+            SetNewPrice(price);
         }        
         public virtual void AddProductImage(ProductMedia media)
         {

@@ -25,7 +25,7 @@ namespace Core.Entities.Stock
         /// <summary>
         /// Get or set the reference of the impacted product
         /// </summary>
-        public Product Product { get; set; }
+        public virtual Product Product { get; set; }
         /// <summary>
         /// Get or set the Id of the impacting entity the product
         /// </summary>

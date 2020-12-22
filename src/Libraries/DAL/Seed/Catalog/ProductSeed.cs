@@ -51,14 +51,7 @@ namespace DAL.Seed
                 Cnpj = "1234456567678",
             };
             supplier.Address = new AddressSeed().GetSeedObject();            
-            product.AddSupplier(supplier);
-            var category = new CategorySeed().GetSeedObject();
-            product.Categories.Add(new ProductCategory
-            {
-                Category = category,
-                Product = product
-            });
-            //product.QuantityInStock = 10;            
+            product.AddSupplier(supplier);                     
             product.UniqueCode = Guid.NewGuid().ToString();
             return product;
         }

@@ -6,7 +6,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
     public class ProductShelfLifeDto : BaseEntityDto
     {        
         public int ProductId { get; set; }
-
+        public ProductDto Product { get; set; }
         public int StockEntryId { get; set; }
 
         public DateTime? StartDate { get; set; }

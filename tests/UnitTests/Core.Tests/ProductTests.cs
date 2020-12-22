@@ -15,15 +15,9 @@ namespace Core.Entities.Catalog.Tests
         {
             //Given
             var product = new ProductSeed().GetSeedObject();
-            var productPrice = new ProductPrice{
-                ProductId = 1,
-                Pricestartdate = DateTimeOffset.UtcNow,
-                EndCustomerDrugPrice = 15.99m,
-                CostPrice = 12.99m, 
-                Product = product,
-            };
+            var productPrice = ProductPrice.CreateNewPrice(product, costPrice: 12.99m, endCustomerDrugPrice: 15.99m, DateTimeOffset.UtcNow);
             //When
-            product.UpdatePrice(productPrice);
+            product.SetNewPrice(productPrice);
             var newPrice = product.ProductPrices.Where(p => p == productPrice).FirstOrDefault();
             //Then
             Assert.Equal(12.99m,newPrice.CostPrice);
@@ -38,7 +32,7 @@ namespace Core.Entities.Catalog.Tests
             decimal endCustomerPrice = 15.99m;
             var product = new ProductSeed().GetSeedObject();
             //When
-            product.UpdatePrice(endCustomerPrice,costPrice);
+            product.UpdatePrice(endCustomerPrice,costPrice,DateTimeOffset.UtcNow);
             //Then
             var newPrice = product.ProductPrices.LastOrDefault();
             Assert.Equal(12.99m,newPrice.CostPrice);

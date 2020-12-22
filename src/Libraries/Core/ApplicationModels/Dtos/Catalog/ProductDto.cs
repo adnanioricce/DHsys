@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.ApplicationModels.Dtos.Stock;
 using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
     public class ProductDto : BaseEntityDto
     {
-        public int? BaseDrugId { get; set; }
+        public int? BaseProductId { get; set; }
 
         public string PrCdse { get; set; }
 
@@ -40,6 +41,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public string Ncm { get; set; }
 
         public int? QuantityInStock { get; set; }
+        public DateTimeOffset? LastStockEntry { get; set; }
 
         public int? ReorderLevel { get; set; }
 
@@ -84,5 +86,6 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public ICollection<ProductShelfLifeDto> ShelfLifes { get; set; } = new List<ProductShelfLifeDto>();
 
         public ICollection<ProductCategoryDto> Categories { get; set; } = new List<ProductCategoryDto>();
+        public ICollection<StockChangeDto> StockChanges { get; set; } = new List<StockChangeDto>();
     }
 }

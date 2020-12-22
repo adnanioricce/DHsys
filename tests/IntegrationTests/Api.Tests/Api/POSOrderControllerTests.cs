@@ -14,9 +14,9 @@ using Xunit;
 
 namespace Api.Tests
 {
-    public class TransactionsControllerTests : ControllerTestBase<POSOrder,POSOrderDto>
+    public class POSOrderControllerTests : ControllerTestBase<POSOrder,POSOrderDto>
     {        
-        public TransactionsControllerTests(ApiTestFixture fixture) : base(fixture)
+        public POSOrderControllerTests(ApiTestFixture fixture) : base(fixture)
         {            
         }
         [Fact]
@@ -39,7 +39,7 @@ namespace Api.Tests
                     {
                         ProductUniqueCode = drug.UniqueCode,                        
                         CostPrice = drug.CostPrice,
-                        CustomerValue = drug.EndCustomerPrice.Value,
+                        CustomerValue = drug.EndCustomerPrice,
                         Quantity = 1,
                     }
                 }
