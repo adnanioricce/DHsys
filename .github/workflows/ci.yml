@@ -12,10 +12,8 @@ jobs:
     steps:        
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: build libraries
-        env: 
-          DHSYS_NUGET_KEY: ${{ secrets.DHSYS_NUGET_KEY }}
-        run: docker build . --file Dockerfile.ci.libraries -e DHSYS_NUGET_KEY="$DHSYS_NUGET_KEY"
+      - name: build libraries        
+        run: docker build . --file Dockerfile.ci.libraries
   build-api:
     runs-on: ubuntu-latest
     steps:
