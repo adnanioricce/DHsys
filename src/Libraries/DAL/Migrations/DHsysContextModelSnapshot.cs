@@ -38,7 +38,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 809, DateTimeKind.Unspecified).AddTicks(8233), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 906, DateTimeKind.Unspecified).AddTicks(9265), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("District")
                         .HasColumnType("text");
@@ -52,7 +52,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 809, DateTimeKind.Unspecified).AddTicks(8710), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 906, DateTimeKind.Unspecified).AddTicks(9687), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("SecondAddressLine")
                         .HasColumnType("text");
@@ -78,7 +78,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 881, DateTimeKind.Unspecified).AddTicks(3050), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 976, DateTimeKind.Unspecified).AddTicks(8059), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -89,7 +89,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 881, DateTimeKind.Unspecified).AddTicks(3835), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 976, DateTimeKind.Unspecified).AddTicks(8594), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -144,7 +144,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 891, DateTimeKind.Unspecified).AddTicks(8623), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 986, DateTimeKind.Unspecified).AddTicks(3477), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -182,7 +182,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 891, DateTimeKind.Unspecified).AddTicks(9116), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 986, DateTimeKind.Unspecified).AddTicks(3908), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("LotNumber")
                         .HasColumnType("text");
@@ -253,7 +253,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 883, DateTimeKind.Unspecified).AddTicks(1031), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 978, DateTimeKind.Unspecified).AddTicks(6980), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -261,7 +261,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 883, DateTimeKind.Unspecified).AddTicks(1660), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 978, DateTimeKind.Unspecified).AddTicks(7751), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -288,7 +288,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 893, DateTimeKind.Unspecified).AddTicks(1014), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 987, DateTimeKind.Unspecified).AddTicks(5604), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -299,7 +299,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 893, DateTimeKind.Unspecified).AddTicks(1618), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 987, DateTimeKind.Unspecified).AddTicks(6300), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("MediaResourceId")
                         .HasColumnType("integer");
@@ -332,7 +332,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 894, DateTimeKind.Unspecified).AddTicks(835), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 988, DateTimeKind.Unspecified).AddTicks(5589), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("EndCustomerDrugPrice")
                         .HasColumnType("numeric");
@@ -343,7 +343,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 894, DateTimeKind.Unspecified).AddTicks(1313), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 988, DateTimeKind.Unspecified).AddTicks(6090), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTimeOffset?>("Pricestartdate")
                         .HasColumnType("timestamp with time zone");
@@ -371,7 +371,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 894, DateTimeKind.Unspecified).AddTicks(6382), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 989, DateTimeKind.Unspecified).AddTicks(1467), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp without time zone");
@@ -382,7 +382,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 894, DateTimeKind.Unspecified).AddTicks(6897), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 989, DateTimeKind.Unspecified).AddTicks(1949), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -413,7 +413,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 895, DateTimeKind.Unspecified).AddTicks(1620), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 989, DateTimeKind.Unspecified).AddTicks(7376), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -421,7 +421,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 895, DateTimeKind.Unspecified).AddTicks(2113), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 989, DateTimeKind.Unspecified).AddTicks(7983), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("LotCode")
                         .HasColumnType("text");
@@ -460,7 +460,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 896, DateTimeKind.Unspecified).AddTicks(1076), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 990, DateTimeKind.Unspecified).AddTicks(7596), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -468,7 +468,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 896, DateTimeKind.Unspecified).AddTicks(1614), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 990, DateTimeKind.Unspecified).AddTicks(8210), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -501,7 +501,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 880, DateTimeKind.Unspecified).AddTicks(733), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 975, DateTimeKind.Unspecified).AddTicks(7232), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -513,7 +513,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 880, DateTimeKind.Unspecified).AddTicks(1308), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 975, DateTimeKind.Unspecified).AddTicks(7854), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -544,7 +544,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 806, DateTimeKind.Unspecified).AddTicks(674), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 903, DateTimeKind.Unspecified).AddTicks(4464), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal?>("Discount")
                         .HasColumnType("numeric");
@@ -561,7 +561,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 806, DateTimeKind.Unspecified).AddTicks(1277), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 903, DateTimeKind.Unspecified).AddTicks(5004), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("PersonType")
                         .HasColumnType("integer");
@@ -590,7 +590,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 789, DateTimeKind.Unspecified).AddTicks(5196), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 888, DateTimeKind.Unspecified).AddTicks(7553), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("DiscountTotal")
                         .HasColumnType("numeric");
@@ -604,7 +604,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 789, DateTimeKind.Unspecified).AddTicks(6008), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 888, DateTimeKind.Unspecified).AddTicks(8204), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("PaymentMethod")
                         .HasColumnType("integer");
@@ -630,7 +630,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 794, DateTimeKind.Unspecified).AddTicks(1767), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 893, DateTimeKind.Unspecified).AddTicks(523), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<decimal>("CustomerValue")
                         .HasColumnType("numeric");
@@ -641,7 +641,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 794, DateTimeKind.Unspecified).AddTicks(2408), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 893, DateTimeKind.Unspecified).AddTicks(1170), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("POSOrderId")
                         .HasColumnType("integer");
@@ -685,7 +685,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 794, DateTimeKind.Unspecified).AddTicks(6938), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 893, DateTimeKind.Unspecified).AddTicks(5352), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -693,7 +693,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 794, DateTimeKind.Unspecified).AddTicks(7444), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 893, DateTimeKind.Unspecified).AddTicks(5870), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<long>("Size")
                         .HasColumnType("bigint");
@@ -722,7 +722,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 772, DateTimeKind.Unspecified).AddTicks(3218), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 871, DateTimeKind.Unspecified).AddTicks(8925), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<int>("ImpactingEntityId")
                         .HasColumnType("integer");
@@ -733,7 +733,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 772, DateTimeKind.Unspecified).AddTicks(3753), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 871, DateTimeKind.Unspecified).AddTicks(9475), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Note")
                         .HasColumnType("text");
@@ -767,7 +767,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 773, DateTimeKind.Unspecified).AddTicks(6664), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 872, DateTimeKind.Unspecified).AddTicks(9770), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -775,7 +775,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 773, DateTimeKind.Unspecified).AddTicks(7318), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 873, DateTimeKind.Unspecified).AddTicks(731), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<DateTime?>("NfEmissionDate")
                         .HasColumnType("timestamp without time zone");
@@ -815,7 +815,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 780, DateTimeKind.Unspecified).AddTicks(2291), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 879, DateTimeKind.Unspecified).AddTicks(9495), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -823,7 +823,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 780, DateTimeKind.Unspecified).AddTicks(3015), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 880, DateTimeKind.Unspecified).AddTicks(145), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -848,7 +848,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 514, DateTimeKind.Unspecified).AddTicks(3872), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 622, DateTimeKind.Unspecified).AddTicks(2374), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -859,7 +859,7 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .ValueGeneratedOnUpdate()
                         .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 22, 20, 28, 20, 525, DateTimeKind.Unspecified).AddTicks(9949), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasDefaultValue(new DateTimeOffset(new DateTime(2020, 12, 24, 15, 28, 44, 633, DateTimeKind.Unspecified).AddTicks(5226), new TimeSpan(0, 0, 0, 0, 0)));
 
                     b.Property<string>("UniqueCode")
                         .HasColumnType("text");

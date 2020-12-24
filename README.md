@@ -1,18 +1,28 @@
-# DHsys, Uma prova de conceito que ficou grande demais
-DHsys DHsys é um "projeto playground", que visava ser um sistema POS em .net core, a ideia era fazer um pequeno protótipo de um versão mais moderna de um software POS legado em clipper que eu encontrei em uma farmácia. O projeto tem uma API em ASP.NET Core e um client Desktop em WPF.
-# Como rodar o projeto 
-Há dois projetos que podem ser executados:
-O Projeto Web API em src/Presentation/Api e o projeto WPF Desktop em
-src/Presentation/Desktop. 
-## Para Executar o projeto API ou Desktop
-### Requisitos
+[![License](https://img.shields.io/pypi/l/ansicolortags.svg)](https://img.shields.io/github/license/adnanioricce/DHsys)
+![Build](https://img.shields.io/github/workflow/status/adnanioricce/DHsys/ci/master)
+# DHsys
+DHsys is a little side project of mine that I create to replicate a POS system in a pharmacy in a more "modern" way(meaning, not written in clipper). The project is separated between it's Web API and his Libraries. Currently, this is just a playground that I Will keep for a little while
+# Requirements
 - Framework .Net Core 3.1 
-### Passos para rodar 
-#### Na Linha de Comando
-- Vá até src/Presentation/Api ou src/Presentation/Desktop
-- abra uma interface de linha de comando(pwsh,bash ou cmd) e digite dotnet run
-#### No Visual Studio 
-- Escolha O Projeto Api ou Desktop
-- Tecle F5
-# Licensa 
-O projeto utiliza da licença MIT
+- Postgresql 11 or higher
+# How to run
+Go to src/Presentation/Api
+
+execute dotnet run on your shell
+
+Optionally, on Visual Studio, select the Api Project and run the project.
+
+after this, go to http://localhost:5000/api/v1/ to see the generated api docs
+# Running with docker
+If you have docker, you can run project docker image
+
+first create the database
+```docker run --name dhsysdb -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb -d postgres```
+
+after that, run a instance of the project
+
+```bash 
+#DH_CONNECTION_STRING is optional, since the image uses dhsysdb by default, but if you want to give a different connection string to the api...
+docker run --name dhsys -e DH_CONNECTION_STRING="User ID=postgres;Password=postgres;Host=dhsysdb;Port=5432;Database=dhsysdb;Pooling=true;" -d adnanioricce/dhsys
+```
+go to http://localhost:5000/api/v1/

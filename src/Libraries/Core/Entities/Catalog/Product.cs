@@ -103,7 +103,8 @@ namespace Core.Entities.Catalog
         /// Get or Set the quantity to be reordered if minimal value for ReorderLevel property is reached
         /// </summary>
         /// <value></value>
-        public int ReorderQuantity { get; set; }
+        public int ReorderQuantity { get; set; }        
+
         /// <summary>
         /// Get or Set The price of the product to end customer.
         /// On legacy model:Prfinal
@@ -174,19 +175,19 @@ namespace Core.Entities.Catalog
         /// Get or set the collection reference to the Supplier Entity
         /// </summary>
         /// <value></value>
-        public virtual ICollection<ProductSupplier> ProductSuppliers { get; set; } = new List<ProductSupplier>();
+        public virtual ICollection<ProductSupplier> ProductSuppliers { get; protected set; } = new List<ProductSupplier>();
         /// <summary>
         /// Get or set collection of previous and current entity prices
         /// </summary>
-        public virtual ICollection<ProductPrice> ProductPrices { get; set; } = new List<ProductPrice>();
+        public virtual ICollection<ProductPrice> ProductPrices { get; protected set; } = new List<ProductPrice>();
         /// <summary>
         /// Get or set collection of Stock entries that this entity is present
         /// </summary>
-        public virtual ICollection<ProductStockEntry> Stockentries { get; set; } = new List<ProductStockEntry>();
+        public virtual ICollection<ProductStockEntry> Stockentries { get; protected set; } = new List<ProductStockEntry>();
         /// <summary>
         /// Get or set collection of media used by this entity
         /// </summary>
-        public virtual ICollection<ProductMedia> ProductMedias { get; set; } = new List<ProductMedia>();
+        public virtual ICollection<ProductMedia> ProductMedias { get; protected set; } = new List<ProductMedia>();
         /// <summary>
         /// get or set collection of Shelf life 
         /// </summary>
@@ -209,7 +210,7 @@ namespace Core.Entities.Catalog
         {
             var price = ProductPrice.CreateNewPrice(this,newCostPrice,newEndCustomerPriceValue,startDate);                
             SetNewPrice(price);
-        }        
+        }
         public virtual void AddProductImage(ProductMedia media)
         {
             ProductMedias.Add(media);
@@ -237,6 +238,25 @@ namespace Core.Entities.Catalog
             }
         }
         /// <summary>
+        /// Add the product to a specified category
+        /// </summary>
+        /// <param name="category">the category to add the product to</param>
+        public void AddToCategory(Category category)
+        {
+            if(category is null)
+            {
+                throw new ArgumentNullException("can't add a null reference of a category object to a product entity");
+            }            
+            if (this.Categories.Any(c => c.Id == category.Id)) return;
+            if (category.Id == 0)
+            {
+                var productCategory = new ProductCategory(this,category);                
+                this.Categories.Add(productCategory);
+                return;
+            }
+            this.Categories.Add(new ProductCategory(this,category));
+        }
+        /// <summary>
         /// update the stock quantity of the product
         /// </summary>
         /// <param name="stockChange">the change to be applied on the product</param>
@@ -257,6 +277,7 @@ namespace Core.Entities.Catalog
         {
             return ProductMedias.Where(p => p.IsThumbnail && p.Media.Type == Media.MediaType.Image).FirstOrDefault();
         }
+        
         #endregion       
     }
 }

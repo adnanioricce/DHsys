@@ -279,7 +279,7 @@ namespace DAL.Migrations
                         name: "FK_Category_Category_ParentId",
                         column: x => x.ParentId,
                         principalTable: "Category",
-                        principalColumn: "Id",
+                        principalColumn: "Id",                        
                         onDelete: ReferentialAction.Cascade);
                 });
 

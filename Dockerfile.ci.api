@@ -3,7 +3,7 @@ ENV ASPNETCORE_URLS=http://+:5000;https://+:5001
 EXPOSE 5000
 EXPOSE 5001
 EXPOSE 80
-ENV DH_CONNECTION_STRING "User ID=postgres;Password=postgres;Host=dhsysdb-dev;Port=5432;Database=dhsysdb_dev;Pooling=true;"
+ENV DH_CONNECTION_STRING "User ID=postgres;Password=postgres;Host=dhsysdb;Port=5432;Database=dhsysdb;Pooling=true;"
 WORKDIR /src
 RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"

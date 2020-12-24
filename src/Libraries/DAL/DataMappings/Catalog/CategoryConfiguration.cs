@@ -13,7 +13,8 @@ namespace DAL.DataMappings.Catalog
             base.Configure(builder);
             builder.HasMany(c => c.SubCategories)
                    .WithOne(p => p.Parent)
-                   .HasForeignKey(p => p.ParentId);                   
+                   .HasForeignKey(p => p.ParentId)
+                   .IsRequired(false);                   
         }
     }
 }

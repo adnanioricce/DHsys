@@ -8,6 +8,7 @@ using Tests.Lib.Seed;
 using Core.Entities.Catalog;
 using Core.Interfaces;
 using Moq;
+using System;
 
 namespace Services.Tests.Catalog
 {
@@ -55,8 +56,8 @@ namespace Services.Tests.Catalog
             var oldProduct = ProductSeed.BaseCreateProductEntity();
             var newProduct = ProductSeed.BaseCreateProductEntity();
             oldProduct.Ncm = "300024567";
-            newProduct.Ncm = oldProduct.Ncm;
-            newProduct.CostPrice += 0.01m;
+            newProduct.Ncm = oldProduct.Ncm;            
+            newProduct.UpdatePrice(oldProduct.EndCustomerPrice + 1.0m, newProduct.CostPrice + 0.01m, DateTimeOffset.UtcNow);
             var service = new StockService(new FakeRepository<StockEntry>(),
             new ProductService(new FakeRepository<Product>(new Product[]{ oldProduct })));
             //When

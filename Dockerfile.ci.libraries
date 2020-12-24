@@ -1,5 +1,6 @@
 FROM mcr.microsoft.com/dotnet/core/sdk:latest
 WORKDIR /src
+ENV DHSYS_NUGET_KEY ""
 RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"
 COPY . .

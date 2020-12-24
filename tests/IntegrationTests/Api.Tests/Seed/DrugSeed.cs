@@ -18,17 +18,7 @@ namespace Api.Tests.Seed
                     Name = "Lixiana 10mg 2cp",
                     BarCode = "0987654321012",
                     RegistryCode = Guid.NewGuid().ToString(),                    
-                    Ncm = "30003234124",
-                    ProductSuppliers = new List<ProductSupplier>{
-                        new ProductSupplier{
-                            Supplier = new Supplier{
-                                Name = "MainSupplier"                                
-                            },
-                            Product = new Product{
-                                RegistryCode = Guid.NewGuid().ToString(),
-                            }
-                        }
-                    },                    
+                    Ncm = "30003234124",                                      
                 },                
             };
         }
@@ -44,17 +34,7 @@ namespace Api.Tests.Seed
                     //TODO: Remove duplicated property                    
                     ICMS = 18,
                     MinimumStock = 1,                    
-                    Ncm = "30003234124",
-                    ProductSuppliers = new List<ProductSupplier>{
-                        new ProductSupplier{
-                            Supplier = new Supplier{
-                                Name = "MainSupplier"
-                            },
-                            Product = new Product{
-                                RegistryCode = Guid.NewGuid().ToString(),
-                            }
-                        }
-                    }
+                    Ncm = "30003234124",                    
                 }
             };
         }

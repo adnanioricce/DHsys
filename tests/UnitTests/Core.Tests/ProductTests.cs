@@ -73,6 +73,25 @@ namespace Core.Entities.Catalog.Tests
             // When..., then
             
             Assert.Throws<ArgumentException>(() => product.UpdateStock(stockChange));            
-        }        
+        }
+        [Fact(DisplayName = "Add product to a category should add a new category for the collection in product entity")]
+        public void Given_category_and_product_When_add_product_to_category_Then_category_should_be_present_in_product_category_collection()
+        {
+            // Given
+            var product = new ProductSeed().GetSeedObject();
+            product.Id = 1;
+            var category = new Category()
+            {
+                Name = "Cosmetics"                
+            };
+            category.Id = 1;
+
+            // When
+            product.AddToCategory(category);
+
+            // Then 
+            Assert.NotEmpty(product.Categories);
+        }
+        //TODO: What if product is present in system yet?
     }
 }

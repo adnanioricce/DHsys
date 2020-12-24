@@ -1,23 +1,25 @@
 name: 'ci'
 on:
   push:
-    branches:
-      - master
+    branches:      
+      - development
   pull_request:
     branches:
       - master
 jobs:  
   build-libraries:
     runs-on: ubuntu-latest
-    steps:
+    steps:        
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: build libraries        
-        run: docker build . --file Dockerfile.ci.libraries
+      - name: build libraries
+        env: 
+          DHSYS_NUGET_KEY: ${{ secrets.DHSYS_NUGET_KEY }}
+        run: docker build . --file Dockerfile.ci.libraries -e DHSYS_NUGET_KEY="$DHSYS_NUGET_KEY"
   build-api:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Run Integration Tests         
-        run: docker run --name dhsysdb -p "5432:5432" -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb -d postgres && docker build . -f Dockerfile.ci.test -t apitest && docker run --link dhsysdb -e DH_CONNECTION_STRING="User ID=postgres;Password=postgres;Host=dhsysdb;Database=dhsysdb;Port=5432;" apitest:latest
+      - name: Run Integration Tests
+        run: docker run --name dhsysdb -p "5432:5432" -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb -d postgres && docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest && docker run --link dhsysdb adnanioricce/dhsysapitest
