@@ -15,8 +15,7 @@ jobs:
       - name: build libraries        
         run: docker build . --file Dockerfile.ci.libraries
   test-api:
-    runs-on: ubuntu-latest
-    container: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
+    runs-on: ubuntu-latest    
     services:
       postgres:
         image: postgres
@@ -32,6 +31,12 @@ jobs:
           - 5432:5432
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2                                    
+        uses: actions/checkout@v2
+      - name: Setup dotnet
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.301
+      - name:
+        run: dotnet restore tests/IntegrationTests/Api.Tests/Api.Tests.csproj
       - name: Run Integration Tests
         run: dotnet test tests/IntegrationTests/Api.Tests/Api.Tests.csproj
