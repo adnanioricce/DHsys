@@ -6,23 +6,14 @@ on:
   pull_request:
     branches:
       - master
-jobs:  
+jobs:
   build-libraries:
     runs-on: ubuntu-latest
-    steps:        
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: build libraries        
-        run: docker build . --file Dockerfile.ci.libraries  
-  build-images:
-    runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2      
-      - name: Build Integration Tests Docker Image
-        run: docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
-      - name: Push Image
-        run: docker push adnanioricce/dhsysapitest
+      - name: Checkout Code
+        run: actions/checkout@v2
+      - name: build libraries        
+        run: docker build . --file Dockerfile.ci.libraries
   test-api:
     runs-on: ubuntu-latest
     container: adnanioricce/dhsysapitest
@@ -39,7 +30,16 @@ jobs:
           --health-retries 5
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2      
+        uses: actions/checkout@v2                        
+      - name: Build Integration Tests Docker Image
+        run: docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
+      - name: Docker Login
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+      - name: Push Image
+        run: docker push adnanioricce/dhsysapitest
       - name: Build Integration Tests Docker Image
         run: docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
       - name: Push Image
