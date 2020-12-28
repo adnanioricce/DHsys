@@ -17,11 +17,10 @@ jobs:
   test-api:
     runs-on: ubuntu-latest    
     services:
-      postgres:
+      dhsysdb:
         image: postgres
         env:         
           POSTGRES_PASSWORD: postgres
-          POSTGRES_HOST: localhost
           POSTGRES_DB: dhsysdb
         options:
           --health-cmd pg_isready
@@ -32,12 +31,18 @@ jobs:
           - 5432:5432
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Setup dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet-version: 3.1.301
-      - name:
-        run: dotnet restore tests/IntegrationTests/Api.Tests/Api.Tests.csproj
+        uses: actions/checkout@v2                              
+      - name: Docker Login
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"      
+      - name: Build Integration Tests Docker Image
+        run: docker ps && docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
+      - name: Push Image
+        run: docker push adnanioricce/dhsysapitest
       - name: Run Integration Tests
-        run: dotnet test tests/IntegrationTests/Api.Tests/Api.Tests.csproj
+        run: docker run --link dhsysdb adnanioricce/dhsysapitest
+        env:
+          POSTGRES_HOST: dhsysdb
+          POSTGRES_PORT: 5432
