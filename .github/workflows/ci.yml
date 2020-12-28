@@ -36,4 +36,4 @@ jobs:
       - name: Run Postgres
         run:  docker run --name dhsysdb -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb -d postgres
       - name: Run Integration Tests
-        run: docker run adnanioricce/dhsysapitest
+        run: docker run --link dhsysdb adnanioricce/dhsysapitest
