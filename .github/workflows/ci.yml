@@ -15,11 +15,7 @@ jobs:
       - name: build libraries        
         run: docker build . --file Dockerfile.ci.libraries
   test-api:
-<<<<<<< HEAD
     runs-on: ubuntu-latest    
-=======
-    runs-on: ubuntu-latest  
->>>>>>> d5e4fbc810b2101b87771c692104c6309e1a396d
     services:
       postgres:
         image: postgres
