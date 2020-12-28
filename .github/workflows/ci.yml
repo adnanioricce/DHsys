@@ -17,17 +17,18 @@ jobs:
   build-images:
     runs-on: ubuntu-latest
     steps:
-    - name: Docker Login
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-      run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-    - name: Build Integration Tests Docker Image
-      run: docker ps && docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
-    - name: Push Image
-      run: docker push adnanioricce/dhsysapitest
+      - name: Docker Login
+          env:
+            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+            DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+      - name: Build Integration Tests Docker Image
+        run: docker ps && docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
+      - name: Push Image
+        run: docker push adnanioricce/dhsysapitest
   test-api:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
+    container: adnanioricce/dhsysapitest
     services:
       postgres:
         image: postgres
@@ -45,4 +46,4 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2                                    
       - name: Run Integration Tests
-        run: docker run adnanioricce/dhsysapitest
+        run: dotnet test tests/IntegrationTests/Api.Tests/Api.Tests.csproj
