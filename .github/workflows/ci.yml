@@ -18,9 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Docker Login
-          env:
-            DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-            DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
       - name: Build Integration Tests Docker Image
         run: docker ps && docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
