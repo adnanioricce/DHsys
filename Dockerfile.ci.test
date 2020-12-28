@@ -1,12 +1,5 @@
 FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build-env
 COPY . .
-RUN apk add openrc
-RUN apk add postgresql postgresql-client
-RUN rc-service --list
-RUN rc-service --list | grep -i postgresql
-RUN rc-status default
-RUN ls -l /etc/
-RUN psql -c "CREATE DATABASE dhsysdb"
 RUN dotnet restore tests/IntegrationTests/Api.Tests/
 ENV DH_CONNECTION_STRING "User ID=postgres;Password=postgres;Host=localhost;Database=dhsysdb;Port=5432;"
 ENV IS_DOCKER_CONTAINER true
