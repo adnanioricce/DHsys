@@ -6,5 +6,6 @@ dotnet:
 before_install:
   - docker run --name dhsysdb -p 2424:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb_dev -d postgres
   - dotnet tool install --global dotnet-ef
-script:
-  - dotnet test
+  - dotnet ef database update -p src/Libraries/DAL/ -s src/Libraries/DAL/
+script:  
+  - dotnet test  
