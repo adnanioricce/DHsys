@@ -15,8 +15,7 @@ jobs:
       - name: build libraries        
         run: docker build . --file Dockerfile.ci.libraries
   test-api:
-    runs-on: ubuntu-latest
-    container: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
+    runs-on: ubuntu-latest    
     services:
       postgres:
         image: postgres
@@ -44,3 +43,6 @@ jobs:
         run: docker push adnanioricce/dhsysapitest
       - name: Run Integration Tests
         run: docker run adnanioricce/dhsysapitest
+        env:
+          POSTGRES_HOST: localhost      
+          POSTGRES_PORT: 5432
