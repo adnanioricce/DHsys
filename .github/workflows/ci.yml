@@ -21,6 +21,7 @@ jobs:
         image: postgres
         env:         
           POSTGRES_PASSWORD: postgres
+          POSTGRES_HOST: localhost
           POSTGRES_DB: dhsysdb
         options:
           --health-cmd pg_isready
