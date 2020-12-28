@@ -46,6 +46,9 @@ namespace Api
                 return applicationBasePath;
             }
             var directoryInfo = new DirectoryInfo(applicationBasePath);
+            if(string.Equals(directoryInfo.Name.ToLower(),"dhsys")){
+                return directoryInfo.FullName + "/src/Presentation/Api";
+            }
             do
             {
                 directoryInfo = directoryInfo.Parent;
