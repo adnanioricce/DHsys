@@ -7,6 +7,6 @@ before_install:
   - docker run --name dhsysdb -p 2424:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb_dev -d postgres
   - docker cp database/initial.sql dhsysdb:/docker-entrypoint-initdb.d/initial.sql  
 before_script:
-  - docker exec dhsysdb psql -U postgres -d dhsysdb_dev -f /docker-entrypoint-initdb.d/initial.sql  
+  - docker exec dhsysdb psql -h localhost -U postgres -p postgres -d dhsysdb_dev -f /docker-entrypoint-initdb.d/initial.sql  
 script:  
   - dotnet test tests/IntegrationTests/Api.Tests
