@@ -19,6 +19,12 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
+      
+  test-api:
+    runs-on: ubuntu-latest        
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       - name: Docker Login
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -28,11 +34,6 @@ jobs:
         run: docker ps && docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
       - name: Push Image
         run: docker push adnanioricce/dhsysapitest
-  test-api:
-    runs-on: ubuntu-latest        
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
       - name: Run Postgres
         run:  docker run --name dhsysdb -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb -d postgres
       - name: Run Integration Tests
