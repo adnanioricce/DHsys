@@ -4,9 +4,6 @@ namespace Core.Validations.Catalog
 {
     public class CategoryValidator : BaseValidator<Category>
     {
-        public CategoryValidator()
-        {
-
-        }
+        
     }
 }

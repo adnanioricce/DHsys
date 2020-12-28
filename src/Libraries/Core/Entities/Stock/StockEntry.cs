@@ -5,6 +5,9 @@ using Core.Entities.Catalog;
 
 namespace Core.Entities.Stock
 {
+    /// <summary>
+    /// Represents the entry of a supply of products in the system.
+    /// </summary>
     public class StockEntry : BaseEntity
     {
         protected decimal? _totalCost = 0.0m;        
@@ -40,12 +43,12 @@ namespace Core.Entities.Stock
             return Items.Sum(item => item.Quantity * item.Product.CostPrice);
         }        
         
-        public void AddEntry(Drug drug,DateTime? maturityDate,int quantity,string lotCode)
+        public void AddEntry(Product product,DateTime? maturityDate,int quantity,string lotCode)
         {
-            if(drug is null) return;
+            if(product is null) return;
             var entry = new ProductStockEntry
             {
-                Product = drug,
+                Product = product,
                 StockEntry = this,
                 Quantity = quantity,
                 LotCode = lotCode
@@ -62,6 +65,7 @@ namespace Core.Entities.Stock
             {
                 entry.StockEntry = this;
             }
+            //entry.Product.Stockentries.Add(entry);
             this.Items.Add(entry);
         }
     }

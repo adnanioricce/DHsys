@@ -8,11 +8,11 @@ namespace Tests.Lib
     public class TestBase<TStartup> : IDisposable where TStartup : class
     {
         protected readonly string _dbname = "";
-        protected readonly RemoteContext _dbContext;        
+        protected readonly DHsysContext _dbContext;        
         public TestBase(TestFixture<TStartup> fixture)
         {
             var scope = fixture.ServiceProvider.CreateScope();
-            var dbContext = scope.ServiceProvider.GetRequiredService<RemoteContext>();
+            var dbContext = scope.ServiceProvider.GetRequiredService<DHsysContext>();
             var connection = dbContext.Database.GetDbConnection();
             _dbname = connection.Database;
             string backupScript = $@"CREATE DATABASE {_dbname}_copy WITH TEMPLATE {_dbname};";

@@ -11,9 +11,9 @@ namespace Application.Services
     public class StockService : IStockService
     {
         private readonly IRepository<StockEntry> _stockEntryRepository;
-        private readonly IDrugService _drugService; 
+        private readonly IProductService _drugService; 
         public StockService(IRepository<StockEntry> stockEntryRepository,
-        IDrugService drugService)
+        IProductService drugService)
         {
             _stockEntryRepository = stockEntryRepository;
             _drugService = drugService;
@@ -53,10 +53,10 @@ namespace Application.Services
         /// Gets the diff between the given drugs and the actual drugs
         ///</summary>  
         // ///<returns><
-        public virtual IEnumerable<Drug> GetItemsWithPriceChanged(IEnumerable<Drug> drugs)
+        public virtual IEnumerable<Product> GetItemsWithPriceChanged(IEnumerable<Product> drugs)
         {                        
             var drugsDict = drugs.ToDictionary(d => d.Ncm);            
-            var existingDrugs = _drugService.GetDrugsByNcm(drugs.Select(d => d.Ncm));
+            var existingDrugs = _drugService.GetProductsByNcm(drugs.Select(d => d.Ncm));
             return existingDrugs.Where(d => drugs.Any(dd => dd.Ncm == d.Ncm && dd.CostPrice != d.CostPrice));
         }        
     }

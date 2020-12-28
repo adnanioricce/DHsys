@@ -34,15 +34,15 @@ namespace DAL.Tests.Migrations
             connection.Close();
             Assert.False(hasFails);
         }
-        private BaseContext CreateContext()
+        private DHsysContext CreateContext()
         {
-            var context = new BaseContext(CreateOptions(new SqliteConnection($"DataSource=:memory:")));
+            var context = new DHsysContext(CreateOptions(new SqliteConnection($"DataSource=:memory:")));
             return context;
         }
 
-        private DbContextOptions<BaseContext> CreateOptions(SqliteConnection connection)
+        private DbContextOptions<DHsysContext> CreateOptions(SqliteConnection connection)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<BaseContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<DHsysContext>();
             optionsBuilder.UseSqlite(connection);
             return optionsBuilder.Options;
         }

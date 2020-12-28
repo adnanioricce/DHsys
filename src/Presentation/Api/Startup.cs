@@ -73,7 +73,7 @@ namespace Api
             if (GlobalConfiguration.IsDockerContainer && !string.IsNullOrEmpty(GlobalConfiguration.DhConnectionString))
             {
                 using var scope = app.ApplicationServices.CreateScope();
-                var context = (RemoteContext)scope.ServiceProvider.GetRequiredService<BaseContext>();
+                var context = (DHsysContext)scope.ServiceProvider.GetRequiredService<DHsysContext>();
                 AppLogger.Log.Information("Migrating...");
                 context.ApplyUpgrades();
                 AppLogger.Log.Information("Database Migrations Applied");

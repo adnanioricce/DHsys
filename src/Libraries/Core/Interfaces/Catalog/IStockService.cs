@@ -9,6 +9,6 @@ namespace Core.Interfaces
         void AddMultipleStockEntries(IEnumerable<StockEntry> stockentries);
         void AddStockEntry(StockEntry stockentry);
         StockEntry GetByNfCode(string nfNumber);
-        IEnumerable<Drug> GetItemsWithPriceChanged(IEnumerable<Drug> drugs);
+        IEnumerable<Product> GetItemsWithPriceChanged(IEnumerable<Product> products);
     }
 }

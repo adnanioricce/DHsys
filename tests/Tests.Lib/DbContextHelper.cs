@@ -6,13 +6,13 @@ namespace Tests.Lib
 {
     public class DbContextHelper
     {
-        public static BaseContext CreateContext()
+        public static DHsysContext CreateContext()
         {
-            var optionsBuilder = new DbContextOptionsBuilder<BaseContext>();
+            var optionsBuilder = new DbContextOptionsBuilder<DHsysContext>();
             optionsBuilder.UseSqlite(new SqliteConnection($"DataSource=:memory:"));
             optionsBuilder.EnableSensitiveDataLogging();
             optionsBuilder.EnableDetailedErrors();            
-            var context = new BaseContext(optionsBuilder.Options);                        
+            var context = new DHsysContext(optionsBuilder.Options);                        
             return context;
         }
     }

@@ -1,1 +1,0 @@
-(cd ../src/Presentation/Desktop.Setup && ./build_desktop_installer.ps1)

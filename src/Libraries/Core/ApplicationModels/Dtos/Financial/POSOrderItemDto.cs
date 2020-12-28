@@ -7,9 +7,9 @@ namespace Core.ApplicationModels.Dtos.Financial
 {
     public class POSOrderItemDto : BaseEntityDto
     {
-        public string DrugUniqueCode { get; set; }
+        public string ProductUniqueCode { get; set; }
 
-        public DrugDto Drug { get; set; }
+        public ProductDto Product { get; set; }
 
         public int Quantity { get; set; }
 

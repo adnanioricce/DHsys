@@ -2,8 +2,11 @@
 using DAL.DbContexts;
 using Infrastructure.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Migrations.Design;
+using Microsoft.Extensions.DependencyInjection;
 using Npgsql;
 using System;
 using System.Collections.Generic;
@@ -22,25 +25,16 @@ namespace DAL.Extensions
     /// <para>Remote -> database server, used for multiple applications</para>           
     /// </param>
     /// <returns></returns>
-    public delegate IRepository<T> RepositoryResolver<T>(BaseContext context);
-    public delegate BaseContext DbContextResolver(string key);
+    public delegate IRepository<T> RepositoryResolver<T>(DHsysContext context);
+    public delegate DHsysContext DbContextResolver(string key);
     public static class DbContextExtensions
     {
         /// <summary>
-        /// Execute migrations not applied to the current <see cref="BaseContext"/> instance
+        /// Execute migrations not applied to the current <see cref="DHsysContext"/> instance
         /// </summary>
-        /// <param name="context">the <see cref="BaseContext"/> instance to apply the database migrations</param>
-        public static void ApplyUpgrades(this BaseContext context)
-        {
-            if(context is RemoteContext)
-            {
-                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");                
-            }
-            if(context is LocalContext)
-            {
-                context = context as LocalContext ?? throw new InvalidCastException($"can't cast context {context} to LocalContext");
-            }            
-            
+        /// <param name="context">the <see cref="DHsysContext"/> instance to apply the database migrations</param>
+        public static void ApplyUpgrades(this DHsysContext context)
+        {                        
             var migrator = context.Database.GetService<IMigrator>();            
             var pendingMigrations = context.GetPendingMigrationScripts().ToList();
             if (pendingMigrations.Any())
@@ -53,8 +47,8 @@ namespace DAL.Extensions
         /// <summary>
         /// Creates the remote database without any migration or model
         /// </summary>
-        /// <param name="context">The <see cref="RemoteContext"/> of the remote database </param>
-        public static void PrepareRemote(this RemoteContext context)
+        /// <param name="context">The <see cref="DHsysContext"/> of the remote database </param>
+        public static void PrepareRemote(this DHsysContext context)
         {
             var connection = context.Database.GetDbConnection();
             var databaseName = GetDatabaseName(connection);
@@ -90,7 +84,7 @@ namespace DAL.Extensions
             var dbNameAndValue = GetDatabaseName(connection);
             connection.ConnectionString = connection.ConnectionString.Replace($"Database={dbNameAndValue};", $"Database={newDatabaseName};");
             return connection;
-        }
+        }        
         private static string GetDatabaseName(IDbConnection connection)
         {
             string connStr = connection.ConnectionString;
@@ -99,20 +93,12 @@ namespace DAL.Extensions
             return dbParameterSubstring;            
         }
         /// <summary>
-        /// Returns list of Sql script strings of each migration not applied in current <see cref="BaseContext"/>
+        /// Returns list of Sql script strings of each migration not applied in current <see cref="DHsysContext"/>
         /// </summary>
-        /// <param name="context">The <see cref="BaseContext"/> to get pending migrations </param>
+        /// <param name="context">The <see cref="DHsysContext"/> to get pending migrations </param>
         /// <returns>a list Sql Scripts of each migration not applied in context</returns>
-        public static IEnumerable<string> GetPendingMigrationScripts(this BaseContext context)
-        {
-            if (context is RemoteContext)
-            {
-                context = context as RemoteContext ?? throw new InvalidCastException($"can't cast context {context} to RemoteContext");                
-            }
-            if (context is LocalContext)
-            {
-                context = context as LocalContext ?? throw new InvalidCastException($"can't cast context {context} to LocalContext");
-            }            
+        public static IEnumerable<string> GetPendingMigrationScripts(this DHsysContext context)
+        {              
             var lastMigration = context.Database.GetAppliedMigrations().LastOrDefault();            
             var migrator = context.Database.GetService<IMigrator>();            
             var scripts = new List<string>();
@@ -139,10 +125,10 @@ namespace DAL.Extensions
         /// Creates a database backup for the current context (OBS: This is MSSQL specific). 
         /// <para>If no value is provided for the backupFileName parameter, backupFileName is equal to the database name</para>
         /// </summary>
-        /// <param name="context">the <see cref="RemoteContext"/> instance </param>
+        /// <param name="context">the <see cref="DHsysContext"/> instance </param>
         /// <param name="dbName">the name of the database to backup. Default is database name finded in the connection string. </param>
         /// <param name="backupFileName">name of the backup file(.bak)</param>
-        public static void CreateDatabaseBackup(this RemoteContext context,string backupFileName = "",string dbName = "")
+        public static void CreateDatabaseBackup(this DHsysContext context,string backupFileName = "",string dbName = "")
         {            
             var _dbname = string.IsNullOrEmpty(dbName) ? context.GetDatabaseName() : dbName;
             if(context.Database.IsNpgsql())           
@@ -159,10 +145,10 @@ namespace DAL.Extensions
         /// <summary>
         /// Restore the database to the last backup. OBS: This is MSSQL specific
         /// </summary>
-        /// <param name="context">the <see cref="RemoteContext"/> instance </param>
+        /// <param name="context">the <see cref="DHsysContext"/> instance </param>
         /// <param name="dbName">the name of the database to restore </param>
         /// <param name="backupFileName">the name of the backup filename </param>
-        public static void RestoreDatabase(this RemoteContext context, string backupFileName,string dbName = "")
+        public static void RestoreDatabase(this DHsysContext context, string backupFileName,string dbName = "")
         {
             var _dbname = string.IsNullOrEmpty(dbName) ? context.Database.GetDbConnection().Database : dbName;            
             if (context.Database.IsNpgsql())
@@ -188,11 +174,49 @@ namespace DAL.Extensions
         /// <summary>
         /// Returns the name of the Database
         /// </summary>
-        /// <param name="context">the <see cref="RemoteContext"/> instance </param>
+        /// <param name="context">the <see cref="DHsysContext"/> instance </param>
         /// <returns>the database name string </returns>
-        public static string GetDatabaseName(this RemoteContext context)
+        public static string GetDatabaseName(this DHsysContext context)
         {
             return context.Database.GetDbConnection().Database;
+        }
+        /// <summary>
+        /// Builds a service provider with EF services used in the design time workflow, like <see cref="IMigrationsCodeGenerator"/>.
+        /// </summary>
+        /// <param name="context">The <see cref="DHsysContext"/> instance in whick get the design time services</param>
+        /// <returns></returns>
+        public static IServiceProvider BuildEFDesignTimeServiceProvider(this DHsysContext context)
+        {
+            var serviceCollection = new ServiceCollection();
+            serviceCollection.AddEntityFrameworkDesignTimeServices();
+            serviceCollection.AddDbContextDesignTimeServices(context);
+            return serviceCollection.BuildServiceProvider();
+        }
+        public static IMigrationsScaffolder GetMigrationsScaffolderService(this DHsysContext context)
+        {
+            var serviceProvider = context.BuildEFDesignTimeServiceProvider();
+            return serviceProvider.GetService<IMigrationsScaffolder>();
+        }
+        public static IMigrationsCodeGenerator GetMigrationsCodeGenerator(this DHsysContext context)
+        {
+            var serviceProvider = context.BuildEFDesignTimeServiceProvider();
+            return serviceProvider.GetService<IMigrationsCodeGenerator>();
+        }
+        public static (ScaffoldedMigration ScaffoldedMigration,IMigrationsScaffolder Scaffolder) ScaffoldMigration(this DHsysContext context,string migrationName,string rootNamespace)
+        {
+            var scaffolder = context.GetMigrationsScaffolderService();
+            return (scaffolder.ScaffoldMigration(migrationName, rootNamespace), scaffolder);
+        }
+        //public static 
+        public static MigrationFiles AddMigration(this DHsysContext context,string projectDir, string outputDir, string migrationName,string rootNamespace = "DAL")
+        {
+            var scaffolding = context.ScaffoldMigration(migrationName, rootNamespace);            
+            return scaffolding.Scaffolder.Save(projectDir, scaffolding.ScaffoldedMigration, outputDir);
+        }
+        public static MigrationFiles DeleteMigration(this DHsysContext context, string projectDir, string rootNamespace)
+        {
+            var scaffolder = context.GetMigrationsScaffolderService();            
+            return scaffolder.RemoveMigration(projectDir, rootNamespace, true, "?");            
         }
     }
 }

@@ -11,8 +11,16 @@ namespace DAL.Seed.Catalog
         {
             var category = new Category {
                 Name = "Sample Category",
-                Description = "Sample Category Description"
+                Description = "Sample Category Description",
+                ShowOnHomepage = true
             };
+            var subCategory = new Category
+            {
+                Name = "Sample Sub Category",
+                Description = "Sample Sub Category Description",
+                ShowOnHomepage = false
+            };
+            category.AddSubCategory(subCategory);
             return category;
         }
     }

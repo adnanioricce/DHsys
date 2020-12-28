@@ -14,43 +14,40 @@ namespace Application.Services.NFe
     public class NFeDataExtractor : INFeDataExtractor
     {
         private readonly INFeClient _nfeClient;
-        private readonly IDrugService _drugService;
-        public NFeDataExtractor(INFeClient nfeClient,IDrugService drugService)
+        private readonly IProductService _drugService;
+        public NFeDataExtractor(INFeClient nfeClient,IProductService drugService)
         {
             _nfeClient = nfeClient;
             _drugService = drugService;
         }
-        public async Task<BaseResult<IEnumerable<Drug>>> GetProdutoseServicos(GetProductsFromNFeRequest request)
+        public async Task<BaseResult<IEnumerable<Product>>> GetProdutoseServicos(GetProductsFromNFeRequest request)
         {
             var nfe = await _nfeClient.GetNFeObject(request.StartDate,request.EndDate,request.NFeKey,1,request.CNPJ);
             //! Get By NCM, check if CProd is the NCM
             var ncms = nfe.InfCfe.Det.Select(d => d.Prod.CProd);
-            var existingDrugs = _drugService.GetDrugsByNcm(ncms);
+            var existingDrugs = _drugService.GetProductsByNcm(ncms);
             var newNcms = ncms.Where(ncm => existingDrugs.Any(d => string.Equals(d.Ncm,ncm,StringComparison.CurrentCultureIgnoreCase)));
             var newDrugs = nfe.InfCfe.Det.Where(d => newNcms.Any(ncm => string.Equals(ncm,d.Prod.CProd)))
                                          .Select(d => ConvertProdToProduct(d.Prod));            
-            return new BaseResult<IEnumerable<Drug>>{
+            return new BaseResult<IEnumerable<Product>>{
                 Value = Enumerable.Union(existingDrugs,newDrugs),
                 Success = true                
             };
-        }       
-        private Drug ConvertProdToProduct(Prod prod)
+        }
+        private Product ConvertProdToProduct(Prod prod)
         {
-            return new Drug{
+            var product = new Product
+            {
                 Description = prod.XProd,
-                UniqueCode = prod.CProd,
-                ProductPrices = new List<ProductPrice>{
-                    new ProductPrice
-                    {
-                        CostPrice = decimal.TryParse(prod.VProd,out decimal price) ? price : Convert.ToDecimal(prod.VProd),
-                        Pricestartdate = DateTimeOffset.UtcNow,
-                        EndCustomerDrugPrice = price * 1.5m                        
-                    }
-                },
+                UniqueCode = prod.CProd,                                
                 DiscountValue = 20,
                 MaxDiscountPercentage = 20,
-                Section = "Varejo"                
+                Section = "Varejo"
             };
+            var isValidPrice = decimal.TryParse(prod.VProd, out decimal costPrice);
+            var price = ProductPrice.CreateNewPrice(product, isValidPrice ? costPrice : Convert.ToDecimal(prod.VProd), costPrice * 1.5m, DateTimeOffset.UtcNow);
+            product.SetNewPrice(price);
+            return product;
         }
     }
 }

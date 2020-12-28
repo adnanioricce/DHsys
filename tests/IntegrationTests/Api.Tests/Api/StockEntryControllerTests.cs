@@ -18,7 +18,7 @@ namespace Api.Tests
         {
             // Arrange
             var stockEntrySeed = _seeder.GetSeedObject();
-            var drugSeed = new DrugSeed().GetSeedObject();            
+            var drugSeed = new ProductSeed().GetSeedObject();            
             var url = GetRequestUrl("api/{0}/create?api-version=1.0", "POST");
             stockEntrySeed.AddEntry(drugSeed, DateTime.UtcNow.AddDays(-365), 4, Guid.NewGuid().ToString());
             // Act 

@@ -47,8 +47,8 @@ namespace Api.Extensions
         /// <param name="services">instance of <see cref="IServiceCollection"/> used to registers application services</param>
         public static void AddApiDataStore(this IServiceCollection services)
         {
-            services.AddTransient<RemoteContextFactory>();
-            services.AddDbContext<BaseContext, RemoteContext>((sp,options) => {
+            services.AddTransient<DHsysContextFactory>();
+            services.AddDbContext<DHsysContext, DHsysContext>((sp,options) => {
                 var configuration = sp.GetService<IConfiguration>();
                 var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");                
                 if (GlobalConfiguration.IsDockerContainer) {
@@ -65,10 +65,10 @@ namespace Api.Extensions
                     return;
                 }
                 
-                options.UseNpgsql(opt.Value.RemoteConnection);
+                options.UseNpgsql(opt.Value.DefaultConnection);
              });
-            services.AddScoped<BaseContext, RemoteContext>(provider => {
-                var factory = provider.GetService<RemoteContextFactory>();
+            services.AddScoped<DHsysContext, DHsysContext>(provider => {
+                var factory = provider.GetService<DHsysContextFactory>();
                 var configuration = provider.GetService<IConfiguration>();
                 var environment = configuration.GetValue<string>("environment");
                 if (GlobalConfiguration.IsDockerContainer) {
@@ -80,7 +80,7 @@ namespace Api.Extensions
                     return factory.CreateContext(options.Value.DevConnection,isDevelopment:true);
                 }                
                 
-                return factory.CreateContext(options.Value.RemoteConnection);                
+                return factory.CreateContext(options.Value.DefaultConnection);                
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
         }

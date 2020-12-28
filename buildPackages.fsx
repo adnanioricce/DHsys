@@ -56,22 +56,7 @@ Target.create "PackLibraries" (fun _ ->
   -- "src/Libraries/**/*.Windows.csproj"
   |> Seq.iter (DotNet.pack id)
 )
-Target.create "UploadPackages" (fun _ ->
-  let setNugetPushParams (defaults:NuGet.NuGetPushParams) =
-        { defaults with
-            // DisableBuffering = true
-            ApiKey = Some (Environment.environVarOrDefault "dhsys-nuget-key" "")
-            Source = Some "https://api.nuget.org/v3/index.json"
-         }   
-  let setParams (defaults:DotNet.NuGetPushOptions) =
-        { defaults with
-            PushParams = setNugetPushParams defaults.PushParams
-         }
-  Trace.log "--- Uploading Packages ---"
-  let packagesPath = Directory.GetFiles ("build\\Libraries")
-  packagesPath |> Seq.iter (fun path -> DotNet.nugetPush setParams path)
-        
-  )
+//TODO: Write code to generate build number of development and master builds
   
 
 Target.create "All" ignore
@@ -81,8 +66,7 @@ Target.create "All" ignore
   ==> "CleanBuild"
   ==> "BuildLibraries"  
   ==> "RunUnitTests"
-  ==> "PackLibraries"
-  ==> "UploadPackages"
+  ==> "PackLibraries"  
   ==> "All"  
 
 Target.runOrDefault "All"

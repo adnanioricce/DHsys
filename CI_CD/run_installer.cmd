@@ -1,1 +1,0 @@
-msiexec /i ""Desktop-Installer.msi"" /norestart /L*V ""package.log""

@@ -1,15 +1,47 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Core.ApplicationModels.Dtos.Stock;
 using Core.Entities.Catalog;
 
 namespace Core.ApplicationModels.Dtos.Catalog
 {
     public class ProductDto : BaseEntityDto
-    {        
+    {
+        public int? BaseProductId { get; set; }
+
+        public string PrCdse { get; set; }
+
+        public int? ManufacturerId { get; set; }
+
+        public string ManufacturerName { get; set; }
+
+        public string CommercialName { get; set; }
+
+        public string Classification { get; set; }
+
+        public string Dosage { get; set; }
+
+        public double? AbsoluteDosageInMg { get; set; }
+
+        public string ActivePrinciple { get; set; }
+
+        public string LotNumber { get; set; }
+
+        public bool PrescriptionNeeded { get; set; }
+
+        public bool IsPriceFixed { get; set; }
+
+        public string DigitalBuleLink { get; set; }
+
+        public string LaboratoryCode { get; set; }
+
+        public string LaboratoryName { get; set; }
+
         public string Ncm { get; set; }
 
         public int? QuantityInStock { get; set; }
+        public DateTimeOffset? LastStockEntry { get; set; }
 
         public int? ReorderLevel { get; set; }
 
@@ -54,5 +86,6 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public ICollection<ProductShelfLifeDto> ShelfLifes { get; set; } = new List<ProductShelfLifeDto>();
 
         public ICollection<ProductCategoryDto> Categories { get; set; } = new List<ProductCategoryDto>();
+        public ICollection<StockChangeDto> StockChanges { get; set; } = new List<StockChangeDto>();
     }
 }

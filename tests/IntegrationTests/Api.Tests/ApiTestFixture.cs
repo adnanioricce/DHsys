@@ -46,12 +46,15 @@ namespace Api
                 return applicationBasePath;
             }
             var directoryInfo = new DirectoryInfo(applicationBasePath);
+            if(string.Equals(directoryInfo.Name.ToLower(),"dhsys")){
+                return directoryInfo.FullName + "/src/Presentation/Api";
+            }
             do
             {
                 directoryInfo = directoryInfo.Parent;
                 var projectDirectoryInfo = new DirectoryInfo(Path.Combine(directoryInfo.FullName, projectRelativePath));
-                var isProjectDirectoryPath = Directory.Exists((projectDirectoryInfo.FullName + "\\src\\Presentation\\Api\\"));
-                if (isProjectDirectoryPath) return projectDirectoryInfo.FullName + "\\src\\Presentation\\Api\\";
+                var isProjectDirectoryPath = Directory.Exists((projectDirectoryInfo.FullName + "/src/Presentation/Api/"));
+                if (isProjectDirectoryPath) return projectDirectoryInfo.FullName + "/src/Presentation/Api/";
 
             }
             while (directoryInfo.Parent != null);
@@ -142,9 +145,9 @@ namespace Api
             });            
             
         }
-        public BaseContext GetRemoteContext()
+        public DHsysContext GetContext()
         {
-            var context = ServiceProvider.GetService<BaseContext>();
+            var context = ServiceProvider.GetService<DHsysContext>();
             return context;
         }
     }

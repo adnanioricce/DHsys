@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Migrator
+namespace Helper
 {
     public class SeedCommand
     {
@@ -19,7 +19,7 @@ namespace Migrator
         }
         public Task<int> Seed()
         {
-            var contextFactory = new RemoteContextFactory();
+            var contextFactory = new DHsysContextFactory();
             var context = contextFactory.CreateContext(_connectionString);
             try
             {

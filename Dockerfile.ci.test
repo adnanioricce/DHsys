@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:latest AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS build-env
 COPY . .
 RUN dotnet restore tests/IntegrationTests/Api.Tests/
 ENV DH_CONNECTION_STRING "User ID=postgres;Password=postgres;Host=dhsysdb;Database=dhsysdb;Port=5432;"
