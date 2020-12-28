@@ -43,7 +43,7 @@ jobs:
       # - name: Push Image
       #   run: docker push adnanioricce/dhsysapitest
       - name: Run Integration Tests
-        run: dotnet test ./tests/IntegrationTests/Api.Tests
+        run: DH_CONNECTION_STRING="User ID=postgres;Password=postgres;Host=dhsysdb;Database=dhsysdb;Port=5432;" && dotnet test ./tests/IntegrationTests/Api.Tests
         env:
           POSTGRES_HOST: dhsysdb
           POSTGRES_PORT: 5432

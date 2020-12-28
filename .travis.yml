@@ -4,6 +4,6 @@ services:
 dotnet:
   - 3.1.301
 before_install:
-  - docker run --name dhsysdb -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb -d postgres
+  - docker run --name dhsysdb -p 2424:5432 -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb -d postgres
 script:
   - dotnet test
