@@ -29,22 +29,11 @@ jobs:
       - name: Push Image
         run: docker push adnanioricce/dhsysapitest
   test-api:
-    runs-on: ubuntu-latest    
-    services:
-      postgres:
-        image: postgres
-        env:         
-          POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: dhsysdb
-        options:
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          - 5432:5432
+    runs-on: ubuntu-latest        
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2                                    
+        uses: actions/checkout@v2
+      - name: Run Postgres
+        run:  docker run --name dhsysdb -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb -d postgres
       - name: Run Integration Tests
         run: docker run adnanioricce/dhsysapitest
