@@ -15,7 +15,8 @@ jobs:
       - name: build libraries        
         run: docker build . --file Dockerfile.ci.libraries
   test-api:
-    runs-on: ubuntu-latest    
+    runs-on: ubuntu-latest
+    container: mcr.microsoft.com/dotnet/core/sdk:3.1-alpine
     services:
       postgres:
         image: postgres
@@ -31,18 +32,6 @@ jobs:
           - 5432:5432
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2                              
-      - name: Docker Login
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-      - name: Build Integration Tests Docker Image
-        run: docker ps && docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
-      - name: Push Image
-        run: docker push adnanioricce/dhsysapitest
+        uses: actions/checkout@v2                                    
       - name: Run Integration Tests
-        run: docker run adnanioricce/dhsysapitest
-        env:
-          POSTGRES_HOST: localhost      
-          POSTGRES_PORT: 5432
+        run: dotnet test tests/IntegrationTests/Api.Tests/Api.Tests.csproj
