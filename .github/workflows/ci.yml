@@ -27,8 +27,6 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        ports:
-          - 5432:5432
     steps:
       - name: Checkout code
         uses: actions/checkout@v2                              
@@ -36,15 +34,13 @@ jobs:
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
-      - name: Push Image
-        run: docker push adnanioricce/dhsysapitest
+        run: docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"      
       - name: Build Integration Tests Docker Image
         run: docker ps && docker build . -f Dockerfile.ci.test -t adnanioricce/dhsysapitest
       - name: Push Image
         run: docker push adnanioricce/dhsysapitest
       - name: Run Integration Tests
-        run: docker run --link postgres adnanioricce/dhsysapitest
+        run: docker run --link dhsysdb adnanioricce/dhsysapitest
         env:
           POSTGRES_HOST: dhsysdb
           POSTGRES_PORT: 5432
