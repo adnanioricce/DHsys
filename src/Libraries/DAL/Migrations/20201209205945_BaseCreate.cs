@@ -137,6 +137,8 @@ namespace DAL.Migrations
                     MainSupplierName = table.Column<string>(type: "text", nullable: true),
                     Name = table.Column<string>(type: "text", nullable: true),
                     RegistryCode = table.Column<string>(type: "text", nullable: true),
+                    OwnerOfRegistry = table.Column<string>(type: "text", nullable: true),
+
                     UniqueCode = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2020, 12, 9, 20, 59, 45, 403, DateTimeKind.Unspecified).AddTicks(7721), new TimeSpan(0, 0, 0, 0, 0))),

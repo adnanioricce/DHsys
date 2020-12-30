@@ -5,10 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace Core.Entities.Catalog
-{
-    /// <summary>
-    /// Product entity. It's used mainly as base entity    
-    /// </summary>
+{    
     public class Product : BaseEntity
     {
         public int? BaseProductId { get; set; }
@@ -19,7 +16,7 @@ namespace Core.Entities.Catalog
         public string PrCdse { get; set; }
         public int? ManufacturerId { get; set; }
         public string ManufacturerName { get; set; }
-
+        public string ManufacturerCountry { get; set; }        
         /// <summary>
         /// Get or set the fixed name fixed by some real life entity
         /// </summary>
@@ -169,8 +166,12 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public string Name { get; set; }
+        public string OwnerOfRegistry { get; set; }
         public string RegistryCode { get; set; }
-        
+        public DateTime RegistryPublicationDate { get; set; }
+        public DateTimeOffset DateOfRegistryUpdate { get; set; }
+        public string RegistryValidity { get; set; }
+        public string MedicalProductModel { get; set; }
         /// <summary>
         /// Get or set the collection reference to the Supplier Entity
         /// </summary>

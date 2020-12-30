@@ -4,9 +4,7 @@ using AutoMapper;
 using Core.Interfaces;
 using DAL;
 using DAL.DbContexts;
-using Infrastructure.Interfaces;
 using Infrastructure.Settings;
-using Infrastructure.Updates;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -79,21 +77,7 @@ namespace Application.Extensions
             {
                 Directory.CreateDirectory(updateFilesFolder);
             }
-        }
-        /// <summary>
-        /// Add singleton of a <see cref="IUpdater"/> implementation to handle Application Updates.
-        /// OBS: Desktop specific.
-        /// </summary>
-        /// <param name="services"></param>
-        public static void AddApplicationUpdater(this IServiceCollection services)
-        {
-            var provider = services.BuildServiceProvider();
-            var settings = provider.GetService<IOptions<AutoUpdateSettings>>();
-            var logger = provider.GetService<IAppLogger<Updater>>();
-            var writer = provider.GetService <IWritableOptions<AutoUpdateSettings>>();
-            var updater = new Updater(logger,writer,settings);
-            services.AddSingleton(typeof(IUpdater),updater);
-        }
+        }        
         /// <summary>
         /// Add custom defined Application services to the <see cref="IServiceCollection"/> instance
         /// </summary>
@@ -136,14 +120,12 @@ namespace Application.Extensions
         public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
         {
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.Configure<DatabaseSettings>(configuration.GetSection(nameof(DatabaseSettings)));            
-            services.Configure<AutoUpdateSettings>(configuration.GetSection(nameof(AutoUpdateSettings)));
+            services.Configure<DatabaseSettings>(configuration.GetSection(nameof(DatabaseSettings)));                        
             services.Configure<ConnectionStrings>(configuration.GetSection(nameof(ConnectionStrings)));
             services.ConfigureApplicationWritableOptions();
         }
         public static void ConfigureApplicationWritableOptions(this IServiceCollection services)
-        {
-            services.ConfigureWritable<AutoUpdateSettings>();            
+        {            
             services.ConfigureWritable<ConnectionStrings>();
             services.ConfigureWritable<DatabaseSettings>();
             services.ConfigureWritable<AppSettings>();
