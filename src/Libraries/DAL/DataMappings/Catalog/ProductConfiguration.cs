@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DAL.DataMappings.Catalog
 {
     public class ProductConfiguration : BaseEntityConfiguration<Product>
-    {
+    {        
         public override void Configure(EntityTypeBuilder<Product> mapper)
         {
             mapper.ToTable("Products");
@@ -36,6 +36,8 @@ namespace DAL.DataMappings.Catalog
                   .WithOne(p => p.Product)
                   .HasForeignKey(p => p.ProductId)
                   .OnDelete(DeleteBehavior.Cascade);
+            mapper.Property(p => p.Stripe)
+                  .HasConversion(c => c.ToString(), v => StripeFactory.FromString(v));
             base.Configure(mapper);
         }
     }

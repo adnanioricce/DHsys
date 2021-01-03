@@ -5,6 +5,7 @@ open System.IO
 open Core.Entities
 open Infrastructure.Helpers
 open DAL.DbContexts
+open Seeder.SeedWithAnvisa
 type Operation = {
     Name: string
     Options: string seq

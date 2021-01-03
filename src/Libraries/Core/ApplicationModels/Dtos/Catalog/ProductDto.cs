@@ -10,13 +10,19 @@ namespace Core.ApplicationModels.Dtos.Catalog
     {
         public int? BaseProductId { get; set; }
 
-        public string PrCdse { get; set; }
+        public string UseRestriction { get; set; }
+        public string FisicForm { get; set; }
+        public Stripes Stripe { get; set; }
+        public string Concentration { get; set; }
 
         public int? ManufacturerId { get; set; }
 
         public string ManufacturerName { get; set; }
+        public string ManufacturerCountry { get; set; }
 
         public string CommercialName { get; set; }
+
+        public string MedicalProductModel { get; set; }
 
         public string Classification { get; set; }
 
@@ -74,6 +80,11 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public string Name { get; set; }
 
         public string RegistryCode { get; set; }
+        public DateTime RegistryPublicationDate { get; set; }
+        public DateTimeOffset DateOfRegistryUpdate { get; set; }
+        public string RegistryValidity { get; set; }
+        
+        public string OwnerOfRegistry { get; set; }
 
         public ICollection<ProductSupplierDto> ProductSuppliers { get; set; } = new List<ProductSupplierDto>();
 

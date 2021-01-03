@@ -8,12 +8,7 @@ namespace Core.Entities.Catalog
 {    
     public class Product : BaseEntity
     {
-        public int? BaseProductId { get; set; }
-        /// <summary>
-        /// Legacy property, keeped for compability purposes. Ignore it
-        /// </summary>
-        /// <value></value>
-        public string PrCdse { get; set; }
+        public int? BaseProductId { get; set; }        
         public int? ManufacturerId { get; set; }
         public string ManufacturerName { get; set; }
         public string ManufacturerCountry { get; set; }        
@@ -28,6 +23,8 @@ namespace Core.Entities.Catalog
         /// <value></value>
         public string Classification { get; set; }
 
+        public float Concentration { get; set; }
+        public string FisicForm { get; set; }
         /// <summary>
         /// Get or set the string representation of the drug dosage
         /// </summary>
@@ -54,6 +51,7 @@ namespace Core.Entities.Catalog
         /// </summary>
         /// <value></value>
         public bool PrescriptionNeeded { get; set; }
+        public string UseRestriction { get; set; }
         /// <summary>
         /// Get or set if price of drug is fixed by supplier/market/ or other entity(in the human context)
         /// </summary>
@@ -172,6 +170,7 @@ namespace Core.Entities.Catalog
         public DateTimeOffset DateOfRegistryUpdate { get; set; }
         public string RegistryValidity { get; set; }
         public string MedicalProductModel { get; set; }
+        public Stripes Stripe { get; set; }
         /// <summary>
         /// Get or set the collection reference to the Supplier Entity
         /// </summary>
