@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 namespace DAL.DataMappings.Common
 {
-    public class AddressMap : BaseEntityConfiguration<Address>
+    public class AddressConfiguration : BaseEntityConfiguration<Address>
     {
         public override void Configure(EntityTypeBuilder<Address> builder)
         {

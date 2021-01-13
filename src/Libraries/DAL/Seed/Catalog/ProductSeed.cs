@@ -38,7 +38,8 @@ namespace DAL.Seed
             product.Name = "Sample product";
             product.Ncm = "40028922";
             product.PrescriptionNeeded = false;
-            product.RegistryCode = Guid.NewGuid().ToString();            
+            product.RegistryCode = Guid.NewGuid().ToString();
+            product.UseRestriction = "No Restriction";
             product.AddNewProductMedia(new Core.Entities.Media.MediaResource
             {
                 UniqueCode = Guid.NewGuid().ToString(),

@@ -38,6 +38,10 @@ namespace DAL.DataMappings.Catalog
                   .OnDelete(DeleteBehavior.Cascade);
             mapper.Property(p => p.Stripe)
                   .HasConversion(c => c.ToString(), v => StripeFactory.FromString(v));
+            mapper.HasMany(p => p.ProductTaxes)
+                  .WithOne(p => p.Product)
+                  .HasForeignKey(p => p.ProductId)
+                  .OnDelete(DeleteBehavior.Cascade);
             base.Configure(mapper);
         }
     }

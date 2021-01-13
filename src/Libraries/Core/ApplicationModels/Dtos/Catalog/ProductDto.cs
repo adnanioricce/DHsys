@@ -52,6 +52,7 @@ namespace Core.ApplicationModels.Dtos.Catalog
         public int? ReorderLevel { get; set; }
 
         public int? ReorderQuantity { get; set; }
+        public string RiskClass { get; set; }        
 
         public decimal? EndCustomerPrice { get; set; }
 

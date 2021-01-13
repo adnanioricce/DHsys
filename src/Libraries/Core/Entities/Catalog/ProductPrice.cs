@@ -4,6 +4,14 @@ namespace Core.Entities.Catalog
 {
     public class ProductPrice : BaseEntity
     {
+        internal ProductPrice(Product product,int productId, decimal costPrice, decimal endCustomerDrugPrice, DateTimeOffset? pricestartdate)
+        {
+            Pricestartdate = pricestartdate;
+            EndCustomerDrugPrice = endCustomerDrugPrice;
+            CostPrice = costPrice;
+            ProductId = productId;
+            Product = product;
+        }
         protected ProductPrice(int productId, decimal costPrice, decimal endCustomerDrugPrice, DateTimeOffset? pricestartdate)
         {
             Pricestartdate = pricestartdate;

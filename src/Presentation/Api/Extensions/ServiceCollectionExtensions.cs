@@ -71,8 +71,11 @@ namespace Api.Extensions
                 var factory = provider.GetService<DHsysContextFactory>();
                 var configuration = provider.GetService<IConfiguration>();
                 var environment = configuration.GetValue<string>("environment");
-                if (GlobalConfiguration.IsDockerContainer) {
-                    string connectionString = GlobalConfiguration.DhConnectionString;
+                if (GlobalConfiguration.IsDockerContainer) {                    
+                    if(!String.IsNullOrEmpty(configuration.GetValue<string>("DATABASE_URL"))){
+                        return factory.CreateContext(configuration.GetValue<string>("DATABASE_URL"));    
+                    }
+                    string connectionString = configuration.GetValue<string>("DH_CONNECTION_STRING");                    
                     return factory.CreateContext(connectionString);
                 }
                 var options = provider.GetService<IWritableOptions<ConnectionStrings>>();

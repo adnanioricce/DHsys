@@ -1,3 +1,4 @@
+using Core.Entities.Financial;
 using Core.Entities.Media;
 using Core.Entities.Stock;
 using System;
@@ -8,10 +9,20 @@ namespace Core.Entities.Catalog
 {    
     public class Product : BaseEntity
     {
+        public Product()
+        {
+
+        }
         public int? BaseProductId { get; set; }        
         public int? ManufacturerId { get; set; }
         public string ManufacturerName { get; set; }
-        public string ManufacturerCountry { get; set; }        
+        public string ManufacturerCountry { get; set; }
+        public RiskClass RiskClass { get; set; }
+        /// <summary>
+        /// Get or set the Name.
+        /// </summary>
+        /// <value></value>
+        public string Name { get; set; }
         /// <summary>
         /// Get or set the fixed name fixed by some real life entity
         /// </summary>
@@ -74,8 +85,7 @@ namespace Core.Entities.Catalog
         public string LaboratoryName { get; set; }
         /// <summary>
         /// Get or Set product NCM.
-        /// https://pt.wikipedia.org/wiki/Nomenclatura_Comum_do_Mercosul
-        /// On legacy model:Prncms
+        /// https://pt.wikipedia.org/wiki/Nomenclatura_Comum_do_Mercosul        
         /// </summary>
         /// <value></value>
         public string Ncm { get; set; } 
@@ -101,8 +111,7 @@ namespace Core.Entities.Catalog
         public int ReorderQuantity { get; set; }        
 
         /// <summary>
-        /// Get or Set The price of the product to end customer.
-        /// On legacy model:Prfinal
+        /// Get or Set The price of the product to end customer.        
         /// </summary>
         /// <value></value>
         public decimal EndCustomerPrice { get; protected set; }
@@ -113,26 +122,22 @@ namespace Core.Entities.Catalog
         public decimal CostPrice { get; protected set; }
         public decimal SavingPercentage { get; protected set; }
         /// <summary>
-        /// Get or set the barcode to be used to search for the product.
-        /// On legacy model:Prbarra
+        /// Get or set the barcode to be used to search for the product.        
         /// </summary>
         /// <value></value>
         public string BarCode { get; set; }        
         /// <summary>
-        /// Get or set the description of the product.
-        /// On legacy model:Prdesc
+        /// Get or set the description of the product.        
         /// </summary>
         /// <value></value>
         public string Description { get; set; }
         /// <summary>
-        /// Get or set the physical place where this product remains.
-        /// On legacy model:Prsecao
+        /// Get or set the physical place where this product remains.        
         /// </summary>
         /// <value></value>
         public string Section { get; set; }
         /// <summary>
-        /// Get or set max discount percentage that a product can be selled normally.
-        /// On legacy model:desc_max
+        /// Get or set max discount percentage that a product can be selled normally.        
         /// </summary>
         public decimal MaxDiscountPercentage { get; set; }        
         /// <summary>
@@ -141,29 +146,22 @@ namespace Core.Entities.Catalog
         public decimal DiscountValue { get; set; }
         
         /// <summary>
-        /// Get or set the comission value from each product selled
-        /// On legacy model:comissao
+        /// Get or set the comission value from each product selled        
         /// </summary>
         public string Commission { get; set; }
         /// <summary>
-        /// Get or set the ICMS, a brazil specific Tax.
-        /// On legacy model:Pricms
+        /// Get or set the ICMS, a brazil specific Tax.        
         /// </summary>
         public decimal ICMS { get; set; } = 18;
         /// <summary>
-        /// Get or set the minimun stock that this product should have.
-        /// On legacy model:est_minimo
+        /// Get or set the minimun stock that this product should have.        
         /// </summary>
         public int MinimumStock { get; set; } = 1;
         /// <summary>
         /// Get or set the name of the main supplier
         /// </summary>
         public string MainSupplierName { get; set; }
-        /// <summary>
-        /// Get or set the Name.
-        /// </summary>
-        /// <value></value>
-        public string Name { get; set; }
+        
         public string OwnerOfRegistry { get; set; }
         public string RegistryCode { get; set; }
         public DateTime RegistryPublicationDate { get; set; }
@@ -171,6 +169,7 @@ namespace Core.Entities.Catalog
         public string RegistryValidity { get; set; }
         public string MedicalProductModel { get; set; }
         public Stripes Stripe { get; set; }
+        
         /// <summary>
         /// Get or set the collection reference to the Supplier Entity
         /// </summary>
@@ -198,6 +197,7 @@ namespace Core.Entities.Catalog
         /// </summary>
         public virtual ICollection<ProductCategory> Categories { get; set; } = new List<ProductCategory>();
         public virtual ICollection<StockChange> StockChanges { get; set; } = new List<StockChange>();
+        public virtual ICollection<ProductTax> ProductTaxes { get; set; } = new List<ProductTax>();
         #region Public Methods
         public virtual void SetNewPrice(ProductPrice price)
         {
@@ -241,13 +241,13 @@ namespace Core.Entities.Catalog
         /// Add the product to a specified category
         /// </summary>
         /// <param name="category">the category to add the product to</param>
-        public void AddToCategory(Category category)
+        public virtual void AddToCategory(Category category)
         {
             if(category is null)
             {
                 throw new ArgumentNullException("can't add a null reference of a category object to a product entity");
             }            
-            if (this.Categories.Any(c => c.Id == category.Id)) return;
+            if (this.Categories.Any(c => c.CategoryId == category.Id)) return;
             if (category.Id == 0)
             {
                 var productCategory = new ProductCategory(this,category);                
@@ -255,6 +255,25 @@ namespace Core.Entities.Catalog
                 return;
             }
             this.Categories.Add(new ProductCategory(this,category));
+        }
+        /// <summary>
+        /// Add new tax to the current <see cref="Product"/> object
+        /// </summary>
+        /// <param name="tax">the <see cref="Tax"/> to be added to the <see cref="Product"/> object</param>
+        public virtual void AddTax(Tax tax)
+        {
+            if(tax is null)
+            {
+                throw new ArgumentNullException("can't add a null reference of a tax to a product ");
+            }
+            if (this.ProductTaxes.Any(c => c.TaxId == tax.Id)) return;
+            if (tax.Id == 0)
+            {                
+                var productTax = new ProductTax(this, tax);
+                this.ProductTaxes.Add(productTax);
+                return;
+            }            
+            this.ProductTaxes.Add(new ProductTax(this.Id, tax.Id));
         }
         /// <summary>
         /// update the stock quantity of the product
