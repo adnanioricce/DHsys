@@ -30,5 +30,33 @@ namespace Core.Entities.Catalog
         public decimal CostPrice { get; set; }
         public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
         public virtual ICollection<Tax> Taxes { get; set; } = new List<Tax>();
+        public Product CreateProduct()
+        {
+            var product = new Product
+            {
+                RegistryCode = this.RegistryCode,
+                Name = this.Name,
+                RiskClass = this.RiskClass,
+                CommercialName = this.CommercialName,
+                OwnerOfRegistry = this.OwnerOfRegistry,
+                ManufacturerName = this.ManufacturerName,
+                ManufacturerCountry = this.ManufacturerCountry,
+                MedicalProductModel = this.MedicalProductModel,
+                RegistryPublicationDate = this.RegistryPublicationDate,
+                RegistryValidity = this.RegistryValidity,
+                DateOfRegistryUpdate = this.DateOfRegistryUpdate,
+                Stripe = this.Stripe,
+                LaboratoryName = this.LaboratoryName,
+            };
+            foreach(var category in Categories)
+            {
+                product.AddToCategory(category);
+            }
+            foreach (var tax in Taxes)
+            {
+                product.AddTax(tax);
+            }
+            return product;
+        }
     }
 }
