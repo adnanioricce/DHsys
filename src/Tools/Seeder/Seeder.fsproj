@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Include="SeedWithAnvisa.fs" />
+    <Compile Include="Helpers.fs" />
+    <Compile Include="Seed.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
 

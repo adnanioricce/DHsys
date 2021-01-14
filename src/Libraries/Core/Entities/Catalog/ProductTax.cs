@@ -22,8 +22,8 @@ namespace Core.Entities.Catalog
             TaxId = taxId;
         }
         public int TaxId { get; protected set; }
-        public Tax Tax { get; protected set; }
+        public virtual Tax Tax { get; protected set; }
         public int ProductId { get; protected set; }
-        public Product Product { get; protected set; }
+        public virtual Product Product { get; protected set; }
     }
 }
