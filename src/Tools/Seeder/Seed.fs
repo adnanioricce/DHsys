@@ -3,6 +3,7 @@ namespace Seeder
 module Seed =
     open System
     open System.IO
+    open System.Text
     open DAL.DbContexts
     open Core.Entities.Catalog
     open Deedle
@@ -20,10 +21,19 @@ module Seed =
         let fileCount = Directory.GetFiles(outputDir) |> Seq.length
         [0..fileCount] |> Seq.map (download)
                        |> Async.Parallel
-                       |> Async.RunSynchronously        
-    let private readCsvFile file = Frame.ReadCsv(file,separators=";") 
+                       |> Async.RunSynchronously
     
-    let prepareData =
+    // let importProductData files =        
+        
+        
+    let importCsvToDatabase options =        
+        let readLine line headers =
+            try
+                let content = String.concat "" [headers;line]
+                let csvLine = Frame.ReadCsv(new MemoryStream(Encoding.UTF8.GetBytes(content)),separators=";")                
+                Some (csvLine.FillMissing(Direction.Forward))
+            with
+                | :? System.IndexOutOfRangeException as ex -> printfn "index out of range exception on line: \n%s" line; None
         let mapProdutoCsvHeaders csv =
             let headers = ["RegistryCode";
                             "Name";
@@ -37,34 +47,8 @@ module Seed =
                             "RegistryValidity";
                             "DateOfRegistryUpdate"]
             csv |> Frame.indexColsWith headers
-        let readPrecosCsv csv =
-            let targetColumns = ["APRESENTAÇÃO";
-                            "REGISTRO";
-                            "PF 0%";
-                            "PF 12%";
-                            "PF 17%";
-                            "PF 17% ALC";
-                            "PF 17,5%";
-                            "PF 17,5% ALC";
-                            "PF 18%";
-                            "PF 18% ALC";
-                            "PF 20%";
-                            "PMC 0%";
-                            "PMC 12%";
-                            "PMC 17%";
-                            "PMC 17% ALC";
-                            "PMC 17,5%";
-                            "PMC 17,5% ALC";
-                            "PMC 18%";
-                            "PMC 18% ALC";
-                            "PMC 20%";
-                            "CAP";
-                            "CONFAZ 87";
-                            "ICMS 0%";]            
-            csv |> Frame.sliceCols (targetColumns)                
         let productMap (row:ObjectSeries<string>) =
-            let product = Product()
-            // row.Print()
+            let product = Product()            
             product.RegistryCode <- string (row.Item "RegistryCode")
             product.Name <- string (row.Item "Name")
             product.RiskClass <- match string (row.Item "RiskClass") with
@@ -82,20 +66,10 @@ module Seed =
             product.DateOfRegistryUpdate <- DateTimeOffset.ParseExact(string (row.Item "DateOfRegistryUpdate"),"MM/dd/yyyy HH:mm:ss",CultureInfo("pt-BR",true),DateTimeStyles.AssumeLocal)
             product.UseRestriction <- "Unknown Restriction"
             product
-        let productCsv = (Directory.GetFiles "Csvs/Produtos") |> Seq.map (fun f -> mapProdutoCsvHeaders (readCsvFile f) |> Frame.mapRowValues productMap)
-                                                              |> Seq.map (fun f -> f.Values)
-                                                              |> Seq.concat
-        productCsv
-    let importCsvToDatabase options =
-        let connStr = snd (options |> Seq.find (fun opt -> (fst opt) = "--connectionString"))
-        let outputDir = "Data/ProductSeed"
-        let saveToCsv (productRecords:Product seq) =
-            let productFrame = Frame.ofRecords productRecords
-            productFrame.SaveCsv("Data/ProductSeed/product_seed.csv")
-        
-        let productSeedJob (chunk:Product seq) = async {
+        let productSeedJob (chunk:Product seq) connString = async {
+            printfn "importing %i entries to database" (Seq.length chunk)
             let factory = DHsysContextFactory()
-            let context = factory.CreateContext(connStr)
+            let context = factory.CreateContext(connString)
             for c in chunk do
                 context.Add(c)
             printfn "saving %i data" (chunk |> Seq.length)
@@ -103,20 +77,38 @@ module Seed =
             printfn "%i entries saved" result
             return result
         }
-        let importProductData (records:Product seq) =
+        let importProductData (records:Product seq) connString =
             let chunkSize = int (round ((float (Seq.length(records))) * 0.25))
             records |> Seq.chunkBySize chunkSize
-                    |> Seq.map productSeedJob
+                    |> Seq.map (fun p -> productSeedJob p connString)
                     |> Async.Parallel
+                    |> Async.Ignore
                     |> Async.RunSynchronously
-                    // |> ignore
-        // downloadDataFiles |> ignore
-        let productRecords = prepareData        
-        if not (Directory.Exists(outputDir)) then
-            let targetDir = Directory.CreateDirectory(outputDir)
-            saveToCsv productRecords
-            importProductData productRecords
-        else
-            saveToCsv productRecords 
-            importProductData productRecords
-    
+                    |> ignore
+        
+        let importJob file connString = async {
+            let! lines = (File.ReadAllLinesAsync file) |> Async.AwaitTask
+            printfn "lines of %s loaded, starting to read line by line" file
+            let headers = lines |> Seq.head
+            let data = lines.[1..] |> Seq.map (readLine headers) 
+                                   |> Seq.filter (fun f -> f.IsSome)
+                                   |> Seq.map (fun f -> f.Value)
+                                   |> Seq.reduce (Frame.merge)
+            
+            printfn "lines of file %s loaded,filtering all invalid rows" file
+            return data 
+                        |> Frame.mapRowValues (fun f -> productMap f)
+                        |> (fun f -> importProductData f.Values connString)
+            }
+        let stopwatch = new Diagnostics.Stopwatch()
+        stopwatch.Start()
+        let connStr = snd (options |> Seq.find (fun opt -> (fst opt) = "--connectionString"))        
+        printfn "preparing data..."
+        let jobs = Directory.GetFiles("Csvs/Produtos") |> Seq.map (fun f -> importJob f connStr)
+        printfn "jobs defined, started to import"
+        jobs |> Async.Parallel
+             |> Async.Ignore
+             |> Async.RunSynchronously
+             |> ignore             
+        stopwatch.Stop()
+        printfn "elapsed time to seed %O" stopwatch.Elapsed

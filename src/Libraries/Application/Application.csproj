@@ -15,6 +15,10 @@
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="Dotmim.Sync.Sqlite" Version="0.5.5" />
     <PackageReference Include="Dotmim.Sync.SqlServer" Version="0.5.5" />
+    <PackageReference Include="GitVersionTask" Version="5.5.1">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="8.1.0" />    
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="5.0.0-rc.1.20451.13" />    
     <PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0-rc.1.20451.14" />    

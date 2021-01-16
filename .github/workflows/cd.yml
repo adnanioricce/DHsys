@@ -4,6 +4,19 @@ on:
     branches:      
       - master
 jobs:
+  deploy-solution:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+      - uses: actions/checkout@v2
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet: '5.0.x'
+      - name: Install FAKE
+        run: dotnet tool restore
+      - name: Run script
+        run: dotnet fake build -f deploy.fsx
+
   push-to-server:
     runs-on: ubuntu-latest
     steps:

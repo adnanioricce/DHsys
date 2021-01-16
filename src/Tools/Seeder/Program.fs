@@ -21,7 +21,7 @@ let main argv =
         "
     printfn "%s" helpMessage
     importCsvToDatabase [("--connectionString","User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_dev;Pooling=true;")]
-    let userOperation = argv |> Seq.head 
+    let userOperation = if Seq.isEmpty argv then "" else argv |> Seq.head
     match userOperation with
     | "migrate" -> ()
     | "seed" -> ()
