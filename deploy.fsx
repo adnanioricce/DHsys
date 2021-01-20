@@ -15,7 +15,6 @@ open Fake.Core
 open Fake.DotNet
 open Fake.DotNet.NuGet
 open Fake.IO
-open Fake.IO.FileSystemOperators
 open Fake.IO.Globbing.Operators
 open Fake.Core.TargetOperators
 open Fake.Api
@@ -29,7 +28,7 @@ let getEnvVar name =
     | s when (not (System.String.IsNullOrWhiteSpace s)) -> s
     | s when (not (System.String.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(name,EnvironmentVariableTarget.User)))) -> Environment.GetEnvironmentVariable("DHSYS_NUGET_KEY",EnvironmentVariableTarget.User)    
     | _ -> failwith (sprintf "set the %s environment var to create a github release" name)
-//Change
+
 Target.initEnvironment ()
 
 Target.create "CleanSolution" (fun _ ->      
@@ -100,8 +99,7 @@ Target.create "UploadNugetPacks" (fun _ ->
 )
 Target.create "UploadToGithub" (fun _ ->
   Trace.log "--- Uploading Published Projects To GitHub ---"
-  let token = getEnvVar "GITHUB_TOKEN"
-  ()      
+  let token = getEnvVar "GITHUB_TOKEN"       
   let owner = "adnanioricce"
   let repoName = "DHsys"    
   let assemblyName = System.Reflection.Assembly.LoadFrom((apiDir + "/Api.dll")).GetName()

@@ -14,14 +14,7 @@ namespace DAL.Migrations
                 type: "text",
                 nullable: false,
                 oldClrType: typeof(int),
-                oldType: "integer");
-            
-            migrationBuilder.AddColumn<int>(
-                name: "RiskClass",
-                table: "Products",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0);
+                oldType: "integer");                        
             
             migrationBuilder.AddColumn<int>(
                 name: "ProductTemplateId",
