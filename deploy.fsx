@@ -22,6 +22,7 @@ open System
 open System.IO
 let buildDir = __SOURCE_DIRECTORY__ + "/build"
 let apiDir = buildDir + "/Api"
+let toolsDir = buildDir + "/Tools"
 let librariesPackagesPath = __SOURCE_DIRECTORY__ + "/build/Libraries"
 let getEnvVar name =
   match Environment.environVar name with
@@ -108,7 +109,7 @@ Target.create "UploadToGithub" (fun _ ->
   Zip.createZip buildDir zipFileName "" (int Compression.CompressionLevel.Optimal) true filesToZip
   let filesToUpload = [zipFileName;] 
                       |> Seq.append (Directory.GetFiles(librariesPackagesPath)) 
-                      |> Seq.append (Directory.GetFiles(buildDir + "/Helper"))
+                      |> Seq.append (Directory.GetFiles(toolsDir + "/Helper"))
   GitHub.createClientWithToken token
     |> GitHub.draftNewRelease owner repoName "DHsys" false [""]
     |> GitHub.uploadFiles (filesToUpload)
