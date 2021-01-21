@@ -108,7 +108,7 @@ Target.create "UploadToGithub" (fun _ ->
   Zip.createZip buildDir zipFileName "" (int Compression.CompressionLevel.Optimal) true filesToZip
   let filesToUpload = [zipFileName;] 
                       |> Seq.append (Directory.GetFiles(librariesPackagesPath)) 
-                      |> Seq.append (Directory.GetFiles(buildDir + "/Seeder"))
+                      |> Seq.append (Directory.GetFiles(buildDir + "/Helper"))
   GitHub.createClientWithToken token
     |> GitHub.draftNewRelease owner repoName "DHsys" false [""]
     |> GitHub.uploadFiles (filesToUpload)
