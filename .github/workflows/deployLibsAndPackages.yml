@@ -9,14 +9,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v2
-      - name: Install dotnet
-        uses: actions/setup-dotnet@v1
-        with:
-          dotnet: '5.0.x'        
-      - name: Install GitVersion
-        uses: actions/setup-gitversion@v1.0.0
-      - name: Install FAKE
-        run: dotnet tool restore
-      - name: Run deploy script
-        run: dotnet fake build -f deploy.fsx
+        run: mkdir tmp && docker build ./tmp -f Dockerfile.deploy.libraries --build-arg BRANCH_NAME=${GITHUB_REF##*/} 
