@@ -101,7 +101,7 @@ Target.create "UploadToGithub" (fun _ ->
   let owner = "adnanioricce"
   let repoName = "DHsys"
   let apiAssemblyName = System.Reflection.Assembly.LoadFrom(apiDir + "/Api.dll").GetName()
-  let helperAssemblyName = System.Reflection.Assembly.LoadFrom(toolsDir + "/Tools/Helper").GetName()
+  let helperAssemblyName = System.Reflection.Assembly.LoadFrom(toolsDir + "/Helper").GetName()
   let apiZipFileName = sprintf "build/%s-%s.zip" apiAssemblyName.Name (apiAssemblyName.Version.ToString())
   let helperZipFileName = sprintf "build/%s-%s.zip" helperAssemblyName.Name (helperAssemblyName.Version.ToString())  
   let filesToUpload = [apiZipFileName;helperZipFileName] |> Seq.append (Directory.GetFiles(librariesPackagesPath))                       
