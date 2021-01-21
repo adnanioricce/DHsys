@@ -106,8 +106,7 @@ module Seed =
                     |> Async.RunSynchronously
                     |> ignore
         
-        let importJob file = async {
-            
+        let importJob file = async {            
                 printfn "reading %s " file
                 let! csv = ProdutoCsv.AsyncLoad file
                 printfn "%s load" file
