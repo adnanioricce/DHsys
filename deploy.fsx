@@ -23,7 +23,7 @@ open System.IO
 let buildDir = __SOURCE_DIRECTORY__ + "/build"
 let apiDir = buildDir + "/Api"
 let toolsDir = buildDir + "/Tools"
-let librariesPackagesPath = __SOURCE_DIRECTORY__ + "/build/Libraries"
+let librariesPackagesPath = buildDir + "/Libraries"
 let getEnvVar name =
   match Environment.environVar name with
     | s when (not (System.String.IsNullOrWhiteSpace s)) -> s
@@ -63,7 +63,7 @@ Target.create "PublishHelperTool" (fun _ ->
         MSBuildParams =
           let cliArgs (msArgs:MSBuild.CliArguments) = {
               msArgs with
-                Properties = [("PublishSingleFile","true")]
+                Properties = [("PublishSingleFile","true")]                
                 Targets = ["PublishAll"]
           }          
           cliArgs (DotNet.MSBuild.CliArguments.Create())        
@@ -95,18 +95,18 @@ Target.create "UploadNugetPacks" (fun _ ->
   let packagesPaths = Directory.GetFiles(librariesPackagesPath)
   packagesPaths |> Seq.iter (DotNet.nugetPush setParams)
 )
-Target.create "UploadToGithub" (fun _ ->
+Target.create "UploadToGithub" (fun _ ->  
+
   Trace.log "--- Uploading Published Projects To GitHub ---"
   let token = getEnvVar "GITHUB_TOKEN"       
   let owner = "adnanioricce"
-  let repoName = "DHsys"    
-  let assemblyName = System.Reflection.Assembly.LoadFrom((apiDir + "/Api.dll")).GetName()
-  let filesToZip = Directory.GetFiles(buildDir,"*",SearchOption.AllDirectories)
-  let zipFileName = sprintf "build/%s-%s.zip" assemblyName.Name (assemblyName.Version.ToString())
-  Zip.createZip buildDir zipFileName "" (int Compression.CompressionLevel.Optimal) true filesToZip
-  let filesToUpload = [zipFileName;] 
-                      |> Seq.append (Directory.GetFiles(librariesPackagesPath)) 
-                      |> Seq.append (Directory.GetFiles(toolsDir + "/Helper"))
+  let repoName = "DHsys"        
+  let apiAssemblyName = System.Reflection.Assembly.LoadFrom(apiDir + "/Api.dll").GetName()
+  let helperAssemblyName = System.Reflection.Assembly.LoadFrom(toolsDir + "/Tools/Helper").GetName()
+  let apiZipFileName = sprintf "build/%s-%s.zip" apiAssemblyName.Name (apiAssemblyName.Version.ToString())
+  let helperZipFileName = sprintf "build/%s-%s.zip" helperAssemblyName.Name (helperAssemblyName.Version.ToString())  
+  // Zip.createZip buildDir zipFileName "" (int Compression.CompressionLevel.Optimal) true filesToZip
+  let filesToUpload = [apiZipFileName;helperZipFileName] |> Seq.append (Directory.GetFiles(librariesPackagesPath))                       
   GitHub.createClientWithToken token
     |> GitHub.draftNewRelease owner repoName "DHsys" false [""]
     |> GitHub.uploadFiles (filesToUpload)
