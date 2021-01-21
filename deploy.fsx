@@ -49,14 +49,11 @@ Target.create "PackLibraries" (fun _ ->
   !! "src/Libraries/**/*.csproj"
   |> Seq.iter (DotNet.pack id))
 
-Target.create "PublishSeederTool" (fun _ -> 
-  Trace.log "--- Publishing Seeder Tool ---"
+Target.create "PublishHelperTool" (fun _ -> 
+  Trace.log "--- Publishing Helper Tool ---"
   let runtimes = [
-       "win-x64";
-       "win-x86";
-       "linux-x64";
-       "linux-arm";
-       "linux-arm64"
+       "win-x64";       
+       "linux-x64";       
      ]
   let publishOptions (args:DotNet.PublishOptions) runtime =    
     { args with
@@ -72,7 +69,7 @@ Target.create "PublishSeederTool" (fun _ ->
           cliArgs (DotNet.MSBuild.CliArguments.Create())        
     }
   let options = publishOptions (DotNet.PublishOptions.Create())
-  !! "src/Tools/Seeder/*.fsproj"
+  !! "src/Tools/Helper/*.fsproj"
   |> Seq.iter (fun i -> runtimes |> (Seq.iter (fun r -> DotNet.publish (fun _ -> options r) i)))
   )  
 
@@ -124,9 +121,9 @@ Target.create "All" ignore
 "CleanSolution"
   ==> "CleanBuild"
   ==> "PackLibraries"
-  ==> "PublishSeederTool"
+  ==> "PublishHelperTool"
   ==> "PublishWebApi"
-  ==> "UploadNugetPacks"
+  // ==> "UploadNugetPacks"
   ==> "UploadToGithub"
   ==> "All"
 
