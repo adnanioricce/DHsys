@@ -11,4 +11,4 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Run deploy process
-        run: mkdir tmp && docker build ./tmp -f Dockerfile.deploy.libraries --build-arg BRANCH_NAME=${GITHUB_REF##*/} 
+        run: mkdir tmp && docker build ./tmp -f Dockerfile.deploy.libraries --build-arg BRANCH_NAME=${GITHUB_REF##*/} --build-arg DHSYS_NUGET_KEY=${{ secrets.DHSYS_NUGET_KEY }} --build-arg=GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
