@@ -95,17 +95,15 @@ Target.create "UploadNugetPacks" (fun _ ->
   let packagesPaths = Directory.GetFiles(librariesPackagesPath)
   packagesPaths |> Seq.iter (DotNet.nugetPush setParams)
 )
-Target.create "UploadToGithub" (fun _ ->  
-
+Target.create "UploadToGithub" (fun _ ->
   Trace.log "--- Uploading Published Projects To GitHub ---"
-  let token = getEnvVar "GITHUB_TOKEN"       
+  let token = getEnvVar "GITHUB_TOKEN"
   let owner = "adnanioricce"
-  let repoName = "DHsys"        
+  let repoName = "DHsys"
   let apiAssemblyName = System.Reflection.Assembly.LoadFrom(apiDir + "/Api.dll").GetName()
   let helperAssemblyName = System.Reflection.Assembly.LoadFrom(toolsDir + "/Tools/Helper").GetName()
   let apiZipFileName = sprintf "build/%s-%s.zip" apiAssemblyName.Name (apiAssemblyName.Version.ToString())
   let helperZipFileName = sprintf "build/%s-%s.zip" helperAssemblyName.Name (helperAssemblyName.Version.ToString())  
-  // Zip.createZip buildDir zipFileName "" (int Compression.CompressionLevel.Optimal) true filesToZip
   let filesToUpload = [apiZipFileName;helperZipFileName] |> Seq.append (Directory.GetFiles(librariesPackagesPath))                       
   GitHub.createClientWithToken token
     |> GitHub.draftNewRelease owner repoName "DHsys" false [""]
@@ -123,7 +121,7 @@ Target.create "All" ignore
   ==> "PackLibraries"
   ==> "PublishHelperTool"
   ==> "PublishWebApi"
-  // ==> "UploadNugetPacks"
+  ==> "UploadNugetPacks"
   ==> "UploadToGithub"
   ==> "All"
 
