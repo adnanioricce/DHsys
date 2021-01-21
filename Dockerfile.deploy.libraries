@@ -3,4 +3,5 @@ ARG BRANCH_NAME
 RUN git clone -b $BRANCH_NAME https://github.com/adnanioricce/DHsys.git
 WORKDIR /DHsys
 RUN dotnet tool restore
+RUN dotnet restore
 RUN dotnet fake run deploy.fsx
