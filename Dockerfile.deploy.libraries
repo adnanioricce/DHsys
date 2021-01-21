@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine
 ARG BRANCH_NAME
 ARG DHSYS_NUGET_KEY
 ARG GITHUB_TOKEN
