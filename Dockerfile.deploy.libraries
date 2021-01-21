@@ -1,0 +1,6 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0
+ARG BRANCH_NAME
+RUN git clone -b $BRANCH_NAME https://github.com/adnanioricce/DHsys.git
+WORKDIR /DHsys
+RUN dotnet tool restore
+RUN dotnet fake run deploy.fsx
