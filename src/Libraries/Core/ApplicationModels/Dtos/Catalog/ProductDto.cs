@@ -99,5 +99,6 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public ICollection<ProductCategoryDto> Categories { get; set; } = new List<ProductCategoryDto>();
         public ICollection<StockChangeDto> StockChanges { get; set; } = new List<StockChangeDto>();
+        public ICollection<ProductTaxDto> ProductTaxes { get; set; } = new List<ProductTaxDto>();
     }
 }

@@ -60,7 +60,7 @@ namespace Api.Extensions
                 if (environment == "Development")
                 {
                     options.EnableDetailedErrors();
-                    options.EnableSensitiveDataLogging();
+                    options.EnableSensitiveDataLogging();                    
                     options.UseNpgsql(opt.Value.DevConnection);
                     return;
                 }

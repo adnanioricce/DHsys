@@ -82,14 +82,15 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(BaseResourceResponse), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> GetAsync([FromRoute]int id)
         {
-            var entity = await _repository.GetByAsync(id);
+            var entity = await _repository.Query().Where(e => e.Id == id).FirstOrDefaultAsync();
             if (entity == null)
             {
                 Log.Information("GetByAsync call with {idType} id {id} returned a null result", id.GetType().Name, id);
                 return NotFound(BaseResourceResponse.GetFailureResponseWithMessage($"entity with id {id} was not found"));
             }
             try
-            {                
+            {
+                Log.Information("Mapping...");
                 var entityDto = _mapper.Map<TEntity, TEntityDto>(entity);
                 return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(entityDto));
             }

@@ -4,6 +4,8 @@ using Core.Entities.Catalog;
 using System;
 using System.Linq;
 using System.Reflection;
+using Core;
+using System.Collections.Generic;
 
 namespace Application.Mapping.Domain
 {
@@ -12,8 +14,10 @@ namespace Application.Mapping.Domain
         public CoreProfile()
         {
             var coreTypes = Assembly.GetAssembly(typeof(Core.Core))
-                                    .GetTypes();
-            var entities = coreTypes.Where(t => t.Namespace.StartsWith("Core.Entities"));
+                                    .GetTypes()
+                                    .Where(IsDefinedType)
+                                    .ToList();
+            var entities = coreTypes.Where(t => t.Namespace.StartsWith("Core.Entities"));                                 
             var dtos = coreTypes.Where(t => t.Namespace.StartsWith("Core.ApplicationModels.Dtos"));
             foreach (var entity in entities)
             {
@@ -22,10 +26,9 @@ namespace Application.Mapping.Domain
                 {
                     continue;
                 }
-                var map = CreateMap(dto, entity);                
-                CreateMap(entity, dto);
-            }            
-
+                var map = CreateMap(dto, entity).MaxDepth(0).ReverseMap();                
+            }
+            bool IsDefinedType(Type type) => !String.IsNullOrEmpty(type.Namespace);
         }
     }
 }
