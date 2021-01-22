@@ -25,6 +25,7 @@ Desktop.exe
 *.db
 .fake
 build/**/*.*
+build/*.*
 releases/**/*.*
 # Mono auto generated files
 mono_crash.*
