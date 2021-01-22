@@ -32,7 +32,7 @@ namespace Infrastructure.Extensions
                     Directory.CreateDirectory(folder);
                 }catch(Exception ex)
                 {
-                    throw ex;
+                    throw;
                 }
             }
             //Create appsettings.json file on AppData Folder
