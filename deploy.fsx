@@ -95,20 +95,28 @@ Target.create "UploadNugetPacks" (fun _ ->
   let packagesPaths = Directory.GetFiles(librariesPackagesPath)
   packagesPaths |> Seq.iter (DotNet.nugetPush setParams)
 )
+Target.create "ZipAllBinaries" (fun _ -> 
+  Trace.log "--- Zipping All Binaries ---"
+  let apiAssemblyName = System.Reflection.Assembly.LoadFrom(apiDir + "/Api.dll").GetName()  
+  let apiZipFileName = sprintf "build/%s-%s.zip" apiAssemblyName.Name (apiAssemblyName.Version.ToString())
+  let helperZipFileName = sprintf "build/%s-%s.zip" "Helper" (apiAssemblyName.Version.ToString())  
+  Zip.createZip apiDir apiZipFileName "" (int Compression.CompressionLevel.Optimal) true (Directory.GetFiles(apiDir))
+  Zip.createZip toolsDir helperZipFileName "" (int Compression.CompressionLevel.Optimal) true (Directory.GetFiles(toolsDir + "/Helper"))
+  )
 Target.create "UploadToGithub" (fun _ ->
   Trace.log "--- Uploading Published Projects To GitHub ---"
   let token = getEnvVar "GITHUB_TOKEN"
   let owner = "adnanioricce"
-  let repoName = "DHsys"
-  let apiAssemblyName = System.Reflection.Assembly.LoadFrom(apiDir + "/Api.dll").GetName()  
-  let apiZipFileName = sprintf "build/%s-%s.zip" apiAssemblyName.Name (apiAssemblyName.Version.ToString())
-  let helperZipFileName = sprintf "build/%s-%s.zip" "Name" (apiAssemblyName.Version.ToString())  
-  let filesToUpload = [apiZipFileName;helperZipFileName] |> Seq.append (Directory.GetFiles(librariesPackagesPath))                       
+  let repoName = "DHsys"  
+  let filesToUpload = Directory.GetFiles(buildDir,"*",SearchOption.AllDirectories)
+                      |> Seq.where (fun f -> f.EndsWith(".zip") || f.EndsWith(".nupkg"))                      
+  filesToUpload |> Seq.iter (fun f -> Trace.log (sprintf "file:%s" f))
   GitHub.createClientWithToken token
     |> GitHub.draftNewRelease owner repoName "DHsys" false [""]
     |> GitHub.uploadFiles (filesToUpload)
     |> GitHub.publishDraft
     |> Async.RunSynchronously
+  ()
 )
 //TODO: Write code to generate build number of development and master builds
   
@@ -121,6 +129,7 @@ Target.create "All" ignore
   ==> "PublishHelperTool"
   ==> "PublishWebApi"
   ==> "UploadNugetPacks"
+  ==> "ZipAllBinaries"
   ==> "UploadToGithub"
   ==> "All"
 
