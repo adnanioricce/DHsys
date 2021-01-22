@@ -1,6 +1,5 @@
 using System;
 using Xunit;
-using Core.Entities.Catalog;
 using System.Linq;
 using DAL.Seed;
 using Core.Entities.Stock;
@@ -92,6 +91,17 @@ namespace Core.Entities.Catalog.Tests
             // Then 
             Assert.NotEmpty(product.Categories);
         }
-        //TODO: What if product is present in system yet?
+        [Fact]
+        public void Given_existing_tax_When_create_product_tax_from_tax_Then_add_product_tax_to_caller_product()
+        {
+            // Given
+            var product = new ProductSeed().GetSeedObject();
+            var tax = new Tax("FAKE 12%", 0.12m);
+            // When
+            product.AddTax(tax);
+            // Then
+            Assert.NotEmpty(product.ProductTaxes);
+        }
+
     }
 }

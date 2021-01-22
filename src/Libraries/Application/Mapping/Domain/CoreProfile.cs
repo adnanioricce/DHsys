@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using Core.ApplicationModels.Dtos.Catalog;
+using Core.Entities.Catalog;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -21,7 +24,7 @@ namespace Application.Mapping.Domain
                 }
                 var map = CreateMap(dto, entity);                
                 CreateMap(entity, dto);
-            }
+            }            
 
         }
     }

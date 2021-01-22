@@ -1,0 +1,9 @@
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine
+ARG BRANCH_NAME
+ARG DHSYS_NUGET_KEY
+ARG GITHUB_TOKEN
+RUN git clone -b $BRANCH_NAME https://github.com/adnanioricce/DHsys.git
+WORKDIR /DHsys
+RUN dotnet tool restore
+RUN dotnet restore
+RUN dotnet fake run deploy.fsx

@@ -32,7 +32,7 @@ namespace Infrastructure.Extensions
                     Directory.CreateDirectory(folder);
                 }catch(Exception ex)
                 {
-                    throw ex;
+                    throw;
                 }
             }
             //Create appsettings.json file on AppData Folder
@@ -54,18 +54,6 @@ namespace Infrastructure.Extensions
             {
                 Directory.CreateDirectory(updateFilesFolder);
             }
-        }
-        public static void SetUpdateSettings(this IServiceCollection services)
-        {
-            using (var provider = services.BuildServiceProvider())
-            {
-                var updateSettingsWriter = provider.GetService<OptionWriter<AutoUpdateSettings>>();
-                updateSettingsWriter.Update(settings =>
-                {
-                    //settings.UpdateFileUrl;
-                   //TODO:Add dsa public key path
-                });
-            }
-        }
+        }        
     }
 }

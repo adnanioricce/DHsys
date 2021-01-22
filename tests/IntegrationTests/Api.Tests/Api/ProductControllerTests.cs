@@ -4,18 +4,12 @@ using AspNetCore.Http.Extensions;
 using Core.Entities.Catalog;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
-using Core.Models.ApplicationResources.Requests;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
-using Tests.Lib;
 using Xunit;
-using Api.Tests.Seed;
 using Core.ApplicationModels.Dtos.Catalog;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
+using DAL.Seed;
 
 namespace Api.Tests
 {
@@ -28,8 +22,8 @@ namespace Api.Tests
         public async Task GET_GetDrugsByName_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var baseUrl = "api/Product/search/list?name={0}&api-version=1.0";                                    
-            var drug = DrugSeed.GetDataForHttpGetMethods().FirstOrDefault();
+            var baseUrl = "api/Product/search/list?name={0}&api-version=1.0";
+            var drug = new ProductSeed().GetSeedObject();
             var context = _fixture.GetContext();
             context.Add(drug);
             context.SaveChanges();
@@ -48,7 +42,7 @@ namespace Api.Tests
         {
             // Arrange
             string baseUrl = "api/Product/search/{0}?api-version=1.0";                                    
-            var Product = DrugSeed.GetDataForHttpGetMethods().FirstOrDefault();
+            var Product = new ProductSeed().GetSeedObject();
             var context = _fixture.GetContext();
             context.Add(Product);
             context.SaveChanges();
@@ -57,7 +51,7 @@ namespace Api.Tests
             //var result = drugsController.GetDrugByBarCode(barCode);
             var result = await _client.GetAsync(requestUrl);           
             result.EnsureSuccessStatusCode();
-            var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<Product>>();
+            var valueResult = await result.Content.ReadAsJsonAsync<BaseResourceResponse<ProductDto>>();
             // Assert
             Assert.NotNull(valueResult);
             Assert.Equal(Product.BarCode,valueResult.ResultObject.BarCode);
@@ -72,6 +66,7 @@ namespace Api.Tests
             { 
                 Name = "Dipirona GTS 5mg",
                 RegistryCode = "1234",
+                UseRestriction = "Infantil",
                 Description = "Dipirona GTS 5mg",
                 DiscountValue = 0,
                 Ncm = "300025567889",

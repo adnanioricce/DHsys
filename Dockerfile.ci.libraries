@@ -1,7 +1,10 @@
-FROM mcr.microsoft.com/dotnet/core/sdk:latest
-WORKDIR /src
+FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine
 ENV DHSYS_NUGET_KEY ""
-RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
+ARG BRANCH_NAME
+RUN git clone -b $BRANCH_NAME https://github.com/adnanioricce/DHsys.git
+WORKDIR /DHsys
+RUN dotnet tool restore && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"
-COPY . .
-RUN fake run ./buildPackages.fsx
+RUN dotnet restore
+RUN dotnet fake run ./buildPackages.fsx
+ENTRYPOINT [ "fake","run","deploy.fsx" ]

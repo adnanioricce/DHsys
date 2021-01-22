@@ -1,0 +1,16 @@
+name: 'cd'
+on:
+  push:
+    branches:      
+      - master
+jobs:   
+  push-to-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Push to server
+        uses: dokku/github-action@v1
+        with:
+          git_remote_url: ${{ secrets.GIT_REMOTE_URL}}
+          ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}

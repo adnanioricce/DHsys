@@ -12,6 +12,7 @@ TestSecrets/**/*.*
 resources/
 resources/**/*.*
 src/UI/appsettings.json
+src/Tools/Seeder/Csvs/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 .ionide
@@ -24,6 +25,7 @@ Desktop.exe
 *.db
 .fake
 build/**/*.*
+build/
 releases/**/*.*
 # Mono auto generated files
 mono_crash.*
