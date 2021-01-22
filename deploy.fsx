@@ -100,10 +100,9 @@ Target.create "UploadToGithub" (fun _ ->
   let token = getEnvVar "GITHUB_TOKEN"
   let owner = "adnanioricce"
   let repoName = "DHsys"
-  let apiAssemblyName = System.Reflection.Assembly.LoadFrom(apiDir + "/Api.dll").GetName()
-  let helperAssemblyName = System.Reflection.Assembly.LoadFrom(toolsDir + "/Helper/Helper").GetName()
+  let apiAssemblyName = System.Reflection.Assembly.LoadFrom(apiDir + "/Api.dll").GetName()  
   let apiZipFileName = sprintf "build/%s-%s.zip" apiAssemblyName.Name (apiAssemblyName.Version.ToString())
-  let helperZipFileName = sprintf "build/%s-%s.zip" helperAssemblyName.Name (helperAssemblyName.Version.ToString())  
+  let helperZipFileName = sprintf "build/%s-%s.zip" "Name" (apiAssemblyName.Version.ToString())  
   let filesToUpload = [apiZipFileName;helperZipFileName] |> Seq.append (Directory.GetFiles(librariesPackagesPath))                       
   GitHub.createClientWithToken token
     |> GitHub.draftNewRelease owner repoName "DHsys" false [""]
