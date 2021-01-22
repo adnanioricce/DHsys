@@ -10,7 +10,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: Push to server
-        uses: dokku/github-action@v1
+        uses: dokku/github-action@master
         with:
           git_remote_url: ${{ secrets.GIT_REMOTE_URL}}
           ssh_private_key: ${{ secrets.SSH_PRIVATE_KEY }}
