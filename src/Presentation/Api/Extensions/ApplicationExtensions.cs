@@ -27,8 +27,13 @@ namespace Api.Extensions
             var dtoTypes = GetEntitiesDtos().Where(t => !t.Name.Contains("Item"));
             odataBuilder.AddTypesToOdataEntitySet(dtoTypes.ToArray());
             app.UseMvc(routeBuilder =>
-            {                
-                routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
+            {
+                routeBuilder.Select()
+                            .Expand()
+                            .Filter()
+                            .OrderBy()
+                            .MaxTop(100)
+                            .Count();                            
                 routeBuilder.MapODataServiceRoute("ODataRoute", "api", odataBuilder.GetEdmModel());
                 routeBuilder.EnableDependencyInjection();
             });

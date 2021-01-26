@@ -27,6 +27,7 @@
     <Compile Include="Seed.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
+  <ItemGroup />
 
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Core\Core.csproj" />

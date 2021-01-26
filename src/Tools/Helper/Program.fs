@@ -10,8 +10,8 @@ let main argv =
                 parameters:
                     --connectionString -> connection string of the database to seed. OBS: tables must be already defined on database
         "
-    let printHelpMessage = printfn "%s" helpMessage
-
+    importCsvToDatabase [("--connectionString","User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_dev;Pooling=true;")]
+    let printHelpMessage = printfn "%s" helpMessage    
     let userOperation = if Seq.isEmpty argv then 
                            printHelpMessage 
                            "" 

@@ -26,7 +26,12 @@ namespace Application.Mapping.Domain
                 {
                     continue;
                 }
-                var map = CreateMap(dto, entity).MaxDepth(0).ReverseMap();                
+                var map = CreateMap(dto, entity)
+                            .MaxDepth(1)
+                            .PreserveReferences()
+                            .ReverseMap()
+                            .PreserveReferences()
+                            .MaxDepth(1);
             }
             bool IsDefinedType(Type type) => !String.IsNullOrEmpty(type.Namespace);
         }

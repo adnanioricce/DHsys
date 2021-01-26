@@ -5,6 +5,10 @@ namespace Core.Entities.Financial
     public class Tax : BaseEntity
     {
         protected Tax(){}
+        public Tax(int id)
+        {
+            Id = id;
+        }
         public Tax(string name,decimal percentage)
         {
             Name = name;

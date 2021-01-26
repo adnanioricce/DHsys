@@ -28,8 +28,8 @@ namespace Core.Entities.Catalog
         public string LaboratoryName { get; set; }
         public decimal EndCustomerPrice { get; set; }
         public decimal CostPrice { get; set; }
-        public virtual ICollection<ProductCategory> Categories { get; set; } = new List<ProductCategory>();
-        public virtual ICollection<ProductTax> Taxes { get; set; } = new List<ProductTax>();
+        public int[] CategoriesIds { get; set; }
+        public int[] TaxesIds { get; set; }
         public Product CreateProduct()
         {
             var product = new Product
@@ -49,13 +49,13 @@ namespace Core.Entities.Catalog
                 LaboratoryName = this.LaboratoryName,
             };
             //!Temporary solution
-            foreach(var category in Categories)
+            foreach(var categoryId in CategoriesIds)
             {
-                product.AddToCategory(category.Category);
+                product.AddToCategory(new Category { Id = categoryId });
             }
-            foreach (var tax in Taxes)
+            foreach (var taxId in TaxesIds)
             {
-                product.AddTax(tax.Tax);
+                product.AddTax(new Tax(taxId));
             }
             return product;
         }

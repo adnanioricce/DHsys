@@ -20,7 +20,8 @@ namespace Api.Controllers.Api
         {
             _ProductService = ProductService;
         }
-        // GET: api/Products/search/{name}
+        
+        // GET: api/Products/search/list?name={name}
         [HttpGet("search/list")]
         public async Task<ActionResult<BaseResourceResponse<IList<ProductDto>>>> GetProductsByName([FromQuery]string name)
         {

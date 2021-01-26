@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
@@ -6,6 +7,7 @@ using Core.Validations;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -30,14 +32,12 @@ namespace Api.Controllers
             _validator = validator;
         }
         
-        [EnableQuery]
+        [EnableQuery(PageSize = 25)]        
         [Produces("application/json")]
         [HttpGet("query")]
-        public async Task<IQueryable<TEntityDto>> Query()
+        public IQueryable Query()
         {
-            var entities = _mapper.Map<List<TEntity>, List<TEntityDto>>(await _repository.Query()
-                                                                                         .ToListAsync());
-            return entities.AsQueryable();
+            return _repository.Query();
         }
         [HttpPost("validate-create")]
         [ProducesDefaultResponseType(typeof(ValidationResult))]

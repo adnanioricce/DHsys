@@ -39,45 +39,7 @@ namespace Application.Extensions
                 var options = provider.GetService<IOptionsMonitor<T>>();
                 return new OptionWriter<T>(environment, options, file);
             });
-        }
-        /// <summary>
-        /// Creates a folder in the default AppData folder(Windows) to store configuration and data files
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="folderName">The folder name in which to store the configuration and data files</param>
-        public static void ConfigureAppDataFolder(this IServiceCollection services,string folderName = "DHsys")
-        {
-            //TODO:Use isolation storage instead
-            string folder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),folderName);
-            if (!Directory.Exists(folder))
-            {
-                try{
-                    Directory.CreateDirectory(folder);
-                }catch(Exception ex)
-                {
-                    throw ex;
-                }
-            }
-            //Create appsettings.json file on AppData Folder
-            string appsettingsPath = Path.Combine(folder,"appsettings.json");
-            if (!File.Exists(appsettingsPath))
-            {
-                if (File.Exists("appsettings.json"))
-                {
-                    var appsettingsContent = File.ReadAllLines("appsettings.json");                    
-                    var lines = string.Join("\n", appsettingsContent);
-                    File.WriteAllText(appsettingsPath, lines);
-                    return;
-                }
-                File.Create(appsettingsPath);
-            }
-            //create updates folder on AppData Folder
-            string updateFilesFolder = Path.Combine(folder,"Updates");
-            if (!File.Exists(updateFilesFolder))
-            {
-                Directory.CreateDirectory(updateFilesFolder);
-            }
-        }        
+        }                
         /// <summary>
         /// Add custom defined Application services to the <see cref="IServiceCollection"/> instance
         /// </summary>
@@ -88,35 +50,7 @@ namespace Application.Extensions
             services.AddTransient<IStockService, StockService>();
             services.AddTransient<IBillingService, BillingService>();
             services.AddTransient<ITransactionService, POSOrderService>();
-        }
-        
-        /// <summary>
-        /// Add default data services and Database context.
-        /// </summary>
-        /// <param name="services"></param>
-        /// <param name="configuration">the <see cref="IConfiguration"/> instance with the Connection String data</param>
-        /// <param name="applicationName">The name of the calling application </param>
-        /// <param name="contextOptionsAction">a custom action to configure custom options</param>
-        public static void AddDesktopDataStore(this IServiceCollection services)
-        {
-            services.AddTransient<DbContextOptionsFactory>();
-            services.AddTransient<DHsysContextFactory>();
-            services.AddDbContext<DHsysContext, DHsysContext>((sp, options) =>
-            {
-                var configuration = sp.GetService<IConfiguration>();                                
-                var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();
-                options.EnableDetailedErrors();
-                options.EnableSensitiveDataLogging();
-                options.UseNpgsql(opt.Value.DefaultConnection);
-            });
-            services.AddScoped<DHsysContext, DHsysContext>(sp => {
-                var factory = sp.GetRequiredService<DHsysContextFactory>();                
-                var options = sp.GetService<IWritableOptions<ConnectionStrings>>();
-                return factory.CreateContext(options.Value.DefaultConnection);
-            });
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-            
-        }
+        }                
         public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
         {
             services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
@@ -129,7 +63,7 @@ namespace Application.Extensions
             services.ConfigureWritable<ConnectionStrings>();
             services.ConfigureWritable<DatabaseSettings>();
             services.ConfigureWritable<AppSettings>();
-        }        
+        }
         public static void TryCreateDatabase(this IServiceProvider provider, DHsysContext context)
         {
             context.Database.Migrate();

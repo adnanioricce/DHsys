@@ -50,8 +50,8 @@ namespace Core.ApplicationModels.Dtos.Catalog
 
         public decimal CostPrice { get; set; }
 
-        public ICollection<ProductCategory> Categories { get; set; }
+        public int[] CategoriesIds { get; set; }
 
-        public ICollection<ProductTax> Taxes { get; set; }
+        public int[] TaxesIds { get; set; }
     }
 }
