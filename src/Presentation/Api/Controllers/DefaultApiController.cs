@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Core.Entities;
 using Core.Interfaces;
 using Core.Models.ApplicationResources;
@@ -6,6 +7,7 @@ using Core.Validations;
 using FluentValidation;
 using FluentValidation.Results;
 using Microsoft.AspNet.OData;
+using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -30,14 +32,12 @@ namespace Api.Controllers
             _validator = validator;
         }
         
-        [EnableQuery]
+        [EnableQuery(PageSize = 25)]        
         [Produces("application/json")]
         [HttpGet("query")]
-        public async Task<IQueryable<TEntityDto>> Query()
+        public IQueryable Query()
         {
-            var entities = _mapper.Map<List<TEntity>, List<TEntityDto>>(await _repository.Query()
-                                                                                         .ToListAsync());
-            return entities.AsQueryable();
+            return _repository.Query();
         }
         [HttpPost("validate-create")]
         [ProducesDefaultResponseType(typeof(ValidationResult))]
@@ -82,14 +82,15 @@ namespace Api.Controllers
         [ProducesResponseType(typeof(BaseResourceResponse), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> GetAsync([FromRoute]int id)
         {
-            var entity = await _repository.GetByAsync(id);
+            var entity = await _repository.Query().Where(e => e.Id == id).FirstOrDefaultAsync();
             if (entity == null)
             {
                 Log.Information("GetByAsync call with {idType} id {id} returned a null result", id.GetType().Name, id);
                 return NotFound(BaseResourceResponse.GetFailureResponseWithMessage($"entity with id {id} was not found"));
             }
             try
-            {                
+            {
+                Log.Information("Mapping...");
                 var entityDto = _mapper.Map<TEntity, TEntityDto>(entity);
                 return Ok(BaseResourceResponse.GetDefaultSuccessResponseWithObject(entityDto));
             }

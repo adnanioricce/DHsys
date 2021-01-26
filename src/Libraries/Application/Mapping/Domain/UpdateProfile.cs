@@ -15,9 +15,10 @@ namespace Application.Mapping.Domain
         {
             foreach(var entity in Assembly.GetAssembly(typeof(Core.Core))
                                     .GetTypes()
+                                    .Where(t => !System.String.IsNullOrEmpty(t.Namespace))
                                     .Where(t => t.Namespace.StartsWith("Core.Entities")))
             {
-                var map = CreateMap(entity, entity);
+                var map = CreateMap(entity, entity).MaxDepth(0);
                 foreach (var property in entity.GetProperties())
                 {
                     if (typeof(ICollection<>).IsAssignableFrom(property.PropertyType) || typeof(IList<>).IsAssignableFrom(property.PropertyType))

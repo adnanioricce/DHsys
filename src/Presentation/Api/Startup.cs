@@ -59,6 +59,7 @@ namespace Api
                     options.OperationFilter<SwaggerDefaultValues>();
                 });
             var validators = Assembly.GetAssembly(typeof(Core.Core)).GetTypes()
+                                                                    .Where(t => !string.IsNullOrEmpty(t.Namespace))
                                                                     .Where(t => t.Namespace.StartsWith("Core.Validations"))
                                                                     .Where(t => !t.Name.StartsWith("BaseValidator"));
             foreach (var validator in validators) {
@@ -68,8 +69,6 @@ namespace Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
-            AppLogger.Log.Information("Starting to migrate application");
-            AppLogger.Log.Information("Current Environment variables values:");
             if (GlobalConfiguration.IsDockerContainer && !string.IsNullOrEmpty(GlobalConfiguration.DhConnectionString))
             {
                 using var scope = app.ApplicationServices.CreateScope();

@@ -5,6 +5,7 @@
         I,
         II,
         III,
-        IV
+        IV,
+        Undefined
     }
 }

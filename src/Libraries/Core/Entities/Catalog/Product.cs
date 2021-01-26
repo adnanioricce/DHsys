@@ -204,8 +204,8 @@ namespace Core.Entities.Catalog
             this.ProductPrices.Add(price);
             this.EndCustomerPrice = price.EndCustomerDrugPrice;
             this.CostPrice = price.CostPrice;
-            this.SavingPercentage = price.CalculatePercentageSaving();            
-        }        
+            this.SavingPercentage = price.CalculatePercentageSaving();
+        }
         public virtual void UpdatePrice(decimal newEndCustomerPriceValue,decimal newCostPrice,DateTimeOffset startDate)
         {
             var price = ProductPrice.CreateNewPrice(this,newCostPrice,newEndCustomerPriceValue,startDate);                

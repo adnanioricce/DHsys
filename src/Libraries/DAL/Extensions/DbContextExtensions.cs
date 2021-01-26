@@ -1,4 +1,6 @@
-﻿using Core.Interfaces;
+﻿using AutoMapper.QueryableExtensions;
+using Core.Entities;
+using Core.Interfaces;
 using DAL.DbContexts;
 using Infrastructure.Logging;
 using Microsoft.EntityFrameworkCore;
@@ -217,6 +219,6 @@ namespace DAL.Extensions
         {
             var scaffolder = context.GetMigrationsScaffolderService();            
             return scaffolder.RemoveMigration(projectDir, rootNamespace, true, "?");            
-        }
+        }        
     }
 }

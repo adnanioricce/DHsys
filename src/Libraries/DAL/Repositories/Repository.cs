@@ -9,6 +9,8 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Core.Extensions;
 using System;
+using Core.Interfaces.Data;
+using Dapper;
 
 namespace DAL
 {
@@ -38,7 +40,9 @@ namespace DAL
 
         public virtual IEnumerable<T> GetAll()
         {
-            return DbSet.ToList();
+            foreach(var entity in DbSet.AsNoTracking()){
+                yield return entity;
+            }            
         }
 
         public virtual T GetBy(int id)
@@ -76,7 +80,7 @@ namespace DAL
         public virtual IQueryable<T> Query(string query)
         {
             return DbSet.FromSqlRaw<T>(query);
-        }
+        }        
         public virtual async Task<T> GetByAsync(object id)
         {
             if (id.IsNumber())
@@ -112,6 +116,6 @@ namespace DAL
         {
             return await Context.SaveChangesAsync();
         }
-       
+
     }
 }

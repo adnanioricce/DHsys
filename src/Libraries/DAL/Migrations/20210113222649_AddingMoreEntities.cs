@@ -14,14 +14,7 @@ namespace DAL.Migrations
                 type: "text",
                 nullable: false,
                 oldClrType: typeof(int),
-                oldType: "integer");                        
-            
-            migrationBuilder.AddColumn<int>(
-                name: "ProductTemplateId",
-                table: "Category",
-                type: "integer",
-                nullable: true);
-                      
+                oldType: "integer");
             migrationBuilder.CreateTable(
                 name: "ProductTemplate",
                 columns: table => new
@@ -50,6 +43,8 @@ namespace DAL.Migrations
                     LaboratoryName = table.Column<string>(type: "text", nullable: true),
                     EndCustomerPrice = table.Column<decimal>(type: "numeric", nullable: false),
                     CostPrice = table.Column<decimal>(type: "numeric", nullable: false),
+                    CategoriesIds = table.Column<int[]>(type: "integer[]", nullable: false),
+                    TaxesIds = table.Column<int[]>(type: "integer[]", nullable: true),
                     UniqueCode = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2021, 1, 13, 22, 26, 48, 994, DateTimeKind.Unspecified).AddTicks(5861), new TimeSpan(0, 0, 0, 0, 0))),
@@ -58,8 +53,7 @@ namespace DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ProductTemplate", x => x.Id);
-                });
-
+                });            
             migrationBuilder.CreateTable(
                 name: "Taxes",
                 columns: table => new
@@ -76,13 +70,7 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Taxes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Taxes_ProductTemplate_ProductTemplateId",
-                        column: x => x.ProductTemplateId,
-                        principalTable: "ProductTemplate",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Taxes", x => x.Id);                    
                 });
 
             migrationBuilder.CreateTable(
@@ -134,14 +122,6 @@ namespace DAL.Migrations
                 name: "IX_Taxes_ProductTemplateId",
                 table: "Taxes",
                 column: "ProductTemplateId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Category_ProductTemplate_ProductTemplateId",
-                table: "Category",
-                column: "ProductTemplateId",
-                principalTable: "ProductTemplate",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
