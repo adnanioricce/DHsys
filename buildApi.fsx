@@ -43,7 +43,8 @@ Target.create "BuildApps" (fun _ ->
 )
 Target.create "RunUnitTests" (fun _ ->
   Trace.log "--- Executing Unit Tests ---"
-  !! "tests/UnitTests/**/*.csproj"  
+  !! "tests/UnitTests/**/*.csproj"
+  -- "**/DAL.Tests.csproj"
   |> Seq.iter (DotNet.test id)
 )
 Target.create "PublishApi" (fun _ ->
