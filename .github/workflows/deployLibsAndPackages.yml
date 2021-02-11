@@ -2,8 +2,7 @@ name: 'cd'
 on:
   push:
     branches:      
-      - master      
-      - development
+      - master            
 jobs:
   deploy-solution:
     runs-on: ubuntu-latest

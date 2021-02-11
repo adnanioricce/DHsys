@@ -69,6 +69,7 @@ namespace Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
+            AppLogger.Log.Information("{name}-{version}",Assembly.GetExecutingAssembly().GetName().FullName,Assembly.GetExecutingAssembly().GetName().Version.ToString());
             if (GlobalConfiguration.IsDockerContainer && !string.IsNullOrEmpty(GlobalConfiguration.DhConnectionString))
             {
                 using var scope = app.ApplicationServices.CreateScope();

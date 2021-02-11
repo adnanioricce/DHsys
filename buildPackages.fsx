@@ -40,20 +40,18 @@ Target.create "CleanBuild" (fun _ ->
 ) 
 Target.create "BuildLibraries" (fun _ ->  
   Trace.log "--- Building Libraries  ---"
-  !! "src/Libraries/**/*.*proj"  
-  -- "src/**/*Windows*.*proj"
+  !! "src/Libraries/**/*.*proj"    
   |> Seq.iter (DotNet.build id)
 )
 Target.create "RunUnitTests" (fun _ ->
   Trace.log "--- Executing Unit Tests ---"
   !! "tests/UnitTests/**/*.csproj"
-  -- "tests/UnitTests/Desktop.Tests/Desktop.Tests.csproj"
+  -- "tests/UnitTests/DAL.Tests/*.csproj"
   |> Seq.iter (DotNet.test id)
 )
 Target.create "PackLibraries" (fun _ ->
   Trace.log "--- Packaging Lib Projects ---"
-  !! "src/Libraries/**/*.csproj"
-  -- "src/Libraries/**/*.Windows.csproj"
+  !! "src/Libraries/**/*.csproj"  
   |> Seq.iter (DotNet.pack id)
 )
 //TODO: Write code to generate build number of development and master builds

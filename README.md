@@ -3,27 +3,67 @@
 
 # DHsys
 DHsys is a little side project of mine that I create to replicate a POS system in a pharmacy in a more "modern" way(meaning, not written in clipper). The project is separated between it's Web API and his Libraries. Currently, this is just a playground that I Will keep for a little while
-# Requirements
-- Framework .Net Core 3.1 
-- Postgresql 11 or higher
-# How to run
-Go to src/Presentation/Api
+# How to Build and run the Api project
 
-execute dotnet run on your shell
+## With source code
 
-Optionally, on Visual Studio, select the Api Project and run the project.
+The following is required to build and run the project:
 
-after this, go to http://localhost:5000/api/v1/ to see the generated api docs
-# Running with docker
-If you have docker, you can run project docker image
+- .Net Core sdk 3.1 or Higher
+- Postgresql 10 or higher
 
-first create the database
+If you have the requirements, just follow the steps:
+
+- Create a database in the postgresql server. By default, the projects expects a database with name dhsysdb
+- update database connection string in the appsettings.json on src/Presentation/Api/appsettings.json if needed.
+- run the project
+- Go to http://localhost:5000/api
+## With Docker
+
+start a postgresql container.
+
 ```docker run --name dhsysdb -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dhsysdb -d postgres```
 
-after that, run a instance of the project
+start a dhsysdb container with a db container host and connection string 
+```docker run --name dhsys-api -p 5000:5000 -e DH_CONNECTION_STRING=User ID=postgres;Password=postgres;Host=dhsysdb;Port=5432;Database=dhsysdb;Pooling=true; -d dhsysapi```
 
-```bash 
-#DH_CONNECTION_STRING is optional, since the image uses dhsysdb by default, but if you want to give a different connection string to the api...
-docker run --name dhsys -e DH_CONNECTION_STRING="User ID=postgres;Password=postgres;Host=dhsysdb;Port=5432;Database=dhsysdb;Pooling=true;" -d adnanioricce/dhsys
-```
-go to http://localhost:5000/api/v1/
+you should be seeing this screen:
+![Api Docs](./docs/img/api_swagger.png)
+## Use CI Build
+You can access a CI build of the project in [DHsys CI](dhsysapi.adnangonzagaci.com/api/v1/)
+
+# Using the Web Api
+## Crud Methods
+Each entity has basic CRUD endpoints
+
+Create: ``POST /api/{entity}/create?api-version=1.0``
+
+Read: ``GET /api/{entity}?api-version=1.0&id=79001``
+
+Update: ``PUT /api/{entity}?api-version=1.0&id=79001``
+
+Delete: ``DELETE /api/{entity}?api-version=1.0&id=79001``
+
+Create Validation: ``POST /api/{entity}/validate-create?api-version=1.0``
+
+to use Create,Update and Create Validation endpoints, you need to send the object in the body request
+
+## Query entries with OData
+You can query entity data with OData in the ``/api/{entity}/query`` endpoint
+Some examples 
+
+Top: ``/api/Product/query?api-version=1.0&$top=100``
+
+![Query Top](./docs/img/query_top.png)
+
+Select: ``/api/Product/query?api-version=1.0&$top=100&$select=uniqueCode,name,commercialName,manufacturerName,manufacturerCountry``
+
+![Query Select](./docs/img/query_select.png)
+
+OrderBy: ``/api/Product/query?api-version=1.0&$top=100&$select=uniqueCode,name,commercialName,manufacturerName,manufacturerCountry&$orderBy=id``
+
+![Query OrderBy](./docs/img/query_orderBy.png)
+
+Filter: ``/api/Product/query?api-version=1.0&$=top=100&$select=id,uniqueCode,name,riskClass&$filter=id eq 79001``
+
+![Query Filter](./docs/img/query_filter.png)

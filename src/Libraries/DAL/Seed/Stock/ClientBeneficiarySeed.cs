@@ -11,7 +11,7 @@ namespace DAL.Seed
             var client = new Client
             {
                 Address = new AddressSeed().GetSeedObject(),
-                Cpf = "208.976.920-39",
+                Cpf = "20897692039",
                 CreatedAt = DateTimeOffset.UtcNow,
                 Name = "Client Name",
                 UniqueCode = Guid.NewGuid().ToString()

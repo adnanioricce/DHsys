@@ -16,7 +16,7 @@ namespace DAL.Tests.Migrations
         public void Given_New_Database_Migration_Created_When_User_Tries_To_Get_Migration_Script_Then_Is_A_Secure_Migration_Script()
         {
             // Given
-            var context = CreateContext();
+            var context = new DHsysContextFactory().CreateContext(Environment.GetEnvironmentVariable("CONNECTION_STRING"));
 
             //When 
             var migrationScripts = context.GetPendingMigrationScripts();

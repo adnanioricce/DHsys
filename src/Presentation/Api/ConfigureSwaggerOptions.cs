@@ -40,7 +40,7 @@ namespace Api
             {
                 Title = "DHsys API",
                 Version = description.ApiVersion.ToString(),
-                Description = "A playground project used as a test of some concepts that ended growing too much.",
+                Description = "DHsys is a inventory/POS system used as a test of some concepts.",
                 Contact = new OpenApiContact() { Name = "adnan ioricce ", Email = "adnanioricce@outlook.com" },
                 License = new OpenApiLicense() { Name = "MIT", Url = new Uri("https://opensource.org/licenses/MIT") }
             };

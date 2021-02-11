@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "DAL.Tests": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "CONNECTION_STRING": "User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_test;Pooling=true;",
+        "Chave": "Valor"
+      }
+    }
+  }
+}
