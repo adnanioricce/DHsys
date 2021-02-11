@@ -10,7 +10,7 @@ namespace DAL.Migrations
         {            
             migrationBuilder.AlterColumn<string>(
                 name: "Stripe",
-                table: "Products",
+                table: "Product",
                 type: "text",
                 nullable: false,
                 oldClrType: typeof(int),
@@ -92,7 +92,7 @@ namespace DAL.Migrations
                     table.ForeignKey(
                         name: "FK_ProductTax_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(

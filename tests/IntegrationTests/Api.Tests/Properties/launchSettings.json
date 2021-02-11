@@ -12,6 +12,7 @@
       "commandName": "IISExpress",
       "launchBrowser": true,
       "environmentVariables": {
+        "CONNECTION_STRING": "User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_test;Pooling=true;",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
@@ -19,6 +20,7 @@
       "commandName": "Project",
       "launchBrowser": true,
       "environmentVariables": {
+        "CONNECTION_STRING": "User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_test;Pooling=true;",
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
       "applicationUrl": "https://localhost:5001;http://localhost:5000"
@@ -27,6 +29,9 @@
       "commandName": "Docker",
       "launchBrowser": true,
       "launchUrl": "{Scheme}://{ServiceHost}:{ServicePort}",
+      "environmentVariables": {
+        "CONNECTION_STRING": "User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_test;Pooling=true;"
+      },
       "publishAllPorts": true,
       "useSSL": true
     }

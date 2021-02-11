@@ -20,33 +20,31 @@ using Api;
 namespace Api.Tests
 {
     public class DIStartup : DependencyInjectionTestFramework
-    {
-        // private string sqliteConnStr = "";
+    {        
         public DIStartup(IMessageSink messageSink) : base(messageSink)
         {
         }
         protected void ConfigureServices(IServiceCollection services) 
-        {
-            string sqliteConnStr = $"DataSource={Guid.NewGuid().ToString()}.db";
+        {            
             var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
             services.AddTransient<DHsysContextFactory>();
-            services.AddDbContext<DbContext,DHsysContext>((sp,options) => {
+            services.AddDbContext<DbContext, DHsysContext>((sp,options) => {
                 var factory = sp.GetService<DHsysContextFactory>();
                 options.EnableDetailedErrors();
                 options.EnableSensitiveDataLogging();
-                if(GlobalConfiguration.IsDockerContainer){
-                    string connectionString = GlobalConfiguration.DhConnectionString;
+                if(global::Api.GlobalConfiguration.IsDockerContainer){
+                    string connectionString = global::Api.GlobalConfiguration.DhConnectionString;
                     options.UseNpgsql(connectionString);
                     return;
                 }
                 options.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
             });
-            services.AddScoped<DbContext,DHsysContext>((sp) => {
+            services.AddScoped<DbContext, DHsysContext>((sp) => {
                 var factory = sp.GetService<DHsysContextFactory>();
-                if(GlobalConfiguration.IsDockerContainer){                    
-                    return factory.CreateContext(GlobalConfiguration.DhConnectionString);
+                if(global::Api.GlobalConfiguration.IsDockerContainer){                    
+                    return factory.CreateContext(global::Api.GlobalConfiguration.DhConnectionString);
                 }
                 return factory.CreateContext(configuration.GetConnectionString("DefaultConnection"));
             });

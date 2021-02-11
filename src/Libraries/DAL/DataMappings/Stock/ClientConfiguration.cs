@@ -12,7 +12,7 @@ namespace DAL.DataMappings.Stock
         {
             base.Configure(builder);
             builder.Property(p => p.Cpf)
-                .HasMaxLength(12);            
+                .HasMaxLength(16);            
             
         }
     }

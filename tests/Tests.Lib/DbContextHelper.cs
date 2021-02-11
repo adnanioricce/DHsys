@@ -1,6 +1,7 @@
 ﻿using DAL.DbContexts;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 
 namespace Tests.Lib
 {
@@ -9,7 +10,7 @@ namespace Tests.Lib
         public static DHsysContext CreateContext()
         {
             var optionsBuilder = new DbContextOptionsBuilder<DHsysContext>();
-            optionsBuilder.UseSqlite(new SqliteConnection($"DataSource=:memory:"));
+            optionsBuilder.UseNpgsql(new NpgsqlConnection($"User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_dev;Pooling=true;"));
             optionsBuilder.EnableSensitiveDataLogging();
             optionsBuilder.EnableDetailedErrors();            
             var context = new DHsysContext(optionsBuilder.Options);                        

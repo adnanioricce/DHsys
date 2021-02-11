@@ -55,6 +55,7 @@ namespace Api.Controllers
         [HttpPost("create")]
         [Produces("application/json")]
         [ProducesResponseType(typeof(BaseResourceResponse<int>), 200)]
+        [ProducesResponseType(typeof(BaseResourceResponse<object>), 400)]
         [ProducesResponseType(typeof(BaseResourceResponse<object>), 500)]
         public virtual async Task<ActionResult<BaseResourceResponse>> CreateAsync(TEntityDto entityDto)
         {

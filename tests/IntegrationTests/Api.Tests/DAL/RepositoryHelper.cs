@@ -1,4 +1,5 @@
-﻿using Core.Entities;
+﻿using Api.Tests;
+using Core.Entities;
 using DAL.DbContexts;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace DAL.Tests
     {
         public static Repository<T> GetRepository<T>(DHsysContext context) where T : BaseEntity
         {
-            return new Repository<T>(new DHsysContextFactory().CreateContext(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+            return new Repository<T>(new DHsysContextFactory().CreateContext(GlobalConfiguration.ConnectionString));
         }        
     }
 }

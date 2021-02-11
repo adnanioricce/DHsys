@@ -9,7 +9,7 @@ RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"
 COPY . .
 RUN fake run ./buildApi.fsx
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-alpine AS release
+FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS release
 WORKDIR /app
 COPY --from=build /src/build/Api .
 ENTRYPOINT ["dotnet","Api.dll","--environment=Production"]

@@ -15,7 +15,10 @@ namespace DAL.Seed.Catalog
             template.Name = "Sample product";            
             template.PrescriptionNeeded = false;
             template.RegistryCode = Guid.NewGuid().ToString();
-            template.UseRestriction = "No Restriction";            
+            template.UseRestriction = "No Restriction";
+            template.CategoriesIds = new int[2];
+            template.CategoriesIds[0] = 1;
+            template.CategoriesIds[1] = 2;
             return template;
         }
     }

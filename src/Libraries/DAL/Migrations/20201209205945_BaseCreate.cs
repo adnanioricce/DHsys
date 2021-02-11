@@ -98,7 +98,7 @@ namespace DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Products",
+                name: "Product",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
@@ -155,7 +155,7 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Products", x => x.Id);
+                    table.PrimaryKey("PK_Product", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -264,7 +264,7 @@ namespace DAL.Migrations
                     table.ForeignKey(
                         name: "FK_POSOrderItem_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -319,7 +319,7 @@ namespace DAL.Migrations
                     table.ForeignKey(
                         name: "FK_ProductCategory_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -350,7 +350,7 @@ namespace DAL.Migrations
                     table.ForeignKey(
                         name: "FK_ProductMedia_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -376,7 +376,7 @@ namespace DAL.Migrations
                     table.ForeignKey(
                         name: "FK_ProductPrice_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -402,7 +402,7 @@ namespace DAL.Migrations
                     table.ForeignKey(
                         name: "FK_ProductShelfLife_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -426,7 +426,7 @@ namespace DAL.Migrations
                     table.ForeignKey(
                         name: "FK_ProductSupplier_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -485,7 +485,7 @@ namespace DAL.Migrations
                     table.ForeignKey(
                         name: "FK_ProductStockEntry_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -515,7 +515,7 @@ namespace DAL.Migrations
                     table.ForeignKey(
                         name: "FK_StockChange_Products_ProductId",
                         column: x => x.ProductId,
-                        principalTable: "Products",
+                        principalTable: "Product",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
 
