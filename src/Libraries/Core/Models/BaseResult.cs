@@ -13,6 +13,7 @@ namespace Core.Models
         {
             return new BaseResult<T>
             {
+                Success = true,
                 SuccessMessage = successMessage,
                 Value = value
             };

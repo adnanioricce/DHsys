@@ -27,7 +27,7 @@ namespace Core.Tests
                 Id = impactingId
             };
             // When
-            var stockChange = StockChange.CreateChange(product, impactingEntity, quantity);
+            var stockChange = StockChange.CreateChange(quantity,product, impactingEntity);
             // Then
             Assert.Equal(expectedStockChange, stockChange.Type);            
         }
@@ -48,7 +48,7 @@ namespace Core.Tests
                 
             };
             // When 
-            var stockChange = StockChange.CreateChange(product, stockEntry, quantity);
+            var stockChange = StockChange.CreateChange(quantity,product, stockEntry);
             // Then 
             Assert.Equal(StockChangeType.None, stockChange.Type);
         }
@@ -68,7 +68,7 @@ namespace Core.Tests
                 Id = impactingId
             };
             // When and Then
-            Assert.Throws<InvalidOperationException>(() => StockChange.CreateChange(product, posOrder, quantity));
+            Assert.Throws<InvalidOperationException>(() => StockChange.CreateChange(quantity,product, posOrder));
         }
     }
 }

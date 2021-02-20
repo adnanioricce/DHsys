@@ -34,7 +34,7 @@ namespace DAL.Seed
             product.MainSupplierName = "Sample Main Supplier";
             product.ManufacturerName = "Sample Manufacturer Name";
             product.MaxDiscountPercentage = 20;
-            product.MinimumStock = 1;
+            product.MinimumStock = 1;            
             product.Name = "Sample product";
             product.Ncm = "40028922";
             product.PrescriptionNeeded = false;
@@ -53,7 +53,7 @@ namespace DAL.Seed
             };
             supplier.Address = new AddressSeed().GetSeedObject();            
             product.AddSupplier(supplier);                     
-            product.UniqueCode = Guid.NewGuid().ToString();
+            product.UniqueCode = Guid.NewGuid().ToString();            
             return product;
         }
     }

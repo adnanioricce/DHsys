@@ -41,13 +41,13 @@ namespace Core.Entities.Stock
         /// <param name="impactingId">the id of the entity that issued the change</param>
         /// <param name="quantity">the quantity applied in the operation</param>
         /// <returns></returns>
-        public static StockChange CreateChange(Product product, BaseEntity impactingEntity, int quantity)
+        public static StockChange CreateChange(int quantity,Product product, BaseEntity impactingEntity)
         {
             if(product is null || product?.Id == 0)
             {
                 throw new InvalidOperationException("It's not possible to create a stock change for a product that don't exists. Provide a product alreadly created");
             }
-            return Change(product.Id, impactingEntity.Id, quantity);
+            return Change(quantity,product.Id, impactingEntity.Id);
         }
         /// <summary>
         /// Create a In,Out or None change of stock for the given quantity of the specified product
@@ -55,7 +55,7 @@ namespace Core.Entities.Stock
         /// <param name="productId">the id of the impacted product</param>
         /// <param name="quantity">the quantity to be used on the operation</param>
         /// <returns></returns>
-        protected static StockChange Change(int productId,int impactingEntityId,int quantity)
+        protected static StockChange Change(int quantity,int productId,int impactingEntityId)
         {
             return new StockChange
             {

@@ -275,6 +275,10 @@ namespace Core.Entities.Catalog
             }            
             this.ProductTaxes.Add(new ProductTax(this.Id, tax.Id));
         }
+        public virtual void UpdateStock(int quantity,BaseEntity impactingEntity)
+        {
+            UpdateStock(StockChange.CreateChange(quantity,this,impactingEntity));
+        }
         /// <summary>
         /// update the stock quantity of the product
         /// </summary>
@@ -283,7 +287,7 @@ namespace Core.Entities.Catalog
         {
             //? Throw a exception or simply set StockQuantity to zero?
             int quantity = stockChange.Quantity + this.QuantityInStock;
-            var isQuantityBiggerThanExisting = stockChange.Quantity < 0 ? quantity < 0 : false;
+            var isQuantityBiggerThanExisting = quantity < 0;
             if (isQuantityBiggerThanExisting)
             {
                 throw new ArgumentException("the given stock change is bigger than the available product in stock");
