@@ -32,7 +32,7 @@ namespace Api.Tests
             var transaction = new POSOrderDto
             {
                 HasDealWithStore = false,
-                PaymentMethod = Core.Entities.Financial.PaymentMethods.InHands,                
+                PaymentMethod = Core.Entities.Payments.PaymentMethods.InHands,                
                 ConsumerCode = Guid.NewGuid().ToString(),
                 Items = new POSOrderItemDto[]
                 {

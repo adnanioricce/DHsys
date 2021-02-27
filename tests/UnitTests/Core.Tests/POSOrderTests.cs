@@ -1,10 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
+using Core.Entities.Payments;
 using Core.Entities.Stock;
 using Core.Interfaces;
+using Core.Interfaces.Payments;
+using Core.Models;
 using DAL.DbContexts;
 using DAL.Seed;
 using Microsoft.EntityFrameworkCore;
@@ -15,6 +19,7 @@ namespace Core.Tests
 {
     public class POSOrderTests
     {
+        
         private IRepository<Product> MockRepository(Action<Mock<IRepository<Product>>> action = null)
         {            
             var product = new Product{
@@ -30,6 +35,21 @@ namespace Core.Tests
             action(mock);
             return mock.Object;
         }
+        private IPaymentMethodService MockPaymentService(Action<Mock<IPaymentMethodService>> transform){
+            var mock = new Mock<IPaymentMethodService>();
+            transform(mock);
+            return mock.Object;
+        }
+        private POSOrder GetBasicPOSOrder(){
+            var product = new ProductSeed().GetSeedObject();
+            product.Id = 1;
+            product.UpdateStock(10,product);
+            var repository = MockRepository((mock) => mock.Setup(m => m.GetBy(It.IsAny<int>()))
+                                                          .Returns(product));
+            var posOrder = new POSOrder();
+            posOrder.AddItem(product.Id,1,repository);
+            return posOrder;
+        }
         [Fact(DisplayName = "When start new pos order it's state should be 'New'")]
         public void When_start_new_pos_order_should_have_new_state()
         {
@@ -43,10 +63,11 @@ namespace Core.Tests
         {
             // Given
             var product = new ProductSeed().GetSeedObject();
-            product.Id = 1;            
+            product.Id = 1;
             product.UpdateStock(14,product);
             var posOrder = new POSOrder();
-            var repository = MockRepository((mock) => mock.Setup(m => m.GetBy(It.IsAny<int>())).Returns(product));
+            var repository = MockRepository((mock) => mock.Setup(m => m.GetBy(It.IsAny<int>()))
+                                                          .Returns(product));
             posOrder.AddItem(product.Id,2,repository);
             var expectedOrderTotal = product.EndCustomerPrice * 6;
             // When
@@ -55,8 +76,76 @@ namespace Core.Tests
             Assert.Equal(1,posOrder.Items.Count);
             Assert.Equal(expectedOrderTotal,posOrder.OrderTotal);
         }
-        
+        [Fact(DisplayName = "When cancel order state should be equal to 'Cancelled'")]
+        public void When_cancel_order_order_should_be_in_cancelled_state(){
+            // Given
+            var posOrder = new POSOrder();
+            //When
+            posOrder.Cancel();
+            //Then
+            Assert.Equal(OrderState.Cancelled,posOrder.State);
+            Assert.True(posOrder.HasEnded);
+            Assert.False(posOrder.PaidOut);
+        }
+        [Fact(DisplayName = "if order is cancelled, can't add item")]
+        public void When_try_add_item_to_cancelled_item_shouldnt_update_object()
+        {
+            //Given            
+            var product = new ProductSeed().GetSeedObject();
+            product.Id = 1;
+            product.UpdateStock(3,product);
+            
+            var posOrder = new POSOrder();
+            var repository = MockRepository((mock) => mock.Setup(m => m.GetBy(It.IsAny<int>()))
+                                                          .Returns(product));
+            var expectedQuantity = 1;
+            posOrder.AddItem(product.Id,expectedQuantity,repository);            
+            posOrder.Cancel();
 
+            //When
+            posOrder.AddItem(product.Id,1,repository);
+
+            //Then
+            var item = posOrder.Items.FirstOrDefault();
+            Assert.Equal(expectedQuantity,item.Quantity);
+        }
+        [Fact(DisplayName = "If order was cancelled, pay operations shouldn't be allowed")]
+        public async Task When_try_to_pay_order_if_is_cancelled_return_failure(){
+            // Given
+            var posOrder = GetBasicPOSOrder();
+            var customer = new Entities.User.Customer{ Id = 1};
+            var valueToPay = 12.99m;
+            var paymentMethod = new InHands(null);
+            var payment = new Payment(valueToPay,PaymentStatus.Pending,paymentMethod,customer);
+            //When
+            posOrder.Cancel();
+            var result = await posOrder.PayAsync(payment);
+            //Then
+            Assert.False(result.Success);
+            Assert.False(posOrder.PaidOut);
+            Assert.Equal(0,posOrder.RemainingValueToPay);
+            Assert.Equal(0,posOrder.Payments.Count);
+        }
+        [Fact]
+        public async Task When_pay_whole_remaining_value_on_order_should_add_payment_to_list_change_remaining_value_to_pay_and_change_status_to_paid_out()
+        {
+            //Given
+            var posOrder = GetBasicPOSOrder();
+            var customer = new Entities.User.Customer{ Id = 1};
+            var valueToPay = posOrder.OrderTotal;
+            var paymentService = MockPaymentService(mock => 
+                mock.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))
+                    .ReturnsAsync(BaseResult<Payment>.CreateSuccessResult("order was paid with success",new Payment(valueToPay,PaymentStatus.Paid,new InHands(null),customer))));
+            var paymentMethod = new InHands(paymentService);
+            var payment = Payment.Create(paymentMethod,customer,valueToPay);
+            //When
+            var result = await posOrder.PayAsync(payment);
+            //Then
+            Assert.True(result.Success);
+            Assert.True(posOrder.PaidOut);
+            Assert.Equal(0,posOrder.RemainingValueToPay);
+            Assert.Equal(1,posOrder.Payments.Count);
+        }
         [Fact(DisplayName = "Create Item from product Id and quantity bigger than zero")]
         public void Create_Item_from_product_id_and_quantity()
         {
