@@ -10,30 +10,30 @@ namespace Application.Services.Payments
 {
     public class InHandsProcessor : IPaymentProcessor
     {
-        protected readonly IRepository<Payment> _paymentRepository;        
-        protected readonly IRepository<Customer> _customerRepository;
-        public InHandsProcessor(IRepository<Payment> paymentRepository,IRepository<Customer> customerRepository)
-        {
-            _paymentRepository = paymentRepository;
-            _customerRepository = customerRepository;
+        
+        public InHandsProcessor()
+        {            
         }        
 
-        public Task<BaseResult<object>> ProcessAsync<PaymentRequest>(PaymentRequest request)
+        public Task<PaymentResult> ProcessAsync(IPaymentRequest request)
         {
+            request.SendAsync();
             throw new NotImplementedException();
         }
         
     }
-    public class PaymentRequest
-    {
-        public Customer Customer { get; set; }
-        public Payment Payment { get; set; }
-        public PaymentMethod PaymentMethod { get; set; }
-        public PaymentRequest(Customer customer,Payment payment,PaymentMethod paymentMethod)
+    public class PaymentRequest : IPaymentRequest
+    {        
+        public Payment Payment { get; set; }        
+        public PaymentRequest(Payment payment)
+        {            
+            Payment = payment;            
+        }
+
+        public Task<BaseResult<PaymentResult>> SendAsync()
         {
-            Customer = customer;
-            Payment = payment;
-            PaymentMethod = paymentMethod;
+            // this.Payment.
+            throw new NotImplementedException();
         }
     }
 }

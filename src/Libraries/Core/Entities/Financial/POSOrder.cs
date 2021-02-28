@@ -1,5 +1,6 @@
 using Core.Entities.Catalog;
 using Core.Entities.Payments;
+using Core.Entities.User;
 using Core.Interfaces;
 using Core.Models;
 using System;
@@ -19,6 +20,8 @@ namespace Core.Entities.Financial
         public decimal OrderTotal { get { return CalculateTransactionTotal(); } }
         public decimal DiscountTotal { get; protected set; }
         public decimal RemainingValueToPay { get; protected set; }
+        public decimal Change { get; protected set; }
+        public PaymentMethod PaymentMethod { get; protected set; }
         public List<Payment> Payments { get; protected set; } = new List<Payment>();
         public bool HasDealWithStore { get; protected set; }
         public string ConsumerCode { get; protected set; }
@@ -42,11 +45,13 @@ namespace Core.Entities.Financial
             var existingItem = Items.Where(i => i.Id == item.Id).FirstOrDefault();
             if(existingItem is null){
                 Items.Add(item);
+                this.RemainingValueToPay += item.Quantity * item.CustomerValue;
                 return;
             }
             var newItem = existingItem.Sum(item);
             this.Items.Remove(existingItem);
             this.Items.Add(newItem);
+            this.RemainingValueToPay += item.Quantity * item.CustomerValue;
         }
         public virtual void Cancel()
         {
@@ -54,33 +59,51 @@ namespace Core.Entities.Financial
             this.HasEnded = true;
             this.PaidOut = false;
         }
-        public virtual async Task<BaseResult<object>> PayAsync(Payment payment)
+        public virtual async Task<BaseResult> PayAsync(decimal valueToPay, Customer customer)
         {
             if(this.State == OrderState.Cancelled){
-                return BaseResult<object>.CreateFailResult(new []{"can't pay a cancelled order"},default(object));
+                return BaseResult.Failed(new []{"can't pay a cancelled order"});
             }
+            if(!this.PaymentMethod.AcceptsPartialPayments && valueToPay < this.OrderTotal){
+                this.State = OrderState.Failed;
+                return BaseResult.Failed(new [] {"the chosen payment method don't accept partial payments"});
+            }
+            var payment = Payment.Create(this.PaymentMethod,customer,valueToPay);
             var result = await payment.IssueAsync();
             this.Payments.Add(payment);
             switch (payment.Status){
                 case PaymentStatus.Paid:
-                    if(payment.Status == PaymentStatus.Paid){
-                        var paymentSum = this.Payments.Where(p => p.Status == PaymentStatus.Paid).Sum(p => p.Value);
-                        if(paymentSum == this.OrderTotal){
-                            this.State = OrderState.Paid;
-                            this.PaidOut = true;                            
-                        }
-                    }
+                    UpdateOrderTotal(payment);
                     //TODO: Is there a better way to define and return results?
-                    return BaseResult<object>.CreateSuccessResult("order paid with success", result);
+                    return BaseResult.Succeed("order paid with success");
                 default:
-                    return BaseResult<object>.CreateFailResult(new [] {"couldn't paid order "}, result);
+                    return BaseResult.Failed(new [] {"couldn't paid order "});
             }
         }
-        public virtual decimal CalculateTransactionTotal()
+        protected virtual void UpdateOrderTotal(Payment payment)
+        {
+            if(payment.Status == PaymentStatus.Paid){
+                var paymentSum = this.Payments.Where(p => p.Status == PaymentStatus.Paid).Sum(p => p.Value);
+                if(paymentSum >= this.OrderTotal){
+                    ConfirmPaymentValue(paymentSum);                    
+                }                
+            }
+            void ConfirmPaymentValue(decimal paymentValue)
+            {
+                this.State = OrderState.Paid;
+                this.PaidOut = true;
+                this.RemainingValueToPay = 0;
+                this.Change = paymentValue - this.OrderTotal;
+            }
+        }       
+        protected virtual decimal CalculateTransactionTotal()
         {
             return this.Items.Sum(p => p.CustomerValue * p.Quantity);
         }
 
-        
+        public void DefinePaymentMethod(InHands paymentMethod)
+        {
+            this.PaymentMethod = paymentMethod;
+        }
     }
 }

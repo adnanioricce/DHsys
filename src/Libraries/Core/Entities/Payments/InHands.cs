@@ -4,10 +4,11 @@ namespace Core.Entities.Payments
 {
     public class InHands : PaymentMethod
     {
-        public InHands(IPaymentMethodService paymentMethodService) : base(paymentMethodService,PaymentMethods.InHands)
+        public InHands(bool acceptsPartialPayment,IPaymentMethodService paymentMethodService) : base(paymentMethodService,PaymentMethods.InHands)
         {
-            
+            AcceptsPartialPayments = acceptsPartialPayment;
         }
+        
         public override PaymentMethods Name { get; protected set; }
     }
 }

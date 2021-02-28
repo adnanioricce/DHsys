@@ -33,7 +33,7 @@ namespace Application.Services
             if (!validationResult.Success) return validationResult;            
             if(!HasBeneficiary(billing.BeneficiaryId,billing.BeneficiaryName))
             {
-                return BaseResult<Billing>.CreateFailResult(new string[] { "no beneficiary was provided with the billing" }, billing);                
+                return BaseResult<Billing>.Failed(new string[] { "no beneficiary was provided with the billing" }, billing);                
             }            
             if(billing.BeneficiaryId == 0){
 

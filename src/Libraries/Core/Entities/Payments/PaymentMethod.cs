@@ -13,8 +13,10 @@ namespace Core.Entities.Payments
             Name = method;
         }
         public virtual PaymentMethods Name { get; protected set; }
+        public bool AcceptsPartialPayments { get; protected set; }
+        public bool HasChange { get; protected set; }
         
-        public Task<BaseResult<Payment>> ChargeAsync(Payment payment)
+        public virtual Task<PaymentResult> ChargeAsync(Payment payment)
         {
             return _paymentMethodService.IssuePaymentAsync(payment);
         }        

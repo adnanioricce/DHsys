@@ -4,8 +4,8 @@ using Core.Models;
 
 namespace Core.Interfaces.Payments
 {
-    public interface IPaymentMethodService
+    public interface IPaymentRequest
     {
-        Task<PaymentResult> IssuePaymentAsync(Payment payment);
+        Task<BaseResult<PaymentResult>> SendAsync();
     }
 }

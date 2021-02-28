@@ -4,7 +4,9 @@ namespace Core.Entities.Financial
     {
         New,
         Preparing,
+        PartiallyPaid,
         Paid,
+        Failed,
         Cancelled
     }
 }

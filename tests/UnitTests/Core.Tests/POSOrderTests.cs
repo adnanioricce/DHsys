@@ -6,6 +6,7 @@ using Core.Entities.Catalog;
 using Core.Entities.Financial;
 using Core.Entities.Payments;
 using Core.Entities.Stock;
+using Core.Entities.User;
 using Core.Interfaces;
 using Core.Interfaces.Payments;
 using Core.Models;
@@ -39,6 +40,16 @@ namespace Core.Tests
             var mock = new Mock<IPaymentMethodService>();
             transform(mock);
             return mock.Object;
+        }
+        private void DefineSuccessfulPayment(decimal valueToPay,Customer customer, Mock<IPaymentMethodService> mockPaymentMethod)
+        {            
+            mockPaymentMethod.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))
+                             .ReturnsAsync(new PaymentResult{
+                                    PaymentStatus = PaymentStatus.Paid,
+                                    Change = 0.0m,
+                                    ValueIssued = valueToPay
+                                });
+            
         }
         private POSOrder GetBasicPOSOrder(){
             var product = new ProductSeed().GetSeedObject();
@@ -114,16 +125,15 @@ namespace Core.Tests
             // Given
             var posOrder = GetBasicPOSOrder();
             var customer = new Entities.User.Customer{ Id = 1};
-            var valueToPay = 12.99m;
-            var paymentMethod = new InHands(null);
-            var payment = new Payment(valueToPay,PaymentStatus.Pending,paymentMethod,customer);
+            var valueToPay = 12.00m;
+            var paymentMethod = new InHands(acceptsPartialPayment:false,null);            
             //When
             posOrder.Cancel();
-            var result = await posOrder.PayAsync(payment);
+            var result = await posOrder.PayAsync(valueToPay,customer);
             //Then
             Assert.False(result.Success);
             Assert.False(posOrder.PaidOut);
-            Assert.Equal(0,posOrder.RemainingValueToPay);
+            Assert.Equal(valueToPay,posOrder.RemainingValueToPay);
             Assert.Equal(0,posOrder.Payments.Count);
         }
         [Fact]
@@ -135,17 +145,55 @@ namespace Core.Tests
             var valueToPay = posOrder.OrderTotal;
             var paymentService = MockPaymentService(mock => 
                 mock.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))
-                    .ReturnsAsync(BaseResult<Payment>.CreateSuccessResult("order was paid with success",new Payment(valueToPay,PaymentStatus.Paid,new InHands(null),customer))));
-            var paymentMethod = new InHands(paymentService);
-            var payment = Payment.Create(paymentMethod,customer,valueToPay);
+                    .ReturnsAsync(PaymentResult.Paid(valueToPay)));
+            var paymentMethod = new InHands(acceptsPartialPayment:false,paymentService);            
             //When
-            var result = await posOrder.PayAsync(payment);
+            posOrder.DefinePaymentMethod(paymentMethod);
+            var result = await posOrder.PayAsync(valueToPay,customer);
             //Then
             Assert.True(result.Success);
             Assert.True(posOrder.PaidOut);
             Assert.Equal(0,posOrder.RemainingValueToPay);
             Assert.Equal(1,posOrder.Payments.Count);
         }
+        [Fact(DisplayName = "Orders that are being paid partially should state that accept partial payments")]        
+        public async Task On_paying_order_when_payment_is_less_than_remaining_value_to_pay_should_return_failed_status_if_disallowed_to_receive_partial_payments()
+        {
+            //Given
+            var posOrder = GetBasicPOSOrder();
+            var customer = new Entities.User.Customer{
+                Id = 1
+            };
+            var valueToPay = posOrder.OrderTotal / 4.0m;
+            var paymentService = MockPaymentService(mock => DefineSuccessfulPayment(valueToPay,customer,mock));
+            var paymentMethod = new InHands(acceptsPartialPayment:false,paymentService);
+            // var payment = Payment.Create(paymentMethod, customer, valueToPay);
+            //When
+            posOrder.DefinePaymentMethod(paymentMethod);
+            var result = await posOrder.PayAsync(valueToPay,customer);
+            //Then
+            Assert.False(result.Success);
+            Assert.Equal(OrderState.Failed,posOrder.State);
+        }
+        [Fact]
+        public async Task Given_payment_value_bigger_than_order_total_When_is_in_hands_method_Then_should_set_change()
+        {
+            //Given
+            var posOrder = GetBasicPOSOrder();
+            var customer = new Customer{
+                Id = 1
+            };
+            var valueToPay = posOrder.OrderTotal * 2;
+            var expectedChange = posOrder.OrderTotal;
+            var paymentService = MockPaymentService(mock => DefineSuccessfulPayment(valueToPay,customer,mock));
+            var paymentMethod = new InHands(acceptsPartialPayment:false,paymentService);
+            posOrder.DefinePaymentMethod(paymentMethod);
+            //When
+            var result = await posOrder.PayAsync(valueToPay,customer);
+            //Then
+            Assert.Equal(expectedChange,posOrder.Change);
+        }
+        
         [Fact(DisplayName = "Create Item from product Id and quantity bigger than zero")]
         public void Create_Item_from_product_id_and_quantity()
         {
@@ -167,6 +215,7 @@ namespace Core.Tests
             Assert.NotNull(item.Value);
             Assert.Equal(expectedOrderTotal,item.Value.Total);
             Assert.Equal(item.Value.POSOrderId,posOrder.Id);
+            
         }
         [Fact(DisplayName = "Shouldn't create item if given product id has not stock available")]
         public void If_Product_is_out_of_stock_don_t_create_item()

@@ -7,6 +7,6 @@ namespace Core.Interfaces.Payments
 {
     public interface IPaymentProcessor
     {
-        Task<BaseResult<object>> ProcessAsync<TPayment>(TPayment request);
+        Task<PaymentResult> ProcessAsync(IPaymentRequest request);
     }
 }

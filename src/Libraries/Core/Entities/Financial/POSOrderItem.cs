@@ -45,13 +45,13 @@ namespace Core.Entities.Financial
         {            
             var product = productRepository.GetBy(productId);
             if(product.QuantityInStock == 0){
-                return BaseResult<POSOrderItem>.CreateFailResult(new [] {$"can't create item.Product of id {product.Id} is out of stock"},null);
+                return BaseResult<POSOrderItem>.Failed(new [] {$"can't create item.Product of id {product.Id} is out of stock"},null);
             }
             if((product.QuantityInStock - quantity) < 0){                
-                return BaseResult<POSOrderItem>.CreateSuccessResult("Order Item is defined",new POSOrderItem(product,posOrder,product.QuantityInStock));
+                return BaseResult<POSOrderItem>.Succeed("Order Item is defined",new POSOrderItem(product,posOrder,product.QuantityInStock));
             }
             var item = new POSOrderItem(product,posOrder,quantity);
-            return BaseResult<POSOrderItem>.CreateSuccessResult("Order Item is defined",item);
+            return BaseResult<POSOrderItem>.Succeed("Order Item is defined",item);
         }
         
     }

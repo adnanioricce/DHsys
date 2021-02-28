@@ -13,15 +13,14 @@ namespace Services.Tests.Payments
         public async Task Given_payment_When_try_to_process_it_with_specific_payment_method_Then_expect_payment_object_status_to_change()
         {
             //Given
-            var method = new InHands(null);
+            var method = new InHands(false,null);
             var customer = new Core.Entities.User.Customer {
                 Id = 1
             };
-            var payment = new Payment(12.99m,PaymentStatus.Pending,method,customer);
-            var paymentRequest = new PaymentRequest(customer,payment,method);
-            var inhandsProcessor = new InHandsProcessor(new FakeRepository<Payment>(),new FakeRepository<Customer>());
+            var payment = Payment.Create(method,customer,12.99m);            
+            var inhandsProcessor = new InHandsProcessor();
             //When
-            await inhandsProcessor.ProcessAsync(paymentRequest);
+            await inhandsProcessor.ProcessAsync(new PaymentRequest(payment));
             //Then
             Assert.Equal(PaymentStatus.Paid,payment.Status);
         }

@@ -12,6 +12,14 @@ namespace Core.Entities.Payments.Tests
 {
     public class PaymentTests
     {
+        private PaymentMethod FakePaymentMethod(Action<Mock<PaymentMethod>> mockTransform = null)
+        {
+            var mockPaymentMethod = new Mock<PaymentMethod>();
+            if(mockTransform != null){
+                mockTransform(mockPaymentMethod);
+            }
+            return mockPaymentMethod.Object;
+        }
         private IRepository<Customer> GetMockCustomerRepository()
         {
             var mockCustomerRepo = new Mock<IRepository<Customer>>();
@@ -47,12 +55,13 @@ namespace Core.Entities.Payments.Tests
             };
             
             var priceToCharge = 12.00m;
-            var expectedPayment = new Payment(priceToCharge,PaymentStatus.Paid,new InHands(null),customer);
+            var expectedPayment = Payment.Create(new InHands(acceptsPartialPayment:false,null),customer,priceToCharge);
             var mockPaymentService = GetMockPaymentService(mock => {
-                mock.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))
-                    .ReturnsAsync(BaseResult<Payment>.CreateSuccessResult("message",expectedPayment));
+                
+                mock.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))                    
+                    .ReturnsAsync(PaymentResult.Paid(priceToCharge));
             });
-            var paymentMethod = new InHands(mockPaymentService);            
+            var paymentMethod = new InHands(acceptsPartialPayment:false,mockPaymentService);            
             var payment = Payment.Create(paymentMethod,customer,priceToCharge);
             // When 
             await payment.IssueAsync();
@@ -60,7 +69,18 @@ namespace Core.Entities.Payments.Tests
             Assert.Equal(PaymentStatus.Paid,payment.Status);
             
         }
+        [Fact]
+        public void If_given_payment_value_is_less_than_zero_should_throw_exception()
+        {
+            //Given
+            var customer = new Customer{
+                Id = 1
+            };
+            var priceToCharge = 0.0m;
+            var paymentMethod = new InHands(false,GetMockPaymentService(null));
+            //When... Then
+            Assert.Throws<DomainException>(() => Payment.Create(paymentMethod,customer,priceToCharge));
+        }
 
-        
     }   
 }
