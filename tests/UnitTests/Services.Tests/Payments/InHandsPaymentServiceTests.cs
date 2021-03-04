@@ -22,18 +22,18 @@ namespace Services.Tests.Payments
             };
             var fakeProcessor = CustomMockFactory.BuildMock<IPaymentProcessor>(mock => 
                 mock.Setup(m => m.ProcessAsync(It.IsAny<PaymentRequest>()))
-                    .ReturnsAsync(PaymentResult.Paid(1.0m))
+                    .ReturnsAsync(PaymentResult.Paid(Payment.Create(null,null,1.0m,1.0m)))
             );
             var fakeRepository = new FakeRepository<Payment>();
             var inHandsService = new InHandsPaymentService(fakeProcessor,fakeRepository);
             var paymentMethod = new InHands(false,inHandsService);
-            var payment = Payment.Create(paymentMethod,customer,1.0m);
+            var payment = Payment.Create(paymentMethod,customer,1.0m,1.0m);
             //When
             var result = await inHandsService.IssuePaymentAsync(payment);
             //Then
             var savedPayment = fakeRepository.Query().Where(p => p == payment).FirstOrDefault();
             Assert.Equal(payment.Status,savedPayment.Status);
-            Assert.Equal(payment.Value,savedPayment.Value);
+            Assert.Equal(payment.ReceivedValue,savedPayment.ReceivedValue);
             Assert.Equal(payment.CreatedAt,savedPayment.CreatedAt);
             
         }

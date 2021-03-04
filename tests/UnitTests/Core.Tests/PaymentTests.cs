@@ -55,22 +55,21 @@ namespace Core.Entities.Payments.Tests
             };
             
             var priceToCharge = 12.00m;
-            var expectedPayment = Payment.Create(new InHands(acceptsPartialPayment:false,null),customer,priceToCharge);
-            var mockPaymentService = GetMockPaymentService(mock => {
-                
+            var expectedPayment = Payment.Create(new InHands(acceptsPartialPayment:false,null),customer,priceToCharge,priceToCharge);
+            var mockPaymentService = GetMockPaymentService(mock => {                
                 mock.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))                    
-                    .ReturnsAsync(PaymentResult.Paid(priceToCharge));
+                    .ReturnsAsync(PaymentResult.Paid(expectedPayment));
             });
             var paymentMethod = new InHands(acceptsPartialPayment:false,mockPaymentService);            
-            var payment = Payment.Create(paymentMethod,customer,priceToCharge);
+            var payment = Payment.Create(paymentMethod,customer,priceToCharge,priceToCharge);
             // When 
             await payment.IssueAsync();
             //Then
             Assert.Equal(PaymentStatus.Paid,payment.Status);
             
         }
-        [Fact]
-        public void If_given_payment_value_is_less_than_zero_should_throw_exception()
+        [Fact(DisplayName = "Throw exception if given payment is less than or equal to zero")]
+        public void If_given_payment_value_is_less_than_or_equal_to_zero_should_throw_exception()
         {
             //Given
             var customer = new Customer{
@@ -79,7 +78,7 @@ namespace Core.Entities.Payments.Tests
             var priceToCharge = 0.0m;
             var paymentMethod = new InHands(false,GetMockPaymentService(null));
             //When... Then
-            Assert.Throws<DomainException>(() => Payment.Create(paymentMethod,customer,priceToCharge));
+            Assert.Throws<DomainException>(() => Payment.Create(paymentMethod,customer,priceToCharge,priceToCharge));
         }
 
     }   

@@ -17,23 +17,22 @@ namespace Application.Services.Payments
 
         public Task<PaymentResult> ProcessAsync(IPaymentRequest request)
         {
-            request.SendAsync();
-            throw new NotImplementedException();
+            return request.SendAsync();
         }
         
     }
     public class PaymentRequest : IPaymentRequest
     {        
-        public Payment Payment { get; set; }        
+        public Payment Payment { get; set; }
         public PaymentRequest(Payment payment)
         {            
             Payment = payment;            
         }
 
-        public Task<BaseResult<PaymentResult>> SendAsync()
-        {
-            // this.Payment.
-            throw new NotImplementedException();
+        public async Task<PaymentResult> SendAsync()
+        {            
+            await Task.Delay(0);//TODO: How to refactor this?
+            return PaymentResult.Create(Payment);
         }
     }
 }

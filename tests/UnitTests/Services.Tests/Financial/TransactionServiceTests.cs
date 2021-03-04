@@ -20,7 +20,7 @@ namespace Services.Tests.Financial
         public static POSOrder GetSeedTransaction()
         {
             var product = new Core.Entities.Catalog.Product{
-                Id = 1
+                Id = 1,                
             };            
             var posOrder = new POSOrder();
             var quantity = 1;
@@ -33,6 +33,7 @@ namespace Services.Tests.Financial
             var product = new Product{
                 Id = 1,                
             };
+            product.UpdateStock(4, product);
             product.UpdatePrice(32.99m,29.99m,DateTimeOffset.UtcNow);
             var mock = new Mock<IRepository<Product>>();
             mock.Setup(m => m.GetBy(It.IsAny<int>()))

@@ -59,31 +59,33 @@ namespace Core.Entities.Financial
             this.HasEnded = true;
             this.PaidOut = false;
         }
-        public virtual async Task<BaseResult> PayAsync(decimal valueToPay, Customer customer)
+        public virtual async Task PayAsync(decimal valueReceived, Customer customer)
         {
             if(this.State == OrderState.Cancelled){
-                return BaseResult.Failed(new []{"can't pay a cancelled order"});
+                return;
+                //return BaseResult.Failed(new []{"can't pay a cancelled order"});
             }
-            if(!this.PaymentMethod.AcceptsPartialPayments && valueToPay < this.OrderTotal){
+            if(!this.PaymentMethod.AcceptsPartialPayments && valueReceived < this.OrderTotal){
                 this.State = OrderState.Failed;
-                return BaseResult.Failed(new [] {"the chosen payment method don't accept partial payments"});
+                //return BaseResult.Failed(new [] {"the chosen payment method don't accept partial payments"});
             }
-            var payment = Payment.Create(this.PaymentMethod,customer,valueToPay);
+            var payment = Payment.Create(this.PaymentMethod,customer, valueReceived, this.OrderTotal);
             var result = await payment.IssueAsync();
             this.Payments.Add(payment);
             switch (payment.Status){
                 case PaymentStatus.Paid:
                     UpdateOrderTotal(payment);
-                    //TODO: Is there a better way to define and return results?
-                    return BaseResult.Succeed("order paid with success");
+                    return;
+                    //return BaseResult.Succeed("order paid with success");
                 default:
-                    return BaseResult.Failed(new [] {"couldn't paid order "});
+                    return;
+                    //return BaseResult.Failed(new [] {"couldn't paid order "});
             }
         }
         protected virtual void UpdateOrderTotal(Payment payment)
         {
             if(payment.Status == PaymentStatus.Paid){
-                var paymentSum = this.Payments.Where(p => p.Status == PaymentStatus.Paid).Sum(p => p.Value);
+                var paymentSum = this.Payments.Where(p => p.Status == PaymentStatus.Paid).Sum(p => p.ReceivedValue);
                 if(paymentSum >= this.OrderTotal){
                     ConfirmPaymentValue(paymentSum);                    
                 }                

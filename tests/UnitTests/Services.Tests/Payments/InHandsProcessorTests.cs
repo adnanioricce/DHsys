@@ -17,12 +17,14 @@ namespace Services.Tests.Payments
             var customer = new Core.Entities.User.Customer {
                 Id = 1
             };
-            var payment = Payment.Create(method,customer,12.99m);            
+            var neededValue = 12.99m;
+            var receivedValue = neededValue;
+            var payment = Payment.Create(method,customer,receivedValue,neededValue);
             var inhandsProcessor = new InHandsProcessor();
             //When
-            await inhandsProcessor.ProcessAsync(new PaymentRequest(payment));
+            var result = await inhandsProcessor.ProcessAsync(new PaymentRequest(payment));
             //Then
-            Assert.Equal(PaymentStatus.Paid,payment.Status);
+            Assert.Equal(PaymentStatus.Paid,result.PaymentStatus);
         }
     }
 }

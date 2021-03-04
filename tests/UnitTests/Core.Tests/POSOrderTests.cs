@@ -129,12 +129,11 @@ namespace Core.Tests
             var paymentMethod = new InHands(acceptsPartialPayment:false,null);            
             //When
             posOrder.Cancel();
-            var result = await posOrder.PayAsync(valueToPay,customer);
-            //Then
-            Assert.False(result.Success);
+            await posOrder.PayAsync(valueToPay,customer);
+            //Then            
             Assert.False(posOrder.PaidOut);
             Assert.Equal(valueToPay,posOrder.RemainingValueToPay);
-            Assert.Equal(0,posOrder.Payments.Count);
+            Assert.Empty(posOrder.Payments);
         }
         [Fact]
         public async Task When_pay_whole_remaining_value_on_order_should_add_payment_to_list_change_remaining_value_to_pay_and_change_status_to_paid_out()
@@ -145,16 +144,15 @@ namespace Core.Tests
             var valueToPay = posOrder.OrderTotal;
             var paymentService = MockPaymentService(mock => 
                 mock.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))
-                    .ReturnsAsync(PaymentResult.Paid(valueToPay)));
+                    .ReturnsAsync(PaymentResult.Paid(Payment.Create(null,null,valueToPay,valueToPay))));
             var paymentMethod = new InHands(acceptsPartialPayment:false,paymentService);            
             //When
             posOrder.DefinePaymentMethod(paymentMethod);
-            var result = await posOrder.PayAsync(valueToPay,customer);
-            //Then
-            Assert.True(result.Success);
+            await posOrder.PayAsync(valueToPay,customer);
+            //Then            
             Assert.True(posOrder.PaidOut);
             Assert.Equal(0,posOrder.RemainingValueToPay);
-            Assert.Equal(1,posOrder.Payments.Count);
+            Assert.Single(posOrder.Payments);
         }
         [Fact(DisplayName = "Orders that are being paid partially should state that accept partial payments")]        
         public async Task On_paying_order_when_payment_is_less_than_remaining_value_to_pay_should_return_failed_status_if_disallowed_to_receive_partial_payments()
@@ -170,9 +168,8 @@ namespace Core.Tests
             // var payment = Payment.Create(paymentMethod, customer, valueToPay);
             //When
             posOrder.DefinePaymentMethod(paymentMethod);
-            var result = await posOrder.PayAsync(valueToPay,customer);
-            //Then
-            Assert.False(result.Success);
+            await posOrder.PayAsync(valueToPay,customer);
+            //Then            
             Assert.Equal(OrderState.Failed,posOrder.State);
         }
         [Fact]
@@ -189,7 +186,7 @@ namespace Core.Tests
             var paymentMethod = new InHands(acceptsPartialPayment:false,paymentService);
             posOrder.DefinePaymentMethod(paymentMethod);
             //When
-            var result = await posOrder.PayAsync(valueToPay,customer);
+            await posOrder.PayAsync(valueToPay,customer);
             //Then
             Assert.Equal(expectedChange,posOrder.Change);
         }

@@ -31,6 +31,7 @@ namespace Core.Models
         }
         public static BaseResult Failed(string[] messages) => BaseResult.CreateFailResult(messages,default(object));
         public static BaseResult Succeed(string message) => BaseResult.CreateSuccessResult(message,default(object));
+        public static BaseResult<T> Succeed<T>(string message,T value) => BaseResult<T>.Succeed<T>(message,value);
     }
     public class BaseResult<T>  : BaseResult
     {

@@ -7,6 +7,13 @@ namespace Core.Entities.Payments
     public class PaymentMethod : BaseEntity
     {
         protected readonly IPaymentMethodService _paymentMethodService;
+        /// <summary>
+        /// EF Constructor
+        /// </summary>        
+        protected PaymentMethod() 
+        {
+            
+        }
         protected PaymentMethod(IPaymentMethodService paymentMethodService,PaymentMethods method)
         {
             _paymentMethodService = paymentMethodService;

@@ -12,7 +12,7 @@ namespace DAL.DataMappings.Orders
                    .WithOne()   
                    .HasForeignKey(t => t.POSOrderId)                
                    .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade)
-                   .IsRequired();            
+                   .IsRequired();
         }
     }
 }

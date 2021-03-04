@@ -9,9 +9,17 @@ namespace Core.Entities.Payments
 {
     public class Payment : BaseEntity
     {
-        protected Payment(decimal value,PaymentStatus status,PaymentMethod method,Customer customer)
+        /// <summary>
+        /// EF constructor
+        /// </summary>        
+        private Payment()
         {
-            Value = value;
+            
+        }
+        protected Payment(decimal receivedValue,decimal neededValue,PaymentStatus status,PaymentMethod method,Customer customer)
+        {
+            ReceivedValue = receivedValue;
+            NeededValue = neededValue;
             Status = status;
             Method = method;
             Customer = customer;
@@ -19,14 +27,15 @@ namespace Core.Entities.Payments
         public virtual Customer Customer { get; protected set; }        
         public virtual PaymentMethod Method { get; protected set; }        
         public virtual PaymentStatus Status { get; protected set; }        
-        public decimal Value { get; protected set; }
+        public decimal ReceivedValue { get; protected set; }
+        public decimal NeededValue { get; protected set; }
         public decimal Change { get; protected set; }
-        public static Payment Create(PaymentMethod method,Customer customer,decimal value)
+        public static Payment Create(PaymentMethod method,Customer customer,decimal receivedValue,decimal neededValue)
         {
-            if(value <= 0){
+            if(receivedValue <= 0){
                 throw new DomainException("is not possible to define a payment with a value less than or equal to zero");
             }
-            return new Payment(value,PaymentStatus.Pending,method,customer);
+            return new Payment(receivedValue,neededValue,PaymentStatus.Pending,method,customer);
         }        
         public async Task<PaymentResult> IssueAsync()
         {

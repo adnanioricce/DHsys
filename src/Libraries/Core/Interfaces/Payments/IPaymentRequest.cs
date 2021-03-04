@@ -6,6 +6,6 @@ namespace Core.Interfaces.Payments
 {
     public interface IPaymentRequest
     {
-        Task<BaseResult<PaymentResult>> SendAsync();
+        Task<PaymentResult> SendAsync();
     }
 }
