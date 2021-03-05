@@ -38,9 +38,6 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int?>("CustomerId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("District")
                         .HasColumnType("text");
 
@@ -63,8 +60,6 @@ namespace DAL.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
 
                     b.ToTable("addresses");
                 });
@@ -702,110 +697,6 @@ namespace DAL.Migrations
                     b.ToTable("Billings");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.POSOrder", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
-
-                    b.Property<decimal>("Change")
-                        .HasColumnType("numeric");
-
-                    b.Property<string>("ConsumerCode")
-                        .HasColumnType("text");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("DiscountTotal")
-                        .HasColumnType("numeric");
-
-                    b.Property<bool>("HasDealWithStore")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("HasEnded")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<bool>("PaidOut")
-                        .HasColumnType("boolean");
-
-                    b.Property<int?>("PaymentMethodId")
-                        .HasColumnType("integer");
-
-                    b.Property<decimal>("RemainingValueToPay")
-                        .HasColumnType("numeric");
-
-                    b.Property<int>("State")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UniqueCode")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PaymentMethodId");
-
-                    b.ToTable("POSOrder");
-                });
-
-            modelBuilder.Entity("Core.Entities.Financial.POSOrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
-
-                    b.Property<decimal>("CostPrice")
-                        .HasColumnType("numeric");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<decimal>("CustomerValue")
-                        .HasColumnType("numeric");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("POSOrderId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("POSOrderId1")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("ProductUniqueCode")
-                        .HasColumnType("text");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UniqueCode")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("POSOrderId");
-
-                    b.HasIndex("POSOrderId1");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("POSOrderItem");
-                });
-
             modelBuilder.Entity("Core.Entities.Financial.Tax", b =>
                 {
                     b.Property<int>("Id")
@@ -870,6 +761,110 @@ namespace DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("MediaResource");
+                });
+
+            modelBuilder.Entity("Core.Entities.Orders.POSOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<decimal>("Change")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("ConsumerCode")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("DiscountTotal")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("HasDealWithStore")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("HasEnded")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("PaidOut")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("PaymentMethodId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("RemainingValueToPay")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("State")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentMethodId");
+
+                    b.ToTable("POSOrder");
+                });
+
+            modelBuilder.Entity("Core.Entities.Orders.POSOrderItem", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<decimal>("CostPrice")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("CustomerValue")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("POSOrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("POSOrderId1")
+                        .HasColumnType("integer");
+
+                    b.Property<int?>("ProductId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ProductUniqueCode")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("POSOrderId");
+
+                    b.HasIndex("POSOrderId1");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("POSOrderItem");
                 });
 
             modelBuilder.Entity("Core.Entities.Payments.Payment", b =>
@@ -940,17 +935,15 @@ namespace DAL.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("HasChange")
-                        .HasColumnType("boolean");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("Name")
-                        .HasColumnType("integer");
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("UniqueCode")
                         .HasColumnType("text");
@@ -1125,12 +1118,64 @@ namespace DAL.Migrations
                     b.Property<DateTimeOffset>("LastUpdatedOn")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
                     b.Property<string>("UniqueCode")
                         .HasColumnType("text");
 
                     b.HasKey("Id");
 
                     b.ToTable("Customer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CPF = "63999772077",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsDeleted = false,
+                            LastUpdatedOn = new DateTimeOffset(new DateTime(2021, 3, 5, 15, 4, 51, 288, DateTimeKind.Unspecified).AddTicks(8530), new TimeSpan(0, 0, 0, 0, 0)),
+                            Name = "AnonymousCustomer",
+                            UniqueCode = "ebb8455f-3b90-45e2-ba08-5fd2d432f624"
+                        });
+                });
+
+            modelBuilder.Entity("Core.Entities.User.CustomerAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("CustomerAddress");
                 });
 
             modelBuilder.Entity("Core.Entities.Client", b =>
@@ -1154,18 +1199,11 @@ namespace DAL.Migrations
                     b.HasDiscriminator().HasValue("Manufacturer");
                 });
 
-            modelBuilder.Entity("Core.Entities.Payments.InHands", b =>
+            modelBuilder.Entity("Core.Entities.Payments.Methods.InHands.InHands", b =>
                 {
                     b.HasBaseType("Core.Entities.Payments.PaymentMethod");
 
                     b.HasDiscriminator().HasValue("InHands");
-                });
-
-            modelBuilder.Entity("Core.Entities.Address", b =>
-                {
-                    b.HasOne("Core.Entities.User.Customer", null)
-                        .WithMany("Addresses")
-                        .HasForeignKey("CustomerId");
                 });
 
             modelBuilder.Entity("Core.Entities.Catalog.Category", b =>
@@ -1305,7 +1343,7 @@ namespace DAL.Migrations
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.POSOrder", b =>
+            modelBuilder.Entity("Core.Entities.Orders.POSOrder", b =>
                 {
                     b.HasOne("Core.Entities.Payments.PaymentMethod", "PaymentMethod")
                         .WithMany()
@@ -1314,15 +1352,15 @@ namespace DAL.Migrations
                     b.Navigation("PaymentMethod");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.POSOrderItem", b =>
+            modelBuilder.Entity("Core.Entities.Orders.POSOrderItem", b =>
                 {
-                    b.HasOne("Core.Entities.Financial.POSOrder", null)
+                    b.HasOne("Core.Entities.Orders.POSOrder", null)
                         .WithMany("Items")
                         .HasForeignKey("POSOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Financial.POSOrder", "POSOrder")
+                    b.HasOne("Core.Entities.Orders.POSOrder", "POSOrder")
                         .WithMany()
                         .HasForeignKey("POSOrderId1");
 
@@ -1347,7 +1385,7 @@ namespace DAL.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Financial.POSOrder", null)
+                    b.HasOne("Core.Entities.Orders.POSOrder", null)
                         .WithMany("Payments")
                         .HasForeignKey("POSOrderId");
 
@@ -1383,6 +1421,25 @@ namespace DAL.Migrations
                     b.Navigation("Address");
                 });
 
+            modelBuilder.Entity("Core.Entities.User.CustomerAddress", b =>
+                {
+                    b.HasOne("Core.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.User.Customer", "Customer")
+                        .WithMany("Addresses")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+
+                    b.Navigation("Customer");
+                });
+
             modelBuilder.Entity("Core.Entities.Catalog.Category", b =>
                 {
                     b.Navigation("SubCategories");
@@ -1407,7 +1464,7 @@ namespace DAL.Migrations
                     b.Navigation("Stockentries");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.POSOrder", b =>
+            modelBuilder.Entity("Core.Entities.Orders.POSOrder", b =>
                 {
                     b.Navigation("Items");
 

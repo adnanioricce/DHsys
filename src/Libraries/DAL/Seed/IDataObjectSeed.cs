@@ -1,4 +1,6 @@
-﻿namespace DAL.Seed
+﻿using Core.Interfaces;
+
+namespace DAL.Seed
 {
     /// <summary>
     /// Interface to define classes that return a simple Entity to be used like seed for demonstration and testing purposes

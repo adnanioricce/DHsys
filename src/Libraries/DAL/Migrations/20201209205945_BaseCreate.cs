@@ -84,6 +84,12 @@ namespace DAL.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     DiscountTotal = table.Column<decimal>(type: "numeric", nullable: false),
+                    OrderTotal = table.Column<decimal>(type: "numeric",nullable:false),
+                    RemainingValueToPay = table.Column<decimal>(type: "numeric",nullable:false),
+                    Change = table.Column<decimal>(type: "numeric", nullable:false),
+                    State = table.Column<int>(type:"integer", nullable:false),
+                    HasEnded = table.Column<bool>(type: "boolean",nullable:false),
+                    PaidOut = table.Column<bool>(type: "boolean", nullable: false),
                     PaymentMethod = table.Column<int>(type: "integer", nullable: false),
                     HasDealWithStore = table.Column<bool>(type: "boolean", nullable: false),
                     ConsumerCode = table.Column<string>(type: "text", nullable: true),
@@ -94,7 +100,7 @@ namespace DAL.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_POSOrder", x => x.Id);
+                    table.PrimaryKey("PK_POSOrder", x => x.Id);                   
                 });
 
             migrationBuilder.CreateTable(
@@ -156,6 +162,7 @@ namespace DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Product", x => x.Id);
+                    
                 });
 
             migrationBuilder.CreateTable(

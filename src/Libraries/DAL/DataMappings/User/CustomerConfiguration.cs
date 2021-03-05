@@ -13,7 +13,10 @@ namespace DAL.DataMappings.User
         public override void Configure(EntityTypeBuilder<Customer> builder)
         {
             base.Configure(builder);
-            builder.HasMany(p => p.Addresses);                   
+            builder.HasMany(p => p.Addresses)
+                   .WithOne(e => e.Customer)
+                   .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade);
+            
         }
     }
 }
