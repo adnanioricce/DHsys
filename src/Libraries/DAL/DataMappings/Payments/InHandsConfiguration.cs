@@ -1,4 +1,5 @@
 ﻿using Core.Entities.Payments;
+using Core.Entities.Payments.Methods.InHands;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
 using System.Collections.Generic;

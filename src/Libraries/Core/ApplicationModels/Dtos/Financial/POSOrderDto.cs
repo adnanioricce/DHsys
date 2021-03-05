@@ -12,7 +12,7 @@ namespace Core.ApplicationModels.Dtos.Financial
 
         public decimal DiscountTotal { get; set; }
 
-        public PaymentMethods PaymentMethod { get; set; }
+        public string PaymentMethod { get; set; }
 
         public bool HasDealWithStore { get; set; }
 

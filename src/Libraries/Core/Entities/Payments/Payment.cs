@@ -37,12 +37,11 @@ namespace Core.Entities.Payments
             }
             return new Payment(receivedValue,neededValue,PaymentStatus.Pending,method,customer);
         }        
-        public async Task<PaymentResult> IssueAsync()
+        public async Task IssueAsync()
         {
             var chargeResult = await this.Method.ChargeAsync(payment:this);
             this.Status = chargeResult.PaymentStatus;
-            this.Change = chargeResult.Change;
-            return chargeResult;            
+            this.Change = chargeResult.Change;            
         }
     }
 }

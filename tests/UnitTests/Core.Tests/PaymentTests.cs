@@ -1,5 +1,6 @@
 using System;
 using System.Threading.Tasks;
+using Core.Entities.Payments.Methods.InHands;
 using Core.Entities.User;
 using Core.Interfaces;
 using Core.Interfaces.Payments;
@@ -56,11 +57,8 @@ namespace Core.Entities.Payments.Tests
             
             var priceToCharge = 12.00m;
             var expectedPayment = Payment.Create(new InHands(acceptsPartialPayment:false,null),customer,priceToCharge,priceToCharge);
-            var mockPaymentService = GetMockPaymentService(mock => {                
-                mock.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))                    
-                    .ReturnsAsync(PaymentResult.Paid(expectedPayment));
-            });
-            var paymentMethod = new InHands(acceptsPartialPayment:false,mockPaymentService);            
+            var mockPaymentProcessor = GetMockPaymentProcessor();
+            var paymentMethod = new InHands(acceptsPartialPayment:false,mockPaymentProcessor);            
             var payment = Payment.Create(paymentMethod,customer,priceToCharge,priceToCharge);
             // When 
             await payment.IssueAsync();
@@ -76,7 +74,7 @@ namespace Core.Entities.Payments.Tests
                 Id = 1
             };
             var priceToCharge = 0.0m;
-            var paymentMethod = new InHands(false,GetMockPaymentService(null));
+            var paymentMethod = new InHands(false,GetMockPaymentProcessor());
             //When... Then
             Assert.Throws<DomainException>(() => Payment.Create(paymentMethod,customer,priceToCharge,priceToCharge));
         }

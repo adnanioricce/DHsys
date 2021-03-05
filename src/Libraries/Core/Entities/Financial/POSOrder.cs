@@ -70,7 +70,7 @@ namespace Core.Entities.Financial
                 //return BaseResult.Failed(new [] {"the chosen payment method don't accept partial payments"});
             }
             var payment = Payment.Create(this.PaymentMethod,customer, valueReceived, this.OrderTotal);
-            var result = await payment.IssueAsync();
+            await payment.IssueAsync();
             this.Payments.Add(payment);
             switch (payment.Status){
                 case PaymentStatus.Paid:
@@ -103,7 +103,7 @@ namespace Core.Entities.Financial
             return this.Items.Sum(p => p.CustomerValue * p.Quantity);
         }
 
-        public void DefinePaymentMethod(InHands paymentMethod)
+        public void DefinePaymentMethod(PaymentMethod paymentMethod)
         {
             this.PaymentMethod = paymentMethod;
         }

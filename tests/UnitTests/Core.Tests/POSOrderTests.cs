@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
 using Core.Entities.Payments;
+using Core.Entities.Payments.Methods.InHands;
 using Core.Entities.Stock;
 using Core.Entities.User;
 using Core.Interfaces;
@@ -36,14 +37,14 @@ namespace Core.Tests
             action(mock);
             return mock.Object;
         }
-        private IPaymentMethodService MockPaymentService(Action<Mock<IPaymentMethodService>> transform){
-            var mock = new Mock<IPaymentMethodService>();
+        private IPaymentProcessor MockPaymentProcessor(Action<Mock<IPaymentProcessor>> transform){
+            var mock = new Mock<IPaymentProcessor>();
             transform(mock);
             return mock.Object;
         }
-        private void DefineSuccessfulPayment(decimal valueToPay,Customer customer, Mock<IPaymentMethodService> mockPaymentMethod)
+        private void DefineSuccessfulPayment(decimal valueToPay,Customer customer, Mock<IPaymentProcessor> mockPaymentMethod)
         {            
-            mockPaymentMethod.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))
+            mockPaymentMethod.Setup(m => m.ProcessAsync(It.IsAny<IPaymentRequest>()))
                              .ReturnsAsync(new PaymentResult{
                                     PaymentStatus = PaymentStatus.Paid,
                                     Change = 0.0m,
@@ -142,8 +143,8 @@ namespace Core.Tests
             var posOrder = GetBasicPOSOrder();
             var customer = new Entities.User.Customer{ Id = 1};
             var valueToPay = posOrder.OrderTotal;
-            var paymentService = MockPaymentService(mock => 
-                mock.Setup(m => m.IssuePaymentAsync(It.IsAny<Payment>()))
+            var paymentService = MockPaymentProcessor(mock => 
+                mock.Setup(m => m.ProcessAsync(It.IsAny<IPaymentRequest>()))
                     .ReturnsAsync(PaymentResult.Paid(Payment.Create(null,null,valueToPay,valueToPay))));
             var paymentMethod = new InHands(acceptsPartialPayment:false,paymentService);            
             //When
@@ -163,7 +164,7 @@ namespace Core.Tests
                 Id = 1
             };
             var valueToPay = posOrder.OrderTotal / 4.0m;
-            var paymentService = MockPaymentService(mock => DefineSuccessfulPayment(valueToPay,customer,mock));
+            var paymentService = MockPaymentProcessor(mock => DefineSuccessfulPayment(valueToPay,customer,mock));
             var paymentMethod = new InHands(acceptsPartialPayment:false,paymentService);
             // var payment = Payment.Create(paymentMethod, customer, valueToPay);
             //When
@@ -182,7 +183,7 @@ namespace Core.Tests
             };
             var valueToPay = posOrder.OrderTotal * 2;
             var expectedChange = posOrder.OrderTotal;
-            var paymentService = MockPaymentService(mock => DefineSuccessfulPayment(valueToPay,customer,mock));
+            var paymentService = MockPaymentProcessor(mock => DefineSuccessfulPayment(valueToPay,customer,mock));
             var paymentMethod = new InHands(acceptsPartialPayment:false,paymentService);
             posOrder.DefinePaymentMethod(paymentMethod);
             //When
