@@ -1,9 +1,9 @@
 using System;
 using System.Linq;
 using Core.ApplicationModels.Dtos.Catalog;
-using Core.Entities.Financial;
+using Core.Entities.Orders;
 
-namespace Core.ApplicationModels.Dtos.Financial
+namespace Core.ApplicationModels.Dtos.Orders
 {
     public class POSOrderItemDto : BaseEntityDto
     {
@@ -17,8 +17,11 @@ namespace Core.ApplicationModels.Dtos.Financial
 
         public decimal CostPrice { get; set; }
 
+        public decimal Total { get; private set; }
+
         public int POSOrderId { get; set; }
 
-        public POSOrderDto POSOrder { get; set; }        
+        public POSOrderDto POSOrder { get; set; }
+       
     }
 }

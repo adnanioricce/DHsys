@@ -1,6 +1,7 @@
 using Application.Services.Financial;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
+using Core.Entities.Orders;
 using Core.Interfaces;
 using Core.Interfaces.Financial;
 using Core.Validations;

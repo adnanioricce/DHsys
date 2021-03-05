@@ -9,12 +9,17 @@ namespace Core.Entities.User
         {
             return repository.GetBy(1);
         }
-        public ICollection<Address> Addresses { get; set; } = new List<Address>();
+        public virtual ICollection<CustomerAddress> Addresses { get; set; } = new List<CustomerAddress>();
         //TODO:this is country specific, should this be defined here?
+        public string Name { get; protected set; }
         public string CPF { get; protected set; }
         public Customer(string cpf)
         {            
             CPF = cpf;
+        }
+        public Customer(string cpf,string name) : this(cpf)
+        {
+            Name = name;
         }
         public Customer()
         {

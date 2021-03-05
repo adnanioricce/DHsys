@@ -3,7 +3,7 @@ using Core.Entities.Catalog;
 using Core.Interfaces;
 using Core.Models;
 
-namespace Core.Entities.Financial
+namespace Core.Entities.Orders
 {
     public class POSOrderItem : BaseEntity
     {

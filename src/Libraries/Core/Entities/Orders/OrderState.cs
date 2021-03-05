@@ -1,4 +1,4 @@
-namespace Core.Entities.Financial
+namespace Core.Entities.Orders
 {
     public enum OrderState
     {

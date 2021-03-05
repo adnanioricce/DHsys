@@ -1,5 +1,6 @@
 ﻿using Core.ApplicationModels.Dtos.Financial;
 using Core.Entities.Financial;
+using Core.Entities.Orders;
 using Core.Models;
 using System;
 using System.Collections.Generic;

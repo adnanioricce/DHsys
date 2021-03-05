@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Core.Entities.Financial
+namespace Core.Entities.Orders
 {
     public class POSOrder : BaseEntity
     {
@@ -17,18 +17,22 @@ namespace Core.Entities.Financial
             HasDealWithStore = false;
             State = OrderState.New;
         }
+        public POSOrder(PaymentMethod paymentMethod) : this()
+        {
+            PaymentMethod = paymentMethod;
+        }
         public decimal OrderTotal { get { return CalculateTransactionTotal(); } }
         public decimal DiscountTotal { get; protected set; }
         public decimal RemainingValueToPay { get; protected set; }
         public decimal Change { get; protected set; }
-        public PaymentMethod PaymentMethod { get; protected set; }
-        public List<Payment> Payments { get; protected set; } = new List<Payment>();
+        public PaymentMethod PaymentMethod { get; protected set; }//TODO: refactor to use this only on Payment entity
+        public virtual ICollection<Payment> Payments { get; protected set; } = new List<Payment>();
         public bool HasDealWithStore { get; protected set; }
         public string ConsumerCode { get; protected set; }
         public virtual OrderState State { get; protected set; }
         public bool HasEnded { get; protected set; }
         public bool PaidOut { get; protected set; }
-        public virtual IList<POSOrderItem> Items { get; protected set; } = new List<POSOrderItem>();
+        public virtual ICollection<POSOrderItem> Items { get; protected set; } = new List<POSOrderItem>();
         public virtual void AddItem(int productId,int quantity,IRepository<Product> repository)
         {
             var item = POSOrderItem.Create(productId,quantity,this,repository);
