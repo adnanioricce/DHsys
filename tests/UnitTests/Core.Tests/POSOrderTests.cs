@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
+using Core.Entities.Orders;
 using Core.Entities.Payments;
 using Core.Entities.Payments.Methods.InHands;
 using Core.Entities.Stock;

@@ -1,6 +1,7 @@
 ﻿using Core.Entities;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
+using Core.Entities.Orders;
 using Core.Entities.Stock;
 using System;
 using System.Collections.Generic;

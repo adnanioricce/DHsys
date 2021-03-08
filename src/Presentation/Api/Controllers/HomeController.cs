@@ -13,12 +13,8 @@ namespace Api.Controllers
     public class HomeController : Controller
     {        
         public IActionResult Index()
-        {
-            if (!GlobalConfiguration.IsFirstRun)
-            {
-                return Redirect("api/v1");
-            }
-            return RedirectToAction("Index","Setup");
+        {            
+            return Redirect("api/v1");
             
         }
     }

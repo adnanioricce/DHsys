@@ -4,6 +4,7 @@ using System.Linq;
 using DAL.Seed;
 using Core.Entities.Stock;
 using Core.Entities.Financial;
+using Core.Entities.Orders;
 
 namespace Core.Entities.Catalog.Tests
 {
