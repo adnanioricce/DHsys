@@ -5,7 +5,7 @@ using Core.Interfaces;
 using Core.Validations;
 using FluentValidation;
 
-namespace Api.Controllers.Api
+namespace Api.Controllers
 {
     public class StockEntryController : DefaultApiController<StockEntry,StockEntryDto>
     {

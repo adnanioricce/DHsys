@@ -8,7 +8,7 @@ namespace Web.Controllers
     {
         protected readonly IRepository<TEntity> _repository;        
                 
-        public BaseController(IRepository<TEntity> repository)
+        protected BaseController(IRepository<TEntity> repository)
         {
             _repository = repository;            
         }

@@ -14,7 +14,7 @@ namespace Core.Entities.Payments.Methods.InHands
             _paymentProcessor = paymentProcessor;
         }
 
-        public Task<PaymentResult> ChargeAsync(Payment payment)
+        public override Task<PaymentResult> ChargeAsync(Payment payment)
         {
             var chargeRequest = new InHandsChargeRequest(payment);
             if(!AcceptsPartialPayments && (payment.ReceivedValue < payment.NeededValue)){

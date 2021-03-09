@@ -13,7 +13,7 @@ using Serilog;
 using System;
 using System.Threading.Tasks;
 
-namespace Api.Controllers.Api
+namespace Api.Controllers
 {
     [Route("api/[Controller]")]
     [ApiController]

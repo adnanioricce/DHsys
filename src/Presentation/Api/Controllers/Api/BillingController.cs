@@ -4,7 +4,7 @@ using Core.Interfaces;
 using AutoMapper;
 using Core.Validations;
 
-namespace Api.Controllers.Api
+namespace Api.Controllers
 {
     public class BillingController : DefaultApiController<Billing,BillingDto>
     {        

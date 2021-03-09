@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
-    [Route("[Controller]")]
+    [Route("/")]
     public class HomeController : Controller
     {        
         public IActionResult Index()

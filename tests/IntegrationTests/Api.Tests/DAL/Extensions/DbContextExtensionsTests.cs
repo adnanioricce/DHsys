@@ -1,11 +1,7 @@
 using Api.Tests;
 using DAL.DbContexts;
 using DAL.Extensions;
-using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.IO;
 using Xunit;
 
 namespace DAL.Tests.Extensions
@@ -45,13 +41,6 @@ namespace DAL.Tests.Extensions
         private DHsysContext CreateContext()
         {                      
             return new DHsysContextFactory().CreateContext(GlobalConfiguration.ConnectionString);            
-        }
-
-        private DbContextOptions<TContext> CreateOptions<TContext>(SqliteConnection connection) where TContext : DHsysContext
-        {            
-            var optionsBuilder = new DbContextOptionsBuilder<TContext>();
-            optionsBuilder.UseSqlite(connection);
-            return optionsBuilder.Options;
-        }
+        }        
     }
 }

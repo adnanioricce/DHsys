@@ -1,8 +1,5 @@
-using System.IO;
-using Api.Controllers.Api;
 using AspNetCore.Http.Extensions;
 using Core.Entities.Catalog;
-using Core.Interfaces;
 using Core.Models.ApplicationResources;
 using System.Collections.Generic;
 using System.Linq;

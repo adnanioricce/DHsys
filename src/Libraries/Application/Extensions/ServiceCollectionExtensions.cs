@@ -2,8 +2,6 @@
 using Application.Services;
 using AutoMapper;
 using Core.Interfaces;
-using DAL;
-using DAL.DbContexts;
 using Infrastructure.Settings;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -18,6 +16,7 @@ using Core.Interfaces.Financial;
 using Application.Services.Financial;
 using Infrastructure.Logging;
 using System.Reflection;
+using DAL.DbContexts;
 
 namespace Application.Extensions
 {
@@ -52,17 +51,13 @@ namespace Application.Extensions
             services.AddTransient<ITransactionService, POSOrderService>();
         }                
         public static void ConfigureApplicationOptions(this IServiceCollection services,IConfiguration configuration)
-        {
-            services.Configure<AppSettings>(configuration.GetSection(nameof(AppSettings)));
-            services.Configure<DatabaseSettings>(configuration.GetSection(nameof(DatabaseSettings)));                        
+        {            
             services.Configure<ConnectionStrings>(configuration.GetSection(nameof(ConnectionStrings)));
             services.ConfigureApplicationWritableOptions();
         }
         public static void ConfigureApplicationWritableOptions(this IServiceCollection services)
         {            
-            services.ConfigureWritable<ConnectionStrings>();
-            services.ConfigureWritable<DatabaseSettings>();
-            services.ConfigureWritable<AppSettings>();
+            services.ConfigureWritable<ConnectionStrings>();            
         }
         public static void TryCreateDatabase(this IServiceProvider provider, DHsysContext context)
         {

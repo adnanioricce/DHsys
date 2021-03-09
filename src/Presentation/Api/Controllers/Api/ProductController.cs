@@ -11,7 +11,7 @@ using Core.Validations;
 using Microsoft.AspNetCore.Mvc;
 using Serilog;
 
-namespace Api.Controllers.Api
+namespace Api.Controllers
 {    
     public class ProductController : DefaultApiController<Product,ProductDto>
     {

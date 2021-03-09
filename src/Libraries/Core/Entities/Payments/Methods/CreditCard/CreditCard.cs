@@ -15,7 +15,7 @@ namespace Core.Entities.Payments.Methods.CreditCard
             Name = "CreditCard";            
         }
 
-        public Task<PaymentResult> ChargeAsync(Payment payment)
+        public override Task<PaymentResult> ChargeAsync(Payment payment)
         {
             //TODO:Implement
             throw new System.NotImplementedException();

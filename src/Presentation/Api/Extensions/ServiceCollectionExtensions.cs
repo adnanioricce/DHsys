@@ -10,11 +10,23 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Net.Http.Headers;
 using System;
 using System.Linq;
+using System.Reflection;
 
 namespace Api.Extensions
 {
     public static class ServiceCollectionExtensions
     {
+        public static IServiceCollection AddDomainValidators(this IServiceCollection services)
+        {
+            var validators = Assembly.GetAssembly(typeof(Core.Core)).GetTypes()
+                                                                    .Where(t => !string.IsNullOrEmpty(t.Namespace))
+                                                                    .Where(t => t.Namespace.StartsWith("Core.Validations"))
+                                                                    .Where(t => !t.Name.StartsWith("BaseValidator"));
+            foreach (var validator in validators) {
+                services.AddTransient(validator.BaseType,validator);
+            }
+            return services;
+        }
         /// <summary>
         /// Add OData services and configures it's input and output media formats
         /// </summary>

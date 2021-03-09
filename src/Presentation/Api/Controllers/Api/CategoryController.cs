@@ -4,7 +4,7 @@ using Core.Entities.Catalog;
 using Core.Interfaces;
 using Core.Validations;
 
-namespace Api.Controllers.Api
+namespace Api.Controllers
 {
     public class CategoryController : DefaultApiController<Category, CategoryDto>
     {
