@@ -1,9 +1,15 @@
 using System;
+using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using Api.Extensions;
 using Application.Extensions;
 using DAL.DbContexts;
 using DAL.Identity;
+using IdentityModel;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Entities;
+using IdentityServer4.EntityFramework.Mappers;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +24,7 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using static IdentityModel.OidcConstants;
 
 namespace Api
 {
@@ -64,9 +71,15 @@ namespace Api
                             options.Authority = "https://localhost:5001";
                             options.TokenValidationParameters = new TokenValidationParameters
                             {
-                                ValidateAudience = false
+                                ValidateAudience = true
                             };
                         });
+                services.AddAuthorization(options => {
+                   options.AddPolicy("Default", policy => {
+                        policy.RequireAuthenticatedUser();
+                        
+                   });
+                });
             }
             void ConfigureAppSettings(){
                 var configuration = new ConfigurationBuilder()
@@ -97,7 +110,7 @@ namespace Api
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
-        {            
+        {
             app.ConfigureOdata();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -114,8 +127,12 @@ namespace Api
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseRouting();
+           
+            // app.UseAuthentication();
             app.UseIdentityServer();
-            app.UseEndpoints(endpoints =>
+            // app.UseAuthorization();
+            
+             app.UseEndpoints(endpoints =>
             {                                
                 endpoints.MapControllers();
             });

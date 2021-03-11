@@ -47,6 +47,14 @@ namespace Api
                             {
                                 { "swagger", "for demo purposes" }
                             }
+                        },
+                        Password = new OpenApiOAuthFlow{
+                            AuthorizationUrl = new Uri($"https://localhost:5001/connnect/authorize"),
+                            TokenUrl = new Uri($"https://localhost:5001/connect/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { "swagger", "for demo purposes" }
+                            }
                         }
                     }
                 });
