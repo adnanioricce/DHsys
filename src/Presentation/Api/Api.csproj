@@ -12,18 +12,16 @@
     <PackageReference Include="GitVersionTask" Version="5.5.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Grpc.AspNetCore" Version="2.23.2" />
+    </PackageReference>    
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="4.1.1" />
-    <PackageReference Include="IdentityServer4.EntityFramework" Version="4.1.1" />
-    
-    <PackageReference Include="MediatR" Version="8.1.0" />
-    
+    <PackageReference Include="IdentityServer4.EntityFramework" Version="4.1.1" />        
+    <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.0" />
     
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.0" />
+    
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.8" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="4.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.OData" Version="7.4.1" />
@@ -48,7 +46,7 @@
     </PackageReference>
     <PackageReference Include="Serilog.AspNetCore" Version="3.4.0" />
     <PackageReference Include="Simple.OData.Client" Version="5.14.0" />    
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.3.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.5.0" />
   </ItemGroup>
 
   <ItemGroup>              

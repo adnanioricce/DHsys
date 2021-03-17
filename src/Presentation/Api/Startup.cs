@@ -1,15 +1,10 @@
 using System;
-using System.Linq;
+
 using System.Reflection;
-using System.Security.Claims;
 using Api.Extensions;
 using Application.Extensions;
 using DAL.DbContexts;
 using DAL.Identity;
-using IdentityModel;
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Entities;
-using IdentityServer4.EntityFramework.Mappers;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -20,11 +15,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
-using static IdentityModel.OidcConstants;
 
 namespace Api
 {
@@ -54,7 +48,13 @@ namespace Api
                 services.AddIdentity<AppUser,IdentityRole>()
                         .AddEntityFrameworkStores<IdentityContext>()
                         .AddDefaultTokenProviders();
-                var builder = services.AddIdentityServer()                        
+                
+                var builder = services.AddIdentityServer(options => {
+                                        options.Events.RaiseErrorEvents = true;
+                                        options.Events.RaiseFailureEvents = true;
+                                        options.Events.RaiseInformationEvents = true;
+                                        options.Events.RaiseSuccessEvents = true;
+                                    })
                                     .AddConfigurationStore(options => {
                                         options.ConfigureDbContext = builder => builder.UseNpgsql(configConnStr, sql => sql.MigrationsAssembly(migrationsAssembly));
                                     })
@@ -62,23 +62,28 @@ namespace Api
                                         options.ConfigureDbContext = builder => builder.UseNpgsql(operationalConnStr, sql => sql.MigrationsAssembly(migrationsAssembly));
                                         options.EnableTokenCleanup = true;                            
                                     })                        
-                                    .AddAspNetIdentity<AppUser>();
+                                    .AddAspNetIdentity<AppUser>();                                    
                 if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"){
                     builder.AddDeveloperSigningCredential();                    
-                }
-                services.AddAuthentication("Bearer")
-                        .AddJwtBearer("Bearer",options => {
-                            options.Authority = "https://localhost:5001";
-                            options.TokenValidationParameters = new TokenValidationParameters
-                            {
-                                ValidateAudience = true
-                            };
-                        });
+                }                
+                services.AddAuthentication()                        
+                        .AddLocalApi();                        
                 services.AddAuthorization(options => {
-                   options.AddPolicy("Default", policy => {
-                        policy.RequireAuthenticatedUser();
-                        
-                   });
+                    if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"){
+                        options.AddPolicy("Default",policy => {
+                            policy.RequireAuthenticatedUser();                            
+                            policy.RequireAssertion(context => {                                
+                                return context.User.HasClaim(c => (c.Type == "scope" && c.Value == "swagger") || (c.Type == "scope" && c.Value == "dhsysapi"));
+                            });
+                        });
+                    }else {
+                        options.AddPolicy("Default",policy => {
+                            policy.RequireAuthenticatedUser();
+                            policy.RequireClaim("scope","admin");
+                            policy.RequireClaim("role","admin");
+                        });
+                    }
+
                 });
             }
             void ConfigureAppSettings(){
@@ -110,7 +115,8 @@ namespace Api
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
-        {
+        {            
+            app.UseSerilogRequestLogging();                 
             app.ConfigureOdata();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -122,15 +128,14 @@ namespace Api
             });
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();                
+                app.UseDeveloperExceptionPage();
+                
             }            
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-            app.UseRouting();
-           
-            // app.UseAuthentication();
+            app.UseRouting();  
             app.UseIdentityServer();
-            // app.UseAuthorization();
+            app.UseAuthorization();
             
              app.UseEndpoints(endpoints =>
             {                                

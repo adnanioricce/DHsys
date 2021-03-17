@@ -10,15 +10,14 @@ namespace Api
             {
                 new IdentityResources.OpenId(),
                 new IdentityResources.Profile(),
-                new IdentityResources.Email(),
-                new IdentityResource("roles","User Role(s)",new [] {"admin","dev","operator"})
+                new IdentityResources.Email()                
             };
         public static IEnumerable<IdentityServer4.Models.ApiScope> ApiScopes =>
             new List<IdentityServer4.Models.ApiScope>{
-                new IdentityServer4.Models.ApiScope("dhsysapi","DHsys API"),
+                new ApiScope("dhsysapi","DHsys API"),
                 new ApiScope("swagger","DHsys API Docs"),
                 new ApiScope("admin", "api scope of admins"),
-                new ApiScope("operator", "api scope of operators")                
+                new ApiScope("operator", "api scope of operators")
             };
         public static IEnumerable<IdentityServer4.Models.Client> Clients => new List<IdentityServer4.Models.Client>{
             new IdentityServer4.Models.Client{

@@ -20,8 +20,7 @@ using System.Threading.Tasks;
 namespace Api.Controllers
 {
     [Route("api/[Controller]")]
-    [ApiController]
-    // [Authorize("Default")]
+    [ApiController]    
     public class DefaultApiController<TEntity,TEntityDto> : ODataController where TEntity : BaseEntity where TEntityDto : class
     {        
         protected readonly IRepository<TEntity> _repository;
