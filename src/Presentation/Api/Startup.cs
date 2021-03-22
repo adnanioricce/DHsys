@@ -5,11 +5,14 @@ using Api.Extensions;
 using Application.Extensions;
 using DAL.DbContexts;
 using DAL.Identity;
+using IdentityServer4;
 using Infrastructure.Settings;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,13 +28,16 @@ namespace Api
     public class Startup 
     {
         protected IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        protected IWebHostEnvironment Environment { get; }
+        public Startup(IConfiguration configuration,IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddSingleton<ILogger>(Log.Logger);
             ConfigureAppSettings();
             services.AddDomainValidators();
             services.AddApplicationServices();
@@ -60,16 +66,17 @@ namespace Api
                                     })
                                     .AddOperationalStore(options => {
                                         options.ConfigureDbContext = builder => builder.UseNpgsql(operationalConnStr, sql => sql.MigrationsAssembly(migrationsAssembly));
-                                        options.EnableTokenCleanup = true;                            
-                                    })                        
-                                    .AddAspNetIdentity<AppUser>();                                    
-                if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"){
-                    builder.AddDeveloperSigningCredential();                    
-                }                
-                services.AddAuthentication()                        
-                        .AddLocalApi();                        
+                                        options.EnableTokenCleanup = true;
+                                    })
+                                    .AddAspNetIdentity<AppUser>();
+                if(Environment.IsDevelopment()){
+                    builder.AddDeveloperSigningCredential();
+                }
+                services.AddAuthentication()
+                        .AddLocalApi()
+                        .AddIdentityServerJwt();
                 services.AddAuthorization(options => {
-                    if(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"){
+                    if(Environment.IsDevelopment()){
                         options.AddPolicy("Default",policy => {
                             policy.RequireAuthenticatedUser();                            
                             policy.RequireAssertion(context => {                                
@@ -97,6 +104,9 @@ namespace Api
             void ConfigureApi(){
                 services.AddMvc(options => {
                     options.EnableEndpointRouting = false;
+                    if(Environment.IsEnvironment("Testing")){
+                        options.Filters.Add<AllowAnonymousFilter>();
+                    }
                 }).AddNewtonsoftJson(settings => {
                     settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                     settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
@@ -111,6 +121,9 @@ namespace Api
                         // add a custom operation filter which sets default values
                         options.OperationFilter<SwaggerDefaultValues>();
                     });
+                services.AddRouting(options => {                    
+                    options.LowercaseUrls = true;
+                });
             }                      
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -133,8 +146,9 @@ namespace Api
             }            
             app.UseStaticFiles();
             app.UseHttpsRedirection();
-            app.UseRouting();  
-            app.UseIdentityServer();
+            app.UseRouting();
+            app.UseAuthentication();
+            app.UseIdentityServer();            
             app.UseAuthorization();
             
              app.UseEndpoints(endpoints =>

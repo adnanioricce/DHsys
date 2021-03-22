@@ -8,15 +8,17 @@ namespace DAL.Seed.Catalog
     {
         public ProductTemplate GetSeedObject()
         {
-            var template = new ProductTemplate();                        
-            template.Classification = "Sample Data";
-            template.CommercialName = "Sample Commercial Name";                                                                                        
-            template.ManufacturerName = "Sample Manufacturer Name";                        
-            template.Name = "Sample product";            
-            template.PrescriptionNeeded = false;
-            template.RegistryCode = Guid.NewGuid().ToString();
-            template.UseRestriction = "No Restriction";
-            template.CategoriesIds = new int[2];
+            var template = new ProductTemplate
+            {
+                Classification = "Sample Data",
+                CommercialName = "Sample Commercial Name",
+                ManufacturerName = "Sample Manufacturer Name",
+                Name = "Sample product",
+                PrescriptionNeeded = false,
+                RegistryCode = Guid.NewGuid().ToString(),
+                UseRestriction = "No Restriction",
+                CategoriesIds = new int[2]
+            };
             template.CategoriesIds[0] = 1;
             template.CategoriesIds[1] = 2;
             return template;

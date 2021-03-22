@@ -23,7 +23,7 @@ namespace Core.Tests
     public class POSOrderTests
     {
         
-        private IRepository<Product> MockRepository(Action<Mock<IRepository<Product>>> action = null)
+        private static IRepository<Product> MockRepository(Action<Mock<IRepository<Product>>> action = null)
         {            
             var product = new Product{
                     Id = 1,                    
@@ -225,7 +225,7 @@ namespace Core.Tests
             product.Id = 1;
             product.UpdateStock(-product.QuantityInStock,product);
             // When
-            var posOrderItemResult = POSOrderItem.Create(product.Id,1,posOrder,MockRepository());
+            var posOrderItemResult = POSOrderItem.Create(product.Id,1,posOrder, MockRepository());
             // Then
             Assert.False(posOrderItemResult.Success);
             Assert.Null(posOrderItemResult.Value);

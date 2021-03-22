@@ -10,7 +10,7 @@ namespace DAL.Tests
 {
     public class RepositoryHelper
     {
-        public static Repository<T> GetRepository<T>(DHsysContext context) where T : BaseEntity
+        public static Repository<T> GetRepository<T>() where T : BaseEntity
         {
             return new Repository<T>(new DHsysContextFactory().CreateContext(GlobalConfiguration.ConnectionString));
         }        

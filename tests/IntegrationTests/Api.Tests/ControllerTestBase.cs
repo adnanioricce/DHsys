@@ -41,7 +41,7 @@ namespace Api.Tests
             //Arrange            
             string templateUrl = "api/{0}/{1}?api-version=1.0";
             var seedObject = CreateSeedObject();
-            string url = String.Format(templateUrl, typeof(TEntity).Name, seedObject.Id);
+            string url = String.Format(templateUrl, typeof(TEntity).Name.ToLower(), seedObject.Id);
             //Act
             var response = await _client.GetAsync(url);            
             //Assert
@@ -55,7 +55,7 @@ namespace Api.Tests
             string url = GetRequestUrl("api/{0}/create?api-version=1.0", "POST");
             // Act            
             var response = await _client.PostAsJsonAsync(url,seedObject);
-            var content = await response.Content.ReadAsStringAsync();
+            _ = await response.Content.ReadAsStringAsync();
             // Assert            
             Assert.True(response.IsSuccessStatusCode);
         }
@@ -65,7 +65,7 @@ namespace Api.Tests
             // Arrange
             var seedObject = CreateSeedObject();            
             seedObject.UniqueCode = Guid.NewGuid().ToString();
-            var url = GetRequestUrl("api/{0}/{1}?api-version=1.0", typeof(TEntity).Name, seedObject.Id);
+            var url = GetRequestUrl("api/{0}/{1}?api-version=1.0", typeof(TEntity).Name.ToLower(), seedObject.Id);
             // Act
             var dto = _mapper.Map<TEntity, TEntityDto>(seedObject);
             var response = await _client.PutAsJsonAsync(url,dto);
@@ -77,7 +77,7 @@ namespace Api.Tests
         {
             //Arrange
             var seedObject = CreateSeedObject();
-            var url = GetRequestUrl("api/{0}/{1}?api-version=1.0", typeof(TEntity).Name, seedObject.Id);
+            var url = GetRequestUrl("api/{0}/{1}?api-version=1.0", typeof(TEntity).Name.ToLower(), seedObject.Id);
             // Act
             var response = await _client.DeleteAsync(url);
             response.EnsureSuccessStatusCode();
@@ -90,7 +90,7 @@ namespace Api.Tests
         {
             // Arrange
             var seedObject = _seeder.GetSeedObject();            
-            var url = $"api/{typeof(TEntity).Name}/validate-create?api-version=1.0";
+            var url = $"api/{typeof(TEntity).Name.ToLower()}/validate-create?api-version=1.0";
             // Act
             var response = await _client.PostAsJsonAsync(url, seedObject);
             // Assert
@@ -102,9 +102,9 @@ namespace Api.Tests
         {
             if (method.ToUpper() == "POST")
             {                                  
-                return String.Format(templateUrl, typeof(TEntity).Name);
+                return String.Format(templateUrl, typeof(TEntity).Name.ToLower());
             }
-            return String.Format(templateUrl, typeof(TEntity).Name, id);
+            return String.Format(templateUrl, typeof(TEntity).Name.ToLower(), id);
         }
         protected TEntity CreateSeedObject()
         {

@@ -31,7 +31,7 @@ namespace Api.Controllers
                 return StatusCode(404, BaseResourceResponse.GetFailureResponseWithMessage("name parameter is null"));
             }
             var products = await _ProductService.SearchProductsByNameAsync(name);
-            if(products.Count() == 0)
+            if(!products.Any())
             {                
                 Log.Information("404 error returned on ProductsController for name {name}",name);
                 return StatusCode(404, new BaseResourceResponse<IList<ProductDto>>

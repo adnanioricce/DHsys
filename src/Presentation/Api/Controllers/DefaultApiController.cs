@@ -6,6 +6,7 @@ using Core.Models.ApplicationResources;
 using Core.Validations;
 using FluentValidation;
 using FluentValidation.Results;
+using IdentityServer4;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
 using Microsoft.AspNetCore.Authorization;
@@ -20,7 +21,8 @@ using System.Threading.Tasks;
 namespace Api.Controllers
 {
     [Route("api/[Controller]")]
-    [ApiController]    
+    [ApiController]
+    [Authorize(policy:"Default")]
     public class DefaultApiController<TEntity,TEntityDto> : ODataController where TEntity : BaseEntity where TEntityDto : class
     {        
         protected readonly IRepository<TEntity> _repository;

@@ -22,6 +22,7 @@ namespace Tests.Lib
         public virtual void Dispose()
         {
             //restore previous state when run backup query
+            GC.SuppressFinalize(this);
             _dbContext.Database.ExecuteSqlRaw(@$"\c postgres;
                                                  DROP DATABASE {_dbname};
                                                  CREATE DATABASE { _dbname} TEMPLATE {_dbname}_copy;

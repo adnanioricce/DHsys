@@ -11,7 +11,7 @@ namespace DAL.Seed
             var POSOrder = new POSOrder {
                 CreatedAt = DateTimeOffset.UtcNow,
                 UniqueCode = Guid.NewGuid().ToString()
-            };
+            };            
             // var product = new ProductSeed().GetSeedObject();
             return POSOrder;
         }

@@ -87,9 +87,9 @@ namespace DAL
             {
                 return await GetByAsync((int)id);
             }
-            else if (id is string)
+            else if (id is string @string)
             {
-                return await GetByAsync((string)id);
+                return await GetByAsync(@string);
             }
             return await Context.FindAsync<T>(id);
         }

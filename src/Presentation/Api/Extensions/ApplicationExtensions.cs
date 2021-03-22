@@ -69,14 +69,10 @@ namespace Api.Extensions
         }        
         public static bool DatabaseExists(this IApplicationBuilder app)
         {
-            using (var scope = app.ApplicationServices.CreateScope())
-            {
-                using (var context = scope.ServiceProvider.GetRequiredService<DHsysContext>())
-                {
-                    return (context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists();
-                }
-            }
-            
+            using var scope = app.ApplicationServices.CreateScope();
+            using var context = scope.ServiceProvider.GetRequiredService<DHsysContext>();
+            return (context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator).Exists();
+
         }
     }
 }

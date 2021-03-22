@@ -36,11 +36,11 @@ namespace Api
                     Name = "Authorization",
                     Type = SecuritySchemeType.OAuth2,
                     BearerFormat = "JWT",
-                    In = ParameterLocation.Header,                
+                    In = ParameterLocation.Header,
                     OpenIdConnectUrl = new Uri($"https://localhost:5001/.well-known/openid-configuration"),
                     Flows = new OpenApiOAuthFlows
-                    {                                                
-                        ClientCredentials = new OpenApiOAuthFlow 
+                    {
+                        ClientCredentials = new OpenApiOAuthFlow
                         {
                             AuthorizationUrl = new Uri($"https://localhost:5001/connnect/authorize"),
                             TokenUrl = new Uri($"https://localhost:5001/connect/token"),
@@ -48,7 +48,6 @@ namespace Api
                             {
                                 { "swagger", "for demo purposes" }
                             }
-                            
                         }
                     }
                 });

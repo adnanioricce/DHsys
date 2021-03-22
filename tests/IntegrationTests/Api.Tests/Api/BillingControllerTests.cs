@@ -38,7 +38,7 @@ namespace Api.Tests
             };
             var context = _fixture.GetRemoteContext();
             context.Add(billing);
-            var changes = context.SaveChanges();
+            context.SaveChanges();
             string requestUrl = string.Format(baseUrl, billing?.Id);
             // Act
             var result = await client.GetAsync(requestUrl);

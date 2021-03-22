@@ -8,7 +8,6 @@ namespace DAL.Tests.Extensions
 {
     public class DbContextExtensionsTests
     {
-        private readonly DHsysContext _context;       
         [Fact]
         public void Given_Database_Without_A_Migration_Applied_When_Tries_To_Get_Missing_Migrations_Should_Return_Migration_Scripts()
         {
@@ -38,7 +37,7 @@ namespace DAL.Tests.Extensions
             Assert.Null(result);
         }
 
-        private DHsysContext CreateContext()
+        private static DHsysContext CreateContext()
         {                      
             return new DHsysContextFactory().CreateContext(GlobalConfiguration.ConnectionString);            
         }        

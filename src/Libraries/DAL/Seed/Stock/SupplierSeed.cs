@@ -7,19 +7,21 @@ namespace DAL.Seed
     {
         public Supplier GetSeedObject()
         {
-            var supplier = new Supplier();
-            supplier.Address = new Core.Entities.Address
+            var supplier = new Supplier
             {
-                Addressnumber = "2222",
-                District = "District",
-                AddressState = "State",
-                City = "City",
-                Zipcode = "01223455"
-            };            
-            supplier.CreatedAt = DateTimeOffset.UtcNow;
-            supplier.Cnpj = "1234567788";
-            supplier.Name = "Supplier name";            
-            supplier.UniqueCode = Guid.NewGuid().ToString();
+                Address = new Core.Entities.Address
+                {
+                    Addressnumber = "2222",
+                    District = "District",
+                    AddressState = "State",
+                    City = "City",
+                    Zipcode = "01223455"
+                },
+                CreatedAt = DateTimeOffset.UtcNow,
+                Cnpj = "1234567788",
+                Name = "Supplier name",
+                UniqueCode = Guid.NewGuid().ToString()
+            };
             return supplier;
         }
     }

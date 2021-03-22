@@ -19,7 +19,7 @@ namespace Api.Tests
         public async Task GET_GetDrugsByName_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            var baseUrl = "api/Product/search/list?name={0}&api-version=1.0";
+            var baseUrl = "api/product/search/list?name={0}&api-version=1.0";
             var drug = new ProductSeed().GetSeedObject();
             var context = _fixture.GetContext();
             context.Add(drug);
@@ -31,14 +31,14 @@ namespace Api.Tests
             var response = await result.Content.ReadAsJsonAsync<BaseResourceResponse<IList<ProductDto>>>();            
             // Assert                        
             Assert.True(response.Success);
-            Assert.True(response.ResultObject.Count() > 0);
+            Assert.True(response.ResultObject.Any());
         }
 
         [Fact]
         public async Task GET_GetDrugByBarCode_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            string baseUrl = "api/Product/search/{0}?api-version=1.0";                                    
+            string baseUrl = "api/product/search/{0}?api-version=1.0";                                    
             var Product = new ProductSeed().GetSeedObject();
             var context = _fixture.GetContext();
             context.Add(Product);
@@ -58,7 +58,7 @@ namespace Api.Tests
         public async Task POST_CreateDrug_StateUnderTest_ExpectedBehavior()
         {
             // Arrange
-            string request_url = "api/Product/create?api-version=1.0";            
+            string request_url = "api/product/create?api-version=1.0";            
             var Product = new ProductDto
             { 
                 Name = "Dipirona GTS 5mg",

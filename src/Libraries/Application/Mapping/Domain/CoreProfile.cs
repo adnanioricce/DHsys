@@ -33,7 +33,8 @@ namespace Application.Mapping.Domain
                             .PreserveReferences()
                             .MaxDepth(1);
             }
-            bool IsDefinedType(Type type) => !String.IsNullOrEmpty(type.Namespace);
+
+            static bool IsDefinedType(Type type) => !String.IsNullOrEmpty(type.Namespace);
         }
     }
 }

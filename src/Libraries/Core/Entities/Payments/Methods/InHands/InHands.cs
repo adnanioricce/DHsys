@@ -6,7 +6,7 @@ namespace Core.Entities.Payments.Methods.InHands
 {
     public class InHands : PaymentMethod
     {
-        IPaymentProcessor _paymentProcessor;
+        protected readonly IPaymentProcessor _paymentProcessor;
         private InHands() : base() { }
         public InHands(bool acceptsPartialPayment,IPaymentProcessor paymentProcessor)
         {

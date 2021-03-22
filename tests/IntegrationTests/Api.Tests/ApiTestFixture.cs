@@ -1,8 +1,12 @@
-﻿using Application.Extensions;
+﻿using Api.Tests.Handlers;
+using Application.Extensions;
 using Core.Extensions;
 using Core.Validations;
 using DAL.DbContexts;
 using DAL.Seed;
+using Infrastructure.Logging;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Controllers;
@@ -14,15 +18,12 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Simple.OData.Client;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Reflection;
-using System.Threading.Tasks;
-using Tests.Lib;
-
+using Serilog;
 namespace Api
 {
     public class ApiTestFixture : IDisposable
@@ -35,10 +36,8 @@ namespace Api
         {
 
         }
-        public static string GetProjectPath(string projectRelativePath, Assembly startupAssembly)
+        public static string GetProjectPath(string projectRelativePath)
         {
-            var projectName = startupAssembly.GetName().Name;
-
             var applicationBasePath = AppContext.BaseDirectory;
             var isDocker = Environment.GetEnvironmentVariable("IS_DOCKER_CONTAINER");
             if (!string.IsNullOrEmpty(isDocker))
@@ -63,19 +62,22 @@ namespace Api
         }
         protected ApiTestFixture(string relativeTargetProjectParentDir)
         {
-            var startupAssembly = typeof(Startup).GetTypeInfo().Assembly;
-            var contentRoot = GetProjectPath(relativeTargetProjectParentDir, startupAssembly);
+            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();            
+            var contentRoot = GetProjectPath(relativeTargetProjectParentDir);
 
             var configurationBuilder = new ConfigurationBuilder()
                 .SetBasePath(contentRoot)
-                .AddJsonFile("appsettings.json");
+                .AddJsonFile("appsettings.Testing.json")
+                .AddEnvironmentVariables("ASPNETCORE");
 
             var webHostBuilder = new WebHostBuilder()
-                .UseContentRoot(contentRoot)
-                .ConfigureServices(InitializeServices)
                 .UseConfiguration(configurationBuilder.Build())
-                .UseEnvironment("Development")
-                .UseStartup(typeof(Startup));
+                .UseContentRoot(contentRoot)                
+                .ConfigureServices(InitializeServices)
+                .Configure(Configure)
+                .UseEnvironment("Testing")
+                .UseStartup(typeof(Startup))
+                .UseSerilog();
 
             // Create instance of test server
             Server = new TestServer(webHostBuilder);
@@ -96,9 +98,10 @@ namespace Api
         }
 
         public void Dispose()
-        {
+        {            
             Client.Dispose();
             Server.Dispose();
+            GC.SuppressFinalize(this);
         }
 
         protected void InitializeServices(IServiceCollection services)
@@ -116,8 +119,8 @@ namespace Api
                     new ControllerFeatureProvider(),
                     new ViewComponentFeatureProvider()
                 }
-            };
-
+            };            
+            services.AddAuthentication("Test").AddScheme<AuthenticationSchemeOptions,TestAuthHandler>("Test",options => {});
             services.AddSingleton(manager);
             var objectSeedType = typeof(IDataObjectSeed<>);
             var seedObjects = Assembly.GetAssembly(typeof(DAL.DALAssembly))
@@ -144,6 +147,9 @@ namespace Api
                 settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });            
             
+        }
+        protected void Configure(IApplicationBuilder app){            
+            app.UseSerilogRequestLogging();
         }
         public DHsysContext GetContext()
         {

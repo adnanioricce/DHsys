@@ -86,7 +86,7 @@ namespace Tests.Lib
             // Arrange
             var seedObject = _seeder.GetSeedObject();
             _repository.Add(seedObject);
-            var createResult = await _repository.SaveChangesAsync();
+            await _repository.SaveChangesAsync();
             int id = seedObject.Id;
             // Act
             _repository.Delete(seedObject);
@@ -108,7 +108,9 @@ namespace Tests.Lib
             Assert.NotEmpty(entities);
         }
         public void Dispose()
-        {            
+        {
+            GC.SuppressFinalize(this);
+            _context.Dispose();
         }
     }
 }
