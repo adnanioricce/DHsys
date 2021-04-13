@@ -6,8 +6,10 @@ using Core.Models.ApplicationResources;
 using Core.Validations;
 using FluentValidation;
 using FluentValidation.Results;
+using IdentityServer4;
 using Microsoft.AspNet.OData;
 using Microsoft.AspNet.OData.Query;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
@@ -19,7 +21,8 @@ using System.Threading.Tasks;
 namespace Api.Controllers
 {
     [Route("api/[Controller]")]
-    [ApiController]    
+    [ApiController]
+    [Authorize(policy:"Default",AuthenticationSchemes = IdentityServerConstants.LocalApi.AuthenticationScheme)]
     public class DefaultApiController<TEntity,TEntityDto> : ODataController where TEntity : BaseEntity where TEntityDto : class
     {        
         protected readonly IRepository<TEntity> _repository;
@@ -34,7 +37,7 @@ namespace Api.Controllers
         
         [EnableQuery(PageSize = 25)]        
         [Produces("application/json")]
-        [HttpGet("query")]
+        [HttpGet("query")]        
         public IQueryable Query()
         {
             return _repository.Query();

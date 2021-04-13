@@ -22,9 +22,7 @@ namespace Tests.Lib
     public class TestFixture<TStartup> : IDisposable
     {
         public static string GetProjectPath(string projectRelativePath, Assembly startupAssembly)
-        {
-            var projectName = startupAssembly.GetName().Name;
-
+        {            
             var applicationBasePath = AppContext.BaseDirectory;
             var isDocker = Environment.GetEnvironmentVariable("IS_DOCKER_CONTAINER");
             if(!string.IsNullOrEmpty(isDocker)){                

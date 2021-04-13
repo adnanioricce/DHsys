@@ -7,16 +7,7 @@ namespace DAL.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int[]>(
-                name: "CategoriesIds",
-                table: "ProductTemplate",
-                type: "integer[]",
-                nullable:false);
-            migrationBuilder.AddColumn<int[]>(
-                name: "TaxesIds",
-                table: "ProductTemplate",
-                type: "integer[]",
-                nullable: true);
+            
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

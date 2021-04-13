@@ -1,12 +1,13 @@
 ﻿//https://github.com/microsoft/aspnet-api-versioning/blob/master/samples/aspnetcore/SwaggerODataSample/ConfigureSwaggerOptions.cs
 namespace Api
 {
-    using Microsoft.AspNetCore.Mvc.ApiExplorer;
-    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.AspNetCore.Mvc.ApiExplorer;    
     using Microsoft.Extensions.Options;
-    using Microsoft.OpenApi.Models;
     using Swashbuckle.AspNetCore.SwaggerGen;
+    using Microsoft.OpenApi.Models;
     using System;
+    using Microsoft.Extensions.DependencyInjection;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Configures the Swagger generation options.
@@ -31,6 +32,43 @@ namespace Api
             foreach (var description in provider.ApiVersionDescriptions)
             {
                 options.SwaggerDoc(description.GroupName, CreateInfoForApiVersion(description));
+                options.AddSecurityDefinition("oauth2",new OpenApiSecurityScheme {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.OAuth2,
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    OpenIdConnectUrl = new Uri($"https://localhost:5001/.well-known/openid-configuration"),
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        ClientCredentials = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri($"https://localhost:5001/connnect/authorize"),
+                            TokenUrl = new Uri($"https://localhost:5001/connect/token"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { "swagger", "for demo purposes" }
+                            },
+                        }                       
+                    }
+                });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "oauth2"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+
+                        },
+                        new List<string>()
+                    }
+                });                
             }
         }
 

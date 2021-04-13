@@ -90,8 +90,8 @@ namespace DAL.Extensions
         private static string GetDatabaseName(IDbConnection connection)
         {
             string connStr = connection.ConnectionString;
-            string dbParameterSubstring = connStr.Substring(connStr.IndexOf("Database="));
-            dbParameterSubstring = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";")).Substring("Database=".Length);
+            string dbParameterSubstring = connStr[connStr.IndexOf("Database=")..];
+            dbParameterSubstring = dbParameterSubstring.Substring(0, dbParameterSubstring.IndexOf(";"))["Database=".Length..];
             return dbParameterSubstring;            
         }
         /// <summary>
@@ -130,7 +130,7 @@ namespace DAL.Extensions
         /// <param name="context">the <see cref="DHsysContext"/> instance </param>
         /// <param name="dbName">the name of the database to backup. Default is database name finded in the connection string. </param>
         /// <param name="backupFileName">name of the backup file(.bak)</param>
-        public static void CreateDatabaseBackup(this DHsysContext context,string backupFileName = "",string dbName = "")
+        public static void CreateDatabaseBackup(this DHsysContext context,string dbName = "")
         {            
             var _dbname = string.IsNullOrEmpty(dbName) ? context.GetDatabaseName() : dbName;
             if(context.Database.IsNpgsql())           
@@ -150,7 +150,7 @@ namespace DAL.Extensions
         /// <param name="context">the <see cref="DHsysContext"/> instance </param>
         /// <param name="dbName">the name of the database to restore </param>
         /// <param name="backupFileName">the name of the backup filename </param>
-        public static void RestoreDatabase(this DHsysContext context, string backupFileName,string dbName = "")
+        public static void RestoreDatabase(this DHsysContext context,string dbName = "")
         {
             var _dbname = string.IsNullOrEmpty(dbName) ? context.Database.GetDbConnection().Database : dbName;            
             if (context.Database.IsNpgsql())

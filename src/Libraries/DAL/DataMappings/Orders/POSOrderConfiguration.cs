@@ -1,4 +1,5 @@
 using Core.Entities.Financial;
+using Core.Entities.Orders;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DAL.DataMappings.Orders
@@ -12,7 +13,8 @@ namespace DAL.DataMappings.Orders
                    .WithOne()   
                    .HasForeignKey(t => t.POSOrderId)                
                    .OnDelete(Microsoft.EntityFrameworkCore.DeleteBehavior.Cascade)
-                   .IsRequired();            
+                   .IsRequired();
+            builder.Ignore(p => p.PaymentMethod);
         }
     }
 }

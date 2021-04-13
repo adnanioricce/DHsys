@@ -1,7 +1,11 @@
 using Application.Services.Financial;
+using Core.Entities.Catalog;
 using Core.Entities.Financial;
+using Core.Entities.Orders;
+using Core.Interfaces;
 using Core.Interfaces.Financial;
 using Core.Validations;
+using Moq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,21 +20,26 @@ namespace Services.Tests.Financial
     {
         public static POSOrder GetSeedTransaction()
         {
-            return new POSOrder
-            {
-                HasDealWithStore = false,
-                PaymentMethod = PaymentMethods.InHands,
-                Items = new List<POSOrderItem> {
-                    new POSOrderItem
-                    {
-                        Product = ProductSeed.BaseCreateProductEntity(),
-                        ProductUniqueCode = "123456",
-                        CustomerValue = 32.99m,
-                        CostPrice = 29.99m,
-                        Quantity = 1,
-                    }
-                }
+            var product = new Core.Entities.Catalog.Product{
+                Id = 1,                
+            };            
+            var posOrder = new POSOrder();
+            var quantity = 1;
+            var posOrderItem = POSOrderItem.Create(product.Id,quantity,posOrder,GetMockProductRepository());            
+            posOrder.AddItem(posOrderItem.Value);
+            return posOrder;
+        }
+        public static IRepository<Product> GetMockProductRepository()
+        {
+            var product = new Product{
+                Id = 1,                
             };
+            product.UpdateStock(4, product);
+            product.UpdatePrice(32.99m,29.99m,DateTimeOffset.UtcNow);
+            var mock = new Mock<IRepository<Product>>();
+            mock.Setup(m => m.GetBy(It.IsAny<int>()))
+                .Returns(product);
+            return mock.Object;
         }
         public static ITransactionService GetServiceWithSeed(IEnumerable<POSOrder> transactions)
         {

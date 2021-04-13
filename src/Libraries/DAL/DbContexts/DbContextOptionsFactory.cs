@@ -7,7 +7,7 @@ namespace DAL.DbContexts
 {
     public class DbContextOptionsFactory
     {
-        public DbContextOptionsBuilder CreateContextOptions(DbContextOptionsBuilder optionsBuilder,Action<DbContextOptionsBuilder> optionsBuilderAction)
+        public static DbContextOptionsBuilder CreateContextOptions(DbContextOptionsBuilder optionsBuilder,Action<DbContextOptionsBuilder> optionsBuilderAction)
         {
             optionsBuilder.UseLazyLoadingProxies();
             if (!(optionsBuilderAction is null))

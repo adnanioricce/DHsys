@@ -61,8 +61,7 @@ namespace DAL.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: true),
-                    Percentage = table.Column<decimal>(type: "numeric", nullable: false),
-                    ProductTemplateId = table.Column<int>(type: "integer", nullable: true),
+                    Percentage = table.Column<decimal>(type: "numeric", nullable: false),                    
                     UniqueCode = table.Column<string>(type: "text", nullable: true),
                     IsDeleted = table.Column<bool>(type: "boolean", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false, defaultValue: new DateTimeOffset(new DateTime(2021, 1, 13, 22, 26, 48, 961, DateTimeKind.Unspecified).AddTicks(4976), new TimeSpan(0, 0, 0, 0, 0))),
@@ -103,10 +102,10 @@ namespace DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Category_ProductTemplateId",
-                table: "Category",
-                column: "ProductTemplateId");
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_Category_ProductTemplateId",
+            //    table: "Category",
+            //    column: "ProductTemplateId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductTax_ProductId",
@@ -118,10 +117,10 @@ namespace DAL.Migrations
                 table: "ProductTax",
                 column: "TaxId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_Taxes_ProductTemplateId",
-                table: "Taxes",
-                column: "ProductTemplateId");
+            //migrationBuilder.CreateIndex(
+            //    name: "IX_Taxes_ProductTemplateId",
+            //    table: "Taxes",
+            //    column: "ProductTemplateId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

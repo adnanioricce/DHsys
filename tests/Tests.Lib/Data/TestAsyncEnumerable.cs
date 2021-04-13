@@ -45,7 +45,7 @@ namespace Tests.Lib.Data
         public ValueTask DisposeAsync()
         {
             _inner.Dispose();
-            return default(ValueTask);
+            return default;
         }
 
         public ValueTask<bool> MoveNextAsync()

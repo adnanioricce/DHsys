@@ -10,7 +10,7 @@ namespace Tests.Lib.Data
 {
     public class FakeRepository<T> : IRepository<T> where T : BaseEntity
     {
-        private readonly Dictionary<int, T> context = new Dictionary<int, T>();
+        private readonly Dictionary<int, T> context = new();
         private int counter = 1;
         public FakeRepository()
         {
@@ -102,9 +102,9 @@ namespace Tests.Lib.Data
             {
                 return GetByAsync((int)id);
             }
-            else if(id is string)
+            else if(id is string @strId)
             {
-                return GetByAsync((string)id);
+                return GetByAsync(@strId);
             }
             return Task.FromResult(context[(int)id]);
         }

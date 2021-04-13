@@ -12,13 +12,9 @@ namespace DAL.DataMappings
             builder.Property(p => p.IsDeleted)
                 .IsRequired();
             builder.Property(p => p.CreatedAt)
-                   .IsRequired()
-                   .HasDefaultValue(DateTimeOffset.UtcNow)
-                   .ValueGeneratedOnAdd();
+                   .IsRequired();
             builder.Property(p => p.LastUpdatedOn)
-                .IsRequired()
-                .HasDefaultValue(DateTimeOffset.UtcNow)
-                .ValueGeneratedOnUpdate();
+                .IsRequired();                
 
         }
     }

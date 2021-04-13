@@ -17,8 +17,8 @@
         public string Message { get; set; }
         public bool Success { get; set; }
 
-        public static readonly BaseResourceResponse DefaultSuccessResponse = new BaseResourceResponse("Operation executed successfully",true);
-        public static readonly BaseResourceResponse DefaultFailureResponse = new BaseResourceResponse("A unexpected error occurred", false);
+        public static readonly BaseResourceResponse DefaultSuccessResponse = new("Operation executed successfully",true);
+        public static readonly BaseResourceResponse DefaultFailureResponse = new("A unexpected error occurred", false);
         public static BaseResourceResponse GetFailureResponseWithMessage(string message)
         {
             return new BaseResourceResponse(message);

@@ -8,10 +8,12 @@ namespace DAL.Seed
     {
         public StockEntry GetSeedObject()
         {
-            var stockEntry = new StockEntry();
-            stockEntry.CreatedAt = DateTimeOffset.UtcNow;
-            stockEntry.NfNumber = Guid.NewGuid().ToString();
-            stockEntry.NfEmissionDate = DateTime.Now.AddDays(-2);            
+            var stockEntry = new StockEntry
+            {
+                CreatedAt = DateTimeOffset.UtcNow,
+                NfNumber = Guid.NewGuid().ToString(),
+                NfEmissionDate = DateTime.Now.AddDays(-2)
+            };
             //Warning:Related Product entities should exists before inserting a new StockEntry.            
             return stockEntry;
         }

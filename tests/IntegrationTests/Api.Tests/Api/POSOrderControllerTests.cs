@@ -1,8 +1,10 @@
 ﻿using Api.Tests.Seed;
 using AspNetCore.Http.Extensions;
 using Core.ApplicationModels.Dtos.Financial;
+using Core.ApplicationModels.Dtos.Orders;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
+using Core.Entities.Orders;
 using Core.Models.ApplicationResources;
 using DAL.Seed;
 using System;
@@ -20,6 +22,7 @@ namespace Api.Tests
         public POSOrderControllerTests(ApiTestFixture fixture) : base(fixture)
         {            
         }
+
         [Fact]
         public async Task Given_POST_legacy_creates_CreateLegacys_When_requests_prcodi_and_quantity_Then_expects_200_status_code()
         {
@@ -32,7 +35,10 @@ namespace Api.Tests
             var transaction = new POSOrderDto
             {
                 HasDealWithStore = false,
-                PaymentMethod = Core.Entities.Financial.PaymentMethods.InHands,                
+                PaymentMethod = new Core.ApplicationModels.Dtos.Payments.PaymentMethodDto
+                {
+                    Name = "InHands"
+                },
                 ConsumerCode = Guid.NewGuid().ToString(),
                 Items = new POSOrderItemDto[]
                 {

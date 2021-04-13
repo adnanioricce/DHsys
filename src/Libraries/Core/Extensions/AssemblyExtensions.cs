@@ -12,7 +12,7 @@ namespace Core.Extensions
         {
             return assembly
                     .GetTypes()
-                    .Where(t => t.IsClass && !t.IsAbstract && (t.BaseType is null ? false : t.BaseType.IsGenericType))
+                    .Where(t => t.IsClass && !t.IsAbstract && (t.BaseType is not null && t.BaseType.IsGenericType))
                     .Where(t => t.BaseType.GetGenericTypeDefinition() == baseType);
         }
         

@@ -1,4 +1,4 @@
-﻿namespace Api.Controllers.Api
+﻿namespace Api.Controllers
 {
     public class SyncController
     {

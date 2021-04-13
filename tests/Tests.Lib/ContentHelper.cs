@@ -6,6 +6,6 @@ namespace Tests.Lib
 {
     public static class ContentHelper
     {
-        public static StringContent GetStringContent(object obj) => new StringContent(JsonConvert.SerializeObject(obj), Encoding.Default, "application/json");
+        public static StringContent GetStringContent(object obj) => new(JsonConvert.SerializeObject(obj), Encoding.Default, "application/json");
     }
 }

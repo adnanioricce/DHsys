@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Core.ApplicationModels.Dtos.Financial;
 using Core.Entities.Financial;
+using Core.Entities.Orders;
 using Core.Interfaces;
 using Core.Interfaces.Financial;
 using Core.Models;
@@ -60,7 +61,7 @@ namespace Application.Services.Financial
             var validationResult = _validator.Validate(transaction);
             if (!validationResult.IsValid) {
                 AppLogger.Log.Information("Failed to validate transaction at {className}. Validation Result:{@validationResult}", this.GetType().Name, validationResult);
-                return BaseResult<POSOrder>.CreateFailResult(validationResult.Errors.Select(e => $"validation {e.Severity} failed for property {e.PropertyName} with code {e.ErrorCode}. Reason:{e.ErrorMessage}"),transaction);
+                return BaseResult<POSOrder>.Failed(validationResult.Errors.Select(e => $"validation {e.Severity} failed for property {e.PropertyName} with code {e.ErrorCode}. Reason:{e.ErrorMessage}"),transaction);
             }
             _transactionRepository.Add(transaction);
             await _transactionRepository.SaveChangesAsync();

@@ -36,9 +36,7 @@ namespace DAL.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 848, DateTimeKind.Unspecified).AddTicks(5758), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("District")
                         .HasColumnType("text");
@@ -50,9 +48,7 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 848, DateTimeKind.Unspecified).AddTicks(6146), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("SecondAddressLine")
                         .HasColumnType("text");
@@ -76,9 +72,7 @@ namespace DAL.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 909, DateTimeKind.Unspecified).AddTicks(9697), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .HasColumnType("text");
@@ -87,9 +81,7 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 910, DateTimeKind.Unspecified).AddTicks(115), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -145,9 +137,7 @@ namespace DAL.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 920, DateTimeKind.Unspecified).AddTicks(3703), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("DateOfRegistryUpdate")
                         .HasColumnType("timestamp with time zone");
@@ -189,9 +179,7 @@ namespace DAL.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 920, DateTimeKind.Unspecified).AddTicks(4283), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("LotNumber")
                         .HasColumnType("text");
@@ -283,17 +271,13 @@ namespace DAL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 911, DateTimeKind.Unspecified).AddTicks(1696), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 911, DateTimeKind.Unspecified).AddTicks(2180), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -318,9 +302,7 @@ namespace DAL.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 921, DateTimeKind.Unspecified).AddTicks(3878), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -329,9 +311,7 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 921, DateTimeKind.Unspecified).AddTicks(4425), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("MediaResourceId")
                         .HasColumnType("integer");
@@ -362,9 +342,7 @@ namespace DAL.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 922, DateTimeKind.Unspecified).AddTicks(1002), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("EndCustomerDrugPrice")
                         .HasColumnType("numeric");
@@ -373,9 +351,7 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 922, DateTimeKind.Unspecified).AddTicks(1546), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset?>("Pricestartdate")
                         .HasColumnType("timestamp with time zone");
@@ -401,9 +377,7 @@ namespace DAL.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 922, DateTimeKind.Unspecified).AddTicks(5138), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("EndDate")
                         .HasColumnType("timestamp without time zone");
@@ -412,9 +386,7 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 922, DateTimeKind.Unspecified).AddTicks(5534), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -443,17 +415,13 @@ namespace DAL.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 922, DateTimeKind.Unspecified).AddTicks(8892), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 922, DateTimeKind.Unspecified).AddTicks(9292), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("LotCode")
                         .HasColumnType("text");
@@ -490,17 +458,13 @@ namespace DAL.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 923, DateTimeKind.Unspecified).AddTicks(6024), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 923, DateTimeKind.Unspecified).AddTicks(6456), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -528,17 +492,13 @@ namespace DAL.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 924, DateTimeKind.Unspecified).AddTicks(1980), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 924, DateTimeKind.Unspecified).AddTicks(2585), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ProductId")
                         .HasColumnType("integer");
@@ -584,9 +544,7 @@ namespace DAL.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 933, DateTimeKind.Unspecified).AddTicks(8431), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("DateOfRegistryUpdate")
                         .HasColumnType("timestamp with time zone");
@@ -607,9 +565,7 @@ namespace DAL.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 933, DateTimeKind.Unspecified).AddTicks(8888), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("ManufacturerCountry")
                         .HasColumnType("text");
@@ -669,9 +625,7 @@ namespace DAL.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 908, DateTimeKind.Unspecified).AddTicks(6980), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Discriminator")
                         .IsRequired()
@@ -681,9 +635,7 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 908, DateTimeKind.Unspecified).AddTicks(7697), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -692,6 +644,8 @@ namespace DAL.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.ToTable("beneficiaries");
 
@@ -712,9 +666,7 @@ namespace DAL.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 845, DateTimeKind.Unspecified).AddTicks(3594), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal?>("Discount")
                         .HasColumnType("numeric");
@@ -729,9 +681,7 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 845, DateTimeKind.Unspecified).AddTicks(4093), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("PersonType")
                         .HasColumnType("integer");
@@ -747,36 +697,62 @@ namespace DAL.Migrations
                     b.ToTable("Billings");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.POSOrder", b =>
+            modelBuilder.Entity("Core.Entities.Financial.Tax", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
 
-                    b.Property<string>("ConsumerCode")
-                        .HasColumnType("text");
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 837, DateTimeKind.Unspecified).AddTicks(7147), new TimeSpan(0, 0, 0, 0, 0)));
-
-                    b.Property<decimal>("DiscountTotal")
-                        .HasColumnType("numeric");
-
-                    b.Property<bool>("HasDealWithStore")
-                        .HasColumnType("boolean");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 837, DateTimeKind.Unspecified).AddTicks(7774), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<int>("PaymentMethod")
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Percentage")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Taxes");
+                });
+
+            modelBuilder.Entity("Core.Entities.Media.MediaResource", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("Caption")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<long>("Size")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("SourceUrl")
+                        .HasColumnType("text");
+
+                    b.Property<int>("Type")
                         .HasColumnType("integer");
 
                     b.Property<string>("UniqueCode")
@@ -784,10 +760,63 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
+                    b.ToTable("MediaResource");
+                });
+
+            modelBuilder.Entity("Core.Entities.Orders.POSOrder", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<decimal>("Change")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("ConsumerCode")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<decimal>("DiscountTotal")
+                        .HasColumnType("numeric");
+
+                    b.Property<bool>("HasDealWithStore")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("HasEnded")
+                        .HasColumnType("boolean");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("PaidOut")
+                        .HasColumnType("boolean");
+
+                    b.Property<int?>("PaymentMethodId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("RemainingValueToPay")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("State")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PaymentMethodId");
+
                     b.ToTable("POSOrder");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.POSOrderItem", b =>
+            modelBuilder.Entity("Core.Entities.Orders.POSOrderItem", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -798,9 +827,7 @@ namespace DAL.Migrations
                         .HasColumnType("numeric");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 841, DateTimeKind.Unspecified).AddTicks(3884), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<decimal>("CustomerValue")
                         .HasColumnType("numeric");
@@ -809,9 +836,7 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 841, DateTimeKind.Unspecified).AddTicks(4417), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("POSOrderId")
                         .HasColumnType("integer");
@@ -842,70 +867,41 @@ namespace DAL.Migrations
                     b.ToTable("POSOrderItem");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.Tax", b =>
+            modelBuilder.Entity("Core.Entities.Payments.Payment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer")
                         .UseIdentityByDefaultColumn();
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 909, DateTimeKind.Unspecified).AddTicks(2747), new TimeSpan(0, 0, 0, 0, 0)));
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 909, DateTimeKind.Unspecified).AddTicks(3063), new TimeSpan(0, 0, 0, 0, 0)));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("text");
-
-                    b.Property<decimal>("Percentage")
+                    b.Property<decimal>("Change")
                         .HasColumnType("numeric");
 
-                    b.Property<string>("UniqueCode")
-                        .HasColumnType("text");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Taxes");
-                });
-
-            modelBuilder.Entity("Core.Entities.Media.MediaResource", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .UseIdentityByDefaultColumn();
-
-                    b.Property<string>("Caption")
-                        .HasColumnType("text");
-
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 841, DateTimeKind.Unspecified).AddTicks(7233), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int?>("CustomerId")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 841, DateTimeKind.Unspecified).AddTicks(7600), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
-                    b.Property<long>("Size")
-                        .HasColumnType("bigint");
+                    b.Property<int>("MethodId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("SourceUrl")
-                        .HasColumnType("text");
+                    b.Property<decimal>("NeededValue")
+                        .HasColumnType("numeric");
 
-                    b.Property<int>("Type")
+                    b.Property<int?>("POSOrderId")
+                        .HasColumnType("integer");
+
+                    b.Property<decimal>("ReceivedValue")
+                        .HasColumnType("numeric");
+
+                    b.Property<int>("Status")
                         .HasColumnType("integer");
 
                     b.Property<string>("UniqueCode")
@@ -913,7 +909,50 @@ namespace DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MediaResource");
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("MethodId");
+
+                    b.HasIndex("POSOrderId");
+
+                    b.ToTable("Payment");
+                });
+
+            modelBuilder.Entity("Core.Entities.Payments.PaymentMethod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<bool>("AcceptsPartialPayments")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PaymentMethod");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("PaymentMethod");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.StockChange", b =>
@@ -924,9 +963,7 @@ namespace DAL.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 822, DateTimeKind.Unspecified).AddTicks(9195), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("ImpactingEntityId")
                         .HasColumnType("integer");
@@ -935,9 +972,7 @@ namespace DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 822, DateTimeKind.Unspecified).AddTicks(9552), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Note")
                         .HasColumnType("text");
@@ -969,17 +1004,13 @@ namespace DAL.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 823, DateTimeKind.Unspecified).AddTicks(7281), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 823, DateTimeKind.Unspecified).AddTicks(7680), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("NfEmissionDate")
                         .HasColumnType("timestamp without time zone");
@@ -1017,17 +1048,13 @@ namespace DAL.Migrations
                         .HasColumnType("text");
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 829, DateTimeKind.Unspecified).AddTicks(6564), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 829, DateTimeKind.Unspecified).AddTicks(7134), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .HasColumnType("text");
@@ -1050,9 +1077,7 @@ namespace DAL.Migrations
                         .UseIdentityByDefaultColumn();
 
                     b.Property<DateTimeOffset>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 579, DateTimeKind.Unspecified).AddTicks(5346), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
@@ -1061,9 +1086,7 @@ namespace DAL.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTimeOffset>("LastUpdatedOn")
-                        .ValueGeneratedOnUpdate()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValue(new DateTimeOffset(new DateTime(2021, 1, 25, 21, 7, 22, 589, DateTimeKind.Unspecified).AddTicks(6488), new TimeSpan(0, 0, 0, 0, 0)));
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("UniqueCode")
                         .HasColumnType("text");
@@ -1076,15 +1099,92 @@ namespace DAL.Migrations
                     b.ToTable("Syncronization");
                 });
 
+            modelBuilder.Entity("Core.Entities.User.Customer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<string>("CPF")
+                        .HasColumnType("text");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("text");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customer");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CPF = "63999772077",
+                            CreatedAt = new DateTimeOffset(new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 0, 0, 0)),
+                            IsDeleted = false,
+                            LastUpdatedOn = new DateTimeOffset(new DateTime(2021, 3, 5, 15, 4, 51, 288, DateTimeKind.Unspecified).AddTicks(8530), new TimeSpan(0, 0, 0, 0, 0)),
+                            Name = "AnonymousCustomer",
+                            UniqueCode = "ebb8455f-3b90-45e2-ba08-5fd2d432f624"
+                        });
+                });
+
+            modelBuilder.Entity("Core.Entities.User.CustomerAddress", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .UseIdentityByDefaultColumn();
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CustomerId")
+                        .HasColumnType("integer");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTimeOffset>("LastUpdatedOn")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Type")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("UniqueCode")
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("CustomerAddress");
+                });
+
             modelBuilder.Entity("Core.Entities.Client", b =>
                 {
                     b.HasBaseType("Core.Entities.Financial.Beneficiary");
 
                     b.Property<string>("Cpf")
-                        .HasMaxLength(12)
-                        .HasColumnType("character varying(12)");
-
-                    b.HasIndex("AddressId");
+                        .HasMaxLength(16)
+                        .HasColumnType("character varying(16)");
 
                     b.HasDiscriminator().HasValue("Client");
                 });
@@ -1096,9 +1196,14 @@ namespace DAL.Migrations
                     b.Property<string>("Cnpj")
                         .HasColumnType("text");
 
-                    b.HasIndex("AddressId");
-
                     b.HasDiscriminator().HasValue("Manufacturer");
+                });
+
+            modelBuilder.Entity("Core.Entities.Payments.Methods.InHands.InHands", b =>
+                {
+                    b.HasBaseType("Core.Entities.Payments.PaymentMethod");
+
+                    b.HasDiscriminator().HasValue("InHands");
                 });
 
             modelBuilder.Entity("Core.Entities.Catalog.Category", b =>
@@ -1227,15 +1332,35 @@ namespace DAL.Migrations
                     b.Navigation("Tax");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.POSOrderItem", b =>
+            modelBuilder.Entity("Core.Entities.Financial.Beneficiary", b =>
                 {
-                    b.HasOne("Core.Entities.Financial.POSOrder", null)
+                    b.HasOne("Core.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("Core.Entities.Orders.POSOrder", b =>
+                {
+                    b.HasOne("Core.Entities.Payments.PaymentMethod", "PaymentMethod")
+                        .WithMany()
+                        .HasForeignKey("PaymentMethodId");
+
+                    b.Navigation("PaymentMethod");
+                });
+
+            modelBuilder.Entity("Core.Entities.Orders.POSOrderItem", b =>
+                {
+                    b.HasOne("Core.Entities.Orders.POSOrder", null)
                         .WithMany("Items")
                         .HasForeignKey("POSOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Core.Entities.Financial.POSOrder", "POSOrder")
+                    b.HasOne("Core.Entities.Orders.POSOrder", "POSOrder")
                         .WithMany()
                         .HasForeignKey("POSOrderId1");
 
@@ -1246,6 +1371,27 @@ namespace DAL.Migrations
                     b.Navigation("POSOrder");
 
                     b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Core.Entities.Payments.Payment", b =>
+                {
+                    b.HasOne("Core.Entities.User.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId");
+
+                    b.HasOne("Core.Entities.Payments.PaymentMethod", "Method")
+                        .WithMany()
+                        .HasForeignKey("MethodId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Core.Entities.Orders.POSOrder", null)
+                        .WithMany("Payments")
+                        .HasForeignKey("POSOrderId");
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Method");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.StockChange", b =>
@@ -1269,41 +1415,29 @@ namespace DAL.Migrations
             modelBuilder.Entity("Core.Entities.Stock.Supplier", b =>
                 {
                     b.HasOne("Core.Entities.Address", "Address")
-                        .WithMany("Suppliers")
+                        .WithMany()
                         .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
                 });
 
-            modelBuilder.Entity("Core.Entities.Client", b =>
+            modelBuilder.Entity("Core.Entities.User.CustomerAddress", b =>
                 {
                     b.HasOne("Core.Entities.Address", "Address")
-                        .WithMany("Clients")
+                        .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Address");
-                });
-
-            modelBuilder.Entity("Core.Entities.Stock.Manufacturer", b =>
-                {
-                    b.HasOne("Core.Entities.Address", "Address")
-                        .WithMany("Manufacturer")
-                        .HasForeignKey("AddressId")
+                    b.HasOne("Core.Entities.User.Customer", "Customer")
+                        .WithMany("Addresses")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Address");
-                });
 
-            modelBuilder.Entity("Core.Entities.Address", b =>
-                {
-                    b.Navigation("Clients");
-
-                    b.Navigation("Manufacturer");
-
-                    b.Navigation("Suppliers");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Core.Entities.Catalog.Category", b =>
@@ -1330,9 +1464,11 @@ namespace DAL.Migrations
                     b.Navigation("Stockentries");
                 });
 
-            modelBuilder.Entity("Core.Entities.Financial.POSOrder", b =>
+            modelBuilder.Entity("Core.Entities.Orders.POSOrder", b =>
                 {
                     b.Navigation("Items");
+
+                    b.Navigation("Payments");
                 });
 
             modelBuilder.Entity("Core.Entities.Stock.StockEntry", b =>
@@ -1343,6 +1479,11 @@ namespace DAL.Migrations
             modelBuilder.Entity("Core.Entities.Stock.Supplier", b =>
                 {
                     b.Navigation("Stockentries");
+                });
+
+            modelBuilder.Entity("Core.Entities.User.Customer", b =>
+                {
+                    b.Navigation("Addresses");
                 });
 #pragma warning restore 612, 618
         }

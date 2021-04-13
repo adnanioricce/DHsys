@@ -1,18 +1,27 @@
+using System;
 using System.Linq;
 using System.Reflection;
 using Api.Extensions;
 using Application.Extensions;
 using DAL.DbContexts;
-using DAL.Extensions;
-using FluentValidation;
-using Infrastructure.Logging;
+using DAL.Identity;
+using IdentityServer4;
+using IdentityServer4.EntityFramework.DbContexts;
+using IdentityServer4.EntityFramework.Mappers;
+using IdentityServer4.Models;
+using IdentityServer4.Services;
 using Infrastructure.Settings;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -24,60 +33,49 @@ namespace Api
     public class Startup 
     {
         protected IConfiguration Configuration { get; }
-        public Startup(IConfiguration configuration)
+        protected IWebHostEnvironment Environment { get; }
+        public Startup(IConfiguration configuration,IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Environment = environment;
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
-        {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .AddEnvironmentVariables()
-                .Build();
-            services.Configure<ConnectionStrings>(Configuration.GetSection(nameof(ConnectionStrings)));
-            services.ConfigureWritable<ConnectionStrings>();            
+        {            
+            ConfigureAppSettings();
+            services.AddDomainValidators();
             services.AddApplicationServices();
-            services.AddAutoMapperConfiguration();
-            services.AddControllers();
-            services.AddControllersWithViews();
-            services.AddMvc(options => {
-                options.EnableEndpointRouting = false;
-            }).AddNewtonsoftJson(settings => {
-                settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
+            services.AddAutoMapperConfiguration();            
             services.AddApiDataStore();
-            services.AddApiVersioning(options => options.ReportApiVersions = true);
-            services.AddOdataSupport();
-            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
-            services.AddODataApiExplorer();
-            services.AddSwaggerGen(
-                options =>
-                {
-                    // add a custom operation filter which sets default values
-                    options.OperationFilter<SwaggerDefaultValues>();
+            services.ConfigureApi(Environment);            
+            services.AddAspNetIdentityIdentity(Configuration);
+            services.AddCustomAuthentication(this.Environment);
+            services.AddCors(options => {
+                options.AddPolicy("Default",policy => {
+                    policy.AllowAnyHeader()
+                          .AllowAnyMethod()
+                          .AllowAnyOrigin();
                 });
-            var validators = Assembly.GetAssembly(typeof(Core.Core)).GetTypes()
-                                                                    .Where(t => !string.IsNullOrEmpty(t.Namespace))
-                                                                    .Where(t => t.Namespace.StartsWith("Core.Validations"))
-                                                                    .Where(t => !t.Name.StartsWith("BaseValidator"));
-            foreach (var validator in validators) {
-                services.AddTransient(validator.BaseType,validator);
+            });
+            services.ConfigureApi(this.Environment);
+            services.AddOdataConfiguration();
+            services.AddSwaggerConfiguration();
+            services.AddRouting(options => {
+                options.LowercaseUrls = true;
+            });
+            void ConfigureAppSettings(){
+                var configuration = new ConfigurationBuilder()
+                                        .AddJsonFile("appsettings.json")
+                                        .AddEnvironmentVariables()
+                                        .Build();
+                services.Configure<ConnectionStrings>(Configuration.GetSection(nameof(ConnectionStrings)));
+                services.ConfigureWritable<ConnectionStrings>();            
             }
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
         {
-            AppLogger.Log.Information("{name}-{version}",Assembly.GetExecutingAssembly().GetName().FullName,Assembly.GetExecutingAssembly().GetName().Version.ToString());
-            if (GlobalConfiguration.IsDockerContainer && !string.IsNullOrEmpty(GlobalConfiguration.DhConnectionString))
-            {
-                using var scope = app.ApplicationServices.CreateScope();
-                var context = (DHsysContext)scope.ServiceProvider.GetRequiredService<DHsysContext>();
-                AppLogger.Log.Information("Migrating...");
-                context.ApplyUpgrades();
-                AppLogger.Log.Information("Database Migrations Applied");
-            }
+            app.UseSerilogRequestLogging();                 
             app.ConfigureOdata();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -94,11 +92,15 @@ namespace Api
             app.UseStaticFiles();
             app.UseHttpsRedirection();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseIdentityServer();            
             app.UseAuthorization();
+            app.UseCors("Default");
             app.UseEndpoints(endpoints =>
             {                                
-                endpoints.MapControllers();
-            });            
+                endpoints.MapControllers().RequireCors("Default");
+            });
+            
         }        
     }
 }

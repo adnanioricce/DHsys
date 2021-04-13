@@ -4,6 +4,7 @@ using System.Linq;
 using DAL.Seed;
 using Core.Entities.Stock;
 using Core.Entities.Financial;
+using Core.Entities.Orders;
 
 namespace Core.Entities.Catalog.Tests
 {
@@ -37,20 +38,22 @@ namespace Core.Entities.Catalog.Tests
             Assert.Equal(12.99m,newPrice.CostPrice);
             Assert.Equal(15.99m,newPrice.EndCustomerDrugPrice);            
         }
+        
+        
         [Fact(DisplayName = "update the quantity in stock with a negative stock change should result ")]
         public void Given_negative_stock_change_When_try_update_stock_quantity_of_a_product_Then_current_stock_quantity_should_be_actual_stock_quantity_minus_stock_change()
         {
             // Given
             var product = new ProductSeed().GetSeedObject();
             product.Id = 1;
-            product.UpdateStock(StockChange.CreateChange(product, new StockEntry { Id = 1 }, 4));
+            product.UpdateStock(StockChange.CreateChange(4,product, new StockEntry { Id = 1 }));
             var posOrder = new POSOrder
             {
                 Id = 1
             };
             int quantity = -2;
             int expectedQuantity = 2;
-            var stockChange = StockChange.CreateChange(product,posOrder,quantity);
+            var stockChange = StockChange.CreateChange(quantity,product,posOrder);
             // When 
             product.UpdateStock(stockChange);
             // Then
@@ -62,13 +65,13 @@ namespace Core.Entities.Catalog.Tests
             // Given
             var product = new ProductSeed().GetSeedObject();
             product.Id = 1;
-            product.UpdateStock(StockChange.CreateChange(product, new StockEntry { Id = 1 },quantity: 0));
+            product.UpdateStock(StockChange.CreateChange(quantity: 0,product, new StockEntry { Id = 1 }));
             var posOrder = new POSOrder
             {
                 Id = 1
             };
             int quantity = -2;            
-            var stockChange = StockChange.CreateChange(product, posOrder, quantity);
+            var stockChange = StockChange.CreateChange(quantity,product, posOrder);
             // When..., then
             
             Assert.Throws<ArgumentException>(() => product.UpdateStock(stockChange));            
