@@ -1,0 +1,7 @@
+namespace Api.Controllers.Identity.Models
+{
+    public class RedirectViewModel
+    {
+        public string RedirectUrl { get; set; }
+    }
+}

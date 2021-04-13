@@ -47,8 +47,8 @@ namespace Api
                             Scopes = new Dictionary<string, string>
                             {
                                 { "swagger", "for demo purposes" }
-                            }
-                        }
+                            },
+                        }                       
                     }
                 });
                 options.AddSecurityRequirement(new OpenApiSecurityRequirement()

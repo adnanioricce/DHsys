@@ -19,25 +19,34 @@ namespace Api
                 new ApiScope("admin", "api scope of admins"),
                 new ApiScope("operator", "api scope of operators")
             };
-        public static IEnumerable<IdentityServer4.Models.Client> Clients => new List<IdentityServer4.Models.Client>{
-            new IdentityServer4.Models.Client{
-                ClientId = "client",
-                AllowedGrantTypes = GrantTypes.ClientCredentials,
-                // secret for authentication
-                ClientSecrets =
-                {
-                    new IdentityServer4.Models.Secret("secret".Sha256())
-                },                
+        public static IEnumerable<Client> Clients => new List<Client>{
+            new Client {
+                ClientId = "spa",
+                AllowedGrantTypes = GrantTypes.Code,
+                // secret for authentication    
+                RequireClientSecret = false,
                 // scopes that client has access to
-                AllowedScopes = { "dhsysapi" }
+                AllowedScopes =          { "dhsysapi" },
+                RedirectUris =           { "http://localhost:9527/#/login?redirect=dashboard" },
+                PostLogoutRedirectUris = { "http://localhost:9527/#/dashboard" },
+                AllowedCorsOrigins =     { "https://localhost:5001", "http://localhost:9527" },
             },
             new Client {
                 ClientId = "swagger",
-                AllowedGrantTypes = GrantTypes.ResourceOwnerPasswordAndClientCredentials,
+                AllowedGrantTypes = GrantTypes.ClientCredentials,                
                 ClientSecrets = {
                     new Secret("secret".Sha256())
                 },
-                AllowedScopes = { "swagger" }
+                AllowedScopes = { "swagger" },                
+            },
+            new Client {
+                ClientId = "js-dev",
+                AllowedGrantTypes = GrantTypes.Code,
+                RequireClientSecret = false,
+                AllowedScopes = { "dhsysapi" },
+                RedirectUris = {"https://localhost:5001/callback.html"},
+                PostLogoutRedirectUris = { "https://localhost:5001/index.html"},
+                AllowedCorsOrigins = {"https://localhost:5001"}
             }
         };
     }

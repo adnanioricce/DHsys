@@ -22,7 +22,7 @@ namespace Api.Controllers
 {
     [Route("api/[Controller]")]
     [ApiController]
-    [Authorize(policy:"Default")]
+    [Authorize(policy:"Default",AuthenticationSchemes = IdentityServerConstants.LocalApi.AuthenticationScheme)]
     public class DefaultApiController<TEntity,TEntityDto> : ODataController where TEntity : BaseEntity where TEntityDto : class
     {        
         protected readonly IRepository<TEntity> _repository;
