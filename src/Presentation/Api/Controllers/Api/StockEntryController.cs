@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.ApplicationModels.Dtos.Stock;
+using Core.Models.Dtos.Stock;
 using Core.Entities.Stock;
 using Core.Interfaces;
 using Core.Validations;

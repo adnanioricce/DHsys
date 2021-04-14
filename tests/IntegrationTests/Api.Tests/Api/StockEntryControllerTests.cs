@@ -1,5 +1,5 @@
 ﻿using AspNetCore.Http.Extensions;
-using Core.ApplicationModels.Dtos.Stock;
+using Core.Models.Dtos.Stock;
 using Core.Entities.Catalog;
 using Core.Entities.Media;
 using Core.Entities.Stock;

@@ -1,5 +1,5 @@
 ﻿using AspNetCore.Http.Extensions;
-using Core.ApplicationModels.Dtos.Financial;
+using Core.Models.Dtos.Financial;
 using Core.Entities.Financial;
 using Core.Models.ApplicationResources;
 using DAL.DbContexts;

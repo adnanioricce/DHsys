@@ -1,4 +1,4 @@
-﻿using Core.ApplicationModels.Dtos.Catalog;
+﻿using Core.Models.Dtos.Catalog;
 using Core.Entities.Catalog;
 
 namespace Api.Tests

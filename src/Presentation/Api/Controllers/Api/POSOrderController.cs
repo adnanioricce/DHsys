@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
-using Core.ApplicationModels.Dtos.Financial;
-using Core.ApplicationModels.Dtos.Orders;
+using Core.Models.Dtos.Financial;
+using Core.Models.Dtos.Orders;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
 using Core.Entities.Orders;

@@ -1,7 +1,7 @@
 ﻿using Api.Tests.Seed;
 using AspNetCore.Http.Extensions;
-using Core.ApplicationModels.Dtos.Financial;
-using Core.ApplicationModels.Dtos.Orders;
+using Core.Models.Dtos.Financial;
+using Core.Models.Dtos.Orders;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
 using Core.Entities.Orders;
@@ -35,7 +35,7 @@ namespace Api.Tests
             var transaction = new POSOrderDto
             {
                 HasDealWithStore = false,
-                PaymentMethod = new Core.ApplicationModels.Dtos.Payments.PaymentMethodDto
+                PaymentMethod = new Core.Models.Dtos.Payments.PaymentMethodDto
                 {
                     Name = "InHands"
                 },

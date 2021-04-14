@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.ApplicationModels.Dtos.Catalog;
+using Core.Models.Dtos.Catalog;
 using Core.Entities.Catalog;
 using Core.Interfaces;
 using Core.Validations;

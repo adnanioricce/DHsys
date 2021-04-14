@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
-using Core.ApplicationModels.Dtos.Catalog;
+using Core.Models.Dtos.Catalog;
 using DAL.Seed;
 
 namespace Api.Tests

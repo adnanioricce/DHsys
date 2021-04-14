@@ -1,4 +1,4 @@
-﻿using Core.ApplicationModels.Dtos.Stock;
+﻿using Core.Models.Dtos.Stock;
 using Core.Entities.Stock;
 using System;
 using System.Collections.Generic;

@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Core.ApplicationModels.Dtos.Financial;
+using Core.Models.Dtos.Financial;
 using Core.Entities.Stock;
 using Core.Interfaces;
 using Core.Validations;

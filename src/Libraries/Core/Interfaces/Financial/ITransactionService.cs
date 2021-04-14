@@ -1,4 +1,4 @@
-﻿using Core.ApplicationModels.Dtos.Financial;
+﻿using Core.Models.Dtos.Financial;
 using Core.Entities.Financial;
 using Core.Entities.Orders;
 using Core.Models;
