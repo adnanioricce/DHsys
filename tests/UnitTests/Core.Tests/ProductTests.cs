@@ -2,9 +2,9 @@ using System;
 using Xunit;
 using System.Linq;
 using DAL.Seed;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using Core.Entities.Financial;
-using Core.Entities.Orders;
+using Core.Entities.POS;
 
 namespace Core.Entities.Catalog.Tests
 {

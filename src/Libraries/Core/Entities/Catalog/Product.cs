@@ -1,6 +1,6 @@
 using Core.Entities.Financial;
 using Core.Entities.Media;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -245,7 +245,7 @@ namespace Core.Entities.Catalog
         {
             if(category is null)
             {
-                throw new ArgumentNullException("can't add a null reference of a category object to a product entity");
+                throw new ArgumentNullException(nameof(category),message:"can't add a null reference of a category object to a product entity");
             }            
             if (this.Categories.Any(c => c.CategoryId == category.Id)) return;
             if (category.Id == 0)

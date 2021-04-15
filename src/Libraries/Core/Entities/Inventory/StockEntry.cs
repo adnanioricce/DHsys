@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.Entities.Catalog;
 
-namespace Core.Entities.Stock
+namespace Core.Entities.Inventory
 {
     /// <summary>
     /// Represents the entry of a supply of products in the system.

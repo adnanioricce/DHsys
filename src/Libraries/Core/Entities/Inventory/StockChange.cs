@@ -1,7 +1,7 @@
 ﻿using Core.Entities.Catalog;
 using System;
 
-namespace Core.Entities.Stock
+namespace Core.Entities.Inventory
 {
     /// <summary>
     /// Represents the stock tracking of the system, keeping track of how much is getting in and out on the stock

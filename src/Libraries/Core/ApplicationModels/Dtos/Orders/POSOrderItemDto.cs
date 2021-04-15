@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Core.ApplicationModels.Dtos.Catalog;
-using Core.Entities.Orders;
+using Core.Entities.POS;
 
 namespace Core.ApplicationModels.Dtos.Orders
 {

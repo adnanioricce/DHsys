@@ -1,5 +1,5 @@
 ﻿using System;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 

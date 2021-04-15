@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DAL.DataMappings.Stock
+namespace DAL.DataMappings.Inventory
 {
     public class ClientConfiguration : BaseEntityConfiguration<Client>
     {

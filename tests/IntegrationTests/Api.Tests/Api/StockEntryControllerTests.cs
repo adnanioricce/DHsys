@@ -2,7 +2,7 @@
 using Core.ApplicationModels.Dtos.Stock;
 using Core.Entities.Catalog;
 using Core.Entities.Media;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using Core.Interfaces;
 using DAL.Seed;
 using System;

@@ -1,5 +1,5 @@
 ﻿using Core.Entities.Financial;
-using Core.Entities.Orders;
+using Core.Entities.POS;
 using Tests.Lib;
 
 namespace DAL.Tests.Repository

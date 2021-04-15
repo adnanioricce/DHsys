@@ -1,7 +1,7 @@
-﻿using Core.Entities.Stock;
+﻿using Core.Entities.Inventory;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DAL.DataMappings.Stock
+namespace DAL.DataMappings.Inventory
 {
     public class StockChangeConfiguration : BaseEntityConfiguration<StockChange>
     {

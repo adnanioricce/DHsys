@@ -1,5 +1,5 @@
 ﻿using Core.Entities.Catalog;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Text;

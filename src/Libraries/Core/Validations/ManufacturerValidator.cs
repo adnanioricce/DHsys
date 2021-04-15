@@ -1,4 +1,4 @@
-﻿using Core.Entities.Stock;
+﻿using Core.Entities.Inventory;
 
 namespace Core.Validations
 {

@@ -1,7 +1,7 @@
 using System;
 using System.Linq;
 using Core.ApplicationModels.Dtos.Catalog;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 
 namespace Core.ApplicationModels.Dtos.Stock
 {

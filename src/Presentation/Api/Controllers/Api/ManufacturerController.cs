@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Core.ApplicationModels.Dtos.Financial;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using Core.Interfaces;
 using Core.Validations;
 using FluentValidation;

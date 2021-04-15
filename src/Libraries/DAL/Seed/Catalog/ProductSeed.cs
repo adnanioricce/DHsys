@@ -1,5 +1,5 @@
 ﻿using Core.Entities.Catalog;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using DAL.Seed.Catalog;
 using System;
 

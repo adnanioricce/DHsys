@@ -1,7 +1,7 @@
 ﻿using Core.Entities.Financial;
-using Core.Entities.Orders;
+using Core.Entities.POS;
 
-namespace DAL.DataMappings.Orders
+namespace DAL.DataMappings.POS
 {
     public class POSOrderItemConfiguration : BaseEntityConfiguration<POSOrderItem>
     {

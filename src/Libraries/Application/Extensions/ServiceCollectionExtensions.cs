@@ -58,11 +58,7 @@ namespace Application.Extensions
         public static void ConfigureApplicationWritableOptions(this IServiceCollection services)
         {            
             services.ConfigureWritable<ConnectionStrings>();            
-        }
-        public static void TryCreateDatabase(this IServiceProvider provider, DHsysContext context)
-        {
-            context.Database.Migrate();
-        }
+        }        
         public static void AddAutoMapperConfiguration(this IServiceCollection services) 
         {                        
             var mapperConfig = new MapperConfiguration(cfg =>

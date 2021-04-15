@@ -1,4 +1,4 @@
-﻿using Core.Entities.Stock;
+﻿using Core.Entities.Inventory;
 using DAL.Seed;
 using System;
 using System.Collections.Generic;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Core.Entities.Catalog;
 
-namespace Core.Entities.Stock
+namespace Core.Entities.Inventory
 {
     public class Supplier : BaseEntity
     {
@@ -15,6 +15,6 @@ namespace Core.Entities.Stock
         public string Cnpj { get; set; }
 
         public virtual Address Address { get; set; }        
-        public virtual ICollection<Stock.StockEntry> Stockentries { get; set; }
+        public virtual ICollection<Inventory.StockEntry> Stockentries { get; set; }
     }
 }

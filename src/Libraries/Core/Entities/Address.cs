@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Core.Entities.Financial;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 
 namespace Core.Entities
 {

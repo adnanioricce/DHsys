@@ -1,8 +1,8 @@
 ﻿using Core.Entities;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
-using Core.Entities.Orders;
-using Core.Entities.Stock;
+using Core.Entities.POS;
+using Core.Entities.Inventory;
 using System;
 using System.Collections.Generic;
 using System.Text;

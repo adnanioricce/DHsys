@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.ApplicationModels.Dtos.Payments;
 using Core.Entities.Financial;
-using Core.Entities.Orders;
+using Core.Entities.POS;
 
 namespace Core.ApplicationModels.Dtos.Orders
 {

@@ -1,4 +1,4 @@
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using System;
 
 namespace Core.Entities.Catalog

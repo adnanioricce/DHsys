@@ -1,4 +1,4 @@
-namespace Core.Entities.Orders
+namespace Core.Entities.POS
 {
     public enum OrderState
     {

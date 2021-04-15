@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Core.Entities.Stock
+namespace Core.Entities.Inventory
 {
     public class Manufacturer : Beneficiary
     {                        

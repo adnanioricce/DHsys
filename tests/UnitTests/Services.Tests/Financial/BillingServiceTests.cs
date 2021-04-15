@@ -1,7 +1,7 @@
 using Application.Services;
 using Core.Entities;
 using Core.Entities.Financial;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using Core.Interfaces;
 using Moq;
 using System;

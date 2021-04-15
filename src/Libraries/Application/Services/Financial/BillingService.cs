@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using Core.Entities;
 using Core.Entities.Financial;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using Core.Interfaces;
 using Core.Models;
 using Core.Validations;

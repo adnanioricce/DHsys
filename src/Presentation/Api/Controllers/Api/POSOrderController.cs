@@ -3,7 +3,7 @@ using Core.ApplicationModels.Dtos.Financial;
 using Core.ApplicationModels.Dtos.Orders;
 using Core.Entities.Catalog;
 using Core.Entities.Financial;
-using Core.Entities.Orders;
+using Core.Entities.POS;
 using Core.Interfaces;
 using Core.Interfaces.Financial;
 using Core.Models.ApplicationResources;

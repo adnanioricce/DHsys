@@ -1,8 +1,8 @@
 using Core.Entities.Financial;
-using Core.Entities.Orders;
+using Core.Entities.POS;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace DAL.DataMappings.Orders
+namespace DAL.DataMappings.POS
 {
     public class POSOrderConfiguration : BaseEntityConfiguration<POSOrder>
     {

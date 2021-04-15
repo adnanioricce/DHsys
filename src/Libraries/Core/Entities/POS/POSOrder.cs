@@ -8,7 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Core.Entities.Orders
+namespace Core.Entities.POS
 {
     public class POSOrder : BaseEntity
     {
@@ -66,12 +66,11 @@ namespace Core.Entities.Orders
         public virtual async Task PayAsync(decimal valueReceived, Customer customer)
         {
             if(this.State == OrderState.Cancelled){
-                return;
-                //return BaseResult.Failed(new []{"can't pay a cancelled order"});
+                return;                
             }
             if(!this.PaymentMethod.AcceptsPartialPayments && valueReceived < this.OrderTotal){
                 this.State = OrderState.Failed;
-                //return BaseResult.Failed(new [] {"the chosen payment method don't accept partial payments"});
+                return;
             }
             var payment = Payment.Create(this.PaymentMethod,customer, valueReceived, this.OrderTotal);
             await payment.IssueAsync();
@@ -79,11 +78,9 @@ namespace Core.Entities.Orders
             switch (payment.Status){
                 case PaymentStatus.Paid:
                     UpdateOrderTotal(payment);
-                    return;
-                    //return BaseResult.Succeed("order paid with success");
+                    return;                    
                 default:
-                    return;
-                    //return BaseResult.Failed(new [] {"couldn't paid order "});
+                    return;                    
             }
         }
         protected virtual void UpdateOrderTotal(Payment payment)

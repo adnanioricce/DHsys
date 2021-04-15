@@ -2,7 +2,7 @@ using Xunit;
 using Tests.Lib.Data;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Entities.Stock;
+using Core.Entities.Inventory;
 using Application.Services;
 using Tests.Lib.Seed;
 using Core.Entities.Catalog;
