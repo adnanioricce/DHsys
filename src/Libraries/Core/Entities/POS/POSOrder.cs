@@ -22,13 +22,11 @@ namespace Core.Entities.POS
             PaymentMethod = paymentMethod;
         }
         public decimal OrderTotal { get { return CalculateTransactionTotal(); } }
-        public decimal DiscountTotal { get; protected set; }
         public decimal RemainingValueToPay { get; protected set; }
         public decimal Change { get; protected set; }
         public PaymentMethod PaymentMethod { get; protected set; }//TODO: refactor to use this only on Payment entity
         public virtual ICollection<Payment> Payments { get; protected set; } = new List<Payment>();
-        public bool HasDealWithStore { get; protected set; }
-        public string ConsumerCode { get; protected set; }
+        public bool HasDealWithStore { get; protected set; }        
         public virtual OrderState State { get; protected set; }
         public bool HasEnded { get; protected set; }
         public bool PaidOut { get; protected set; }

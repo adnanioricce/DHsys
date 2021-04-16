@@ -30,7 +30,7 @@ namespace Core.Entities.POS
         {
             State = drawer.Close() ? CashDrawerState.Closed : State;
         }        
-        public void PerformTransaction(Transaction transaction)
+        public virtual void PerformTransaction(Transaction transaction)
         {
             this.Transactions.Add(transaction);
             StartCashAmount -= transaction.AmountIn - transaction.Change;
