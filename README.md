@@ -30,7 +30,7 @@ start a dhsysdb container with a db container host and connection string
 you should be seeing this screen:
 ![Api Docs](./docs/img/api_swagger.png)
 ## Use CI Build
-You can access a CI build of the project in [DHsys CI](dhsysapi.adnangonzagaci.com/api/v1/)
+You can access a CI build of the project in [DHsys CI](http://dhsysapi.adnangonzagaci.com/api/v1/)
 
 # Using the Web Api
 ## Crud Methods
