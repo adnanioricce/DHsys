@@ -30,6 +30,7 @@ namespace Core.Entities.Payments
         public decimal ReceivedValue { get; protected set; }
         public decimal NeededValue { get; protected set; }
         public decimal Change { get; protected set; }
+        public string Currency { get; set; }
         public static Payment Create(PaymentMethod method,Customer customer,decimal receivedValue,decimal neededValue)
         {
             if(receivedValue <= 0){
