@@ -45,11 +45,11 @@ namespace Core.Tests
         }
         private void DefineSuccessfulPayment(decimal valueToPay,Customer customer, Mock<IPaymentProcessor> mockPaymentMethod)
         {            
-            mockPaymentMethod.Setup(m => m.ProcessAsync(It.IsAny<IPaymentRequest>()))
+            mockPaymentMethod.Setup(m => m.ProcessAsync(It.IsAny<IPaymentCommand>()))
                              .ReturnsAsync(new PaymentResult{
                                     PaymentStatus = PaymentStatus.Paid,
                                     Change = 0.0m,
-                                    ValueIssued = valueToPay
+                                    AmountCharged = valueToPay
                                 });
             
         }
@@ -145,7 +145,7 @@ namespace Core.Tests
             var customer = new Entities.User.Customer{ Id = 1};
             var valueToPay = posOrder.OrderTotal;
             var paymentService = MockPaymentProcessor(mock => 
-                mock.Setup(m => m.ProcessAsync(It.IsAny<IPaymentRequest>()))
+                mock.Setup(m => m.ProcessAsync(It.IsAny<IPaymentCommand>()))
                     .ReturnsAsync(PaymentResult.Paid(Payment.Create(null,null,valueToPay,valueToPay))));
             var paymentMethod = new InHands(acceptsPartialPayment:false,paymentService);            
             //When

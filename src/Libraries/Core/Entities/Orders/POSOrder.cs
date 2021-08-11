@@ -1,7 +1,9 @@
 using Core.Entities.Catalog;
 using Core.Entities.Payments;
 using Core.Entities.User;
+using Core.Extensions;
 using Core.Interfaces;
+using Core.Interfaces.Payments;
 using Core.Models;
 using System;
 using System.Collections.Generic;
@@ -63,7 +65,7 @@ namespace Core.Entities.Orders
             this.HasEnded = true;
             this.PaidOut = false;
         }
-        public virtual async Task PayAsync(decimal valueReceived, Customer customer)
+        public virtual async Task PayAsync(IPaymentMethodService paymentMethodService,decimal valueReceived, Customer customer)
         {
             if(this.State == OrderState.Cancelled){
                 return;
@@ -74,8 +76,13 @@ namespace Core.Entities.Orders
                 //return BaseResult.Failed(new [] {"the chosen payment method don't accept partial payments"});
             }
             var payment = Payment.Create(this.PaymentMethod,customer, valueReceived, this.OrderTotal);
-            await payment.IssueAsync();
-            this.Payments.Add(payment);
+            var chargePayment = await paymentMethodService.ChargePaymentAsync(payment);
+            chargePayment.OnSuccess(result => { 
+                    this.Payments.Add(payment);
+                    return result;
+                });
+
+
             switch (payment.Status){
                 case PaymentStatus.Paid:
                     UpdateOrderTotal(payment);

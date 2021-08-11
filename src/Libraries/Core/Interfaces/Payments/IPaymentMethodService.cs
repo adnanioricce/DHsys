@@ -1,11 +1,12 @@
 using System.Threading.Tasks;
+using Core.ApplicationModels.Dtos.Payments;
 using Core.Entities.Payments;
-using Core.Models;
+using Core.Models.Results;
 
 namespace Core.Interfaces.Payments
 {
     public interface IPaymentMethodService
     {
-        Task<PaymentResult> IssuePaymentAsync(Payment payment);
+        Task<Result<PaymentDto>> ChargePaymentAsync(Payment payment);
     }
 }

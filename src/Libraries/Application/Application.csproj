@@ -8,6 +8,7 @@
     <Company>adnanioricce</Company>
     <PackageOutputPath>..\..\..\build\Libraries\</PackageOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>    

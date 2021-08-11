@@ -2,6 +2,7 @@ using System;
 using Core.Entities.Catalog;
 using Core.Interfaces;
 using Core.Models;
+using Core.Models.Results;
 
 namespace Core.Entities.Orders
 {
@@ -41,17 +42,17 @@ namespace Core.Entities.Orders
             var item = new POSOrderItem(this.ProductUniqueCode,this.Quantity + rhs.Quantity,this);
             return item;
         }
-        public static BaseResult<POSOrderItem> Create(int productId, int quantity,POSOrder posOrder, IRepository<Product> productRepository)
+        public static Result<POSOrderItem> Create(int productId, int quantity,POSOrder posOrder, IRepository<Product> productRepository)
         {            
             var product = productRepository.GetBy(productId);
             if(product.QuantityInStock == 0){
-                return BaseResult<POSOrderItem>.Failed(new [] {$"can't create item.Product of id {product.Id} is out of stock"},null);
+                return Result<POSOrderItem>.Failed(new [] {$"can't create item.Product of id {product.Id} is out of stock"},null);
             }
             if((product.QuantityInStock - quantity) < 0){                
-                return BaseResult<POSOrderItem>.Succeed("Order Item is defined",new POSOrderItem(product,posOrder,product.QuantityInStock));
+                return Result<POSOrderItem>.Succeed("Order Item is defined",new POSOrderItem(product,posOrder,product.QuantityInStock));
             }
             var item = new POSOrderItem(product,posOrder,quantity);
-            return BaseResult<POSOrderItem>.Succeed("Order Item is defined",item);
+            return Result<POSOrderItem>.Succeed("Order Item is defined",item);
         }
         
     }

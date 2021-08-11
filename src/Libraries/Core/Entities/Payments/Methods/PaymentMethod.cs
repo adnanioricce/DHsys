@@ -4,6 +4,8 @@ namespace Core.Entities.Payments
     using global::Core.Interfaces.Payments;
     using global::Core.Models;
     using System;
+    using global::Core.Entities.Payments.Methods;
+
     public abstract class PaymentMethod : BaseEntity
     {       
         protected PaymentMethod()
@@ -11,11 +13,7 @@ namespace Core.Entities.Payments
 
         }
         public string Name { get; set; }        
-        public bool AcceptsPartialPayments { get; protected set; }        
+        public bool AcceptsPartialPayments { get; protected set; }                        
         
-        public virtual Task<PaymentResult> ChargeAsync(Payment payment)
-        {
-            throw new NotImplementedException();
-        }               
     }
 }

@@ -1,0 +1,6 @@
+{
+  "Stripe": {
+    "PubApiKey": "pk_test_XKUpwPvvEnNxMsSzoLm8H3i8",
+    "SupportedPaymentMethods": [ "card" ]
+  }
+}

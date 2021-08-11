@@ -1,6 +1,5 @@
 using System;
 using Api.Controllers.Identity.Models;
-using Api.Controllers.Users.Models;
 using IdentityServer4.Models;
 using Microsoft.AspNetCore.Mvc;
 

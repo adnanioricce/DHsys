@@ -15,7 +15,7 @@ namespace Application.Services.Payments
         {            
         }        
 
-        public Task<PaymentResult> ProcessAsync(IPaymentRequest request)
+        public Task<PaymentResult> ProcessAsync(IPaymentCommand request)
         {
             return request.SendAsync();
         }

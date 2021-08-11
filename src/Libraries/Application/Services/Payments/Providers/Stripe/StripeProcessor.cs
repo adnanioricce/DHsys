@@ -10,7 +10,7 @@ namespace Application.Services.Payments.Providers
 {
     public class StripeProcessor : IPaymentProcessor
     {
-        public Task<PaymentResult> ProcessAsync(IPaymentRequest request)
+        public Task<PaymentResult> ProcessAsync(IPaymentCommand request)
         {
             return null;
         }

@@ -13,12 +13,6 @@ namespace Core.Entities.Payments.Methods.CreditCard
         {
             _paymentProcessor = paymentProcessor;
             Name = "CreditCard";            
-        }
-
-        public override Task<PaymentResult> ChargeAsync(Payment payment)
-        {
-            //TODO:Implement
-            throw new System.NotImplementedException();
-        }
+        }        
     }
 }

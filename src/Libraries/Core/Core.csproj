@@ -8,6 +8,8 @@
     <Company>adnanioricce</Company>
     <PackageOutputPath>..\..\..\build\Libraries\</PackageOutputPath>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Nullable></Nullable>
+    <AnalysisLevel>latest</AnalysisLevel>
   </PropertyGroup>
   
   <ItemGroup>
@@ -19,5 +21,6 @@
     </PackageReference>
     <PackageReference Include="MediatR" Version="8.1.0" />    
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.2" />    
+    <PackageReference Include="Option" Version="3.0.1" />    
   </ItemGroup>
 </Project>
