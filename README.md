@@ -15,7 +15,7 @@ The following is required to build and run the project:
 If you have the requirements, just follow the steps:
 
 - Create a database in the postgresql server. By default, the projects expects a database with name dhsysdb
-- update database connection string in the appsettings.json on src/Presentation/Api/appsettings.json if needed.
+- if needed, update database connection string in the appsettings.json on src/Presentation/Api/appsettings.json .
 - run the project
 - Go to http://localhost:5000/api
 ## With Docker
