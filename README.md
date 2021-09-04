@@ -113,8 +113,7 @@ Top: ``/api/Product/query?api-version=1.0&$top=100``
 "registryValidity": "06/01/2030 00:00:00",
 "medicalProductModel": "69-2852 - Inserte Constrito Trident All Poly 28mm/ 52mm",
 "stripe": 0
-},
-//others items...
+}
 ]
 ```
 
@@ -128,8 +127,7 @@ Select: ``/api/Product/query?api-version=1.0&$top=100&$select=uniqueCode,name,co
 "commercialName": "INSERTE ACETABULAR CONSTRITO TRIDENT",
 "manufacturerName": "HOWMEDICA OSTEONICS CORP",
 "manufacturerCountry": "ESTADOS UNIDOS DA AM├ëRICA"
-},
-//others items...
+}
 ]
 ```
 
@@ -144,8 +142,7 @@ OrderBy: ``/api/Product/query?api-version=1.0&$top=100&$select=id,uniqueCode,nam
 "commercialName": "INSERTE ACETABULAR CONSTRITO TRIDENT",
 "manufacturerName": "HOWMEDICA OSTEONICS CORP",
 "manufacturerCountry": "ESTADOS UNIDOS DA AM├ëRICA"
-},
-//...
+}
 ]
 ```
 
