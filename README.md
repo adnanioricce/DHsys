@@ -53,17 +53,111 @@ You can query entity data with OData in the ``/api/{entity}/query`` endpoint
 Some examples 
 
 Top: ``/api/Product/query?api-version=1.0&$top=100``
-
-![Query Top](./docs/img/query_top.png)
+```json
+[
+{
+"productSuppliers": [],
+"productPrices": [],
+"stockentries": [],
+"productMedias": [],
+"shelfLifes": [],
+"categories": [],
+"stockChanges": [],
+"productTaxes": [],
+"id": 1,
+"uniqueCode": "277fee87-008b-4c24-ac3c-47e187dbd6b4",
+"isDeleted": false,
+"createdAt": "2021-01-25T20:26:58.549588+00:00",
+"lastUpdatedOn": "2021-01-25T20:26:58.549451+00:00",
+"baseProductId": null,
+"manufacturerId": null,
+"manufacturerName": "HOWMEDICA OSTEONICS CORP",
+"manufacturerCountry": "ESTADOS UNIDOS DA AM├ëRICA",
+"riskClass": 2,
+"name": "N├ÜCLEOS ACETABULARES",
+"commercialName": "INSERTE ACETABULAR CONSTRITO TRIDENT",
+"classification": null,
+"concentration": 0,
+"fisicForm": null,
+"dosage": null,
+"absoluteDosageInMg": null,
+"activePrinciple": null,
+"lotNumber": null,
+"prescriptionNeeded": false,
+"useRestriction": "Unknown Restriction",
+"isPriceFixed": false,
+"digitalBuleLink": null,
+"laboratoryCode": null,
+"laboratoryName": null,
+"ncm": null,
+"quantityInStock": 0,
+"lastStockEntry": null,
+"reorderLevel": 0,
+"reorderQuantity": 0,
+"endCustomerPrice": 0,
+"costPrice": 0,
+"savingPercentage": 0,
+"barCode": null,
+"description": null,
+"section": null,
+"maxDiscountPercentage": 0,
+"discountValue": 0,
+"commission": null,
+"icms": 18,
+"minimumStock": 1,
+"mainSupplierName": null,
+"ownerOfRegistry": "STRYKER DO BRASIL LTDA",
+"registryCode": "80005430580",
+"registryPublicationDate": "2020-06-01T00:00:00",
+"dateOfRegistryUpdate": "2020-12-25T07:00:01+00:00",
+"registryValidity": "06/01/2030 00:00:00",
+"medicalProductModel": "69-2852 - Inserte Constrito Trident All Poly 28mm/ 52mm",
+"stripe": 0
+},
+//others items...
+]```
 
 Select: ``/api/Product/query?api-version=1.0&$top=100&$select=uniqueCode,name,commercialName,manufacturerName,manufacturerCountry``
 
-![Query Select](./docs/img/query_select.png)
+```json
+[
+{
+"uniqueCode": "277fee87-008b-4c24-ac3c-47e187dbd6b4",
+"name": "N├ÜCLEOS ACETABULARES",
+"commercialName": "INSERTE ACETABULAR CONSTRITO TRIDENT",
+"manufacturerName": "HOWMEDICA OSTEONICS CORP",
+"manufacturerCountry": "ESTADOS UNIDOS DA AM├ëRICA"
+},
+//others items...
+]
+```
 
-OrderBy: ``/api/Product/query?api-version=1.0&$top=100&$select=uniqueCode,name,commercialName,manufacturerName,manufacturerCountry&$orderBy=id``
+OrderBy: ``/api/Product/query?api-version=1.0&$top=100&$select=id,uniqueCode,name,commercialName,manufacturerName,manufacturerCountry&$orderBy=id``
 
-![Query OrderBy](./docs/img/query_orderBy.png)
+```json
+[
+{
+"id": 1,
+"uniqueCode": "277fee87-008b-4c24-ac3c-47e187dbd6b4",
+"name": "N├ÜCLEOS ACETABULARES",
+"commercialName": "INSERTE ACETABULAR CONSTRITO TRIDENT",
+"manufacturerName": "HOWMEDICA OSTEONICS CORP",
+"manufacturerCountry": "ESTADOS UNIDOS DA AM├ëRICA"
+},
+//...
+]
+```
 
-Filter: ``/api/Product/query?api-version=1.0&$=top=100&$select=id,uniqueCode,name,riskClass&$filter=id eq 79001``
 
-![Query Filter](./docs/img/query_filter.png)
+Filter: ``/api/Product/query?api-version=1.0&$top=100&$select=id,uniqueCode,name,riskClass&$filter=id eq 79001``
+
+```json
+[
+{
+"id": 79001,
+"uniqueCode": "7bcf6532-7d6d-45cb-a5a9-d87ea2879a70",
+"name": "ATIVIDADE DE ISOENZIMA CREATINOQUINASE",
+"riskClass": 2
+}
+]
+```
