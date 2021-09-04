@@ -115,7 +115,8 @@ Top: ``/api/Product/query?api-version=1.0&$top=100``
 "stripe": 0
 },
 //others items...
-]```
+]
+```
 
 Select: ``/api/Product/query?api-version=1.0&$top=100&$select=uniqueCode,name,commercialName,manufacturerName,manufacturerCountry``
 
