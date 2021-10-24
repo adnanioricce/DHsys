@@ -23,18 +23,20 @@ namespace Api
             }            
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .UseSerilog()
+        public static IHostBuilder CreateHostBuilder(string[] args){
+            
+            return Host.CreateDefaultBuilder(args)
+                .UseSerilog()            
                 .ConfigureAppConfiguration((hostingContext, config) => {
                     var configuration = new ConfigurationBuilder()
                             .AddJsonFile("appsettings.json",optional: true,reloadOnChange:true)
                             .AddEnvironmentVariables()
                             .Build();
-                    config.AddConfiguration(configuration);
+                    config.AddConfiguration(configuration);                    
                 })
                 .ConfigureWebHostDefaults(webBuilder => {                    
                     webBuilder.UseStartup<Startup>();
                 });      
+        }
     }
 }

@@ -3,12 +3,14 @@ using DAL;
 using DAL.DbContexts;
 using DAL.Identity;
 using IdentityServer4.Services;
+using Infrastructure.Plugins;
 using Infrastructure.Settings;
 using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNet.OData.Formatter;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -165,7 +167,7 @@ namespace Api.Extensions
                     .AddDefaultTokenProviders();
             return services;
         }
-        public static IServiceCollection ConfigureApi(this IServiceCollection services,IWebHostEnvironment environment)
+        public static IServiceCollection ConfigureApi(this IServiceCollection services,PluginLoader pluginLoader,IWebHostEnvironment environment)
         {
             services.AddControllersWithViews();
             services.AddMvc(options => {
@@ -176,6 +178,11 @@ namespace Api.Extensions
             }).AddNewtonsoftJson(settings => {
                 settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            })
+            .ConfigureApplicationPartManager(partManager => {
+                foreach(var pluginAssembly in pluginLoader.GetPluginAssemblies()){                
+                    partManager.ApplicationParts.Add(new AssemblyPart(pluginAssembly));
+                };
             });
             services.AddApiVersioning(options => options.ReportApiVersions = true);            
             return services;
@@ -193,7 +200,7 @@ namespace Api.Extensions
                     // add a custom operation filter which sets default values
                     options.OperationFilter<SwaggerDefaultValues>();
             });
-            return services;            
+            return services;
         }
     }
 }
