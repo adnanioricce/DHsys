@@ -26,14 +26,14 @@ namespace Application.Services
         /// Inserts a valid billing in the database
         /// </summary>
         /// <param name="billing">The billing object to be inserted.</param>
-        public BaseResult<Billing> AddBilling(Billing billing)
+        public Result<Billing> AddBilling(Billing billing)
         {                    
             var validator = new BillingValidator();
             var validationResult = validator.IsValid(billing);
             if (!validationResult.Success) return validationResult;            
             if(!HasBeneficiary(billing.BeneficiaryId,billing.BeneficiaryName))
             {
-                return BaseResult<Billing>.Failed(new string[] { "no beneficiary was provided with the billing" }, billing);                
+                return Result<Billing>.Failed(new string[] { "no beneficiary was provided with the billing" }, billing);                
             }            
             if(billing.BeneficiaryId == 0){
 
@@ -92,7 +92,7 @@ namespace Application.Services
             return !(billingByName is null);
         }
 
-        public BaseResult<IEnumerable<Billing>> AddBillingsFromFile(string csvFilePath)
+        public Result<IEnumerable<Billing>> AddBillingsFromFile(string csvFilePath)
         {
             throw new NotImplementedException();
         }

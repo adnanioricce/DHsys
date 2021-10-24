@@ -5,6 +5,7 @@ using Core.Entities.Orders;
 using Core.Interfaces;
 using Core.Interfaces.Financial;
 using Core.Models;
+using Core.Results;
 using Core.Validations;
 using Infrastructure.Logging;
 using Microsoft.EntityFrameworkCore;
@@ -24,15 +25,11 @@ namespace Application.Services.Financial
             _transactionRepository = transactionRepository;
             _validator = transactionValidator;
         }
-        public BaseResult<POSOrder> CreateTransaction(POSOrder transaction)
+        public Result<POSOrder> CreateTransaction(POSOrder transaction)
         {            
             _transactionRepository.Add(transaction);
             _transactionRepository.SaveChanges();
-            return new BaseResult<POSOrder>
-            {
-                Success = true,
-                Value = transaction            
-            };
+            return Result<POSOrder>.Ok(transaction);
         }
 
         public IEnumerable<POSOrder> GetTodayTransactions()
@@ -56,20 +53,17 @@ namespace Application.Services.Financial
             return _transactionRepository.Query().Where(d => d.CreatedAt >= dateTime);                
         }        
 
-        public async Task<BaseResult<POSOrder>> CreateTransactionAsync(POSOrder transaction)
+        public async Task<Result<POSOrder>> CreateTransactionAsync(POSOrder transaction)
         {
             var validationResult = _validator.Validate(transaction);
             if (!validationResult.IsValid) {
                 AppLogger.Log.Information("Failed to validate transaction at {className}. Validation Result:{@validationResult}", this.GetType().Name, validationResult);
-                return BaseResult<POSOrder>.Failed(validationResult.Errors.Select(e => $"validation {e.Severity} failed for property {e.PropertyName} with code {e.ErrorCode}. Reason:{e.ErrorMessage}"),transaction);
+                return Result<POSOrder>.Fail(transaction,
+                    validationResult.Errors.Select(e => new Error(e.ErrorCode,$"validation {e.Severity} failed for property {e.PropertyName} with code {e.ErrorCode}. Reason:{e.ErrorMessage}")).ToArray());
             }
             _transactionRepository.Add(transaction);
             await _transactionRepository.SaveChangesAsync();
-            return new BaseResult<POSOrder>
-            {
-                Success = true,
-                Value = transaction
-            };
+            return Result<POSOrder>.Ok(transaction);
         }
 
         public IAsyncEnumerable<POSOrder> GetTodayTransactionsAsync()
