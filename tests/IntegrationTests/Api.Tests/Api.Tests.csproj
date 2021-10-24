@@ -39,4 +39,14 @@
     <ProjectReference Include="..\..\Tests.Lib\Tests.Lib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Plugins\PluginDLLs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Plugins\PluginDLLs\Example.Plugin.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
