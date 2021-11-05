@@ -9,14 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using System;
-using System.IO;
-using MediatR;
-using System.Linq;
 using Core.Interfaces.Financial;
 using Application.Services.Financial;
-using Infrastructure.Logging;
-using System.Reflection;
 using DAL.DbContexts;
+using Core.Interfaces.Queues;
+using Infrastructure.Queues;
 
 namespace Application.Extensions
 {
@@ -78,5 +75,10 @@ namespace Application.Extensions
             var mapper = mapperConfig.CreateMapper();            
             services.AddSingleton(mapper);
         }              
+        public static void AddRabbitEventBus(this IServiceCollection services)
+        {
+            services.AddTransient<IRabbitMQPersistentConnection,DefaultRabbitMQPersistentConnection>();
+            services.AddTransient<IEventBus,RabbitMQEventBus>();
+        }
     }
 }

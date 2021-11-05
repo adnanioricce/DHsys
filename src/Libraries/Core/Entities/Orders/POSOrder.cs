@@ -1,3 +1,4 @@
+using Core.ApplicationModels.Dtos.Orders;
 using Core.Entities.Catalog;
 using Core.Entities.Payments;
 using Core.Entities.User;
