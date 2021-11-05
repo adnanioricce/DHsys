@@ -24,7 +24,6 @@ namespace Queue
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-                _eventBus.Publish(new TransactionEvent("Maria","Joe",29.9m));
                 _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
                 await Task.Delay(1000, stoppingToken);
             }

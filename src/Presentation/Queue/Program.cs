@@ -4,13 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using RabbitMQ.Client;
-using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Queue
 {
@@ -19,64 +13,13 @@ namespace Queue
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
-        }
-        static void LogQueue(IModel channel,string[] args)
-        {
-            channel.ExchangeDeclare(exchange: "logs", type: ExchangeType.Fanout);
-
-            var queueName = channel.QueueDeclare().QueueName;
-            channel.QueueBind(queue: queueName,
-                              exchange: "logs",
-                              routingKey: "");
-
-            Console.WriteLine(" [*] Waiting for logs.");
-
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine(" [x] {0}", message);
-            };
-            channel.BasicConsume(queue: queueName,
-                                 autoAck: true,
-                                 consumer: consumer);
         }        
-        static void TaskHelloQueue(IModel channel,string[] args)
-        {
-            channel.QueueDeclare(queue: "hello",
-                                    durable: false,
-                                    exclusive: false,
-                                    autoDelete: false,
-                                    arguments: null);
-            channel.QueueDeclare(
-                queue: "task_hello",
-                durable: true,
-                exclusive:false,
-                autoDelete:false,
-                arguments:null);
-
-            channel.BasicQos(prefetchSize:0,prefetchCount:1,global:false);
-
-            var consumer = new EventingBasicConsumer(channel);
-            consumer.Received += (model, ea) =>
-            {
-                var body = ea.Body.ToArray();
-                var message = Encoding.UTF8.GetString(body);
-                Console.WriteLine(" [x] Received {0}", message);
-            };
-
-            channel.BasicConsume(queue: "hello",
-                                 autoAck: true,
-                                 consumer: consumer);
-        }
         public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)                
+            Host.CreateDefaultBuilder(args)                     
                 .ConfigureServices((hostContext, services) =>
                 {
                     
-                    var configuration = hostContext.Configuration;                    
-                    services.AddTransient<TransactionEventHandler>();
+                    var configuration = hostContext.Configuration;                                        
                     services.Configure<BusesSettings>(configuration.GetSection("EventBuses"));
                     services.AddSingleton<IRabbitMQPersistentConnection>(sp => { 
                         var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
@@ -109,14 +52,20 @@ namespace Queue
                         var persistentConnection = sp.GetRequiredService<IRabbitMQPersistentConnection>();
                         var eventSubscriptionManager = sp.GetRequiredService<IEventBusSubscriptionsManager>();
                         var logger = sp.GetRequiredService<ILogger<RabbitMQEventBus>>();
-                        var eventBus = new RabbitMQEventBus(persistentConnection,eventSubscriptionManager,logger,sp,configuration["SubscriptionClientName"],5);
-                        eventBus.Subscribe<TransactionEvent,TransactionEventHandler>();
+                        var eventBus = new RabbitMQEventBus(persistentConnection,eventSubscriptionManager,logger,sp,configuration["SubscriptionClientName"],5);                        
+                        ConfigureHandlers(eventBus);
                         return eventBus;
-                    });
-                    
-                    services.AddHostedService<RabbitMqQueueWorker>();
+                    });                                        
                     services.AddHostedService<Worker>();
                 });
-            
+        static void AddEventHandlers(IServiceCollection services)
+        {
+            //TODO:
+            //services.AddTransient<OrderCreatedEventHandler>();
+        }
+        static void ConfigureHandlers(IEventBus eventBus)
+        {
+            //eventBus.Subscribe<TEvent,TEventHandler>()
+        }
     }
 }

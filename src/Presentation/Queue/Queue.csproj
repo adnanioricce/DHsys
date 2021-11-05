@@ -14,6 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Libraries\Core\Core.csproj" />
+    <ProjectReference Include="..\..\Libraries\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\Libraries\Core\Core.csproj" />
     <ProjectReference Include="..\Libraries\Infrastructure\Infrastructure.csproj" />
   </ItemGroup>
