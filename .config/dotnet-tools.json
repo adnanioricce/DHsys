@@ -19,6 +19,12 @@
       "commands": [
         "dotnet-ef"
       ]
+    },
+    "fable": {
+      "version": "3.7.11",
+      "commands": [
+        "fable"
+      ]
     }
   }
 }

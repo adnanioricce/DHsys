@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29709.97
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{878C8A77-5C3B-49A4-B970-0CC42DB465FB}"
 EndProject
@@ -42,6 +42,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{F1C3B431-BA23-4E63-A4AD-B656C9A1152D}"
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "Helper", "src\Tools\Helper\Helper.fsproj", "{EEB90E87-AE49-4E0D-8BE8-30E258CA6BCD}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{646E2364-553C-4722-B3F9-FBE64B54AE53}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -173,6 +175,18 @@ Global
 		{EEB90E87-AE49-4E0D-8BE8-30E258CA6BCD}.Release|x64.Build.0 = Release|Any CPU
 		{EEB90E87-AE49-4E0D-8BE8-30E258CA6BCD}.Release|x86.ActiveCfg = Release|Any CPU
 		{EEB90E87-AE49-4E0D-8BE8-30E258CA6BCD}.Release|x86.Build.0 = Release|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Debug|x64.Build.0 = Debug|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Debug|x86.Build.0 = Debug|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Release|x64.ActiveCfg = Release|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Release|x64.Build.0 = Release|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Release|x86.ActiveCfg = Release|Any CPU
+		{646E2364-553C-4722-B3F9-FBE64B54AE53}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

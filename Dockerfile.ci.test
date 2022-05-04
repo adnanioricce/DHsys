@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build-env
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build-env
 COPY . .
 RUN dotnet restore tests/IntegrationTests/Api.Tests/
 ENV DH_CONNECTION_STRING "User ID=postgres;Password=postgres;Host=dhsysdb;Database=dhsysdb;Port=5432;"

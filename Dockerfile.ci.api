@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/dotnet/sdk:5.0-alpine AS build
+FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
 ENV ASPNETCORE_URLS=http://+:5000;https://+:5001
 EXPOSE 5000
 EXPOSE 5001
@@ -9,7 +9,7 @@ RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"
 COPY . .
 RUN fake run ./buildApi.fsx
-FROM mcr.microsoft.com/dotnet/aspnet:5.0-alpine AS release
+FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS release
 WORKDIR /app
 COPY --from=build /src/build/Api .
 ENTRYPOINT ["dotnet","Api.dll","--environment=Production"]

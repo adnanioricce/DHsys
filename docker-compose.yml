@@ -1,0 +1,35 @@
+version: '3.4'
+
+services:
+  db:
+    image: "postgres:11"
+    container_name: ${DOCKER_REGISTRY-}db
+    restart: "always"
+    environment:
+        POSTGRES_PASSWORD: asdf1234        
+  api:
+    image: ${DOCKER_REGISTRY-}api    
+    build:
+        context: .
+        dockerfile: src/Presentation/Api/Dockerfile
+    depends_on:
+        - db
+  spa:
+    image: "nodejs" 
+    build:
+        context: src/Presentation/DHsysWeb/
+        dockerfile: src/Presentation/DHsysWeb/Dockerfile.dev
+    depends_on:
+        - api
+  nginx:
+    image: nginx
+    volumes:
+       - ./templates:/etc/nginx/templates
+    ports:
+    - "6484:80"
+    environment:
+    - NGINX_HOST=dhsysapi.com
+    - NGINX_PORT=80
+        
+volumes:
+  dhsys_data:
