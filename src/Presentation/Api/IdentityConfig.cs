@@ -24,6 +24,7 @@ namespace Api
                 ClientId = "spa",
                 AllowedGrantTypes = GrantTypes.Code,
                 // secret for authentication    
+
                 RequireClientSecret = false,
                 // scopes that client has access to
                 AllowedScopes =          { "dhsysapi" },
