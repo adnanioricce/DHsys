@@ -4,9 +4,11 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Logging.fs" />
     <Compile Include="OpenApiHttp.fs" />
     <Compile Include="Types.fs" />
     <Compile Include="Client.fs" />
+    <Compile Include="Authentication.fs" />    
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Fable.SimpleJson" Version="3.21.0" />

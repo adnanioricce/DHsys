@@ -9,6 +9,6 @@ module.exports = {
     entry: "./src/Client.fs.js",
     output: {
         path: path.join(__dirname, "./dist"),
-        filename: "bundle.js",
+        filename: "dhsysClient.js",
     }
 }
