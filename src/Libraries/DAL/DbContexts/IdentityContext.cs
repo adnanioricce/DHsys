@@ -1,19 +1,33 @@
-using DAL.Identity;
-using IdentityServer4.EntityFramework.Options;
-using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
-using Microsoft.AspNetCore.Identity;
+
+
+using System;
+using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
 namespace DAL.DbContexts
 {
-    public class IdentityContext : ApiAuthorizationDbContext<AppUser>
+    public class IdentityContext : IdentityDbContext<AppUser,AppRole,Guid>
     {
         
-        public IdentityContext(DbContextOptions<IdentityContext> options,IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options,operationalStoreOptions){            }
+        public IdentityContext(DbContextOptions<IdentityContext> options) : base(options){}
+        Guid ToGuid(string value){
+           if(Guid.TryParse(value,out var r)){
+                return r;
+           }
+           return Guid.Empty;
+        }
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Entity<AppUser>(mapper => {
+                mapper.Property(entity => entity.Id)
+                    .HasConversion(p => p.ToString(),v => ToGuid(v));
+            });
+            builder.Entity<AppRole>(mapper => {
+                mapper.Property(entity => entity.Id)
+                    .HasConversion(p => p.ToString(),v => ToGuid(v));
+            });
             base.OnModelCreating(builder);
         }
     }

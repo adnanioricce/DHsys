@@ -1,15 +1,13 @@
 using System;
 using System.Linq;
 using System.Reflection;
+using Api.Controllers.Identity;
 using Api.Extensions;
 using Application.Extensions;
+using Core.DI;
 using DAL.DbContexts;
-using DAL.Identity;
-using IdentityServer4;
-using IdentityServer4.EntityFramework.DbContexts;
-using IdentityServer4.EntityFramework.Mappers;
-using IdentityServer4.Models;
-using IdentityServer4.Services;
+using Infrastructure.Identity;
+using Infrastructure.Interfaces.Identity;
 using Infrastructure.Settings;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -27,6 +25,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Microsoft.AspNetCore.OData;
 
 namespace Api
 {
@@ -47,9 +46,9 @@ namespace Api
             services.AddApplicationServices();
             services.AddAutoMapperConfiguration();            
             services.AddApiDataStore();
-            services.ConfigureApi(Environment);            
-            services.AddAspNetIdentityIdentity(Configuration);
-            services.AddCustomAuthentication(this.Environment);
+            
+            services.AddDefaultAuth(Configuration,Environment);
+            services.AddAspNetIdentity(Configuration);            
             services.AddCors(options => {
                 options.AddPolicy("Default",policy => {
                     policy.AllowAnyHeader()
@@ -57,12 +56,14 @@ namespace Api
                           .AllowAnyOrigin();
                 });
             });
-            services.ConfigureApi(this.Environment);
-            services.AddOdataConfiguration();
+            // services.ConfigureApi(this.Environment);                        
+            // services.AddOdataConfiguration();
             services.AddSwaggerConfiguration();
             services.AddRouting(options => {
                 options.LowercaseUrls = true;
             });
+            services.ConfigureApi(Environment);
+            // Resolver.Initialize(services.BuildServiceProvider());
             void ConfigureAppSettings(){
                 var configuration = new ConfigurationBuilder()
                                         .AddJsonFile("appsettings.json")
@@ -73,17 +74,21 @@ namespace Api
             }
         }
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IApiVersionDescriptionProvider provider)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseSerilogRequestLogging();                 
-            app.ConfigureOdata();
+            // app.ConfigureOdata();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                foreach (var description in provider.ApiVersionDescriptions) {
-                    c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                try{
+                    // foreach (var description in provider.ApiVersionDescriptions) {
+                    //     c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
+                    // }
+                    c.RoutePrefix = "api/v1";
+                }catch(System.Exception ex){
+                    Log.Error("A exception was thrwoed when trying to configure swagger:{@ex}",ex);
                 }
-                c.RoutePrefix = "api/v1";
             });
             if (env.IsDevelopment())
             {
@@ -93,14 +98,32 @@ namespace Api
             app.UseHttpsRedirection();
             app.UseRouting();
             app.UseAuthentication();
-            app.UseIdentityServer();            
+            // app.UseIdentityServer();            
             app.UseAuthorization();
             app.UseCors("Default");
             app.UseEndpoints(endpoints =>
             {                                
                 endpoints.MapControllers().RequireCors("Default");
-            });
-            
-        }        
+                
+            }); 
+            // app.UseMvc(routeBuilder => {
+                // routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
+                // routeBuilder.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel());
+            // });
+            SeedDefaultUsers(app);
+        }
+
+        private void SeedDefaultUsers(IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.CreateScope();
+            // scope.ServiceProvider.CreateAsyncScope
+            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
+            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
+            var users = userManager.Users.ToList();
+            Log.Information("Users:{@users}",users);
+            roleManager.CreateAsync(new AppRole(AppRole.Admin)).GetAwaiter().GetResult();
+            roleManager.CreateAsync(new AppRole(AppRole.BasicUser)).GetAwaiter().GetResult();
+            AppUser.GetAdminAsync(scope.ServiceProvider).GetAwaiter().GetResult();
+        }
     }
 }

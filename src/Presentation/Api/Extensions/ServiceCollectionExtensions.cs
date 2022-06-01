@@ -1,20 +1,23 @@
-﻿using Core.Interfaces;
+﻿using Application.Services.Identity;
+using Core.Interfaces;
 using DAL;
 using DAL.DbContexts;
-using DAL.Identity;
-using IdentityServer4.Services;
+using Infrastructure.Identity;
+using Infrastructure.Interfaces.Identity;
+using Infrastructure.Services;
 using Infrastructure.Settings;
-using Microsoft.AspNet.OData.Extensions;
-using Microsoft.AspNet.OData.Formatter;
-using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.OData.Formatter;
+using Microsoft.AspNetCore.OData;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -22,6 +25,10 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using Microsoft.OData.Edm;
+using Core.ApplicationModels.Dtos.Catalog;
+
 namespace Api.Extensions
 {
     public static class ServiceCollectionExtensions
@@ -44,8 +51,8 @@ namespace Api.Extensions
         /// <returns>a instance of <see cref="IServiceCollection"/> with the added services and options for OData support</returns>
         public static IServiceCollection AddOdataSupport(this IServiceCollection services)
         {
-            services.AddOData()
-                .EnableApiVersioning();
+            // services.AddOData()
+            //     .EnableApiVersioning();
             services.AddMvcCore(options =>
             {
                 foreach (var outputFormatter in options.OutputFormatters
@@ -109,29 +116,8 @@ namespace Api.Extensions
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             return services;
-        }
-        ///<summary>
-        /// Add the necessary pipelines to handle authentication.
-        ///</summary>
-        public static IServiceCollection AddCustomAuthentication(this IServiceCollection services,IWebHostEnvironment environment)
-        {
-            var migrationsAssembly = Assembly.GetExecutingAssembly().GetName().Name;                                
-            var builder = services.AddIdentityServer(options => {
-                                    options.Events.RaiseErrorEvents = true;
-                                    options.Events.RaiseFailureEvents = true;
-                                    options.Events.RaiseInformationEvents = true;
-                                    options.Events.RaiseSuccessEvents = true;
-                                })
-                                .AddInMemoryIdentityResources(Config.IdentityResources)
-                                .AddInMemoryApiScopes(Config.ApiScopes)
-                                .AddInMemoryClients(Config.Clients)                                                                        
-                                .AddAspNetIdentity<AppUser>();
-            if(environment.EnvironmentName == "Development"){
-                builder.AddDeveloperSigningCredential();
-            }
-            services.AddAuthentication()
-                    .AddLocalApi()
-                    .AddIdentityServerJwt();
+        }        
+        public static IServiceCollection AddCorsAuthorization(this IServiceCollection services,IWebHostEnvironment environment){
             services.AddAuthorization(options => {
                 if(environment.EnvironmentName == "Development"){
                     options.AddPolicy("Default",policy => {
@@ -149,31 +135,65 @@ namespace Api.Extensions
                 }
 
             });
-            services.AddSingleton<ICorsPolicyService>((container) => {
-                var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
-                return new DefaultCorsPolicyService(logger) {
-                    AllowedOrigins = { "http://localhost:9527"}
-                };
-            });
             return services;
         }
-        public static IServiceCollection AddAspNetIdentityIdentity(this IServiceCollection services,IConfiguration configuration){
-            string identityConnStr = configuration.GetSection("Identity:Db")["Identity"];
+        public static IServiceCollection AddDefaultAuth(this IServiceCollection services,IConfiguration configuration,IWebHostEnvironment environment){
+            var jwtTokenConfig = configuration.GetSection("jwtTokenConfig").Get<JwtTokenConfig>();            
+            services.AddSingleton(jwtTokenConfig);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = true;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidIssuer = jwtTokenConfig.Issuer,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(jwtTokenConfig.Secret)),
+                    ValidAudience = jwtTokenConfig.Audience,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.FromMinutes(1)
+                };
+            });
+            services.AddCorsAuthorization(environment);
+            services.AddSingleton<IJwtAuthManager, DefaultJwtManager>();
+            services.AddHostedService<JwtRefreshTokenCache>();
+            services.AddTransient<IUserIdentityService, DefaultIdentityService>();            
+            return services;
+        }
+        public static IServiceCollection AddAspNetIdentity(this IServiceCollection services,IConfiguration configuration){
+            string identityConnStr = configuration.GetConnectionString("Identity");
             services.AddDbContext<IdentityContext>(options => options.UseNpgsql(identityConnStr));
-            services.AddIdentity<AppUser,IdentityRole>()
+            services.AddIdentity<AppUser,AppRole>()
                     .AddEntityFrameworkStores<IdentityContext>()
                     .AddDefaultTokenProviders();
             return services;
         }
         public static IServiceCollection ConfigureApi(this IServiceCollection services,IWebHostEnvironment environment)
         {
+            IEdmModel GetEdmModel()
+            {
+                var model = new EdmModel();
+                model.AddEntityType(typeof(ProductDto).Namespace,typeof(ProductDto).Name);
+                return model;
+            }
             services.AddControllersWithViews();
-            services.AddMvc(options => {
+            services.AddMvcCore(options => {
                 options.EnableEndpointRouting = false;
                 if(environment.EnvironmentName == "Testing"){
                     options.Filters.Add<AllowAnonymousFilter>();
                 }
-            }).AddNewtonsoftJson(settings => {
+            })
+            .AddApiExplorer()                      
+            .AddOData(options => {
+                options.AddRouteComponents("odata",GetEdmModel());
+            })
+            .AddNewtonsoftJson(settings => {
                 settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
@@ -186,13 +206,13 @@ namespace Api.Extensions
             return services;
         }
         public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services){
-            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            // services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen(
                 options =>
                 {
                     // add a custom operation filter which sets default values
-                    options.OperationFilter<SwaggerDefaultValues>();
-            });
+                    // options.OperationFilter<SwaggerDefaultValues>();
+                });
             return services;            
         }
     }

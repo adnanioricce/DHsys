@@ -1,3 +1,4 @@
+using System.Linq;
 using DAL.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -10,7 +11,8 @@ namespace DAL.DbContexts
         {
             var optionsBuilder = new DbContextOptionsBuilder<IdentityContext>();
             optionsBuilder.UseNpgsql("User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysusers_db;Pooling=true;");
-            return new IdentityContext(optionsBuilder.Options,null);
+            var context = new IdentityContext(optionsBuilder.Options);                
+            return context;
         }
     }
 }

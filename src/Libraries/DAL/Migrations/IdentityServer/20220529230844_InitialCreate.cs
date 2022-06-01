@@ -1,10 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-//TODO: This is Asp.net identity, not identity server. Rename it 
+
+#nullable disable
+
 namespace DAL.Migrations.IdentityServer
 {
-    public partial class InitialIdentityServerMigration : Migration
+    public partial class InitialCreate : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

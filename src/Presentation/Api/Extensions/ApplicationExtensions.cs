@@ -1,4 +1,5 @@
-﻿using DAL.DbContexts;
+﻿using Core.ApplicationModels.Dtos;
+using DAL.DbContexts;
 using DAL.Extensions;
 using Microsoft.AspNet.OData.Builder;
 using Microsoft.AspNet.OData.Extensions;
@@ -7,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OData.ModelBuilder;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,21 +25,47 @@ namespace Api.Extensions
         /// </summary>
         /// <param name="app"></param>
         public static void ConfigureOdata(this IApplicationBuilder app)
-        {
-            var odataBuilder = new ODataConventionModelBuilder(app.ApplicationServices);
-            var dtoTypes = GetEntitiesDtos().Where(t => !t.Name.Contains("Item"));
-            odataBuilder.AddTypesToOdataEntitySet(dtoTypes.ToArray());
-            app.UseMvc(routeBuilder =>
-            {
-                routeBuilder.Select()
-                            .Expand()
-                            .Filter()
-                            .OrderBy()
-                            .MaxTop(100)
-                            .Count();                            
-                routeBuilder.MapODataServiceRoute("ODataRoute", "api", odataBuilder.GetEdmModel());
-                routeBuilder.EnableDependencyInjection();
-            });
+        {            
+            // var odataBuilder = new ODataConventionModelBuilder(app.ApplicationServices);
+            // var identityTypes = 
+            //     Assembly.GetAssembly(typeof(Infrastructure.Infrastructure))
+            //         .GetTypes()
+            //         .Where(t => {
+            //             if(t is null)
+            //                 return false;
+            //             if(string.IsNullOrEmpty(t.Namespace))
+            //                 return false;
+            //             if(string.IsNullOrEmpty(t.Name))
+            //                 return false;
+            //             return t.IsClass && t.Namespace.Contains("Infrastructure.Identity");
+            //         });                    
+            // var dtoTypes = GetEntitiesDtos().Where(t => !t.Name.Contains("Item")).ToArray();                        
+            // for(int i = 0;i < dtoTypes.Length;++i){
+            //     odataBuilder.AddEntityType(dtoTypes[i]);
+            //     // odataBuilder.AddEntitySet(dtoTypes[i].FullName,new EntityTypeConfiguration(odataBuilder,dtoTypes[i]));
+            // }
+            // odataBuilder.EntitySet<AddressDto>("Addresses");
+            // app.UseMvc(routeBuilder =>
+            // {
+            //     try{                                        
+            //         routeBuilder.Select()
+            //                     .Expand()
+            //                     .Filter()
+            //                     .OrderBy()
+            //                     .MaxTop(100)
+            //                     .Count();                                      
+            //         // var model = odataBuilder.GetEdmModel();                                        
+            //         // var model = EdmModelBuilder.Build();
+            //         routeBuilder.MapODataServiceRoute("ODataRoute", "odata/api",model);
+            //         routeBuilder.EnableDependencyInjection();
+            //     }
+            //     catch(ArgumentNullException ex){
+            //         Log.Error("a null argument was passed to method called during {@method} call. Exception:{@ex}",nameof(ConfigureOdata),ex);
+            //     }
+            //     catch(Exception ex){
+            //         Log.Error("ex:{@ex}",ex);
+            //     }
+            // });
         }
         /// <summary>
         /// Add given all given <see cref="Type"/> objects with a Id Property to the <see cref="ODataConventionModelBuilder"/> list of <see cref="EntitySetConfiguration"/> 
@@ -62,9 +91,10 @@ namespace Api.Extensions
         /// </summary>
         /// <returns><see cref="Type"/> collection with name that ends with "Dto"</returns>
         public static IEnumerable<Type> GetEntitiesDtos()
-        {
+        {            
             return Assembly.GetAssembly(typeof(Core.Core))
                            .GetTypes()
+                           .Where(t => t != null && !string.IsNullOrEmpty(t.Namespace) && !string.IsNullOrEmpty(t.Name))
                            .Where(t => t.IsClass && t.Name.EndsWith("Dto"));
         }        
         public static bool DatabaseExists(this IApplicationBuilder app)

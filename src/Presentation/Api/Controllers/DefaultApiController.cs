@@ -6,11 +6,11 @@ using Core.Models.ApplicationResources;
 using Core.Validations;
 using FluentValidation;
 using FluentValidation.Results;
-using IdentityServer4;
-using Microsoft.AspNet.OData;
-using Microsoft.AspNet.OData.Query;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.OData.Query;
+using Microsoft.AspNetCore.OData.Routing.Controllers;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 using System;
@@ -20,9 +20,9 @@ using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
-    [Route("api/[Controller]")]
+    [Route("odata/api/[Controller]")]
     [ApiController]
-    [Authorize(policy:"Default",AuthenticationSchemes = IdentityServerConstants.LocalApi.AuthenticationScheme)]
+    [Authorize(policy:"Default",AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class DefaultApiController<TEntity,TEntityDto> : ODataController where TEntity : BaseEntity where TEntityDto : class
     {        
         protected readonly IRepository<TEntity> _repository;
