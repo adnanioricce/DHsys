@@ -1,8 +1,6 @@
 ﻿using Core.ApplicationModels.Dtos;
 using DAL.DbContexts;
 using DAL.Extensions;
-using Microsoft.AspNet.OData.Builder;
-using Microsoft.AspNet.OData.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;

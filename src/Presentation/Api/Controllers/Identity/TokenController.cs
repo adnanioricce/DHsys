@@ -20,7 +20,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Api.Controllers.Identity
 {           
-    [Route("api/[Controller]")]
+    [Route("api/v{version:apiVersion}/[Controller]")]
     [ApiController]
     public class TokenController : ControllerBase
     {        
@@ -34,14 +34,7 @@ namespace Api.Controllers.Identity
             _environment = environment;
             _jwtAuthManager = jwtAuthManager;
             _userService = userIdentityService;
-        }
-        // public async Task<IActionResult> GetAccessToken()
-        // {
-        //     //TODO: Not Implemented           
-        //     throw new NotImplementedException(); 
-        //     if (!_environment.IsDevelopment())
-        //         return StatusCode(500,new { Message = "Endpoint not available" });                        
-        // }
+        }        
         bool IsValidEmail(string email){
             try
             {

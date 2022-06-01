@@ -26,6 +26,8 @@ using Newtonsoft.Json.Serialization;
 using Serilog;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using Microsoft.AspNetCore.OData;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace Api
 {
@@ -58,6 +60,18 @@ namespace Api
             });
             // services.ConfigureApi(this.Environment);                        
             // services.AddOdataConfiguration();
+            services.AddApiVersioning(p =>
+            {                
+                p.AssumeDefaultVersionWhenUnspecified = true;
+                p.DefaultApiVersion = new Microsoft.AspNetCore.Mvc.ApiVersion(1, 0);
+                p.ReportApiVersions = true;
+                p.ApiVersionReader = ApiVersionReader.Combine(
+                    new QueryStringApiVersionReader("api-version"),
+                    new HeaderApiVersionReader("X-Version"),
+                    new MediaTypeApiVersionReader("ver"));
+            });
+
+            
             services.AddSwaggerConfiguration();
             services.AddRouting(options => {
                 options.LowercaseUrls = true;
@@ -76,15 +90,19 @@ namespace Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseMvc()
+            .UseApiVersioning();            
             app.UseSerilogRequestLogging();                 
             // app.ConfigureOdata();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 try{
-                    // foreach (var description in provider.ApiVersionDescriptions) {
+                    
+                    // foreach (var description in provider.) {
                     //     c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
                     // }
+                    c.SwaggerEndpoint("/swagger/v1/swagger.json","V1");
                     c.RoutePrefix = "api/v1";
                 }catch(System.Exception ex){
                     Log.Error("A exception was thrwoed when trying to configure swagger:{@ex}",ex);

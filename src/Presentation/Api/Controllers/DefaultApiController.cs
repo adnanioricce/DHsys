@@ -20,9 +20,10 @@ using System.Threading.Tasks;
 
 namespace Api.Controllers
 {
-    [Route("odata/api/[Controller]")]
+    [Route("api/v{version:apiVersion}/[Controller]")]
     [ApiController]
     [Authorize(policy:"Default",AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    [ApiVersion("1.0")]
     public class DefaultApiController<TEntity,TEntityDto> : ODataController where TEntity : BaseEntity where TEntityDto : class
     {        
         protected readonly IRepository<TEntity> _repository;

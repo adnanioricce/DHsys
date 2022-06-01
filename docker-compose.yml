@@ -14,13 +14,13 @@ services:
         dockerfile: src/Presentation/Api/Dockerfile
     depends_on:
         - db
-  spa:
-    image: "nodejs" 
-    build:
-        context: src/Presentation/DHsysWeb/
-        dockerfile: src/Presentation/DHsysWeb/Dockerfile.dev
-    depends_on:
-        - api
+  #spa:
+  #  image: "nodejs" 
+  #  build:
+  #      context: src/Presentation/DHsysWeb/
+  #      dockerfile: src/Presentation/DHsysWeb/Dockerfile.dev
+  #  depends_on:
+  #      - api
   nginx:
     image: nginx
     volumes:

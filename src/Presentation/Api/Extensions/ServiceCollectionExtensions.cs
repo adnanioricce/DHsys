@@ -189,7 +189,7 @@ namespace Api.Extensions
                     options.Filters.Add<AllowAnonymousFilter>();
                 }
             })
-            .AddApiExplorer()                      
+            .AddApiExplorer()
             .AddOData(options => {
                 options.AddRouteComponents("odata",GetEdmModel());
             })
@@ -197,21 +197,24 @@ namespace Api.Extensions
                 settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
-            services.AddApiVersioning(options => options.ReportApiVersions = true);            
+            services.AddApiVersioning(options => {
+                options.ReportApiVersions = true;                
+            });
+            services.AddEndpointsApiExplorer();
             return services;
         }
         public static IServiceCollection AddOdataConfiguration(this IServiceCollection services){
             services.AddOdataSupport();
-            services.AddODataApiExplorer();
+            //services.AddODataApiExplorer();
             return services;
         }
         public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services){
-            // services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
+            services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen(
                 options =>
                 {
                     // add a custom operation filter which sets default values
-                    // options.OperationFilter<SwaggerDefaultValues>();
+                    options.OperationFilter<SwaggerDefaultValues>();
                 });
             return services;            
         }

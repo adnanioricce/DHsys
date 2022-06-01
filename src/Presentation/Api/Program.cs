@@ -32,7 +32,7 @@ namespace Api
                             .AddEnvironmentVariables()
                             .Build();
                     config.AddConfiguration(configuration);
-                })
+                })                
                 .ConfigureWebHostDefaults(webBuilder => {                    
                     webBuilder.UseStartup<Startup>();
                 });      
