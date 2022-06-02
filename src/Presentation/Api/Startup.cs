@@ -1,32 +1,15 @@
-using System;
 using System.Linq;
-using System.Reflection;
-using Api.Controllers.Identity;
 using Api.Extensions;
 using Application.Extensions;
-using Core.DI;
-using DAL.DbContexts;
 using Infrastructure.Identity;
-using Infrastructure.Interfaces.Identity;
 using Infrastructure.Settings;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
 using Serilog;
-using Swashbuckle.AspNetCore.SwaggerGen;
-using Microsoft.AspNetCore.OData;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Versioning;
 
 namespace Api
@@ -90,18 +73,13 @@ namespace Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseMvc()
-            .UseApiVersioning();            
+                        
             app.UseSerilogRequestLogging();                 
             // app.ConfigureOdata();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 try{
-                    
-                    // foreach (var description in provider.) {
-                    //     c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json", description.GroupName.ToUpperInvariant());
-                    // }
                     c.SwaggerEndpoint("/swagger/v1/swagger.json","V1");
                     c.RoutePrefix = "api/v1";
                 }catch(System.Exception ex){
@@ -113,21 +91,16 @@ namespace Api
                 app.UseDeveloperExceptionPage();
             }            
             app.UseStaticFiles();
-            app.UseHttpsRedirection();
-            app.UseRouting();
+            app.UseHttpsRedirection();            
+            app.UseRouting().UseApiVersioning();
+            app.UseCors("Default");  
+           
             app.UseAuthentication();
-            // app.UseIdentityServer();            
             app.UseAuthorization();
-            app.UseCors("Default");
             app.UseEndpoints(endpoints =>
-            {                                
+            {                                                
                 endpoints.MapControllers().RequireCors("Default");
-                
-            }); 
-            // app.UseMvc(routeBuilder => {
-                // routeBuilder.Select().Expand().Filter().OrderBy().MaxTop(100).Count();
-                // routeBuilder.MapODataServiceRoute("ODataRoute", "odata", builder.GetEdmModel());
-            // });
+            }).UseApiVersioning();
             SeedDefaultUsers(app);
         }
 

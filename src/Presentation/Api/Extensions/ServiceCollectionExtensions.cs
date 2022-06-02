@@ -28,6 +28,9 @@ using System.Reflection;
 using System.Text;
 using Microsoft.OData.Edm;
 using Core.ApplicationModels.Dtos.Catalog;
+using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Authorization;
+using Api.Handlers;
 
 namespace Api.Extensions
 {
@@ -43,33 +46,7 @@ namespace Api.Extensions
                 services.AddTransient(validator.BaseType,validator);
             }
             return services;
-        }
-        /// <summary>
-        /// Add OData services and configures it's input and output media formats
-        /// </summary>
-        /// <param name="services"></param>
-        /// <returns>a instance of <see cref="IServiceCollection"/> with the added services and options for OData support</returns>
-        public static IServiceCollection AddOdataSupport(this IServiceCollection services)
-        {
-            // services.AddOData()
-            //     .EnableApiVersioning();
-            services.AddMvcCore(options =>
-            {
-                foreach (var outputFormatter in options.OutputFormatters
-                                                       .OfType<ODataOutputFormatter>()
-                                                       .Where(_ => _.SupportedMediaTypes.Count == 0))
-                {
-                    outputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
-                }
-                foreach (var inputFormatter in options.InputFormatters
-                                                      .OfType<ODataInputFormatter>()
-                                                      .Where(_ => _.SupportedMediaTypes.Count == 0))
-                {
-                    inputFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("application/prs.odatatestxx-odata"));
-                }
-            });
-            return services;
-        }
+        }        
         /// <summary>
         /// Add Default data services for the Api application
         /// </summary>
@@ -121,19 +98,13 @@ namespace Api.Extensions
             services.AddAuthorization(options => {
                 if(environment.EnvironmentName == "Development"){
                     options.AddPolicy("Default",policy => {
-                        policy.RequireAuthenticatedUser();                            
-                        policy.RequireAssertion(context => {                                
-                            return context.User.HasClaim(c => (c.Type == "scope" && c.Value == "swagger") || (c.Type == "scope" && c.Value == "dhsysapi"));
-                        });
+                        policy.RequireAuthenticatedUser();
                     });
                 }else {
                     options.AddPolicy("Default",policy => {
                         policy.RequireAuthenticatedUser();
-                        policy.RequireClaim("scope","admin");
-                        policy.RequireClaim("role","admin");
                     });
                 }
-
             });
             return services;
         }
@@ -141,9 +112,10 @@ namespace Api.Extensions
             var jwtTokenConfig = configuration.GetSection("jwtTokenConfig").Get<JwtTokenConfig>();            
             services.AddSingleton(jwtTokenConfig);
             services.AddAuthentication(x =>
-            {
+            {                
                 x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             }).AddJwtBearer(x =>
             {
                 x.RequireHttpsMetadata = true;
@@ -163,7 +135,8 @@ namespace Api.Extensions
             services.AddCorsAuthorization(environment);
             services.AddSingleton<IJwtAuthManager, DefaultJwtManager>();
             services.AddHostedService<JwtRefreshTokenCache>();
-            services.AddTransient<IUserIdentityService, DefaultIdentityService>();            
+            services.AddTransient<IUserIdentityService, DefaultIdentityService>();
+            // services.AddSingleton<IAuthorizationMiddlewareResultHandler, CustomAuthorizeMiddlewareHandler>();
             return services;
         }
         public static IServiceCollection AddAspNetIdentity(this IServiceCollection services,IConfiguration configuration){
@@ -184,7 +157,7 @@ namespace Api.Extensions
             }
             services.AddControllersWithViews();
             services.AddMvcCore(options => {
-                options.EnableEndpointRouting = false;
+                options.EnableEndpointRouting = true;
                 if(environment.EnvironmentName == "Testing"){
                     options.Filters.Add<AllowAnonymousFilter>();
                 }
@@ -196,25 +169,45 @@ namespace Api.Extensions
             .AddNewtonsoftJson(settings => {
                 settings.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 settings.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
-            services.AddApiVersioning(options => {
-                options.ReportApiVersions = true;                
-            });
-            services.AddEndpointsApiExplorer();
+            });            
             return services;
-        }
-        public static IServiceCollection AddOdataConfiguration(this IServiceCollection services){
-            services.AddOdataSupport();
-            //services.AddODataApiExplorer();
-            return services;
-        }
+        }       
         public static IServiceCollection AddSwaggerConfiguration(this IServiceCollection services){
             services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerOptions>();
             services.AddSwaggerGen(
                 options =>
                 {
                     // add a custom operation filter which sets default values
-                    options.OperationFilter<SwaggerDefaultValues>();
+                    // options.OperationFilter<SwaggerDefaultValues>();
+                    options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                    {
+                        Description = "JWT Authorization",
+                        Name = "Authorization",
+                        In = ParameterLocation.Header,
+                        Type = SecuritySchemeType.ApiKey,
+                        Scheme = "Bearer",
+                        BearerFormat="JWT"
+                    });
+                    options.AddSecurityRequirement(new OpenApiSecurityRequirement {
+                        {
+                            new OpenApiSecurityScheme {
+                                Reference = new OpenApiReference {
+                                    Type = ReferenceType.SecurityScheme,
+                                        Id = "Bearer"
+                                }
+                            },
+                            new string[] {}
+                        }
+                    });
+                    // options.AddSecurityRequirement(new OpenApiSecurityRequirement(){
+                    //     new OpenApiSecurityScheme {
+                    //         Reference = new OpenApiReference {
+                    //             Type = ReferenceType.SecurityScheme,
+                    //                 Id = "Bearer"
+                    //         }
+                    //     },
+                    //     new string[] {}
+                    // });
                 });
             return services;            
         }
