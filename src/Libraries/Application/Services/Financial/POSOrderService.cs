@@ -34,28 +34,19 @@ namespace Application.Services.Financial
                 Value = transaction            
             };
         }
-
+        
         public IEnumerable<POSOrder> GetTodayTransactions()
         {
-            foreach(var transaction in _transactionRepository.Query())
-            {
-                if(transaction.CreatedAt.Day == DateTimeOffset.UtcNow.Day)
-                {
-                    yield return transaction;
-                }
-            }            
+            var dataAtual = DateTimeOffset.UtcNow;
+            var dataInicio = new DateTimeOffset(dataAtual.Year,dataAtual.Month,dataAtual.Day,0,0,0,0,dataAtual.Offset);
+            return GetTransactionsByDate(dataInicio,dataInicio.AddHours(23.99));
         }
-
         public IEnumerable<POSOrder> GetTransactions()
         {            
             return _transactionRepository.GetAll();
         }
 
-        public IEnumerable<POSOrder> GetTransactionsByDate(DateTimeOffset dateTime)
-        {
-            return _transactionRepository.Query().Where(d => d.CreatedAt >= dateTime);                
-        }        
-
+        
         public async Task<BaseResult<POSOrder>> CreateTransactionAsync(POSOrder transaction)
         {
             var validationResult = _validator.Validate(transaction);
@@ -71,16 +62,24 @@ namespace Application.Services.Financial
                 Value = transaction
             };
         }
-
-        public IAsyncEnumerable<POSOrder> GetTodayTransactionsAsync()
+        //TODO: Edit limit instead till date, instead of give a offset as parameter
+        public IEnumerable<POSOrder> GetTransactionsByDate(DateTimeOffset startDate)
         {
-            return _transactionRepository.GetAsyncEnumerable()
-                                         .Where(t => t.CreatedAt.Day == DateTimeOffset.UtcNow.Day);
+            return _transactionRepository.Query().Where(d => d.CreatedAt >= startDate);                
+        }        
+        public IEnumerable<POSOrder> GetTransactionsByDate(DateTimeOffset startDate,DateTimeOffset limit)
+        {            
+            return _transactionRepository.Query()
+                .Where(t => t.CreatedAt >= startDate && t.CreatedAt <= limit);
+        }
+        public IAsyncEnumerable<POSOrder> GetTodayTransactionsAsync()
+        {            
+            return GetTodayTransactions().ToAsyncEnumerable();
         }
 
-        public async Task<IEnumerable<POSOrder>> GetTransactionsByDateAsync(DateTimeOffset dateTime)
+        public async Task<IEnumerable<POSOrder>> GetTransactionsByDateAsync(DateTimeOffset startDate)
         {
-            return await GetTransactionsByDate(dateTime).AsQueryable()
+            return await GetTransactionsByDate(startDate).AsQueryable()
                                                         .ToListAsync();
         }        
     }

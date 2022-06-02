@@ -1,13 +1,11 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine
-ENV DHSYS_NUGET_KEY ""
-# ARG BRANCH_NAME
-# RUN git clone -b $BRANCH_NAME https://github.com/adnanioricce/DHsys.git
+ARG DHSYS_NUGET_KEY
+ARG GITHUB_TOKEN
 WORKDIR /DHsys
 COPY . .
 RUN dotnet tool restore && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"
-RUN dotnet restore
-RUN dotnet fake run ./buildPackages.fsx
-RUN dotnet fake run ./deploy.fsx
-
+RUN dotnet fake -v run ./buildPackages.fsx
+RUN dotnet fake -v run ./deploy.fsx
+# RUN DHSYS_NUGET_KEY=$DHSYS_NUGET_KEY
 # ENTRYPOINT [ "fake","run","deploy.fsx" ]

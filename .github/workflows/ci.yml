@@ -5,6 +5,7 @@ on:
       - development
   pull_request:
     branches:
+      - development
       - master
 jobs:
   build-libraries:
@@ -13,4 +14,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v2
       - name: build libraries        
-        run: docker build . --file Dockerfile.ci.libraries --build-arg BRANCH_NAME=${GITHUB_REF##*/}
+        run: docker build . --file Dockerfile.ci.libraries
+  build-libraries:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: build libraries        
+        run: docker build . --file Dockerfile.ci.api
+  

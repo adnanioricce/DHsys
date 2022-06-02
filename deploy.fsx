@@ -27,7 +27,8 @@ let librariesPackagesPath = buildDir + "/Libraries"
 let getEnvVar name =
   match Environment.environVar name with
     | s when (not (System.String.IsNullOrWhiteSpace s)) -> s
-    | s when (not (System.String.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(name,EnvironmentVariableTarget.User)))) -> Environment.GetEnvironmentVariable("DHSYS_NUGET_KEY",EnvironmentVariableTarget.User)    
+    | s when (not (System.String.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(name,EnvironmentVariableTarget.User)))) 
+      -> Environment.GetEnvironmentVariable(name,EnvironmentVariableTarget.User)    
     | _ -> failwith (sprintf "set the %s environment var to create a github release" name)
 
 Target.initEnvironment ()
@@ -77,7 +78,7 @@ Target.create "ZipAllBinaries" (fun _ ->
   let apiZipFileName = sprintf "build/%s-%s.zip" apiAssemblyName.Name (apiAssemblyName.Version.ToString())
   // let helperZipFileName = sprintf "build/%s-%s.zip" "Helper" (apiAssemblyName.Version.ToString())  
   Zip.createZip apiDir apiZipFileName "" (int Compression.CompressionLevel.Optimal) true (Directory.GetFiles(apiDir))
-  Zip.createZip toolsDir helperZipFileName "" (int Compression.CompressionLevel.Optimal) true (Directory.GetFiles(toolsDir + "/Helper"))
+  // Zip.createZip toolsDir helperZipFileName "" (int Compression.CompressionLevel.Optimal) true (Directory.GetFiles(toolsDir + "/Helper"))
   )
 Target.create "UploadToGithub" (fun _ ->
   Trace.log "--- Uploading Published Projects To GitHub ---"

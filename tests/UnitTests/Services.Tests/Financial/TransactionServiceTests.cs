@@ -73,18 +73,19 @@ namespace Services.Tests.Financial
         public void Given_GetTodayTransactions_When_condition_Should_expect()
         {
             // Given
+            var todayDate = DateTime.Parse("05/04/2022 00:00:00");
             var transaction = GetSeedTransaction();
-            transaction.CreatedAt = DateTimeOffset.UtcNow;
+            transaction.CreatedAt = todayDate.AddHours(2);
             var oldTransaction = GetSeedTransaction();
-            var oldDate = DateTimeOffset.UtcNow.AddDays(-2);
+            var oldDate = todayDate.AddDays(-2);
             oldTransaction.CreatedAt = oldDate;
             var transactionRepository = new FakeRepository<POSOrder>(new[] { transaction ,oldTransaction});
             var service = new POSOrderService(transactionRepository, new TransactionValidator());
             // When
-            var result = service.GetTodayTransactions();
+            var result = service.GetTransactionsByDate(todayDate,todayDate.AddHours(23.99));
             // Then
             Assert.NotEmpty(result);
-            Assert.Collection(result, (item) => Assert.True(item.CreatedAt.Day > oldDate.Day, "CreatedAt is a today date"));
+            Assert.Collection(result, (item) => Assert.True(item.CreatedAt >= todayDate && item.CreatedAt <= todayDate.AddHours(23.99), "CreatedAt is a today date"));
         }
 
         [Fact()]
@@ -145,13 +146,11 @@ namespace Services.Tests.Financial
             });
             var transactionRepository = new FakeRepository<POSOrder>(transactions);
             var service = new POSOrderService(transactionRepository, new TransactionValidator());
-            // When 
-            //var result = Task.Run(async () => await service.GetTodayTransactionsAsync());
-            //var result = ;            
-            var result = await service.GetTodayTransactionsAsync().ToListAsync();            
+            // When
+            var result = await service.GetTodayTransactionsAsync().ToListAsync();
             // Then 
             Assert.NotEmpty(result);
-            result.ForEach(transaction => Assert.True(transaction.CreatedAt.Day >= todayDate.Day));
+            result.ForEach(transaction => Assert.True(transaction.CreatedAt >= todayDate));
         }
 
         [Fact()]
