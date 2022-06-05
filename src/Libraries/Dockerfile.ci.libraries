@@ -6,6 +6,4 @@ COPY . .
 RUN dotnet tool restore && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"
 RUN dotnet fake -v run ./buildPackages.fsx
-RUN dotnet fake -v run ./deploy.fsx
-# RUN DHSYS_NUGET_KEY=$DHSYS_NUGET_KEY
-# ENTRYPOINT [ "fake","run","deploy.fsx" ]
+ENTRYPOINT [ "dotnet","fake","run","deploy.fsx" ]

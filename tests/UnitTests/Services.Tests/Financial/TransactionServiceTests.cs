@@ -148,7 +148,7 @@ namespace Services.Tests.Financial
             var service = new POSOrderService(transactionRepository, new TransactionValidator());
             // When
             var result = await service.GetTodayTransactionsAsync().ToListAsync();
-            // Then 
+            // Then
             Assert.NotEmpty(result);
             result.ForEach(transaction => Assert.True(transaction.CreatedAt >= todayDate));
         }

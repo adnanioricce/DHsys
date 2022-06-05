@@ -6,12 +6,12 @@ services:
     container_name: ${DOCKER_REGISTRY-}db
     restart: "always"
     environment:
-        POSTGRES_PASSWORD: asdf1234        
+        POSTGRES_PASSWORD: postgres        
   api:
     image: ${DOCKER_REGISTRY-}api    
     build:
         context: .
-        dockerfile: src/Presentation/Api/Dockerfile
+        dockerfile: src/Presentation/Api/Dockerfile.ci.api
     depends_on:
         - db
   #spa:

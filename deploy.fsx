@@ -27,8 +27,8 @@ let librariesPackagesPath = buildDir + "/Libraries"
 let getEnvVar name =
   match Environment.environVar name with
     | s when (not (System.String.IsNullOrWhiteSpace s)) -> s
-    | s when (not (System.String.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(name,EnvironmentVariableTarget.User)))) 
-      -> Environment.GetEnvironmentVariable(name,EnvironmentVariableTarget.User)    
+    | s when (not (System.String.IsNullOrWhiteSpace(Environment.GetEnvironmentVariable(s,EnvironmentVariableTarget.User)))) 
+      -> Environment.GetEnvironmentVariable(s,EnvironmentVariableTarget.User)    
     | _ -> failwith (sprintf "set the %s environment var to create a github release" name)
 
 Target.initEnvironment ()
