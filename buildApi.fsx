@@ -14,7 +14,7 @@ open Fake.IO.Globbing.Operators
 open Fake.Core.TargetOperators
 open System
 open System.IO
-let buildDir = "../build/"
+let buildDir = "./build/"
 let testDir = "./tests/"
 let sourceDir = "./src/"
 //Change
