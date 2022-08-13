@@ -6,6 +6,6 @@ namespace Infrastructure.Logging
 {
     public static class AppLogger 
     {
-        public readonly static Serilog.ILogger Log = Serilog.Log.Logger;        
+        public static readonly Serilog.ILogger Log = Serilog.Log.Logger;        
     }    
 }

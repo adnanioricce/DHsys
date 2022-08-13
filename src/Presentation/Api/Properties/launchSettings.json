@@ -35,7 +35,7 @@
       "environmentVariables": {
         "IS_FIRST_RUN": "true",
         "DH_CONNECTION_STRING": "User ID=postgres;Password=postgres;Host=dhsysdb;Port=5432;Database=postgres;Pooling=true;",
-        "ASPNETCORE_ENVIRONMENT": "Docker"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       },
       "publishAllPorts": true,
       "useSSL": true

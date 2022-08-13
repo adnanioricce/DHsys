@@ -4,6 +4,7 @@ EXPOSE 5000
 EXPOSE 5001
 EXPOSE 80
 ENV DH_CONNECTION_STRING "User ID=postgres;Password=postgres;Host=dhsysdb;Port=5432;Database=dhsysdb;Pooling=true;"
+ENV IDENTITY_DB_URL "User ID=postgres;Password=postgres;Host=dhsysusers_db;Port=5432;Database=dhsysusers_db;Pooling=true;"
 WORKDIR /src
 RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"

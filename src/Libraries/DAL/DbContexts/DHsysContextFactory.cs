@@ -10,7 +10,8 @@ namespace DAL.DbContexts
     {
         public DHsysContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<DHsysContext>();            
+            var optionsBuilder = new DbContextOptionsBuilder<DHsysContext>();          
+              
             optionsBuilder.UseNpgsql("User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_dev;Pooling=true;");            
             return new DHsysContext(optionsBuilder.Options);
         }

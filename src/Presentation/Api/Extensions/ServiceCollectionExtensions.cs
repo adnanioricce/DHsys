@@ -53,30 +53,41 @@ namespace Api.Extensions
         /// <param name="services">instance of <see cref="IServiceCollection"/> used to registers application services</param>
         public static IServiceCollection AddApiDataStore(this IServiceCollection services)
         {
+            Action<IConfiguration,IServiceProvider,DbContextOptionsBuilder> setupProdDatabase = (config,sp,options) => {
+                var configuration = sp.GetService<IConfiguration>();
+                var environment = config.GetValue<string>("ASPNETCORE_ENVIRONMENT");                                
+                string connectionString = configuration.GetValue<string>("DATABASE_URL");
+                if(string.IsNullOrEmpty(connectionString)){
+                    connectionString = configuration.GetValue<string>("DH_CONNECTION_STRING");
+                }
+                if(string.IsNullOrEmpty(connectionString)){
+                    connectionString = configuration.GetConnectionString("DefaultConnection");
+                }
+                options.UseNpgsql(connectionString);
+            };
+            Action<IConfiguration,IServiceProvider,DbContextOptionsBuilder> setupDevDatabase = (config,sp,options) => {
+                var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();
+                options.EnableDetailedErrors();
+                options.EnableSensitiveDataLogging();
+                options.UseNpgsql(opt.Value.DevConnection);
+            };
             services.AddTransient<DHsysContextFactory>();
             services.AddDbContext<DHsysContext, DHsysContext>((sp,options) => {
                 var configuration = sp.GetService<IConfiguration>();
-                var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");                
-                if (GlobalConfiguration.IsDockerContainer) {
-                    string connectionString = GlobalConfiguration.DhConnectionString;
-                    options.UseNpgsql(connectionString);
+                var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT")?.ToLower();
+                if(environment == "production"){
+                    setupProdDatabase(configuration,sp,options);
+                    return;
+                }                
+                if(environment == "development"){
+                    setupDevDatabase(configuration,sp,options);
                     return;
                 }
-                var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();
-                if (environment == "Development")
-                {
-                    options.EnableDetailedErrors();
-                    options.EnableSensitiveDataLogging();                    
-                    options.UseNpgsql(opt.Value.DevConnection);
-                    return;
-                }
-                
-                options.UseNpgsql(opt.Value.DefaultConnection);
              });
             services.AddScoped<DHsysContext, DHsysContext>(provider => {
                 var factory = provider.GetService<DHsysContextFactory>();
                 var configuration = provider.GetService<IConfiguration>();
-                var environment = configuration.GetValue<string>("environment");
+                var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
                 if (GlobalConfiguration.IsDockerContainer) {                    
                     if(!String.IsNullOrEmpty(configuration.GetValue<string>("DATABASE_URL"))){
                         return factory.CreateContext(configuration.GetValue<string>("DATABASE_URL"));    
@@ -109,7 +120,7 @@ namespace Api.Extensions
             return services;
         }
         public static IServiceCollection AddDefaultAuth(this IServiceCollection services,IConfiguration configuration,IWebHostEnvironment environment){
-            var jwtTokenConfig = configuration.GetSection("jwtTokenConfig").Get<JwtTokenConfig>();            
+            var jwtTokenConfig = configuration.GetSection("JwtTokenConfig").Get<JwtTokenConfig>();            
             services.AddSingleton(jwtTokenConfig);
             services.AddAuthentication(x =>
             {                
@@ -140,6 +151,15 @@ namespace Api.Extensions
             return services;
         }
         public static IServiceCollection AddAspNetIdentity(this IServiceCollection services,IConfiguration configuration){
+            var env = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT")?.ToLower();
+            if(env == "production"){
+                var connStr = configuration.GetValue<string>("IDENTITY_DB_URL");
+                services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connStr));
+                services.AddIdentity<AppUser,AppRole>()
+                    .AddEntityFrameworkStores<IdentityContext>()
+                    .AddDefaultTokenProviders();
+                return services;                
+            }
             string identityConnStr = configuration.GetConnectionString("Identity");
             services.AddDbContext<IdentityContext>(options => options.UseNpgsql(identityConnStr));
             services.AddIdentity<AppUser,AppRole>()
