@@ -8,6 +8,7 @@ WORKDIR /src
 RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
 ENV PATH="${PATH}:/root/.dotnet/tools"
 COPY . .
+RUN ls -l
 RUN fake run ./buildApi.fsx
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS release
 WORKDIR /app
