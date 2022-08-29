@@ -31,6 +31,7 @@ using Core.ApplicationModels.Dtos.Catalog;
 using Microsoft.OpenApi.Models;
 using Microsoft.AspNetCore.Authorization;
 using Api.Handlers;
+using Infrastructure.Logging;
 
 namespace Api.Extensions
 {
@@ -55,12 +56,16 @@ namespace Api.Extensions
         {
             Action<IConfiguration,IServiceProvider,DbContextOptionsBuilder> setupProdDatabase = (config,sp,options) => {
                 var configuration = sp.GetService<IConfiguration>();
-                var environment = config.GetValue<string>("ASPNETCORE_ENVIRONMENT");                                
+                AppLogger.Log.Information($"Using DATABASE_URL connection string");
                 string connectionString = configuration.GetValue<string>("DATABASE_URL");
                 if(string.IsNullOrEmpty(connectionString)){
+                    AppLogger.Log.Information($"DATABASE_URL was null");
+                    AppLogger.Log.Information($"Using DH_CONNECTION_STRING connection string");
                     connectionString = configuration.GetValue<string>("DH_CONNECTION_STRING");
                 }
                 if(string.IsNullOrEmpty(connectionString)){
+                    AppLogger.Log.Information($"DH_CONNECTION_STRING was null");
+                    AppLogger.Log.Information($"Using Default connection string");
                     connectionString = configuration.GetConnectionString("DefaultConnection");
                 }
                 options.UseNpgsql(connectionString);
@@ -78,28 +83,31 @@ namespace Api.Extensions
                 if(environment == "production"){
                     setupProdDatabase(configuration,sp,options);
                     return;
-                }                
-                if(environment == "development"){
-                    setupDevDatabase(configuration,sp,options);
-                    return;
                 }
-             });
+                setupDevDatabase(configuration,sp,options);
+            });
             services.AddScoped<DHsysContext, DHsysContext>(provider => {
+                AppLogger.Log.Information("Setting up database...");
                 var factory = provider.GetService<DHsysContextFactory>();
                 var configuration = provider.GetService<IConfiguration>();
                 var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
+                AppLogger.Log.Information($"Environment:{environment}");
                 if (GlobalConfiguration.IsDockerContainer) {                    
+                    AppLogger.Log.Information($"Is on Container...");
                     if(!String.IsNullOrEmpty(configuration.GetValue<string>("DATABASE_URL"))){
+                        AppLogger.Log.Information($"Using DATABASE_URL connection string");
                         return factory.CreateContext(configuration.GetValue<string>("DATABASE_URL"));    
                     }
+                    AppLogger.Log.Information($"Using DH_CONNECTION_STRING connection string");
                     string connectionString = configuration.GetValue<string>("DH_CONNECTION_STRING");                    
                     return factory.CreateContext(connectionString);
                 }
                 var options = provider.GetService<IWritableOptions<ConnectionStrings>>();
                 if (environment == "Development") {
+                    AppLogger.Log.Information($"Using DevConnection(appsettings) connection string");
                     return factory.CreateContext(options.Value.DevConnection,isDevelopment:true);
                 }                
-                
+                AppLogger.Log.Information($"Using Default(appsettings) connection string");
                 return factory.CreateContext(options.Value.DefaultConnection);                
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
@@ -152,8 +160,13 @@ namespace Api.Extensions
         }
         public static IServiceCollection AddAspNetIdentity(this IServiceCollection services,IConfiguration configuration){
             var env = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT")?.ToLower();
+            AppLogger.Log.Information($"Setting up ASP.NET Identity database on {env} environment");
             if(env == "production"){
                 var connStr = configuration.GetValue<string>("IDENTITY_DB_URL");
+                if (string.IsNullOrEmpty(connStr))
+                {
+                    AppLogger.Log.Information($"ASP.NET Identity connection string is null...");
+                }
                 services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connStr));
                 services.AddIdentity<AppUser,AppRole>()
                     .AddEntityFrameworkStores<IdentityContext>()

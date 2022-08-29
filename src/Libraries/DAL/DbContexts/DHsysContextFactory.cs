@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Design;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Infrastructure.Logging;
 
 namespace DAL.DbContexts
 {
@@ -10,8 +11,8 @@ namespace DAL.DbContexts
     {
         public DHsysContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<DHsysContext>();          
-              
+            AppLogger.Log.Information($"Creating Db Context");
+            var optionsBuilder = new DbContextOptionsBuilder<DHsysContext>();
             optionsBuilder.UseNpgsql("User ID=postgres;Password=postgres;Host=localhost;Port=2424;Database=dhsysdb_dev;Pooling=true;");            
             return new DHsysContext(optionsBuilder.Options);
         }

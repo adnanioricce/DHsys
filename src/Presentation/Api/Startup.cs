@@ -45,6 +45,7 @@ namespace Api
         }
         public void ConfigureServices(IServiceCollection services)
         {
+            AppLogger.Log.Information($"Environment:{Environment.EnvironmentName}");
             Log("Application settings and env vars", "ConfigureAppSettings", () => ConfigureAppSettings());
             Log("domain validators", "AddDomainValidators", () => services.AddDomainValidators());
             Log("application services", "AddApplicationServices", () => services.AddApplicationServices());
