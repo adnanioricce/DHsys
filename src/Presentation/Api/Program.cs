@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using Infrastructure.Logging;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -11,17 +12,19 @@ namespace Api
     {
         public static int Main(string[] args)
         {
-            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();
+            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();            
             try
             {
-                CreateHostBuilder(args).Build().Run();
+                var hostBuilder = CreateHostBuilder(args);
+                var host = hostBuilder.Build();
+                host.Run();
                 return 0;
             }catch(Exception ex)
             {
                 Log.Fatal(ex, "Host terminated unexpectedly");
                 return 1;
             }            
-        }
+        }        
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)

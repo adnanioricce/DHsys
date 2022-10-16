@@ -47,7 +47,31 @@ namespace Api.Extensions
                 services.AddTransient(validator.BaseType,validator);
             }
             return services;
-        }        
+        }       
+        static string GetConnectionString(IConfiguration configuration){
+            string connectionString = configuration.GetValue<string>("DATABASE_URL");
+            var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");            
+            if(string.IsNullOrEmpty(connectionString)){
+                AppLogger.Log.Information($"DATABASE_URL was null");
+                AppLogger.Log.Information($"Using DH_CONNECTION_STRING connection string");
+                connectionString = configuration.GetValue<string>("DH_CONNECTION_STRING");
+            }
+            if(string.IsNullOrEmpty(connectionString)){
+                AppLogger.Log.Information($"DH_CONNECTION_STRING was null");
+                AppLogger.Log.Information($"Using Default connection string");
+                connectionString = configuration.GetConnectionString("DefaultConnection");
+            }
+            if (environment.ToLower() == "development" && string.IsNullOrEmpty(connectionString)) {
+                AppLogger.Log.Information($"Using DevConnection(appsettings) connection string");
+                connectionString = configuration.GetConnectionString("DevConnection");
+            }
+            if (environment.ToLower() == "production" && string.IsNullOrEmpty(connectionString)) {
+                AppLogger.Log.Information($"Using DevConnection(appsettings) connection string");
+                connectionString = configuration.GetConnectionString("DefaultConnection");
+            }
+            AppLogger.Log.Information($"Using Default(appsettings) connection string");                
+            return connectionString;
+        } 
         /// <summary>
         /// Add Default data services for the Api application
         /// </summary>

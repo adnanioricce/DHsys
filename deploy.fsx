@@ -75,10 +75,8 @@ Target.create "UploadNugetPacks" (fun _ ->
 Target.create "ZipAllBinaries" (fun _ -> 
   Trace.log "--- Zipping All Binaries ---"
   let apiAssemblyName = System.Reflection.Assembly.LoadFrom(apiDir + "/Api.dll").GetName()  
-  let apiZipFileName = sprintf "build/%s-%s.zip" apiAssemblyName.Name (apiAssemblyName.Version.ToString())
-  // let helperZipFileName = sprintf "build/%s-%s.zip" "Helper" (apiAssemblyName.Version.ToString())  
-  Zip.createZip apiDir apiZipFileName "" (int Compression.CompressionLevel.Optimal) true (Directory.GetFiles(apiDir))
-  // Zip.createZip toolsDir helperZipFileName "" (int Compression.CompressionLevel.Optimal) true (Directory.GetFiles(toolsDir + "/Helper"))
+  let apiZipFileName = sprintf "build/%s-%s.zip" apiAssemblyName.Name (apiAssemblyName.Version.ToString())  
+  Zip.createZip apiDir apiZipFileName "" (int Compression.CompressionLevel.Optimal) true (Directory.GetFiles(apiDir))  
   )
 Target.create "UploadToGithub" (fun _ ->
   Trace.log "--- Uploading Published Projects To GitHub ---"
