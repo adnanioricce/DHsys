@@ -13,11 +13,20 @@ spec:
         app: dhsysapi
     spec:
       containers:
+      - name: dhsysdb
+        image: adnanioricce/dhsysdb
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5432
+
       - name: dhsysapi
         image: adnanioricce/dhsys
         resources:
           limits:
-            memory: "512Mi"
+            memory: "256Mi"
             cpu: "500m"
         ports:
         - containerPort: 80

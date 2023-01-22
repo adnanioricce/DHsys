@@ -1,0 +1,10 @@
+psql --username "$POSTGRES_USER" <<-EOSQL
+    CREATE DATABASE dhsysdb_users;
+    GRANT ALL PRIVILEGES ON DATABASE dhsysdb_users TO $POSTGRES_USER;
+EOSQL
+psql --username "$POSTGRES_USER" <<-EOSQL
+    CREATE DATABASE dhsysdb;
+    GRANT ALL PRIVILEGES ON DATABASE dhsysdb TO $POSTGRES_USER;
+EOSQL
+
+

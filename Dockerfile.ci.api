@@ -1,17 +1,15 @@
 FROM mcr.microsoft.com/dotnet/sdk:6.0-alpine AS build
-ENV ASPNETCORE_URLS=http://+:5000;https://+:5001
+ENV ASPNETCORE_URLS=http://+:80     
 ENV DH_CONNECTION_STRING "User ID=postgres;Password=postgres;Host=dhsysdb;Port=5432;Database=dhsysdb;Pooling=true;"
 ENV IDENTITY_DB_URL "User ID=postgres;Password=postgres;Host=dhsysusers_db;Port=5432;Database=dhsysusers_db;Pooling=true;"
 ENV ASPNETCORE_ENVIRONMENT "Production"
-EXPOSE 5000
-EXPOSE 5001
 EXPOSE 80
 WORKDIR /src
-RUN dotnet tool install fake-cli -g && dotnet tool install -g paket
-ENV PATH="${PATH}:/root/.dotnet/tools"
 COPY . .
-RUN ls -l
-RUN fake run ./buildApi.fsx
+RUN dotnet test tests/UnitTests/Core.Tests
+RUN dotnet test tests/UnitTests/Services.Tests
+RUN dotnet publish src/Presentation/Api/Api.csproj
+# RUN dotnet dev-certs https --trust
 FROM mcr.microsoft.com/dotnet/aspnet:6.0-alpine AS release
 WORKDIR /app
 COPY --from=build /src/build/Api .

@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using Api.Handlers;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Core.Entities;
 using Core.Interfaces;
@@ -17,12 +18,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
 
 namespace Api.Controllers
 {
     [Route("api/v{version:apiVersion}/[Controller]")]
     [ApiController]
     [Authorize(policy:"Default",AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[DHAuthorizeAttribute]
     [ApiVersion("1.0")]
     public class DefaultApiController<TEntity,TEntityDto> : ODataController where TEntity : BaseEntity where TEntityDto : class
     {        
@@ -76,7 +79,7 @@ namespace Api.Controllers
             }
             catch(Exception ex)
             {
-                Log.Error("Exception throwed at {className} for entity {entityName} when creating entity: Exception:{@exception}\n entity object:{@entity}", this.GetType().Name ,nameof(TEntity), ex, entity);
+                Log.Error("Exception throwed at {className} for entity {entityName} when creating entity: Exception:{@exception}\n entity Id:{@entityId}", this.GetType().Name ,nameof(TEntity), ex, entity.Id);
                 return StatusCode(500, BaseResourceResponse.GetDefaultFailureResponseWithObject<TEntityDto>(_mapper.Map<TEntity,TEntityDto>(entity),string.Format("Sorry, a problem occured when trying to create a new entry for the given object ")));
             }
         }
@@ -101,7 +104,7 @@ namespace Api.Controllers
             }
             catch(Exception ex)
             {
-                Log.Error("Exception throwed at {className} of entity {entityName} when creating entity: Exception:{@ex}",this.GetType().Name,nameof(TEntity), ex);
+                Log.Error("Exception throwed at {className} for entity {entityName} when creating entity: Exception:{@exception}\n entity Id:{@entityId}", this.GetType().Name, nameof(TEntity), ex, entity.Id);
                 return StatusCode(500, BaseResourceResponse.GetFailureResponseWithMessage(string.Format("Sorry, a problem occured when trying to search for the entity with id {0}", id)));
             }
         }
@@ -127,7 +130,7 @@ namespace Api.Controllers
             }
             catch(DbUpdateException ex)
             {
-                Log.Error("Exception throwed at {className} of entity {entityName} when creating entity: Exception:{@exception}", this.GetType().Name, nameof(TEntity), ex);
+                Log.Error("Exception throwed at {className} for entity {entityName} when creating entity: Exception:{@exception}\n entity Id:{@entityId}", this.GetType().Name, nameof(TEntity), ex, existing.Id);
                 return StatusCode(500, BaseResourceResponse.GetFailureResponseWithMessage(string.Format("Sorry, a problem occured when trying to update the entity with id {0}", id)));
             }
         }
@@ -151,7 +154,7 @@ namespace Api.Controllers
             }
             catch (DbUpdateException ex)
             {
-                Log.Error("Exception throwed at {className} of entity {entityName} when trying to delete entity. Exception:{@exception} \n entity object:{@entity}", this.GetType().Name, nameof(TEntity), ex, entity);
+                Log.Error("Exception throwed at {className} for entity {entityName} when creating entity: Exception:{@exception}\n entity Id:{@entityId}", this.GetType().Name, nameof(TEntity), ex, entity.Id);
                 return StatusCode(500, BaseResourceResponse.GetDefaultFailureResponseWithObject<TEntityDto>(_mapper.Map<TEntity,TEntityDto>(entity),string.Format("Sorry, a problem occured when trying to delete the entity with id {0}", id)));
             }            
         }        

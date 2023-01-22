@@ -12,7 +12,7 @@ namespace Api
     {
         public static int Main(string[] args)
         {
-            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger();            
+            ConfigureLoggingExtension.ConfigureDefaultSerilogLogger("./logs");            
             try
             {
                 var hostBuilder = CreateHostBuilder(args);
@@ -31,11 +31,12 @@ namespace Api
                 .UseSerilog()
                 .ConfigureAppConfiguration((hostingContext, config) => {
                     var configuration = new ConfigurationBuilder()
+                            .AddEnvironmentVariables("ASPNETCORE_")
                             .AddJsonFile("appsettings.json",optional: true,reloadOnChange:true)
-                            .AddEnvironmentVariables()
+                            .AddJsonFile("appsettings.{Environment}.json",optional:true,reloadOnChange:true)
                             .Build();
                     config.AddConfiguration(configuration);
-                })                
+                })
                 .ConfigureWebHostDefaults(webBuilder => {                    
                     webBuilder.UseStartup<Startup>();
                 });      

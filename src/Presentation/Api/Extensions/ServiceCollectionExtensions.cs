@@ -52,24 +52,24 @@ namespace Api.Extensions
             string connectionString = configuration.GetValue<string>("DATABASE_URL");
             var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");            
             if(string.IsNullOrEmpty(connectionString)){
-                AppLogger.Log.Information($"DATABASE_URL was null");
-                AppLogger.Log.Information($"Using DH_CONNECTION_STRING connection string");
+                AppLogger.Information($"DATABASE_URL was null");
+                AppLogger.Information($"Using DH_CONNECTION_STRING connection string");
                 connectionString = configuration.GetValue<string>("DH_CONNECTION_STRING");
             }
             if(string.IsNullOrEmpty(connectionString)){
-                AppLogger.Log.Information($"DH_CONNECTION_STRING was null");
-                AppLogger.Log.Information($"Using Default connection string");
+                AppLogger.Information($"DH_CONNECTION_STRING was null");
+                AppLogger.Information($"Using Default connection string");
                 connectionString = configuration.GetConnectionString("DefaultConnection");
             }
             if (environment.ToLower() == "development" && string.IsNullOrEmpty(connectionString)) {
-                AppLogger.Log.Information($"Using DevConnection(appsettings) connection string");
+                AppLogger.Information($"Using DevConnection(appsettings) connection string");
                 connectionString = configuration.GetConnectionString("DevConnection");
             }
             if (environment.ToLower() == "production" && string.IsNullOrEmpty(connectionString)) {
-                AppLogger.Log.Information($"Using DevConnection(appsettings) connection string");
+                AppLogger.Information($"Using DevConnection(appsettings) connection string");
                 connectionString = configuration.GetConnectionString("DefaultConnection");
             }
-            AppLogger.Log.Information($"Using Default(appsettings) connection string");                
+            AppLogger.Information($"Using Default(appsettings) connection string");                
             return connectionString;
         } 
         /// <summary>
@@ -80,17 +80,10 @@ namespace Api.Extensions
         {
             Action<IConfiguration,IServiceProvider,DbContextOptionsBuilder> setupProdDatabase = (config,sp,options) => {
                 var configuration = sp.GetService<IConfiguration>();
-                AppLogger.Log.Information($"Using DATABASE_URL connection string");
+                AppLogger.Information($"Using DATABASE_URL connection string");
                 string connectionString = configuration.GetValue<string>("DATABASE_URL");
                 if(string.IsNullOrEmpty(connectionString)){
-                    AppLogger.Log.Information($"DATABASE_URL was null");
-                    AppLogger.Log.Information($"Using DH_CONNECTION_STRING connection string");
-                    connectionString = configuration.GetValue<string>("DH_CONNECTION_STRING");
-                }
-                if(string.IsNullOrEmpty(connectionString)){
-                    AppLogger.Log.Information($"DH_CONNECTION_STRING was null");
-                    AppLogger.Log.Information($"Using Default connection string");
-                    connectionString = configuration.GetConnectionString("DefaultConnection");
+                    throw new InvalidOperationException("DATABASE_URL environment variable was not set");
                 }
                 options.UseNpgsql(connectionString);
             };
@@ -111,43 +104,25 @@ namespace Api.Extensions
                 setupDevDatabase(configuration,sp,options);
             });
             services.AddScoped<DHsysContext, DHsysContext>(provider => {
-                AppLogger.Log.Information("Setting up database...");
+                AppLogger.Information("Setting up database...");
                 var factory = provider.GetService<DHsysContextFactory>();
                 var configuration = provider.GetService<IConfiguration>();
                 var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
-                AppLogger.Log.Information($"Environment:{environment}");
-                if (GlobalConfiguration.IsDockerContainer) {                    
-                    AppLogger.Log.Information($"Is on Container...");
-                    if(!String.IsNullOrEmpty(configuration.GetValue<string>("DATABASE_URL"))){
-                        AppLogger.Log.Information($"Using DATABASE_URL connection string");
-                        return factory.CreateContext(configuration.GetValue<string>("DATABASE_URL"));    
-                    }
-                    AppLogger.Log.Information($"Using DH_CONNECTION_STRING connection string");
-                    string connectionString = configuration.GetValue<string>("DH_CONNECTION_STRING");                    
-                    return factory.CreateContext(connectionString);
+                var connectionString = configuration.GetValue<string>("DATABASE_URL");
+                AppLogger.Information($"Environment:{environment}");
+                if (string.IsNullOrEmpty(connectionString)) {                                        
+                    throw new InvalidOperationException("DATABASE_URL environment variable is not set");                    
                 }
-                var options = provider.GetService<IWritableOptions<ConnectionStrings>>();
-                if (environment == "Development") {
-                    AppLogger.Log.Information($"Using DevConnection(appsettings) connection string");
-                    return factory.CreateContext(options.Value.DevConnection,isDevelopment:true);
-                }                
-                AppLogger.Log.Information($"Using Default(appsettings) connection string");
-                return factory.CreateContext(options.Value.DefaultConnection);                
+                return factory.CreateContext(connectionString);
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             return services;
         }        
         public static IServiceCollection AddCorsAuthorization(this IServiceCollection services,IWebHostEnvironment environment){
             services.AddAuthorization(options => {
-                if(environment.EnvironmentName == "Development"){
-                    options.AddPolicy("Default",policy => {
-                        policy.RequireAuthenticatedUser();
-                    });
-                }else {
-                    options.AddPolicy("Default",policy => {
-                        policy.RequireAuthenticatedUser();
-                    });
-                }
+                options.AddPolicy("Default",policy => {
+                    policy.RequireAuthenticatedUser();
+                });
             });
             return services;
         }
@@ -184,13 +159,15 @@ namespace Api.Extensions
         }
         public static IServiceCollection AddAspNetIdentity(this IServiceCollection services,IConfiguration configuration){
             var env = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT")?.ToLower();
-            AppLogger.Log.Information($"Setting up ASP.NET Identity database on {env} environment");
+            AppLogger.Information($"Setting up ASP.NET Identity database on {env} environment");
             if(env == "production"){
                 var connStr = configuration.GetValue<string>("IDENTITY_DB_URL");
                 if (string.IsNullOrEmpty(connStr))
                 {
-                    AppLogger.Log.Information($"ASP.NET Identity connection string is null...");
+                    AppLogger.Information($"ASP.NET Identity connection string is null...");
+                    throw new InvalidOperationException("IDENTITY_DB_URL environment variable is not set");
                 }
+                services.AddScoped<IdentityContext>();
                 services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connStr));
                 services.AddIdentity<AppUser,AppRole>()
                     .AddEntityFrameworkStores<IdentityContext>()
@@ -198,6 +175,7 @@ namespace Api.Extensions
                 return services;                
             }
             string identityConnStr = configuration.GetConnectionString("Identity");
+            services.AddScoped<IdentityContext>();
             services.AddDbContext<IdentityContext>(options => options.UseNpgsql(identityConnStr));
             services.AddIdentity<AppUser,AppRole>()
                     .AddEntityFrameworkStores<IdentityContext>()
@@ -241,7 +219,7 @@ namespace Api.Extensions
                         Description = "JWT Authorization",
                         Name = "Authorization",
                         In = ParameterLocation.Header,
-                        Type = SecuritySchemeType.ApiKey,
+                        Type = SecuritySchemeType.Http,
                         Scheme = "Bearer",
                         BearerFormat="JWT"
                     });

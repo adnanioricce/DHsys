@@ -2,18 +2,35 @@ version: '3.4'
 
 services:
   db:
-    image: "postgres:11"
+    image: adnanioricce/dhsysdb
     container_name: ${DOCKER_REGISTRY-}db
     restart: "always"
+    ports:
+      - "2424:5432"
     environment:
-        POSTGRES_PASSWORD: postgres        
+        POSTGRES_PASSWORD: postgres
+        # POSTGRES_DB: dhsysdb
+        PGDATA: /var/lib/postgresql/data
+
+    volumes:
+      - "dhsys_db_data:/var/lib/postgresql/data"
+      - "./db/createdb.sh:/docker-entrypoint-initdb.d/createdb.sh"
   api:
-    image: ${DOCKER_REGISTRY-}api    
+    image: adnanioricce/dhsys
     build:
         context: .
-        dockerfile: src/Presentation/Api/Dockerfile.ci.api
+        dockerfile: Dockerfile.ci.api
+    environment:      
+      - DATABASE_URL=User ID=postgres;Password=postgres;Host=db;Port=5432;Database=dhsysdb;Pooling=true;
+      - IDENTITY_DB_URL=User ID=postgres;Password=postgres;Host=db;Port=5432;Database=dhsysdb_users;Pooling=true;
+
     depends_on:
         - db
+    ports:
+      - "32079:80"
+    volumes:
+      - "dhsys_log_data:/app/logs:ro"
+        # - identity_db
   #TODO
   #spa:
   #  image: "nodejs" 
@@ -25,7 +42,7 @@ services:
   nginx:
     image: nginx
     volumes:
-       - ./templates:/etc/nginx/templates
+       - ./templates:/etc/nginx/conf.d/
     ports:
     - "6484:80"
     environment:
@@ -33,4 +50,5 @@ services:
     - NGINX_PORT=80
         
 volumes:
-  dhsys_data:
+  dhsys_db_data:
+  dhsys_log_data:

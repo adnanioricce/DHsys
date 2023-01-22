@@ -5,6 +5,7 @@ using Serilog.Core;
 using Serilog.Events;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace Infrastructure.Logging
@@ -21,13 +22,24 @@ namespace Infrastructure.Logging
         {
             if (string.IsNullOrEmpty(logDir))
             {
-                logDir = AppDomain.CurrentDomain.BaseDirectory;
+                logDir = $"{AppDomain.CurrentDomain.BaseDirectory}/logs";
             }
+            try
+            {
+                if(!Directory.Exists(logDir))
+                {
+                    Directory.CreateDirectory(logDir);
+                }   
+            }
+            catch (System.Exception ex)
+            {
+                Console.WriteLine($" --> Failed to create logs directory when creating logger. \n exception:{ex.ToString()}");
+            }            
             Log.Logger = new LoggerConfiguration()
-                                    .MinimumLevel.Debug()
-                                    .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information)
-                                    .WriteTo.File($"{logDir}/log.txt", outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")                                    
-                                    .CreateLogger();
+                        .MinimumLevel.Debug()
+                        .WriteTo.Console(restrictedToMinimumLevel: LogEventLevel.Information)
+                        .WriteTo.File($"{logDir}/log.txt", outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}")                                    
+                        .CreateLogger();
             AppDomain.CurrentDomain.ProcessExit += (s, e) => Log.CloseAndFlush();            
             return Log.Logger;            
         }        

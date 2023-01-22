@@ -15,6 +15,8 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Api
 {
@@ -30,22 +32,22 @@ namespace Api
         // This method gets called by the runtime. Use this method to add services to the container.
         void Log(string serviceBeingConfigured,string methodName, Action action)
         {
-            AppLogger.Log.Information("Configuring {serviceBeingConfigured}...",serviceBeingConfigured);
+            AppLogger.Information("Configuring {serviceBeingConfigured}...",serviceBeingConfigured);
             try
             {
-                AppLogger.Log.Debug("Calling {methodName} method",methodName);
+                AppLogger.Debug("Calling {methodName} method",methodName);
                 action();
-                AppLogger.Log.Debug("{methodName} call ended",methodName);
+                AppLogger.Debug("{methodName} call ended",methodName);
             }
             catch (Exception ex)
             {
-                AppLogger.Log.Error("Failed to configure {serviceBeingConfigured}:{ex}",serviceBeingConfigured,ex);
+                AppLogger.Error("Failed to configure {serviceBeingConfigured}:{ex}",serviceBeingConfigured,ex);
             }
-            AppLogger.Log.Information("Done!");
+            AppLogger.Information("Done!");
         }
         public void ConfigureServices(IServiceCollection services)
         {
-            AppLogger.Log.Information($"Environment:{Environment.EnvironmentName}");
+            AppLogger.Information($"Environment:{Environment.EnvironmentName}");
             Log("Application settings and env vars", "ConfigureAppSettings", () => ConfigureAppSettings());
             Log("domain validators", "AddDomainValidators", () => services.AddDomainValidators());
             Log("application services", "AddApplicationServices", () => services.AddApplicationServices());
@@ -57,13 +59,13 @@ namespace Api
                 options.AddPolicy("Default",policy => {
                     policy.AllowAnyHeader()
                         .AllowAnyMethod()
-                        .AllowAnyOrigin();
+                        .AllowAnyOrigin();                    
                 });
-                AppLogger.Log.Debug("Policy 'Default' added");
+                AppLogger.Debug("Policy 'Default' added");
             }));
             // services.ConfigureApi(this.Environment);                        
             // services.AddOdataConfiguration();
-            AppLogger.Log.Debug("Calling IServiceCollection.AddApiVersioning");
+            AppLogger.Debug("Calling IServiceCollection.AddApiVersioning");
             Log("API Versioning", "AddApiVersioning", () =>
                 services.AddApiVersioning(p =>
                 {
@@ -82,8 +84,8 @@ namespace Api
             {
                 var env = Environment.EnvironmentName;
                 var configurationBuilder = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json")
-                    .AddEnvironmentVariables();
+                    .AddJsonFile("appsettings.json")                    
+                    .AddEnvironmentVariables("ASPNETCORE_");
                 if (env != "Production")
                 {
                     configurationBuilder.AddJsonFile($"appsettings.{env}.json");
@@ -103,19 +105,26 @@ namespace Api
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                try{
+                try
+                {
                     c.SwaggerEndpoint("/swagger/v1/swagger.json","V1");
                     c.RoutePrefix = "api/v1";
-                }catch(System.Exception ex){
-                    AppLogger.Log.Error("A exception was thrwoed when trying to configure swagger:{@ex}",ex);
+                }
+                catch(System.Exception ex){
+                    AppLogger.Error("A exception was thrwoed when trying to configure swagger:{@ex}",ex);
                 }
             });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                //app.Use(ctx =>
+                //{
+                    
+                //    return ctx;                        
+                //});
             }            
             app.UseStaticFiles();
-            app.UseHttpsRedirection();            
+            // app.UseHttpsRedirection();            
             app.UseRouting().UseApiVersioning();
             app.UseCors("Default");  
            
@@ -125,10 +134,22 @@ namespace Api
             {                                                
                 endpoints.MapControllers().RequireCors("Default");
             }).UseApiVersioning();
-            SeedDefaultUsers(app);
+            Task.Run(async () => await SeedDefaultUsers(app)).GetAwaiter().GetResult();
+            Task.Run(async () => await SeedDatabase(app)).GetAwaiter().GetResult();
         }
 
-        private void SeedDefaultUsers(IApplicationBuilder app)
+        private async Task SeedDatabase(IApplicationBuilder app)
+        {
+            using var scope = app.ApplicationServices.CreateScope();
+            var factory = scope.ServiceProvider.GetRequiredService<DHsysContextFactory>();
+            var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
+            var databaseUrl = config.GetValue<string>("DATABASE_URL");
+            //scope.ServiceProvider.GetRequiredService
+            using var ctx = factory.CreateContext(databaseUrl);
+            await ctx.Database.MigrateAsync();
+        }
+
+        private async Task SeedDefaultUsers(IApplicationBuilder app)
         {
             using var scope = app.ApplicationServices.CreateScope();
             var ctx = scope.ServiceProvider.GetRequiredService<IdentityContext>();
@@ -136,11 +157,11 @@ namespace Api
             // scope.ServiceProvider.CreateAsyncScope
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
-            var users = userManager.Users.ToList();
-            AppLogger.Log.Information("Users:{@users}",users);
-            roleManager.CreateAsync(new AppRole(AppRole.Admin)).GetAwaiter().GetResult();
-            roleManager.CreateAsync(new AppRole(AppRole.BasicUser)).GetAwaiter().GetResult();
-            AppUser.GetAdminAsync(scope.ServiceProvider).GetAwaiter().GetResult();
+            var users = await userManager.Users.ToListAsync();
+            AppLogger.Information("Users:{@users}",users);
+            await roleManager.CreateAsync(new AppRole(AppRole.Admin));
+            await roleManager.CreateAsync(new AppRole(AppRole.BasicUser));
+            await AppUser.GetAdminAsync(scope.ServiceProvider);
         }
     }
 }

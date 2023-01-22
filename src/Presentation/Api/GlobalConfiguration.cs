@@ -13,7 +13,12 @@ namespace Api
             get => Convert.ToBoolean(Environment.GetEnvironmentVariable("IS_FIRST_RUN")); 
             set => Environment.SetEnvironmentVariable("IS_FIRST_RUN", value.ToString());
         }
-        
+        public static string GetDatabaseUrl(){
+            return Environment.GetEnvironmentVariable("DATABASE_URL");
+        }
+        public static string GetIdentityDatabaseUrl(){
+            return Environment.GetEnvironmentVariable("IDENTITY_DB_URL");
+        }
         internal static void WriteFirstRunFile()
         {
             if(File.Exists(nameof(GlobalConfiguration.IsFirstRun))){
