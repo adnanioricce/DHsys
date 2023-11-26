@@ -9,7 +9,7 @@ DHsys is a little side project of mine that I create to replicate a POS system i
 
 The following is required to build and run the project:
 
-- .Net Core sdk 3.1 or Higher
+- .NET sdk 6 or Higher
 - Postgresql 10 or higher
 
 If you have the requirements, just follow the steps:
@@ -17,7 +17,7 @@ If you have the requirements, just follow the steps:
 - Create a database in the postgresql server. By default, the projects expects a database with name dhsysdb
 - if needed, update database connection string in the appsettings.json on src/Presentation/Api/appsettings.json .
 - run the project
-- Go to http://localhost:5000/api
+- Go to http://localhost:5000/api/v1
 ## With Docker
 
 start a postgresql container.
@@ -29,8 +29,9 @@ start a dhsysdb container with a db container host and connection string
 
 you should be seeing this screen:
 ![Api Docs](./docs/img/api_swagger.png)
+
 ## Use CI Build
-You can access a CI build of the project in [DHsys CI](http://dhsysapi.adnangonzagaci.com/api/v1/)
+You can access a CI build of the project in [DHsys CI](http://dhsys.adnangonzaga.com/api/v1)
 
 # Using the Web Api
 ## Crud Methods
