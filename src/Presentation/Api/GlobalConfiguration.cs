@@ -18,14 +18,6 @@ namespace Api
         }
         public static string GetIdentityDatabaseUrl(){
             return Environment.GetEnvironmentVariable("IDENTITY_DB_URL");
-        }
-        internal static void WriteFirstRunFile()
-        {
-            if(File.Exists(nameof(GlobalConfiguration.IsFirstRun))){
-                return;                
-            }
-            using var file = File.CreateText(nameof(GlobalConfiguration.IsFirstRun));
-            file.Write(DhConnectionString);
-        }        
+        }         
     }
 }

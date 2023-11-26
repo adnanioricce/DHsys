@@ -78,44 +78,41 @@ namespace Api.Extensions
         /// <param name="services">instance of <see cref="IServiceCollection"/> used to registers application services</param>
         public static IServiceCollection AddApiDataStore(this IServiceCollection services)
         {
-            Action<IConfiguration,IServiceProvider,DbContextOptionsBuilder> setupProdDatabase = (config,sp,options) => {
+            Action<IServiceProvider,DbContextOptionsBuilder> setupProdDatabase = (sp,options) => {
                 var configuration = sp.GetService<IConfiguration>();
-                AppLogger.Information($"Using DATABASE_URL connection string");
-                string connectionString = configuration.GetValue<string>("DATABASE_URL");
-                if(string.IsNullOrEmpty(connectionString)){
-                    throw new InvalidOperationException("DATABASE_URL environment variable was not set");
-                }
+                AppLogger.Information($"Using DefaultConnection connection string");
+                string connectionString = configuration.GetConnectionString("DefaultConnection");
                 options.UseNpgsql(connectionString);
             };
-            Action<IConfiguration,IServiceProvider,DbContextOptionsBuilder> setupDevDatabase = (config,sp,options) => {
+            Action<IServiceProvider,DbContextOptionsBuilder> setupDevDatabase = (sp,options) => {
                 var opt = sp.GetService<IWritableOptions<ConnectionStrings>>();
                 options.EnableDetailedErrors();
                 options.EnableSensitiveDataLogging();
                 options.UseNpgsql(opt.Value.DevConnection);
             };
             services.AddTransient<DHsysContextFactory>();
-            services.AddDbContext<DHsysContext, DHsysContext>((sp,options) => {
-                var configuration = sp.GetService<IConfiguration>();
-                var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT")?.ToLower();
-                if(environment == "production"){
-                    setupProdDatabase(configuration,sp,options);
-                    return;
-                }
-                setupDevDatabase(configuration,sp,options);
-            });
+            var configFunc = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")?.ToLower() == "production"
+                ? setupProdDatabase
+                : setupDevDatabase;
+            services.AddDbContext<DHsysContext, DHsysContext>(configFunc);
             services.AddScoped<DHsysContext, DHsysContext>(provider => {
                 AppLogger.Information("Setting up database...");
                 var factory = provider.GetService<DHsysContextFactory>();
                 var configuration = provider.GetService<IConfiguration>();
                 var environment = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT");
-                var connectionString = configuration.GetValue<string>("DATABASE_URL");
+                
+                AppLogger.Information($"Using DefaultConnection connection string");
+                
+                string connectionString = configuration.GetConnectionString("DefaultConnection");
                 AppLogger.Information($"Environment:{environment}");
-                if (string.IsNullOrEmpty(connectionString)) {                                        
-                    throw new InvalidOperationException("DATABASE_URL environment variable is not set");                    
-                }
+
+                if (string.IsNullOrEmpty(connectionString))
+                    throw new InvalidOperationException("DefaultConnection config value is not set");
+
                 return factory.CreateContext(connectionString);
             });
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
             return services;
         }        
         public static IServiceCollection AddCorsAuthorization(this IServiceCollection services,IWebHostEnvironment environment){
@@ -159,27 +156,19 @@ namespace Api.Extensions
         }
         public static IServiceCollection AddAspNetIdentity(this IServiceCollection services,IConfiguration configuration){
             var env = configuration.GetValue<string>("ASPNETCORE_ENVIRONMENT")?.ToLower();
-            AppLogger.Information($"Setting up ASP.NET Identity database on {env} environment");
-            if(env == "production"){
-                var connStr = configuration.GetValue<string>("IDENTITY_DB_URL");
-                if (string.IsNullOrEmpty(connStr))
-                {
-                    AppLogger.Information($"ASP.NET Identity connection string is null...");
-                    throw new InvalidOperationException("IDENTITY_DB_URL environment variable is not set");
-                }
-                services.AddScoped<IdentityContext>();
-                services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connStr));
-                services.AddIdentity<AppUser,AppRole>()
-                    .AddEntityFrameworkStores<IdentityContext>()
-                    .AddDefaultTokenProviders();
-                return services;                
+            var connStr = configuration.GetConnectionString("Identity");
+            AppLogger.Information($"Setting up ASP.NET Identity database on {env} environment");            
+            if (string.IsNullOrEmpty(connStr))
+            {
+                AppLogger.Information($"ASP.NET Identity connection string is null...");
+                throw new InvalidOperationException("Identity config value is not set");
             }
-            string identityConnStr = configuration.GetConnectionString("Identity");
+            services.AddTransient<IdentityContextFactory>();
             services.AddScoped<IdentityContext>();
-            services.AddDbContext<IdentityContext>(options => options.UseNpgsql(identityConnStr));
+            services.AddDbContext<IdentityContext>(options => options.UseNpgsql(connStr));
             services.AddIdentity<AppUser,AppRole>()
-                    .AddEntityFrameworkStores<IdentityContext>()
-                    .AddDefaultTokenProviders();
+                .AddEntityFrameworkStores<IdentityContext>()
+                .AddDefaultTokenProviders();
             return services;
         }
         public static IServiceCollection ConfigureApi(this IServiceCollection services,IWebHostEnvironment environment)

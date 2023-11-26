@@ -15,8 +15,8 @@ namespace Infrastructure.Identity
         
         public static async Task<AppUser> GetAdminAsync(
             Func<string,Task<AppUser>> getUserByUsernameAsync,
-            Func<AppUser,string,Task<AppUser>> createUserAsync,
-            Func<AppUser,string,Task<AppUser>> addRoleAsync){
+            Func<AppUser,string,Task<IdentityResult>> createUserAsync,
+            Func<AppUser,string,Task<IdentityResult>> addRoleAsync){
             var user = await getUserByUsernameAsync("Admin");
             if(user != null)
                 return user;
@@ -31,9 +31,8 @@ namespace Infrastructure.Identity
             await addRoleAsync(user,"Admin");            
             return user;
         }
-        public static async Task<AppUser> GetAdminAsync(IServiceProvider ServiceProvider){
-            var userIdentityService = ServiceProvider.GetRequiredService<IUserIdentityService>();            
-            var userManager = ServiceProvider.GetRequiredService<UserManager<AppUser>>();                        
+        public static async Task<AppUser> GetAdminAsync(UserManager<AppUser> userManager)
+        {
             var user = await userManager.FindByNameAsync("Admin");
             if(user != null)
                 return user;
@@ -60,6 +59,11 @@ namespace Infrastructure.Identity
             //         return appUser;
             //     });
             // return user;
+        }
+        public static async Task<AppUser> GetAdminAsync(IServiceProvider ServiceProvider){
+            var userIdentityService = ServiceProvider.GetRequiredService<IUserIdentityService>();            
+            var userManager = ServiceProvider.GetRequiredService<UserManager<AppUser>>();                        
+            return await GetAdminAsync(userManager);
         }
     }
 }
