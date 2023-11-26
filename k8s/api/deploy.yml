@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dhsysapi
+spec:
+  selector:
+    matchLabels:
+      app: dhsysapi
+  replicas: 2
+  template: 
+    metadata:
+      labels:
+        app: dhsysapi
+    spec:
+      containers:      
+      - name: dhsysapi
+        image: adnanioricce/dhsys
+        imagePullPolicy: Always
+        env:
+          - name: DH_CONNECTION_STRING
+            value: "User ID=dhsys;Password=dhsys;Host=dhsysdb;Port=5432;Database=dhsysdb;Pooling=true;"
+          - name: IDENTITY_DB_URL
+            value: "User ID=postgres;Password=postgres;Host=dhsysusers;Port=5431;Database=dhsysusers_db;Pooling=true;"            
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+          # targetPort: 80

@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dhsysusers
+spec:
+  selector:
+    matchLabels:
+      app: dhsysusers
+  replicas: 2
+  template: 
+    metadata:
+      labels:
+        app: dhsysusers
+    spec:
+      containers:
+      - name: dhsysusers
+        image: postgres:13
+        env:
+          - name: POSTGRES_PASSWORD
+            value: "postgres"
+          - name: POSTGRES_USER
+            value: "postgres"
+          - name: POSTGRES_DB
+            value: "dhsysusers_db"
+        imagePullPolicy: Always
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
+        ports:
+        - containerPort: 5431      

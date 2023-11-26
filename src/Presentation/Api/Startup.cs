@@ -80,17 +80,20 @@ namespace Api
             Log("API Documentation", "AddSwaggerConfiguration", () => services.AddSwaggerConfiguration());
             Log("API Routing", "AddRouting", () => services.AddRouting());
             Log("API Model", "ConfigureApi", () => services.ConfigureApi(Environment));
+            Log("Registering database migration background jobs ","AddBackgroundJobs",() => {
+                // services.AddHostedService<MigrateDatabaseJob>();
+                services.AddHostedService<MigrateIdentityDatabaseJob>();
+            });
             void ConfigureAppSettings()
             {
                 var env = Environment.EnvironmentName;
                 var configurationBuilder = new ConfigurationBuilder()
-                    .AddJsonFile("appsettings.json")                    
-                    .AddEnvironmentVariables("ASPNETCORE_");
+                    .AddJsonFile("appsettings.json");
                 if (env != "Production")
                 {
                     configurationBuilder.AddJsonFile($"appsettings.{env}.json");
                 }
-
+                configurationBuilder.AddEnvironmentVariables();
                 var configuration = configurationBuilder.Build();
                 services.Configure<ConnectionStrings>(Configuration.GetSection(nameof(ConnectionStrings)));
                 services.ConfigureWritable<ConnectionStrings>();            
@@ -134,34 +137,7 @@ namespace Api
             {                                                
                 endpoints.MapControllers().RequireCors("Default");
             }).UseApiVersioning();
-            Task.Run(async () => await SeedDefaultUsers(app)).GetAwaiter().GetResult();
-            Task.Run(async () => await SeedDatabase(app)).GetAwaiter().GetResult();
-        }
-
-        private async Task SeedDatabase(IApplicationBuilder app)
-        {
-            using var scope = app.ApplicationServices.CreateScope();
-            var factory = scope.ServiceProvider.GetRequiredService<DHsysContextFactory>();
-            var config = scope.ServiceProvider.GetRequiredService<IConfiguration>();
-            var databaseUrl = config.GetValue<string>("DATABASE_URL");
-            //scope.ServiceProvider.GetRequiredService
-            using var ctx = factory.CreateContext(databaseUrl);
-            await ctx.Database.MigrateAsync();
-        }
-
-        private async Task SeedDefaultUsers(IApplicationBuilder app)
-        {
-            using var scope = app.ApplicationServices.CreateScope();
-            var ctx = scope.ServiceProvider.GetRequiredService<IdentityContext>();
-            ctx.Database.Migrate();
-            // scope.ServiceProvider.CreateAsyncScope
-            var userManager = scope.ServiceProvider.GetRequiredService<UserManager<AppUser>>();
-            var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<AppRole>>();
-            var users = await userManager.Users.ToListAsync();
-            AppLogger.Information("Users:{@users}",users);
-            await roleManager.CreateAsync(new AppRole(AppRole.Admin));
-            await roleManager.CreateAsync(new AppRole(AppRole.BasicUser));
-            await AppUser.GetAdminAsync(scope.ServiceProvider);
-        }
+               
+        }        
     }
 }

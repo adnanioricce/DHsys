@@ -30,10 +30,10 @@ namespace Api
             Host.CreateDefaultBuilder(args)
                 .UseSerilog()
                 .ConfigureAppConfiguration((hostingContext, config) => {
-                    var configuration = new ConfigurationBuilder()
-                            .AddEnvironmentVariables("ASPNETCORE_")
+                    var configuration = new ConfigurationBuilder()                            
                             .AddJsonFile("appsettings.json",optional: true,reloadOnChange:true)
                             .AddJsonFile("appsettings.{Environment}.json",optional:true,reloadOnChange:true)
+                            .AddEnvironmentVariables()
                             .Build();
                     config.AddConfiguration(configuration);
                 })
